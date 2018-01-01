@@ -16,22 +16,6 @@ class LoginDesign extends Component {
     return (
         //put html for login
       <div>
-      <!DOCTYPE html>
-      <html lang="en" dir="ltr">
-
-      <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-        <link rel="stylesheet" href="frontend/src/css/main_login.css">
-        <title>Login Page</title>
-
-        <link href="https://fonts.googleapis.com/css?family=Bilbo+Swash+Caps&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Tinos:700i&display=swap" rel="stylesheet">
-      </head>
-
-      <body>
-
         <div class="row no-gutters">
           <div class="col no-gutters">
             <div class="leftside">
@@ -86,11 +70,7 @@ class LoginDesign extends Component {
                 </div>
             </div>
           </div>
-        </div>
-
-      </body>
-
-      </html>
+        </div
 
       </div>
     );
