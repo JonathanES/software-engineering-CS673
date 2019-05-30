@@ -1,0 +1,28 @@
+{
+  "name": "software-engineering-cs673",
+  "version": "1.0.0",
+  "description": "The goal of this project is to create a state of the art of project management tool, SwelloDesk. ",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test",
+    "backend": "nodemon server.js",
+    "frontend": "cd ./frontend && npm start",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JonathanES/software-engineering-CS673.git"
+  },
+  "author": "Jonathan, James, Yuanping, Erhan, Chris, Clement, Saravana",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JonathanES/software-engineering-CS673/issues"
+  },
+  "homepage": "https://github.com/JonathanES/software-engineering-CS673#readme",
+  "dependencies": {
+    "concurrently": "^4.1.0",
+    "express": "^4.17.1",
+    "nodemon": "^1.19.1",
+    "socket.io": "^2.2.0"
+  }
+}
