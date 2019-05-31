@@ -8,6 +8,7 @@ class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      username: '',
       email: '',
       password: '',
       passwordConfirmation: ''
@@ -22,6 +23,9 @@ class Register extends Component {
   }
   handleChange(event) {
     switch (event.target.id) {
+      case "username":
+        this.setState({ username: event.target.value });
+        break;
       case "email":
         this.setState({ email: event.target.value });
         break;
@@ -36,10 +40,11 @@ class Register extends Component {
     }
   }
 
-
+  
   handleSubmit(event) {
     register(this.state.username, this.state.email, this.state.password, (err, data) => {
-      this.props.dispatch({ type: 'USER_LOGIN', id_user: data.id_user});
+      console.log(data);
+      this.props.dispatch({ type: 'USER_LOGIN', username: data.username});
     });
     event.preventDefault();
   }
@@ -59,6 +64,10 @@ class Register extends Component {
                   <input id="email" type="text" value={this.state.email} onChange={this.handleChange} />
                 </div>
                 <div className="form-field">
+                  <label htmlFor="username">Username :</label>
+                  <input id="username" type="text" value={this.state.username} onChange={this.handleChange} />
+                </div>
+                <div className="form-field">
                   <label htmlFor="password">Password :</label>
                   <input id="password" type="password" value={this.state.password} onChange={this.handleChange} />
                 </div>
@@ -69,7 +78,7 @@ class Register extends Component {
                 <button type="submit" className="btn uppercase">Register</button>
               </form>
             </div>
-            <p className="account-help">You already have an account ? <a onClick={this.handleClick} className="underline red" >Sign in</a></p>
+            <p className="account-help">You already have an account ? <a onClick={this.handleClick} className="underline red" >Login</a></p>
           </div>
         </div>
       </div>

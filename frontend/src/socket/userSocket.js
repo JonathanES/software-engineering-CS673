@@ -6,13 +6,17 @@ function login(email, password, cb){
   }
 
   function register(username, email, password, cb){
-    socket.on('INSCRIPTION', data => cb(null, data) );
-    socket.emit('USER_INSCRIPTION',username, email, password);
+    socket.on('REGISTER', data => cb(null, data) );
+    socket.emit('USER_REGISTER',username, email, password);
   }
 
-  function sendMessage(id_group, username, message, cb){
+  function sendMessage(username, message, cb){
     socket.on('SEND_MESSAGE', data => cb(null, data) );
-    socket.emit('USER_SEND_MESSAGE', id_group, username, message);
+    socket.emit('USER_SEND_MESSAGE', username, message);
   }
 
-  export {login, register, sendMessage};
+  function getMessage(){
+    socket.emit('USER_GET_MESSAGE');
+  }
+
+  export {login, register, sendMessage, getMessage};

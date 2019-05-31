@@ -1,5 +1,7 @@
+// express, package used for the creation of the server
 const express = require('express');
-var socket = require('socket.io');
+// socket.io, package used for real time web application
+const socket = require('socket.io');
 
 const app = express();
 
@@ -10,11 +12,11 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-
+// creation of the server, server is running on port 8080
 const server = app.listen(8080, function(){
     console.log('server is running on port 8080')
 });
-
+// creation of the constant that will be used for the socket
 const io = socket(server);
 require('./backend/socket/handler/handler.js')(io);
 

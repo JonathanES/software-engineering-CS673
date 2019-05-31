@@ -1,7 +1,7 @@
 import {put, takeEvery} from 'redux-saga/effects'
 
 function* handleLogin(action){
-    yield put({type: "LOGIN", username: action.username, id_user: action.id_user, isLoggedIn: action.isLoggedIn});
+    yield put({type: "LOGIN", username: action.username});
 }
 
 function* handleLogOut(){

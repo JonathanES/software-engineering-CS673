@@ -11,7 +11,6 @@ const defaultState = {
         return {
           ...state,
           username: action.username,
-          id_user: action.id_user,
           connexionDemand: false,
           registerDemand: false,
         };

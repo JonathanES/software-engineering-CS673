@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Login from '../components/login/login';
-import Inscription from '../components/register/register'
+import Login from '../components/login/Login';
+import Inscription from '../components/register/Register';
+import Chat from'../components/chat/Chat';
 import Menu from './Menu';
 
 const mapStateToProps = state => ({
@@ -16,6 +17,7 @@ const MainPage = ({ dispatch, connexionDemand, registerDemand}) => (
         <Menu />
         {registerDemand && !connexionDemand && <Inscription dispatch={dispatch} />}
         {connexionDemand && !registerDemand && <Login dispatch={dispatch} />}
+        {!connexionDemand && !registerDemand && <Chat/>}
     </div>
 );
 
