@@ -1,30 +1,17 @@
-const { Pool, Client } = require('pg')
-
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: '',
-  password: 'pwd',
-  port: 5432,
-})
-
-pool.query('SELECT NOW()', (err, res) => {
-  console.log(err, res)
-  pool.end()
-})
-
-const client = new Client({
-  user: 'postgres',
-  host: 'localhost',
-  database: '',
-  password: 'pwd',
-  port: 5432,
-})
-client.connect()
-
-client.query('SELECT NOW()', (err, res) => {
-  console.log(err, res)
-  //client.end()
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : 'pwdpwd',
+  database : 'swellodeskDatabase'
 });
+ 
+connection.connect();
+ 
+connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
+  if (error) throw error;
+  console.log('The solution is: ', results[0].solution);
+});
+ 
 
-module.exports = client;
+module.exports = connection;

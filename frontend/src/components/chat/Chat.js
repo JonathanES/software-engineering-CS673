@@ -21,7 +21,7 @@ class Chat extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
 
-        this.socket = io('http://localhost:8080');
+        this.socket = io('http://localhost:8000');
 
         this.socket.on('SEND_MESSAGE', function (data) {
             addMessage(data);

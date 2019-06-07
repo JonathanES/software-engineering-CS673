@@ -1,20 +1,19 @@
+const userController = require('../../../controller/userController');
 module.exports = function (io) {
     const history = [];
-    const users = [];
     /**
      * socket section that is about the user
      * Which means the link between the frontend and the backend for the user
      */
     io.on('connection', client => {
         client.on('USER_LOGIN', async (email, password) => {
-            const result = users.find(user => {return (user.email == email && user.password == password)})
+            const result = await userController.getSingleUser(email, password);
             console.log(result.username + " is connected");
             client.emit('LOGIN', result);
         });
 
         client.on('USER_REGISTER', async (username, email, password) => {
-            users.push({username: username, email: email, password: password})
-            const result = users.find(user => {return (user.email == email && user.password == password)});
+            const result = await userController.insertUser(email, username, password);
             client.emit('REGISTER', result);
         });
 
