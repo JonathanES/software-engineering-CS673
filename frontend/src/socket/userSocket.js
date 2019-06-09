@@ -1,3 +1,6 @@
+/**
+ * file that lets us send socket request to the backend and retrieve the information from the backend
+ */
 import {socket} from './config'
 
 function login(email, password, cb){

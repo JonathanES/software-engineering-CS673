@@ -1,6 +1,17 @@
+// this client variable lets us connect to the database and realize the queries we need
 const client = require('../config/database');
+// package used to hash the information needed with the sha256 algorithm
 const crypto = require('crypto');
 
+/**
+ * @param {*} email of the user that wants to connect to the application
+ * @param {*} password password of the user that wants to connect to the application
+ * 
+ * 1) we hash the password the sha256 algorithm
+ * 2) check if the user exists in the database
+ * 3) if he exists, we retrieve the information we need from the user (userID, username and email)
+ * 4) return these information
+ */
 function getSingleUser(email, password) {
     return new Promise(async (resolve) => {
         password = crypto.createHash('sha256').update(password).digest('base64');
@@ -15,6 +26,15 @@ function getSingleUser(email, password) {
     });
 }
 
+/**
+ * @param {*} email of the user that wants to register
+ * @param {*} username of the user that wants to register
+ * @param {*} password of the user that wants to register
+ * 1) we hash the password the sha256 algorithm
+ * 2) check if the user exists in the database
+ * 3) if he doesn't exist exists, we insert the information we got from the user to the database
+ * 4) return the email, username and userId so that the user can log in after that
+ */
 async function insertUser(email, username, password) {
     return new Promise(async resolve => {
         password = crypto.createHash('sha256').update(password).digest('base64');
@@ -32,7 +52,13 @@ async function insertUser(email, username, password) {
         }
     })
 }
-
+/**
+ * 
+ * @param {*} email  of the user
+ * @param {*} password  of the user
+ * 1) if we have a user that the same name and password as the one passed in parameters
+ * 2) if a user has been found, we return 1 if not return 0
+ */
 async function checkUserExistance(email, password) {
     return new Promise(async (resolve, reject) => {
         try {
@@ -46,7 +72,7 @@ async function checkUserExistance(email, password) {
         }
     });
 }
-
+// we export the function that we want to use in another file
 module.exports = {
     insertUser: insertUser,
     getSingleUser: getSingleUser
