@@ -3,6 +3,10 @@ const client = require('../config/database');
 // package used to hash the information needed with the sha256 algorithm
 const crypto = require('crypto');
 
+function saltCreator(){
+    String.fromCharCode(66,67)
+}
+
 /**
  * @param {*} email of the user that wants to connect to the application
  * @param {*} password password of the user that wants to connect to the application
