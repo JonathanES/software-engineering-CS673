@@ -2,7 +2,7 @@ var mysql      = require('mysql');
 var connection = mysql.createConnection({
   host     : 'swellodeskdatabase.cccrockehrmp.eu-west-3.rds.amazonaws.com',
   user     : 'swello',
-  password : '',
+  password : 'H!zqxWm789$0',
   database : 'swellodeskDatabase'
 });
  
