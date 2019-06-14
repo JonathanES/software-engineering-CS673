@@ -38,7 +38,7 @@ CREATE TABLE `GroupMessaging` (
 
 CREATE TABLE `Users` (
   `UserID` integer not null auto_increment,
-  `Name` varchar(30) not null,
+  `username` varchar(30) not null,
   `email` varchar(50) unique not null,
   `password` varchar(64) not null,
   `salt` VARCHAR(8) not null,
