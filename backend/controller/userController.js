@@ -65,7 +65,10 @@ function getSalt(email, password) {
         client.query('SELECT salt FROM Users WHERE email = ? AND password = ?', [email, password], function (error, results, fields) {
             if (error) throw error;
             console.log('The solution is: ', results[0]);
-            resolve(results[0].salt);
+            if (results.length > 0)
+                resolve(results[0].salt);
+            else
+                resolve("");
         });
     });
 }
@@ -74,8 +77,6 @@ async function insertUser(email, username, password) {
     return new Promise(async resolve => {
         password = crypto.createHash('sha256').update(password).digest('base64');
         let salt = await getSalt(email, password);
-        if (typeof salt == 'undefined')
-            salt = "";
         const check = await checkUserExistance(email, password, salt);
         if (check == 0) {
             salt = await saltCreatorFunction(password);
