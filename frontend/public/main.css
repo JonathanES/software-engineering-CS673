@@ -5,8 +5,8 @@ body {
   }
 
 .leftside, .rightside {
-   height: 100%;
-   width: 100%;
+   height: 100vh;
+   width: 50vw;
    border: 2px solid black;
 }
 
@@ -16,8 +16,19 @@ body {
 
 }
 
+.signup{
+
+  position:fixed;
+  left: 50px;
+}
+
 .rightside{
   background-color: white;
+}
+
+p {
+  font-size: 300%;
+  font-family: sans-serif;
 }
 
 ul{list-style-type: none;
