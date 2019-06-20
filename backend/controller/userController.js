@@ -112,6 +112,12 @@ async function checkUserExistance(email, password, salt) {
         }
     });
 }
+
+
+function updatePassword(userID, password){
+    
+}
+
 // we export the function that we want to use in another file
 module.exports = {
     insertUser: insertUser,
