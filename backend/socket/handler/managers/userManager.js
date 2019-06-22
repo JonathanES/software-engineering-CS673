@@ -29,6 +29,11 @@ module.exports = function (io) {
             client.emit('REGISTER', result);
         });
 
+        client.on('USER_FRIENDS', async(user_id) => {
+            const result = await userController.getListofUsers(user_id);
+            client.emit('FRIENDS', result);
+        })
+        
         client.on('USER_SEND_MESSAGE', async (username, message) => {
             history.push({ username: username, message: message });
             client.broadcast.emit('SEND_MESSAGE', history);

@@ -18,7 +18,6 @@ async function getDirectMessages(senderID, receiverID) {
             console.log('The solution is: ', results[0]);
             resolve(results[0]);
         });
-
     });
 }
 

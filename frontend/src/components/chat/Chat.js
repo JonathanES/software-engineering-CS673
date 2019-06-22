@@ -1,11 +1,12 @@
 import React from "react";
 import { connect } from 'react-redux';
 import io from "socket.io-client";
-import { sendMessage, getMessage } from '../../socket/userSocket'
+import { sendMessage, getMessage } from '../../socket/messagingSocket'
+import { getFriends } from '../../socket/userSocket'
 
 const mapStateToProps = state => ({
     username: state.user.username,
-    id_user: state.user.id_user
+    userId: state.user.userId
 });
 
 class Chat extends React.Component {
@@ -13,13 +14,16 @@ class Chat extends React.Component {
         super(props);
 
         this.state = {
-            id_user: props.id_user,
+            userId: props.userId,
             username: props.username,
             message: '',
-            chatHistory: []
+            chatHistory: [],
+            listOfFriends: [],
+            selectedUserId: ''
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
 
         this.socket = io('http://localhost:8000');
 
@@ -33,7 +37,13 @@ class Chat extends React.Component {
     }
 
     componentDidMount() {
-        getMessage();
+        //getMessage();
+        getFriends(this.state.userId, (err, data) => {
+            data.forEach(elt => {
+                elt.color = "black";
+            })
+            this.setState({ listOfFriends: data });
+        });
     }
 
     handleChange(event) {
@@ -45,18 +55,36 @@ class Chat extends React.Component {
         })
         event.preventDefault();
     }
+
+    handleClick(event) {
+        const listOfFriends = this.state.listOfFriends;
+        listOfFriends.forEach(elt => {
+            elt.userId == event.target.id ? elt.color = "red" : elt.color = "black";
+        })
+        this.setState({listOfFriends: listOfFriends });
+    }
+
     render() {
         return (
-            <div id="chatroom-discussion">
-                {this.state.chatHistory.map(chat =>
-                    <li>
-                        {chat.username}: {chat.message}
-                    </li>
-                )}
-                <form onSubmit={this.handleSubmit}>
-                    <input id="chatroom-discussion-input" type="text" value={this.state.message} onChange={this.handleChange} />
-                    <button id="chatroom-discussion-button" type="submit">SEND</button>
-                </form>
+            <div>
+                <div>
+                    {this.state.listOfFriends.map(friend =>
+                        <li style={{ color: friend.color }} id={friend.userId} onClick={this.handleClick}>
+                            {friend.username}
+                        </li>
+                    )}
+                </div>
+                <div id="chatroom-discussion">
+                    {this.state.chatHistory.map(chat =>
+                        <li>
+                            {chat.username}: {chat.message}
+                        </li>
+                    )}
+                    <form onSubmit={this.handleSubmit}>
+                        <input id="chatroom-discussion-input" type="text" value={this.state.message} onChange={this.handleChange} />
+                        <button id="chatroom-discussion-button" type="submit">SEND</button>
+                    </form>
+                </div>
             </div>
         );
     }

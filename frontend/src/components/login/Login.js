@@ -38,7 +38,7 @@ class Login extends Component {
     event.preventDefault();
     login(this.state.email, this.state.password, (err, data) => {
       console.log(data);
-      this.props.dispatch({ type: 'USER_LOGIN', username: data.username, id_user: data.id_user });
+      this.props.dispatch({ type: 'USER_LOGIN', username: data.username, userId: data.userId });
     });
   }
 

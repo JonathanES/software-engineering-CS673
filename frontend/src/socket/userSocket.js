@@ -13,4 +13,9 @@ function login(email, password, cb){
     socket.emit('USER_REGISTER',username, email, password);
   }
 
-  export {login, register};
+  function getFriends(userId, cb){
+    socket.on('FRIENDS', data => cb(null, data) );
+    socket.emit('USER_FRIENDS',userId);
+  }
+
+  export {login, register, getFriends};

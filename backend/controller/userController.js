@@ -3,8 +3,13 @@ const client = require('../config/database');
 // package used to hash the information needed with the sha256 algorithm
 const crypto = require('crypto');
 
-function saltCreator() {
-    String.fromCharCode(66, 67)
+function getListofUsers(userId){
+ return new Promise((resolve, reject) => {
+    client.query('SELECT userId, username FROM Users WHERE userId != ?', [userId], function (error, results, fields) {
+        if (error) throw error;
+        resolve(results);
+    });
+ })
 }
 
 /**
@@ -121,5 +126,6 @@ function updatePassword(userID, password){
 // we export the function that we want to use in another file
 module.exports = {
     insertUser: insertUser,
-    getSingleUser: getSingleUser
+    getSingleUser: getSingleUser,
+    getListofUsers: getListofUsers
 }
