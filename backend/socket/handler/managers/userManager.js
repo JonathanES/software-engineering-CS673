@@ -4,7 +4,7 @@
  */
 
  //retrieve the functions that has been exported in the userController
-const userController = require('../../../controller/userController');
+const userController = require('../../../controller/UserController');
 module.exports = function (io) {
     const history = [];
     //connect to the socket so that we can link with the frontend

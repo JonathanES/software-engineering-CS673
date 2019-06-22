@@ -11,10 +11,11 @@
          client.on('USER_SEND_MESSAGE', async (senderID, receiverID, message) => {
              const result = await messagingController.insertDirectMessage(senderID, receiverID, message)
              client.broadcast.emit('SEND_MESSAGE', result);
-         })
+            })
  
          client.on('USER_GET_MESSAGE', async (senderID, receiverID) => {
              const result = await messagingController.getDirectMessages(senderID, receiverID);
+             //client.emit('SEND_MESSAGE', result);
              client.broadcast.emit('SEND_MESSAGE', result);
          })
      })
