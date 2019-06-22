@@ -34,13 +34,13 @@ module.exports = function (io) {
             client.emit('FRIENDS', result);
         })
         
-        client.on('USER_SEND_MESSAGE', async (username, message) => {
+/*        client.on('USER_SEND_MESSAGE', async (username, message) => {
             history.push({ username: username, message: message });
             client.broadcast.emit('SEND_MESSAGE', history);
         })
 
         client.on('USER_GET_MESSAGE', async () => {
             client.broadcast.emit('SEND_MESSAGE', history);
-        })
+        })*/
     })
 };

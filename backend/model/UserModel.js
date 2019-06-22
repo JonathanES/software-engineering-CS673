@@ -1,4 +1,4 @@
-class Chatroom {
+class UserModel {
     constructor(userId, username, email) {
       this.userId = userId;
       this.username = username;
@@ -17,4 +17,4 @@ class Chatroom {
     }
   }
   
-  module.exports = Chatroom
+  module.exports = UserModel

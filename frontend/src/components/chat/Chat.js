@@ -19,7 +19,7 @@ class Chat extends React.Component {
             message: '',
             chatHistory: [],
             listOfFriends: [],
-            selectedUserId: ''
+            receiverId: ''
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -50,7 +50,7 @@ class Chat extends React.Component {
         this.setState({ message: event.target.value });
     }
     handleSubmit(event) {
-        sendMessage(this.state.username, this.state.message, (err, data) => {
+        sendMessage(this.state.userId, this.state.receiverId, this.state.message, (err, data) => {
             this.setState({ chatHistory: data });
         })
         event.preventDefault();
@@ -61,7 +61,10 @@ class Chat extends React.Component {
         listOfFriends.forEach(elt => {
             elt.userId == event.target.id ? elt.color = "red" : elt.color = "black";
         })
-        this.setState({listOfFriends: listOfFriends });
+        getMessage(this.state.userId, event.target.id, (err, data) => {
+            this.setState({chatHistory: data})
+        })
+        this.setState({listOfFriends: listOfFriends, receiverId: event.target.id });
     }
 
     render() {
@@ -77,7 +80,7 @@ class Chat extends React.Component {
                 <div id="chatroom-discussion">
                     {this.state.chatHistory.map(chat =>
                         <li>
-                            {chat.username}: {chat.message}
+                            {chat.senderName}: {chat.Message}
                         </li>
                     )}
                     <form onSubmit={this.handleSubmit}>
