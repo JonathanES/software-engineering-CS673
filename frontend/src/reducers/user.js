@@ -1,6 +1,6 @@
 const defaultState = {
     username: '',
-    id_user: '',
+    userId: '',
     registerDemand: false,
     connexionDemand: true
   };
@@ -11,6 +11,7 @@ const defaultState = {
         return {
           ...state,
           username: action.username,
+          userId: action.userId,
           connexionDemand: false,
           registerDemand: false,
         };
@@ -18,7 +19,7 @@ const defaultState = {
         return {
           ...state,
           username: '',
-          id_user: '',
+          userID: '',
           connexionDemand: true
         };
         case 'REGISTER_DEMAND':

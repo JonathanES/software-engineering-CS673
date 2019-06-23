@@ -13,13 +13,9 @@ function login(email, password, cb){
     socket.emit('USER_REGISTER',username, email, password);
   }
 
-  function sendMessage(username, message, cb){
-    socket.on('SEND_MESSAGE', data => cb(null, data) );
-    socket.emit('USER_SEND_MESSAGE', username, message);
+  function getFriends(userId, cb){
+    socket.on('FRIENDS', data => cb(null, data) );
+    socket.emit('USER_FRIENDS',userId);
   }
 
-  function getMessage(){
-    socket.emit('USER_GET_MESSAGE');
-  }
-
-  export {login, register, sendMessage, getMessage};
+  export {login, register, getFriends};
