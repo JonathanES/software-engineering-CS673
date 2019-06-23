@@ -3,7 +3,7 @@ import '../../css/main.css'
 import { login } from '../../socket/userSocket';
 
 
-class Login extends Component {
+class PasswordForgotten extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -38,7 +38,7 @@ class Login extends Component {
     event.preventDefault();
     login(this.state.email, this.state.password, (err, data) => {
       console.log(data);
-      this.props.dispatch({ type: 'USER_LOGIN', username: data.username, userId: data.userId });
+      this.props.dispatch({ type: 'USER_LOGIN', username: data.username, id_user: data.id_user });
     });
   }
 
@@ -47,7 +47,7 @@ class Login extends Component {
       <div>
         <div className="window login">
           <div className="window-header">
-            <h1 > Connexion </h1>
+            <h1 > Password forgotten? </h1>
           </div>
           <div className="window-contain">
             <form onSubmit={this.handleSubmit}>
@@ -60,7 +60,11 @@ class Login extends Component {
                   <label htmlFor="password">Password :</label>
                   <input id="password" type="password" value={this.state.password} onChange={this.handleChange} />
                 </div>
-                <button className="btn uppercase" type="submit">Sign in</button>
+                <div className="form-field">
+                  <label htmlFor="password-confirmation">Confirmation :</label>
+                  <input id="password-confirmation" type="password" value={this.state.passwordConfirmation} onChange={this.handleChange} />
+                </div>
+                <button className="btn uppercase" type="submit">Submit</button>
               </div>
               <p className="account-help">You do not have an account ? <a onClick={this.handleClick} className="underline red" >Register</a></p>
             </form>
@@ -71,4 +75,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default PasswordForgotten;

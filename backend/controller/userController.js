@@ -2,9 +2,23 @@
 const client = require('../config/database');
 // package used to hash the information needed with the sha256 algorithm
 const crypto = require('crypto');
+const UserModel = require('../Model/UserModel');
 
-function saltCreator() {
-    String.fromCharCode(66, 67)
+const listOfUsers = [];
+
+function getListofUsers(userId){
+ return new Promise((resolve, reject) => {
+    client.query('SELECT userId, username, email FROM Users WHERE userId != ?', [userId], function (error, results, fields) {
+        results.forEach(result => {
+            if (!listOfUsers.some(user => user.getUserId == result.userId)){
+                const user = new UserModel(result.userId, result.username, result.email);
+                listOfUsers.push(user);
+            }
+        })
+        if (error) throw error;
+        resolve(results);
+    });
+ })
 }
 
 /**
@@ -29,6 +43,10 @@ function getSingleUser(email, password) {
             client.query('SELECT userId, username, email FROM Users WHERE email = ? AND password = ?', [email, password], function (error, results, fields) {
                 if (error) throw error;
                 console.log('The solution is: ', results[0]);
+                if (!listOfUsers.some(user => user.getUserId == results[0].userId)){
+                    const user = new UserModel(results[0].userId, results[0].username, results[0].email);
+                    listOfUsers.push(user);
+                }
                 resolve(results[0]);
             });
         }
@@ -84,6 +102,8 @@ async function insertUser(email, username, password) {
                 if (error) throw error;
                 console.log('The solution is: ', results);
                 const result = { email: email, username: username, userId: results.insertId }
+                const user = new UserModel(results.insertId, username, email);
+                listOfUsers.push(user);
                 resolve(result);
             });
         }
@@ -112,8 +132,16 @@ async function checkUserExistance(email, password, salt) {
         }
     });
 }
+
+
+function updatePassword(userID, password){
+    
+}
+
 // we export the function that we want to use in another file
 module.exports = {
     insertUser: insertUser,
-    getSingleUser: getSingleUser
+    getSingleUser: getSingleUser,
+    getListofUsers: getListofUsers,
+    listOfUsers: listOfUsers
 }

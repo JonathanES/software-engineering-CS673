@@ -12,6 +12,16 @@ CREATE TABLE `Comments` (
   KEY `FK` (`IssueID`, `CreatedBy`)
 );
 
+CREATE TABLE `Categories` (
+  `CategoryID` integer not null auto_increment,
+  `ProjectID` integer not null,
+  `CategoryName` varchar(64) not null,
+  `DateCreated` timestamp not null,
+  `DueDate` timestamp not null,
+  PRIMARY KEY (`CategoryID`),
+  KEY `FK` (`ProjectID`)
+);
+
 CREATE TABLE `AccountStatus` (
   `AccountStatusId` integer not null auto_increment,
   `Status` varchar(30) not null,
@@ -22,7 +32,7 @@ CREATE TABLE `Projects` (
   `ProjectID` integer not null auto_increment,
   `ProjectName` varchar(64) not null,
   `DateCreated` timestamp not null,
-  `DateResolved` timestamp not null,
+  `DueDate` timestamp not null,
   PRIMARY KEY (`ProjectID`)
 );
 
@@ -47,6 +57,12 @@ CREATE TABLE `Users` (
   KEY `FK` (`AccountStatusID`)
 );
 
+CREATE TABLE `GroupUsers` (
+  `UserID` integer not null,
+  `GroupID` integer not null,
+  KEY `PK,FK` (`UserID`, `GroupID`)
+);
+
 CREATE TABLE `ProjectUsers` (
   `UserID` integer not null,
   `ProjectID` integer not null,
@@ -54,25 +70,18 @@ CREATE TABLE `ProjectUsers` (
   KEY `PK,FK` (`UserID`, `ProjectID`, `AccountTypeId`)
 );
 
-CREATE TABLE `GroupUsers` (
+CREATE TABLE `Groups` (
   `GroupID` integer not null auto_increment,
-  `UserID` integer not null,
   `GroupName` varchar(64) not null,
-  PRIMARY KEY (`GroupID`),
-  KEY `FK` (`UserID`)
-);
-
-CREATE TABLE `UserTasks` (
-  `TaskID` integer not null,
-  `UserID` integer not null,
-  `ProjectID` integer not null,
-  KEY `PK,FK` (`TaskID`, `UserID`, `ProjectID`)
+  PRIMARY KEY (`GroupID`)
 );
 
 CREATE TABLE `Tasks` (
   `TaskID` integer not null auto_increment,
   `CommentID` integer not null,
   `parentID` integer not null,
+  `CategoryID` Integer not null,
+  `UserID` integer not null,
   `TaskName` varchar(30) not null,
   `TaskInfo` varchar(2048) not null,
   `Priority` integer not null,
@@ -80,7 +89,7 @@ CREATE TABLE `Tasks` (
   `ExpectedDuration` integer,
   `ActualTimeSpent` integer,
   PRIMARY KEY (`TaskID`),
-  KEY `FK` (`CommentID`, `parentID`)
+  KEY `FK` (`CommentID`, `parentID`, `CategoryID`, `UserID`)
 );
 
 CREATE TABLE `MileStones` (
