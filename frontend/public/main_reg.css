@@ -23,6 +23,7 @@ body {
 legend {
   font-size: 20px;
   font-weight: bold;
+  margin: auto 0;
 }
 
 .text-center{
