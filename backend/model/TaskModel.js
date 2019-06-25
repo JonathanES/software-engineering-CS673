@@ -1,24 +1,24 @@
 class TaskModel {
-    constructor(TaskID, TaskName, parentID,CategoryID,UserID,TaskInfo,Priority,CreatedDate,ExpecedDuration,ActualTimeSpent, StatusID) {
-      this.TaskID = TaskID;
-      this.TaskName = TaskName;
+    constructor(taskID, taskName, parentID,categoryID,userID,taskInfo,priorityID,createdDate,expecedDuration,actualTimeSpent, statusID) {
+      this.taskID = taskID;
+      this.taskName = taskName;
       this.parentID = parentID;
-      this.CategoryID = CategoryID;
-      this.UserID = UserID;
-      this.TaskInfo = TaskInfo;
-      this.Priority = Priority;
-      this.CreatedDate = CreatedDate;
-      this.ExpecedDuration = ExpecedDuration;
-      this.ActualTimeSpent = ActualTimeSpent;
-      this.StatusID = StatusID;
+      this.categoryID = categoryID;
+      this.userID = userID;
+      this.taskInfo = taskInfo;
+      this.priorityID = priorityID;
+      this.createdDate = createdDate;
+      this.expecedDuration = expecedDuration;
+      this.actualTimeSpent = actualTimeSpent;
+      this.statusID = statusID;
     }
 
     get getTaskID() {
-      return this.TaskID;
+      return this.taskID;
     }
   
     get getTaskName() {
-      return this.TaskName;
+      return this.taskName;
     }
   
     get getparentID() {
@@ -26,34 +26,34 @@ class TaskModel {
     }
 
     get getcategoryID() {
-        return this.CategoryID;
+        return this.categoryID;
       }
 
     get getUserID() {
-        return this.UserID;
+        return this.userID;
       }
 
       get getTaskInfo() {
-        return this.TaskInfo;
+        return this.taskInfo;
       }
       get getPriority() {
-        return this.Priority;
+        return this.priority;
       }
 
       get getCreatedDate() {
-        return this.CreatedDate;
+        return this.createdDate;
       }
 
       get getExpectedDuration() {
-        return this.ExpecedDuration;
+        return this.expecedDuration;
       }
 
       get getActualTimeSpent() {
-        return this.ActualTimeSpent;
+        return this.actualTimeSpent;
       }
 
       get getStatusID() {
-        return this.StatusID;
+        return this.statusID;
       }
 
   }
