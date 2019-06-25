@@ -5,11 +5,12 @@ USE swellodeskDatabase;
 CREATE TABLE `Comments` (
   `CommentID` integer not null auto_increment,
   `IssueID` integer not null,
+  `TaskID` Integer not null,
   `CreatedBy` integer not null,
   `DateCreated` timestamp not null,
   `Message` varchar(4096) not null,
   PRIMARY KEY (`CommentID`),
-  KEY `FK` (`IssueID`, `CreatedBy`)
+  KEY `FK` (`IssueID`, `TaskID`, `CreatedBy`)
 );
 
 CREATE TABLE `Categories` (
@@ -23,9 +24,9 @@ CREATE TABLE `Categories` (
 );
 
 CREATE TABLE `AccountStatus` (
-  `AccountStatusId` integer not null auto_increment,
+  `AccountStatusID` integer not null auto_increment,
   `Status` varchar(30) not null,
-  PRIMARY KEY (`AccountStatusId`)
+  PRIMARY KEY (`AccountStatusID`)
 );
 
 CREATE TABLE `Projects` (
@@ -34,6 +35,12 @@ CREATE TABLE `Projects` (
   `DateCreated` timestamp not null,
   `DueDate` timestamp not null,
   PRIMARY KEY (`ProjectID`)
+);
+
+CREATE TABLE `TaskStatus` (
+  `StatusID` integer not null auto_increment,
+  `Status` varchar(64) not null,
+  PRIMARY KEY (`StatusID`)
 );
 
 CREATE TABLE `GroupMessaging` (
@@ -46,6 +53,12 @@ CREATE TABLE `GroupMessaging` (
   KEY `FK` (`UserID`, `GroupID`)
 );
 
+CREATE TABLE `GroupUsers` (
+  `UserID` integer not null,
+  `GroupID` integer not null,
+  KEY `PK,FK` (`UserID`, `GroupID`)
+);
+
 CREATE TABLE `Users` (
   `UserID` integer not null auto_increment,
   `username` varchar(30) not null,
@@ -55,12 +68,6 @@ CREATE TABLE `Users` (
   `AccountStatusID` integer not null  default 1,
   PRIMARY KEY (`UserID`),
   KEY `FK` (`AccountStatusID`)
-);
-
-CREATE TABLE `GroupUsers` (
-  `UserID` integer not null,
-  `GroupID` integer not null,
-  KEY `PK,FK` (`UserID`, `GroupID`)
 );
 
 CREATE TABLE `ProjectUsers` (
@@ -78,8 +85,7 @@ CREATE TABLE `Groups` (
 
 CREATE TABLE `Tasks` (
   `TaskID` integer not null auto_increment,
-  `CommentID` integer not null,
-  `parentID` integer not null,
+  `ParentID` integer not null,
   `CategoryID` Integer not null,
   `UserID` integer not null,
   `TaskName` varchar(30) not null,
@@ -88,8 +94,9 @@ CREATE TABLE `Tasks` (
   `CreatedDate` timestamp not null,
   `ExpectedDuration` integer,
   `ActualTimeSpent` integer,
+  `StatusID` integer not null,
   PRIMARY KEY (`TaskID`),
-  KEY `FK` (`CommentID`, `parentID`, `CategoryID`, `UserID`)
+  KEY `FK` (`ParentID`, `CategoryID`, `UserID`, `Priority`, `StatusID`)
 );
 
 CREATE TABLE `MileStones` (
@@ -102,9 +109,9 @@ CREATE TABLE `MileStones` (
 );
 
 CREATE TABLE `AccountType` (
-  `AccountTypeId` integer not null auto_increment,
+  `AccountTypeID` integer not null auto_increment,
   `Type` varchar(30) not null,
-  PRIMARY KEY (`AccountTypeId`)
+  PRIMARY KEY (`AccountTypeID`)
 );
 
 CREATE TABLE `Issues` (
@@ -114,22 +121,23 @@ CREATE TABLE `Issues` (
   `AssigneeID` integer not null,
   `AssignedToID` integer not null,
   `CommentID` integer not null,
-  `Description` varchar(4096) not null,
+  `PriorityID` integer not null,
+  `IssueName` varchar(64) not null,
   `Summary` varchar(4096) not null,
   `DateCreated` timestamp not null,
   `LastUpdate` timestamp not null,
   `DateResolved` timestamp not null,
   `IsResolved` boolean default false,
   PRIMARY KEY (`IssueID`),
-  KEY `FK` (`ProjectID`, `IssueStatusID`, `AssigneeID`, `AssignedToID`, `CommentID`)
+  KEY `FK` (`ProjectID`, `IssueStatusID`, `AssigneeID`, `AssignedToID`, `CommentID`, `PriorityID`)
 );
 
 CREATE TABLE `ProjectsMilestones` (
-  `milestoneID` integer not null auto_increment,
+  `MilestoneID` integer not null auto_increment,
   `ProjectID` integer not null,
-  `mileStonename` varchar(64) not null,
+  `MilestoneName` varchar(64) not null,
   `Date` timestamp not null,
-  PRIMARY KEY (`milestoneID`),
+  PRIMARY KEY (`MilestoneID`),
   KEY `FK` (`ProjectID`)
 );
 
@@ -144,8 +152,19 @@ CREATE TABLE `DirectMessaging` (
 );
 
 CREATE TABLE `IssueStatus` (
-  `IssueStatusId` integer not null auto_increment,
+  `IssueStatusID` integer not null auto_increment,
   `Status` varchar(30) not null,
-  PRIMARY KEY (`IssueStatusId`)
+  PRIMARY KEY (`IssueStatusID`)
 );
+
+CREATE TABLE `Priority` (
+  `PriorityIDStatusID` integer not null auto_increment,
+  `Priority` varchar(64) not null,
+  PRIMARY KEY (`PriorityIDStatusID`)
+);
+
+
+
+
+
 
