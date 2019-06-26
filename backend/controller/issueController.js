@@ -52,3 +52,10 @@ async function createNewIssueStatus(status){
         })
     })
 }
+
+module.exports = {
+  createNewIssue: createNewIssue,
+  updateIssueStatus: updateIssueStatus,
+  getIssues: getIssues,
+  createNewIssueStatus: createNewIssueStatus
+}
