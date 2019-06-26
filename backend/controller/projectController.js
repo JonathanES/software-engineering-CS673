@@ -12,7 +12,7 @@ async function insertNewProject  (userID, projectName, dueDate) {
     return new Promise(async resolve => {
         client.query('INSERT INTO Projects(ProjectName, DateCreated, DueDate) VALUES(?,NOW(),?)', [projectName, dueDate], async function (error, results, fields) {
             if (error) throw error;
-            const tasks = await getListofProjects(userID);
+            const tasks = await getListOfProjects(userID); // TODO: Why is this labelled as tasks?
             resolve(tasks);
         });
 
@@ -23,12 +23,12 @@ async function insertNewProject  (userID, projectName, dueDate) {
     })
 }
 
-//this function will return the list of Projects for user 
-function getListofProjects(userID){
+//this function will return the list of Projects for user
+function getListOfProjects(userID){
     return new Promise((resolve, reject) => {
        client.query('SELECT * FROM Projects P Join ProjectUsers PU on P.ProjectID = PU.ProjectID WHERE PU.UserID = ?', [userID], function (error, projects, fields) {
-        projects.forEach(projetc => {
-               if (!listOfProjetcs.some(elt => elt.getProjectID == project.ProjectID)){
+        projects.forEach(project => {
+               if (!listOfProjects.some(elt => elt.getProjectID == project.ProjectID)){
                    const ProjectModel = new ProjectModel(elt.ProjectID, elt.ProjectName, elt.DateCreated,elt.DueDate);
                    listOfProjects.push(ProjectModel);
                }
@@ -41,7 +41,7 @@ function getListofProjects(userID){
 
 
 // The following functions are the function related to Task Control
-//Frontend should use it to modify a task 
+//Frontend should use it to modify a task
 // async function updateStatus(taskID, statusID) {
 //     return new Promise(async resolve => {
 
@@ -50,8 +50,8 @@ function getListofProjects(userID){
 //             console.log("Status modify function called");
 //             resolve(statusID);
 //         });
-       
-        
+
+
 //     })
 //}
 
