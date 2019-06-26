@@ -100,6 +100,11 @@ class Chat extends React.Component {
                     <div class="chatbox">
                         <div class="chatleft">
                             <div class="top">
+                                <i class="fas fa-bars" style={{"font-size": "1.4em"}}></i>
+                                <input type="text" class="search-chatleft" placeholder="search"/>
+                                <button class="searchbtn"><i class="fas fa-search"/></button>
+                            </div>
+                            <div class="top">
                             </div>
                             <div class="center">
                                 <ul>

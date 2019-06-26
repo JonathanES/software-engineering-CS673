@@ -6,6 +6,7 @@ const UserController = require('./UserController')
 const listOfGroups = [];
 
 
+function createGroup(groupName, userId){
     return new Promise(async (resolve, reject) => {
         client.query('INSERT INTO Groups(GroupName) VALUES(?)', [groupName], async (error, results) => {
             const group = new GroupModel(results.insertId, groupName);

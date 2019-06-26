@@ -126,3 +126,9 @@ input {
     width: 100%; 
     resize: none;
 }
+
+.search-chatleft {
+    width: 140px;
+    height: 36px;
+    margin-left: 25px;
+}
