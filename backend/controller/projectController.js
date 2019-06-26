@@ -1,8 +1,6 @@
 // this client variable lets us connect to the database and realize the queries we need
 const client = require('../config/database');
-//const DirectMessageModel = require('../Model/DirectMessageModel');
-//const UserController = require('./UserController')
-//const listOfDiscussion = [];
+
 
 const listOfProjects = [];
 
@@ -12,8 +10,8 @@ async function insertNewProject  (userID, projectName, dueDate) {
     return new Promise(async resolve => {
         client.query('INSERT INTO Projects(ProjectName, DateCreated, DueDate) VALUES(?,NOW(),?)', [projectName, dueDate], async function (error, results, fields) {
             if (error) throw error;
-            const tasks = await getListofProjects(userID);
-            resolve(tasks);
+            const projects = await getListofProjects(userID);
+            resolve(projects);
         });
 
         // I am assuming 1 = Admin for user accounts
@@ -27,8 +25,8 @@ async function insertNewProject  (userID, projectName, dueDate) {
 function getListofProjects(userID){
     return new Promise((resolve, reject) => {
        client.query('SELECT * FROM Projects P Join ProjectUsers PU on P.ProjectID = PU.ProjectID WHERE PU.UserID = ?', [userID], function (error, projects, fields) {
-        projects.forEach(projetc => {
-               if (!listOfProjetcs.some(elt => elt.getProjectID == project.ProjectID)){
+        projects.forEach(project => {
+               if (!listOfProjects.some(elt => elt.getProjectID == project.ProjectID)){
                    const ProjectModel = new ProjectModel(elt.ProjectID, elt.ProjectName, elt.DateCreated,elt.DueDate);
                    listOfProjects.push(ProjectModel);
                }
@@ -39,21 +37,6 @@ function getListofProjects(userID){
     })
    }
 
-
-// The following functions are the function related to Task Control
-//Frontend should use it to modify a task 
-// async function updateStatus(taskID, statusID) {
-//     return new Promise(async resolve => {
-
-//         client.query('UPDATE Tasks SET  SatusID = ?  WHERE TaskID = ?; ', [statusID,taskID], async function (error, results, fields) {
-//             if (error) throw error;
-//             console.log("Status modify function called");
-//             resolve(statusID);
-//         });
-       
-        
-//     })
-//}
 
 
 module.exports = {
