@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import io from "socket.io-client";
 import { sendMessage, getMessage } from '../../socket/messagingSocket'
 import { getFriends } from '../../socket/userSocket'
+import '../../css/message.css'
 
 const mapStateToProps = state => ({
     username: state.user.username,
@@ -19,7 +20,8 @@ class Chat extends React.Component {
             message: '',
             chatHistory: [],
             listOfFriends: [],
-            receiverId: ''
+            receiverId: '',
+            receiverName: ''
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -32,7 +34,14 @@ class Chat extends React.Component {
         });
 
         const addMessage = data => {
-            this.setState({ chatHistory: data });
+            data.forEach(elt => {
+                if (elt.receiverId == this.state.receiverId)
+                    elt.position = "right";
+                else
+                    elt.position = "left";
+
+            })
+            this.setState({ chatHistory: data, message: "" });
         }
     }
 
@@ -58,35 +67,80 @@ class Chat extends React.Component {
 
     handleClick(event) {
         const listOfFriends = this.state.listOfFriends;
+        let receiverName = "";
         listOfFriends.forEach(elt => {
-            elt.userId == event.target.id ? elt.color = "red" : elt.color = "black";
+            if (elt.userId == event.target.id) {
+                elt.color = "red";
+                receiverName = elt.username;
+            }
+            else
+                elt.color = "black";
         })
         getMessage(this.state.userId, event.target.id, (err, data) => {
-            this.setState({chatHistory: data})
+            this.setState({ chatHistory: data })
         })
-        this.setState({listOfFriends: listOfFriends, receiverId: event.target.id });
+        this.setState({ listOfFriends: listOfFriends, receiverId: event.target.id, receiverName: receiverName });
     }
 
     render() {
         return (
-            <div>
-                <div>
-                    {this.state.listOfFriends.map(friend =>
-                        <li style={{ color: friend.color }} id={friend.userId} onClick={this.handleClick}>
-                            {friend.username}
-                        </li>
-                    )}
+            <div class="box">
+                <div class="leftbar">
+                    <ul>
+                        <li><i class="fas fa-user"></i></li>
+                        <li><i class="fas fa-user-circle"></i></li>
+                        <li><i class="fas fa-wrench"></i></li>
+                        <li><i class="fas fa-folder-open"></i></li>
+                        <li><i class="fas fa-bell"></i></li>
+                        <li><i class="fas fa-envelope"></i></li>
+                        <li><i class="fas fa-power-off"></i></li>
+                    </ul>
                 </div>
-                <div id="chatroom-discussion">
-                    {this.state.chatHistory.map(chat =>
-                        <li>
-                            {chat.senderName}: {chat.Message}
-                        </li>
-                    )}
-                    <form onSubmit={this.handleSubmit}>
-                        <input id="chatroom-discussion-input" type="text" value={this.state.message} onChange={this.handleChange} />
-                        <button id="chatroom-discussion-button" type="submit">SEND</button>
-                    </form>
+                <div class="container">
+                    <div class="chatbox">
+                        <div class="chatleft">
+                            <div class="top">
+                                <i class="fas fa-bars" style={{"font-size": "1.4em"}}></i>
+                                <input type="text" class="search-chatleft" placeholder="search"/>
+                                <button class="searchbtn"><i class="fas fa-search"/></button>
+                            </div>
+                            <div class="top">
+                            </div>
+                            <div class="center">
+                                <ul>
+                                    {this.state.listOfFriends.map(friend =>
+                                        <li style={{ color: friend.color }}>
+                                            <img style={{ "border-radius": "20px;", "vertical-align": "middle;" }} src="http://placehold.it/40x40" />
+                                            <span style={{ "margin-left": "20px;" }} id={friend.userId} onClick={this.handleClick}>{friend.username}</span>
+                                        </li>
+                                    )}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="chatright">
+                            <div class="top">
+                                <img style={{ "border-radius": "20px;", "vertical-align": "middle;" }} src="http://placehold.it/40x40" />
+                                <span style={{ "margin-left": "20px;" }}>{this.state.receiverName}</span>
+                            </div>
+                            <div>
+                                <ul>
+                                    {this.state.chatHistory.map(chat =>
+                                        <div align={chat.position}>
+                                            <li >
+                                                {chat.senderName}: {chat.Message}
+                                            </li>
+                                        </div>
+                                    )}
+                                </ul>
+                            </div>
+                            <div class="footer">
+                                <form onSubmit={this.handleSubmit}>
+                                    <input id="message-box" type="text" value={this.state.message} onChange={this.handleChange} />
+                                    <button class="sendbtn" type="submit">SEND</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

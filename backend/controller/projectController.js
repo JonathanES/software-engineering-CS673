@@ -1,8 +1,6 @@
 // this client variable lets us connect to the database and realize the queries we need
 const client = require('../config/database');
-//const DirectMessageModel = require('../Model/DirectMessageModel');
-//const UserController = require('./UserController')
-//const listOfDiscussion = [];
+
 
 const listOfProjects = [];
 
@@ -12,8 +10,8 @@ async function insertNewProject  (userID, projectName, dueDate) {
     return new Promise(async resolve => {
         client.query('INSERT INTO Projects(ProjectName, DateCreated, DueDate) VALUES(?,NOW(),?)', [projectName, dueDate], async function (error, results, fields) {
             if (error) throw error;
-            const tasks = await getListOfProjects(userID); // TODO: Why is this labelled as tasks?
-            resolve(tasks);
+            const projects = await getListofProjects(userID);
+            resolve(projects);
         });
 
         // I am assuming 1 = Admin for user accounts
@@ -38,6 +36,7 @@ function getListOfProjects(userID){
        });
     })
    }
+
 
 
 // The following functions are the function related to Task Control
