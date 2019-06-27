@@ -1,7 +1,7 @@
 // this client variable lets us connect to the database and realize the queries we need
 const client = require('../config/database');
 const DirectMessageModel = require('../model/DirectMessageModel.js');
-const UserController = require('./UserController.js')
+const UserController = require('./userController.js')
 const listOfDiscussion = [];
 
 /**

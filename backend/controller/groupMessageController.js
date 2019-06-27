@@ -2,7 +2,7 @@
 const client = require('../config/database');
 const GroupModel = require('../model/GroupModel.js');
 const GroupMessageModel = require('../model/GroupMessageModel.js');
-const UserController = require('./UserController.js')
+const UserController = require('./userController.js')
 const listOfGroups = [];
 
 
