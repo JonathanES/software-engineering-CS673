@@ -40,9 +40,10 @@ input {
 }
 .chatleft {
     background-color: #ffffff;
-    width: 25%;
+    width: 24%;
     left: 0;
     height: 100%;
+    border-right: solid 0.5px #383838;
 }
 .chatleft .top {
     height: 10%;
@@ -64,7 +65,7 @@ input {
     cursor: pointer;
 }
 .chatleft .center {
-    overflow-y: scroll;
+    overflow:hidden;
     height: 90%;
 }
 .chatleft .center ul{
@@ -83,6 +84,7 @@ input {
     display: flex;
     align-items: center;
     padding-left: 30px;
+    border-bottom: solid 0.5px #383838;
 }
 .chatright .center {
     background-color: #edf5f8;
@@ -108,27 +110,62 @@ input {
 }
 
 .chatright .footer {
+    position: absolute;
+    right: 0%;
+    bottom: 0%;
     height: 25%;
+    width: 75%;
     background-color: white;
     text-align: right;
 }
 .sendbtn {
-    height: 40px;
+    height: 30px;
     width: 80px;
     border-radius: 10px;
-    background-color: #58D68D;
+    background-color: #1f94bf;
     color: white;
     font-weight: bold;
     margin:10px 20px 0 0;
+    border:solid 1px #383838;
 }
 
 #message-box {
-    width: 100%; 
+    bottom: 0%;
+    width: 80%; 
+    height: 20px;
     resize: none;
+    border: solid 1px #383838;
 }
 
 .search-chatleft {
+    border: solid 1px #383838;
     width: 140px;
-    height: 36px;
+    height: 20px;
     margin-left: 25px;
+    margin-top: 8px;
+}
+
+.pic-user-left {
+    border-radius: 20px;
+    vertical-align: middle;
+}
+
+.pic-user-right{
+    width: 4.5%;
+    height:75%;
+    border-radius: 20px;
+    vertical-align: middle;
+    margin-top: 8px;
+}
+
+.span-user-left{
+    margin-left: 20px;
+}
+
+.username-right{
+   margin-left: 20px;
+}
+
+.chat-position-right{
+    margin-right: 3%;
 }
