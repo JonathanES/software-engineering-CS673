@@ -2,7 +2,7 @@
 const client = require('../config/database');
 // package used to hash the information needed with the sha256 algorithm
 const crypto = require('crypto');
-const UserModel = require('../Model/UserModel');
+const UserModel = require('../Model/UserModel.js');
 
 const listOfUsers = [];
 
