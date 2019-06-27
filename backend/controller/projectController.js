@@ -57,5 +57,5 @@ function getListOfProjects(userID){
 
 module.exports = {
     insertNewProject: insertNewProject,
-    getListofProjects: getListofProjects
+    getListofProjects: getListOfProjects
 }
