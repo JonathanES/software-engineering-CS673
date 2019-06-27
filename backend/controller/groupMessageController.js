@@ -1,7 +1,7 @@
 // this client variable lets us connect to the database and realize the queries we need
 const client = require('../config/database');
-const GroupModel = require('../Model/GroupModel.js');
-const GroupMessageModel = require('../Model/GroupMessageModel.js');
+const GroupModel = require('../model/GroupModel.js');
+const GroupMessageModel = require('../model/GroupMessageModel.js');
 const UserController = require('./UserController.js')
 const listOfGroups = [];
 
