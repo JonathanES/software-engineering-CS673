@@ -12,10 +12,10 @@ jobs:
       - checkout
 
       # Install dependencies
-      - run: npm --prefix install
+      - run: npm install
       
       # run tests
-      - run: npm --prefix test
+      - run: npm prefix test
 
   deployement:
     docker:
