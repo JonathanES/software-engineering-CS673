@@ -1,37 +1,74 @@
 # Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
+
 version: 2
 jobs:
-  build:
+  test:
     docker:
-      # specify the version you desire here
       - image: circleci/node:9.2
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
 
     working_directory: ~/
 
     steps:
       - checkout
 
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+      # Install dependencies
+      - run: npm --prefix install
+      
+      # run tests
+      - run: npm --prefix test
 
-      - run: npm install
+  deployement:
+    docker:
+      - image: circleci/node:9.2
 
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+    working_directory: ~/
 
-      # run tests!
-      - run: npm test
+    steps:
+      - checkout
+     
+     # Add ssh key to enable the communication with AWS
+      - add_ssh_keys:
+          fingerprints:
+            - "08:26:82:fb:1e:21:05:80:eb:7b:bb:cb:17:73:4a:d8"
+      
+      # Deploy on AWS
+        # Construct tarball
+      - run: tar -cvf SwelloDesk.tar ~
+
+        # Compute checksum
+      - run: md5sum SwelloDesk.tar > SwelloDesk.chksum
+
+        # Import src files and checksum to AWS
+      - run: scp -r -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no SwelloDesk.tar SwelloDesk.chksum ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com:.
+
+        # Check checksum of tarball
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com md5sum -c SwelloDesk.chksum
+
+        # Stop and delete actual server
+      - run: (ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com pm2 stop server || true) && sleep 1
+      - run: (ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com pm2 delete server || true) && sleep 1
+
+        # Clean AWS directory
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com rm -fr Backend || true
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com rm SmartpickServer.chksum || true
+
+        # Untar server and delete tarball
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com tar -xvf SmartpickServer.tar
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com rm SmartpickServer.tar || true
+      
+        # Install server
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com npm --prefix Backend/ install
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com npm --prefix Backend/ run build
+
+        # Start server 
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com pm2 start Backend/build/server.js && sleep 1
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com pm2 save
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+     - test
+     - deployement:
+         requires:
+           - test
