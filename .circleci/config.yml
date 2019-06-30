@@ -21,7 +21,7 @@ jobs:
     docker:
       - image: circleci/node:9.2
 
-    working_directory: software-engineering-CS673
+    working_directory: ~
 
     steps:
       - checkout
@@ -32,7 +32,7 @@ jobs:
       
       # Deploy on AWS
         # Construct tarball
-      - run: tar -cvf SwelloDesk.tar ./
+      - run: tar -cvf SwelloDesk.tar backend
 
         # Compute checksum
       - run: md5sum SwelloDesk.tar > SwelloDesk.chksum
