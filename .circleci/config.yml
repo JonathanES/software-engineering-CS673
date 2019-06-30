@@ -63,7 +63,6 @@ jobs:
       #Change localhost to correct address and port
       - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com myip="$(dig +short myip.opendns.com @resolver1.opendns.com)"
       - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com result="ec2-${myip//[.]/-}.eu-west-3.compute.amazonaws.com"
-      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com touch .env >
       - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com echo -e "HOST=${result}" >> /home/ec2-user/software-engineering-CS673/frontend/.env
       - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com sudo sed -i -e "s/localhost/${result}/g" /home/ec2-user/software-engineering-CS673/frontend/package.json
       - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com sudo sed -i -e "s/localhost/${result}/g" /home/ec2-user/software-engineering-CS673/frontend/src/socket/config.js
