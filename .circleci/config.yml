@@ -46,22 +46,35 @@ jobs:
         # Stop and delete actual server
       - run: (ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com pm2 stop server || true) && sleep 1
       - run: (ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com pm2 delete server || true) && sleep 1
+      - run: (ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com pm2 delete start || true) && sleep 1
 
         # Clean AWS directory
-      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com rm -fr Backend || true
-      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com rm SmartpickServer.chksum || true
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com rm -rf software-engineering-CS673  || true
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com rm SwelloDesk.chksum || true
 
         # Untar server and delete tarball
-      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com tar -xvf SmartpickServer.tar
-      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com rm SmartpickServer.tar || true
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com tar -xvf SwelloDesk.tar
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com rm SwelloDesk.tar || true
       
         # Install server
-      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com npm --prefix Backend/ install
-      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com npm --prefix Backend/ run build
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com npm install
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com npm --prefix frontend/ install
 
+      #Change localhost to correct address and port
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com myip="$(dig +short myip.opendns.com @resolver1.opendns.com)"
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com result="ec2-${myip//[.]/-}.eu-west-3.compute.amazonaws.com" touch .env >
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com echo -e "HOST=${result}" >> /home/ec2-user/software-engineering-CS673/frontend/.env
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com sudo sed -i -e "s/localhost/${result}/g" /home/ec2-user/software-engineering-CS673/frontend/package.json
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com sudo sed -i -e "s/localhost/${result}/g" /home/ec2-user/software-engineering-CS673/frontend/src/socket/config.js
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com sudo sed -i -e "s/localhost/${result}/g" /home/ec2-user/software-engineering-CS673/frontend/src/components/chat/Chat.js
+     
         # Start server 
-      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com pm2 start Backend/build/server.js && sleep 1
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com pm2 start server.js && sleep 1
       - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com pm2 save
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com pm2 start frontend/node_modules/react-scripts/scripts/start.js && sleep 1
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com pm2 save
+
+
      
 workflows:
   version: 2
