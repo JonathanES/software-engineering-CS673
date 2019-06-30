@@ -1,9 +1,9 @@
-var expect = require('chai').expect;
-var io = require('socket.io-client');
-var server = require('../server.js');
-var socketUrl = 'http://localhost:8000';
+const expect = require('chai').expect;
+const io = require('socket.io-client');
+const server = require('../server.js');
+const socketUrl = 'http://localhost:8000';
 
-var options = {
+const options = {
   transports: ['websocket'],
   'force new connection': true
 };
