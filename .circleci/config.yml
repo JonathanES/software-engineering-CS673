@@ -1,10 +1,10 @@
-# Javascript Node CircleCI 2.0 configuration file
+# Javascript Node ec2-user 2.0 configuration file
 
 version: 2
 jobs:
   test:
     docker:
-      - image: circleci/node:9.2
+      - image: ec2-user/node:9.2
 
     working_directory: ~
 
@@ -19,7 +19,7 @@ jobs:
 
   deployement:
     docker:
-      - image: circleci/node:9.2
+      - image: ec2-user/node:9.2
 
     working_directory: ~
 
@@ -32,7 +32,7 @@ jobs:
       
       # Deploy on AWS
         # Construct tarball
-      - run: tar -cvf SwelloDesk.tar ~/software-engineering-CS673
+      - run: tar -cvf SwelloDesk.tar software-engineering-CS673
 
         # Compute checksum
       - run: md5sum SwelloDesk.tar > SwelloDesk.chksum
@@ -63,10 +63,10 @@ jobs:
       #Change localhost to correct address and port
       - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com myip="$(dig +short myip.opendns.com @resolver1.opendns.com)"
       - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com result="ec2-${myip//[.]/-}.eu-west-3.compute.amazonaws.com"
-      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com echo -e "HOST=${result}" >> /home/circleci/project/frontend/.env
-      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com sudo sed -i -e "s/localhost/${result}/g" /home/circleci/project/frontend/package.json
-      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com sudo sed -i -e "s/localhost/${result}/g" /home/circleci/project/frontend/src/socket/config.js
-      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com sudo sed -i -e "s/localhost/${result}/g" /home/circleci/project/frontend/src/components/chat/Chat.js
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com echo -e "HOST=${result}" >> /home/ec2-user/software-engineering-CS673/frontend/.env
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com sudo sed -i -e "s/localhost/${result}/g" /home/ec2-user/software-engineering-CS673/frontend/package.json
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com sudo sed -i -e "s/localhost/${result}/g" /home/ec2-user/software-engineering-CS673/frontend/src/socket/config.js
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com sudo sed -i -e "s/localhost/${result}/g" /home/ec2-user/software-engineering-CS673/frontend/src/components/chat/Chat.js
      
         # Start server 
       - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-35-181-151-203.eu-west-3.compute.amazonaws.com pm2 start server.js && sleep 1
