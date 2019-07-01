@@ -21,8 +21,8 @@ async function insertNewProject  (userID, projectName, dueDate) {
     })
 }
 
-//this function will return the list of Projects for user 
-function getListofProjects(userID){
+//this function will return the list of Projects for user
+function getListOfProjects(userID){
     return new Promise((resolve, reject) => {
        client.query('SELECT * FROM Projects P Join ProjectUsers PU on P.ProjectID = PU.ProjectID WHERE PU.UserID = ?', [userID], function (error, projects, fields) {
         projects.forEach(project => {
@@ -39,7 +39,23 @@ function getListofProjects(userID){
 
 
 
+// The following functions are the function related to Task Control
+//Frontend should use it to modify a task
+// async function updateStatus(taskID, statusID) {
+//     return new Promise(async resolve => {
+
+//         client.query('UPDATE Tasks SET  SatusID = ?  WHERE TaskID = ?; ', [statusID,taskID], async function (error, results, fields) {
+//             if (error) throw error;
+//             console.log("Status modify function called");
+//             resolve(statusID);
+//         });
+
+
+//     })
+//}
+
+
 module.exports = {
     insertNewProject: insertNewProject,
-    getListofProjects: getListofProjects
+    getListofProjects: getListOfProjects
 }

@@ -20,6 +20,13 @@ const server = app.listen(8000, function(){
 const io = socket(server);
 require('./backend/socket/handler/handler.js')(io);
 
-module.exports = io;
+function stop() {
+    server.close();
+  }
+
+module.exports = {
+    io: io,
+    server: server
+};
 
 

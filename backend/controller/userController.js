@@ -2,7 +2,7 @@
 const client = require('../config/database');
 // package used to hash the information needed with the sha256 algorithm
 const crypto = require('crypto');
-const UserModel = require('../Model/UserModel');
+const UserModel = require('../model/UserModel.js');
 
 const listOfUsers = [];
 
@@ -33,16 +33,13 @@ function getListofUsers(userId){
 function getSingleUser(email, password) {
     return new Promise(async (resolve) => {
         password = crypto.createHash('sha256').update(password).digest('base64');
-        console.log(password);
         let salt = await getSalt(email, password);
         if (typeof salt == 'undefined')
             salt = "";
-        console.log(salt);
         const check = await checkUserExistance(email, password, salt);
         if (check === 1) {
             client.query('SELECT userId, username, email FROM Users WHERE email = ? AND password = ?', [email, password], function (error, results, fields) {
                 if (error) throw error;
-                console.log('The solution is: ', results[0]);
                 if (!listOfUsers.some(user => user.getUserId == results[0].userId)){
                     const user = new UserModel(results[0].userId, results[0].username, results[0].email);
                     listOfUsers.push(user);
@@ -82,7 +79,6 @@ function getSalt(email, password) {
     return new Promise(async (resolve) => {
         client.query('SELECT salt FROM Users WHERE email = ? AND password = ?', [email, password], function (error, results, fields) {
             if (error) throw error;
-            console.log('The solution is: ', results[0]);
             if (results.length > 0)
                 resolve(results[0].salt);
             else
@@ -100,7 +96,6 @@ async function insertUser(email, username, password) {
             salt = await saltCreatorFunction(password);
             client.query('INSERT INTO Users(email,password,username, salt) VALUES(?,?,?,?)', [email, password, username, salt], function (error, results, fields) {
                 if (error) throw error;
-                console.log('The solution is: ', results);
                 const result = { email: email, username: username, userId: results.insertId }
                 const user = new UserModel(results.insertId, username, email);
                 listOfUsers.push(user);
@@ -124,11 +119,9 @@ async function checkUserExistance(email, password, salt) {
         try {
             client.query('SELECT EXISTS (SELECT 1 FROM Users WHERE email = ? AND password = ? AND salt = ?) AS solution', [email, password, salt], function (error, results, fields) {
                 if (error) throw error;
-                console.log('The solution is: ', results[0].solution);
                 resolve(results[0].solution);
             });
         } catch (err) {
-            console.log(err.stack)
         }
     });
 }

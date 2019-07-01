@@ -11,8 +11,6 @@ class AccountTypeModel {
     get gettypename() {
       return this.typename;
     }
-  
-
   }
   
   module.exports = AccountTypeModel
