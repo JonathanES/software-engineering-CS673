@@ -100,13 +100,16 @@ class Chat extends React.Component {
                     <div class="chatbox">
                         <div class="chatleft">
                             <div class="top">
+                                <i class="fas fa-bars" style={{"font-size": "1.4em"}}></i>
+                                <input type="text" class="search-chatleft" placeholder="search"/>
+                                <button class="searchbtn"><i class="fas fa-search"/></button>
                             </div>
                             <div class="center">
                                 <ul>
                                     {this.state.listOfFriends.map(friend =>
                                         <li style={{ color: friend.color }}>
-                                            <img style={{ "border-radius": "20px;", "vertical-align": "middle;" }} src="http://placehold.it/40x40" />
-                                            <span style={{ "margin-left": "20px;" }} id={friend.userId} onClick={this.handleClick}>{friend.username}</span>
+                                            <img class="pic-user-left" src="http://placehold.it/40x40" />
+                                            <span class="span-user-left" id={friend.userId} onClick={this.handleClick}>{friend.username}</span>
                                         </li>
                                     )}
                                 </ul>
@@ -114,13 +117,13 @@ class Chat extends React.Component {
                         </div>
                         <div class="chatright">
                             <div class="top">
-                                <img style={{ "border-radius": "20px;", "vertical-align": "middle;" }} src="http://placehold.it/40x40" />
-                                <span style={{ "margin-left": "20px;" }}>{this.state.receiverName}</span>
+                                <img class="pic-user-right" src="http://placehold.it/40x40" />
+                                <span class="username-right">{this.state.receiverName}</span>
                             </div>
                             <div>
                                 <ul>
                                     {this.state.chatHistory.map(chat =>
-                                        <div align={chat.position}>
+                                        <div class="chat-position-right" align={chat.position}>
                                             <li >
                                                 {chat.senderName}: {chat.Message}
                                             </li>
