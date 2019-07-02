@@ -26,23 +26,6 @@ class Chat extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
-
-        this.socket = io('http://localhost:8000');
-
-        this.socket.on('SEND_MESSAGE', function (data) {
-            addMessage(data);
-        });
-
-        const addMessage = data => {
-            data.forEach(elt => {
-                if (elt.receiverId == this.state.receiverId)
-                    elt.position = "right";
-                else
-                    elt.position = "left";
-
-            })
-            this.setState({ chatHistory: data, message: "" });
-        }
     }
 
     componentDidMount() {
@@ -77,6 +60,13 @@ class Chat extends React.Component {
                 elt.color = "black";
         })
         getMessage(this.state.userId, event.target.id, (err, data) => {
+            data.forEach(elt => {
+                if (elt.receiverId == this.state.receiverId)
+                    elt.position = "right";
+                else
+                    elt.position = "left";
+
+            })
             this.setState({ chatHistory: data })
         })
         this.setState({ listOfFriends: listOfFriends, receiverId: event.target.id, receiverName: receiverName });
