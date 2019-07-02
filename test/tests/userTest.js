@@ -1,8 +1,8 @@
 const expect = require('chai').expect;
 const io = require('socket.io-client');
-const server = require('../server.js');
+const server = require('../../server.js');
 const socketUrl = 'http://localhost:8000';
-const db = require('../backend/config/database');
+const db = require('../../backend/config/database');
 
 let testUserId;
 
