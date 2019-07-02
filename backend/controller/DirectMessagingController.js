@@ -14,11 +14,17 @@ const listOfDiscussion = [];
  */
 async function insertDirectMessage(senderID, receiverID, message) {
     return new Promise(async resolve => {
-        client.query('INSERT INTO DirectMessaging(SenderID, ReceiverID, Date, Message) VALUES(?,?,NOW(),?)', [senderID, receiverID, message], async function (error, results, fields) {
-            if (error) throw error;
+        if (message.length > 0) {
+            client.query('INSERT INTO DirectMessaging(SenderID, ReceiverID, MessageDate, Message) VALUES(?,?,NOW(),?)', [senderID, receiverID, message], async function (error, results, fields) {
+                if (error) throw error;
+                const messages = await getDirectMessages(senderID, receiverID);
+                resolve(messages);
+            });
+        }
+        else {
             const messages = await getDirectMessages(senderID, receiverID);
             resolve(messages);
-        });
+        }
     })
 }
 
@@ -34,7 +40,7 @@ async function insertDirectMessage(senderID, receiverID, message) {
 async function getDirectMessages(senderID, receiverID) {
     return new Promise(async (resolve) => {
         let result = [];
-        client.query('SELECT senderId, receiverId, Message, Date FROM DirectMessaging WHERE SenderID = ? AND ReceiverID = ? OR SenderID = ? and ReceiverID = ? ORDER BY Date', [senderID, receiverID, receiverID, senderID], function (error, results, fields) {
+        client.query('SELECT senderId, receiverId, Message, MessageID, MessageDate FROM DirectMessaging WHERE SenderID = ? AND ReceiverID = ? OR SenderID = ? and ReceiverID = ? ORDER BY MessageDate', [senderID, receiverID, receiverID, senderID], function (error, results, fields) {
             if (error) throw error;
             if (results.length != 0) {
                 results = results.map(elt => {
