@@ -45,9 +45,10 @@ class Login extends Component {
   render() {
     return (
       <div>
+        <aside></aside>
         <div className="window login">
           <div className="window-header">
-            <h1 > Connexion </h1>
+            <h1 > Sign in </h1>
           </div>
           <div className="window-contain">
             <form onSubmit={this.handleSubmit}>
