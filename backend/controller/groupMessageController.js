@@ -6,27 +6,38 @@ const UserController = require('./userController.js')
 const listOfGroups = [];
 
 
-function createGroup(groupName, userId){
+function createGroup(groupName, userId) {
     return new Promise(async (resolve, reject) => {
-        client.query('INSERT INTO Groups(GroupName) VALUES(?)', [groupName], async (error, results) => {
-            const group = new GroupModel(results.insertId, groupName);
+        client.query('INSERT INTO MessageGroups(GroupName) VALUES(?)', [groupName], async (error, results) => {
+            if (error) throw error;
+            let groupId = results.insertId;
+            await addUserToGroup(userId, groupId);
+            const group = new GroupModel(groupId, groupName);
             const user = UserController.listOfUsers.find(user => user.getUserId == userId);
             const listOfUsers = [user];
             group.setListOfUsers = listOfUsers;
             listOfGroups.push(group);
-            if (error) throw error;
-            await addUserToGroup(userId, results.insertId);
-            resolve(group);
+            resolve({ groupId: results.insertId, groupName: groupName });
         });
     })
 }
 
-function addUserToGroup(userId,groupId){
+function addUserToGroup(userId, groupId) {
     return new Promise((resolve, reject) => {
-        client.query('INSERT INTO GroupUsers(UserID, GroupID) VALUES(?,?)', [userId,groupId], (error, results) => {
+        client.query('INSERT INTO GroupUsers(UserID, GroupID) VALUES(?,?)', [userId, groupId], async (error, results) => {
             if (error) throw error;
-            resolve(results.insertId);
+            const userList = await getGroupUsers(groupId);
+            resolve(userList);
         })
+    })
+}
+
+function getGroupUsers(groupId){
+    return new Promise((resolve, reject) => {
+        client.query('SELECT username, Users.userId FROM GroupUsers INNER JOIN Users ON Users.UserID = GroupUsers.UserID WHERE GroupId = ?', [groupId], async function (error, results, fields) {
+            if (error) throw error;
+            resolve(results);
+        }); 
     })
 }
 /**
@@ -39,7 +50,7 @@ function addUserToGroup(userId,groupId){
  */
 async function insertGroupMessage(userID, groupID, message) {
     return new Promise(async resolve => {
-        client.query('INSERT INTO GroupMessaging(UserID, GroupID, Date, Message) VALUES(?,?,NOW(),?)', [userID, groupID, message], async function (error, results, fields) {
+        client.query('INSERT INTO GroupMessaging(UserID, GroupID, MessageDate, Message) VALUES(?,?,NOW(),?)', [userID, groupID, message], async function (error, results, fields) {
             if (error) throw error;
             const messages = await getGroupMessages(groupID);
             resolve(messages);
@@ -59,13 +70,13 @@ async function insertGroupMessage(userID, groupID, message) {
 async function getGroupMessages(groupID) {
     return new Promise(async (resolve) => {
         let result = [];
-        client.query('SELECT groupID, userID, Message, Date FROM GroupMessaging WHERE GroupID = ? ORDER BY Date', [groupID], function (error, results, fields) {
+        client.query('SELECT groupID, userID, Message, MessageDate FROM GroupMessaging WHERE GroupID = ? ORDER BY MessageDate', [groupID], function (error, results, fields) {
             if (error) throw error;
             if (results.length != 0) {
                 results = results.map(elt => {
                     UserController.listOfUsers.forEach(user => {
                         if (elt.userID === user.getUserId)
-                            elt.userName = user.getUsername;
+                            elt.username = user.getUsername;
                     })
                     return elt;
                 })
@@ -73,7 +84,7 @@ async function getGroupMessages(groupID) {
                 const group = listOfGroups.find(group => group.getGroupId == groupID);
                 const groupMessages = [];
                 result.forEach(elt => {
-                    const message = new GroupMessageModel(elt.userID, elt.groupID, elt.Message, elt.Date);
+                    const message = new GroupMessageModel(elt.userID, elt.groupID, elt.Message, elt.MessageDate);
                     groupMessages.push(message);
                 })
                 group.setListOfGroupMessage = groupMessages;
@@ -83,11 +94,11 @@ async function getGroupMessages(groupID) {
     });
 }
 
-function getUserGroups(userID){
+function getUserGroups(userID) {
     return new Promise((resolve, reject) => {
         const groups = [];
         listOfGroups.forEach(group => {
-            if(group.getListOfUsers.some(user => user.getUserId == userID))
+            if (group.getListOfUsers.some(user => user.getUserId == userID))
                 groups.push(group);
         })
         resolve(groups);
@@ -98,6 +109,8 @@ module.exports = {
     insertGroupMessage: insertGroupMessage,
     getGroupMessages: getGroupMessages,
     createGroup: createGroup,
+    getGroupUsers: getGroupUsers,
     addUserToGroup: addUserToGroup,
+    getGroupUsers: getGroupUsers,
     getUserGroups: getUserGroups
 }

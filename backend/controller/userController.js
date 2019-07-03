@@ -47,6 +47,8 @@ function getSingleUser(email, password) {
                 resolve(results[0]);
             });
         }
+        else
+            resolve("wrong email or wrong password");
     });
 }
 
@@ -94,16 +96,16 @@ async function insertUser(email, username, password) {
         const check = await checkUserExistance(email, password, salt);
         if (check == 0) {
             salt = await saltCreatorFunction(password);
-            client.query('INSERT INTO Users(email,password,username, salt) VALUES(?,?,?,?)', [email, password, username, salt], function (error, results, fields) {
+            client.query('INSERT INTO Users(AccountStatusID,email,password,username, salt) VALUES(1,?,?,?,?)', [email, password, username, salt], function (error, results, fields) {
                 if (error) throw error;
                 const result = { email: email, username: username, userId: results.insertId }
-                const user = new UserModel(results.insertId, username, email);
+                const user = new UserModel(results.insertId, username, email,1);
                 listOfUsers.push(user);
                 resolve(result);
             });
         }
         else {
-            return "element exists already";
+            resolve("user exists already");
         }
     })
 }
