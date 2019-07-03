@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
+import '../css/project.css'
 
 const mapStateToProps = state => ({
     registerDemand: state.user.registerDemand,
@@ -9,9 +10,27 @@ const mapStateToProps = state => ({
     tasks: state.user.tasks
 });
 
-const Menu = ({ dispatch, connexionDemand, registerDemand, username})  => (
-    <div>
-        <div className="header">
+const Menu = ({ dispatch, connexionDemand, registerDemand, username }) => (
+    <aside>
+      <figure>
+        <div id="avatar"></div>
+        <figcaption>(profile name)</figcaption>
+      </figure>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Projects</a></li>
+          <li><a href="#">Tasks</a></li>
+          <li><a href="#">Issues</a></li>
+          <li><a href="#">Upload files</a></li>
+          <li><a href="#">Messages</a></li>
+          <li><a href="#">Calendar</a></li>
+        </ul>
+      </nav>
+    </aside>
+);
+/*
+<div className="header">
             <nav>
                 <div id="menuToggle">
                     <input type="checkbox" />
@@ -34,7 +53,6 @@ const Menu = ({ dispatch, connexionDemand, registerDemand, username})  => (
                 
             </div>
         </div>
-    </div>
-);
+*/
 
 export default connect(mapStateToProps)(Menu);

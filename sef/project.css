@@ -1,0 +1,158 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,700&display=swap");
+
+body {
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#7abcff+0,60abf8+44,4096ee+100;Blue+3D+%2314 */
+  background: rgb(122, 188, 255); /* Old browsers */
+  background: -moz-linear-gradient(
+    45deg,
+    rgba(122, 188, 255, 1) 0%,
+    rgba(96, 171, 248, 1) 44%,
+    rgba(64, 150, 238, 1) 100%
+  ); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    45deg,
+    rgba(122, 188, 255, 1) 0%,
+    rgba(96, 171, 248, 1) 44%,
+    rgba(64, 150, 238, 1) 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(
+    45deg,
+    rgba(122, 188, 255, 1) 0%,
+    rgba(96, 171, 248, 1) 44%,
+    rgba(64, 150, 238, 1) 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+body,
+html {
+  height: calc(100% - 2em);
+  margin: 0;
+  font-family: "source sans pro", "sans-serif";
+}
+
+aside {
+  color: #fff;
+  display: grid;
+  grid-template-columns: auto 40px;
+  padding: 2em;
+}
+
+img {
+  width: 40px;
+  cursor: pointer;
+}
+
+figure {
+  margin: 0;
+}
+
+figcaption {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+nav {
+  background: #fff;
+}
+
+:active {
+  position: absolute;
+  display: block;
+  background: #fff;
+  width: 50;
+  left: 0;
+  top: 0;
+  height: 100;
+}
+
+ul {
+  display: none;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul li a {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  display: block;
+  padding: 1.5em 3em;
+  background-color: rgba(255, 255, 255, 0.35);
+  color: #000;
+}
+
+main {
+  background: #fff;
+  padding: 1em 1.4em;
+}
+
+h1 {
+  margin: 0;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.5em;
+}
+
+.cta {
+  display: block;
+  color: #fff;
+  background: #0e7fff;
+  text-decoration: none;
+  padding: 8px 50px;
+  font-size: 1.2em;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 4px;
+  margin: 2em 0;
+}
+
+@media only screen and (min-width: 768px) {
+  body {
+    display: grid;
+    grid-template-columns: 20% auto;
+    padding: 2em;
+  }
+  img {
+    display: none;
+  }
+  aside {
+    background: rgba(255, 255, 255, 0.35);
+    grid-template-columns: auto;
+    grid-template-rows: 20% auto;
+    padding: 0;
+  }
+
+  main {
+    padding: 4em;
+    background: #fff;
+    background-size: 50%;
+  }
+
+  #avatar {
+    border-radius: 50%;
+    background: gray;
+    width: 50px;
+    height: 50px;
+    margin: 2em auto 1em auto;
+  }
+  figcaption {
+    text-align: center;
+    color: #fff;
+  }
+
+  ul {
+    display: block;
+    margin-top: 2em;
+    position: relative !important;
+    background: none !important;
+    width: 100% !important;
+  }
+
+  nav {
+    background: none;
+  }
+}
