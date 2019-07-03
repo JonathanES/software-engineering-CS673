@@ -12,8 +12,8 @@ const defaultState = {
           ...state,
           username: action.username,
           userId: action.userId,
-          connexionDemand: false,
-          registerDemand: false,
+          connexionDemand: typeof action.username !== "undefined" ? false : state.connexionDemand,
+          registerDemand: typeof action.username !== "undefined" ? false : state.registerDemand
         };
         case 'LOGOUT':
         return {

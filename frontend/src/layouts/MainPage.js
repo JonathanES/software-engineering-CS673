@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Login from '../components/login/Login';
 import Inscription from '../components/register/Register';
-import Chat from'../components/chat/Chat';
+import Chat from '../components/chat/Chat';
 import Menu from './Menu';
 
 const mapStateToProps = state => ({
@@ -12,12 +12,14 @@ const mapStateToProps = state => ({
     connexionDemand: state.user.connexionDemand
 });
 
-const MainPage = ({ dispatch, connexionDemand, registerDemand}) => (
-    <div id="wrapper">
+const MainPage = ({ dispatch, connexionDemand, registerDemand }) => (
+    <div id="test">
         <Menu />
-        {registerDemand && !connexionDemand && <Inscription dispatch={dispatch} />}
-        {connexionDemand && !registerDemand && <Login dispatch={dispatch} />}
-        {!connexionDemand && !registerDemand && <Chat/>}
+        <main>
+            {registerDemand && !connexionDemand && <Inscription dispatch={dispatch} />}
+            {connexionDemand && !registerDemand && <Login dispatch={dispatch} />}
+            {!connexionDemand && !registerDemand && <a href="#" class="cta"> Create your Project </a>}
+        </main>
     </div>
 );
 
