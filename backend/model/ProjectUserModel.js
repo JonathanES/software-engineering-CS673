@@ -5,15 +5,15 @@ class ProjectUserModel {
       this.accountType = accountType;
     }
 
-    get getuserID() {
+    get getUserID() {
       return this.userID;
     }
   
-    get getprojectID() {
+    get getProjectID() {
       return this.projectID;
     }
   
-    get getaccountType() {
+    get getAccountType() {
       return this.accountType;
     }
 
