@@ -45,6 +45,7 @@ class Login extends Component {
   render() {
     return (
       <div>
+        <aside></aside>
         <div className="window login">
           <div className="window-header">
             <h1 > Sign in </h1>
