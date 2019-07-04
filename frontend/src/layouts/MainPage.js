@@ -8,17 +8,24 @@ import Menu from './Menu';
 const mapStateToProps = state => ({
     username: state.user.username,
     id_user: state.user.id_user,
-    registerDemand: state.user.registerDemand,
-    connexionDemand: state.user.connexionDemand
+    registerDemand: state.demand.registerDemand,
+    connexionDemand: state.demand.connexionDemand,
+    messageDemand: state.demand.messageDemand,
+    projectDemand: state.demand.projectDemand,
+    issueDemand: state.demand.issueDemand,
+    taskDemand: state.demand.taskDemand
 });
 
-const MainPage = ({ dispatch, connexionDemand, registerDemand }) => (
+const MainPage = ({ dispatch, connexionDemand, registerDemand, messageDemand, projectDemand, issueDemand, taskDemand  }) => (
     <div id="test">
         <Menu />
         <main>
             {registerDemand && !connexionDemand && <Inscription dispatch={dispatch} />}
             {connexionDemand && !registerDemand && <Login dispatch={dispatch} />}
-            {!connexionDemand && !registerDemand && <a href="#" class="cta"> Create your Project </a>}
+            {messageDemand && <Chat dispatch={dispatch} />}
+            {projectDemand && <a href="#" class="cta"> Create your Project </a>}
+            {issueDemand && <h1>Issue page</h1>}
+            {taskDemand && <h1>Task page</h1>}
         </main>
     </div>
 );

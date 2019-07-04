@@ -1,8 +1,6 @@
 const defaultState = {
     username: '',
-    userId: '',
-    registerDemand: false,
-    connexionDemand: true
+    userId: ''
   };
   
   const user = (state = defaultState, action) => {
@@ -11,28 +9,13 @@ const defaultState = {
         return {
           ...state,
           username: action.username,
-          userId: action.userId,
-          connexionDemand: typeof action.username !== "undefined" ? false : state.connexionDemand,
-          registerDemand: typeof action.username !== "undefined" ? false : state.registerDemand
+          userId: action.userId
         };
         case 'LOGOUT':
         return {
           ...state,
           username: '',
-          userID: '',
-          connexionDemand: true
-        };
-        case 'REGISTER_DEMAND':
-        return {
-          ...state,
-          registerDemand: true,
-          connexionDemand: false
-        };
-        case 'CONNEXION_DEMAND':
-        return {
-          ...state,
-          connexionDemand: true,
-          registerDemand: false
+          userID: ''
         };        
       default:
         return state;
