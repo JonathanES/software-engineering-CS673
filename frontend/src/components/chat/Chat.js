@@ -5,6 +5,7 @@ import { sendMessage, getMessage } from '../../socket/messagingSocket'
 import { getFriends } from '../../socket/userSocket'
 import '../../css/message.css'
 
+
 const mapStateToProps = state => ({
     username: state.user.username,
     userId: state.user.userId
@@ -22,6 +23,7 @@ class Chat extends React.Component {
             listOfFriends: [],
             receiverId: '',
             receiverName: ''
+
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -50,14 +52,20 @@ class Chat extends React.Component {
 
     handleClick(event) {
         const listOfFriends = this.state.listOfFriends;
+        
         let receiverName = "";
         listOfFriends.forEach(elt => {
             if (elt.userId == event.target.id) {
-                elt.color = "red";
+                elt.color = "#1f94bf";
+                elt.backgroundColor = "#fff";
+                console.log(elt)
+                console.log(elt.username)
                 receiverName = elt.username;
             }
-            else
+            else {
                 elt.color = "black";
+                elt.backgroundColor = "#1f94bf";
+            }
         })
         getMessage(this.state.userId, event.target.id, (err, data) => {
             data.forEach(elt => {
@@ -94,12 +102,12 @@ class Chat extends React.Component {
                                 <input type="text" class="search-chatleft" placeholder="search"/>
                                 <button class="searchbtn"><i class="fas fa-search"/></button>
                             </div>
-                            <div class="center">
+                           <div class="center">
                                 <ul>
                                     {this.state.listOfFriends.map(friend =>
-                                        <li style={{ color: friend.color }}>
-                                            <img class="pic-user-left" src="http://placehold.it/40x40" />
-                                            <span class="span-user-left" id={friend.userId} onClick={this.handleClick}>{friend.username}</span>
+                                        <li id={friend.userId} onClick={this.handleClick} style={{ color: friend.color, backgroundColor: friend.backgroundColor }}>
+                                            {/* <img class="pic-user-left" src="http://placehold.it/40x40" /> */}
+                                            <span id={friend.userId} class="span-user-left">{friend.username}</span>
                                         </li>
                                     )}
                                 </ul>
