@@ -16,7 +16,3 @@ INSERT INTO IssueStatus(StatusName) VALUES('Done');
 INSERT INTO AccountType(TypeName) VALUES('Admin');
 INSERT INTO AccountType(TypeName) VALUES('PowerUser');
 INSERT INTO AccountType(TypeName) VALUES('User');
-INSERT INTO AccountType(TypeName) VALUES('Clement');
-
-
-

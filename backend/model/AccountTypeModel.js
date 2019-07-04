@@ -1,15 +1,15 @@
 class AccountTypeModel {
-    constructor(accountTypeID, typename) {
+    constructor(accountTypeID, typeName) {
       this.accountTypeID = accountTypeID; 
-      this.typename = typename;
+      this.typeName = typeName;
     }
 
-    get getaccountTypeID() {
+    get getAccountTypeID() {
       return this.accountTypeID;
     }
   
-    get gettypename() {
-      return this.typename;
+    get getTypeName() {
+      return this.typeName;
     }
   }
   
