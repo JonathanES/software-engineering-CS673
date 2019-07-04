@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-
 class RegisterDesign extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +13,7 @@ class RegisterDesign extends Component {
 
   render() {
     return (
+      //put html for register
       <div>
       </div>
     );
