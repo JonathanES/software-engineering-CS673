@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 
-class Project extends Component {
+
+class IssueDesign extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      email: '',
+      password: '',
+      id_user: '',
     };
   }
 
@@ -16,4 +20,4 @@ class Project extends Component {
   }
 }
 
-export default Project;
+export default IssueDesign;

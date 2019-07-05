@@ -5,6 +5,7 @@ import { sendMessage, getMessage } from '../../socket/messagingSocket'
 import { getFriends } from '../../socket/userSocket'
 import '../../css/message.css'
 
+
 const mapStateToProps = state => ({
     username: state.user.username,
     userId: state.user.userId
@@ -22,6 +23,7 @@ class Chat extends React.Component {
             listOfFriends: [],
             receiverId: '',
             receiverName: ''
+
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -32,7 +34,8 @@ class Chat extends React.Component {
         //getMessage();
         getFriends(this.state.userId, (err, data) => {
             data.forEach(elt => {
-                elt.color = "black";
+                elt.isadd='false'
+                elt.color = "rgb(155, 121, 156)";
             })
             this.setState({ listOfFriends: data });
         });
@@ -54,10 +57,12 @@ class Chat extends React.Component {
         listOfFriends.forEach(elt => {
             if (elt.userId == event.target.id) {
                 elt.color = "red";
+                elt.isadd='true'
                 receiverName = elt.username;
             }
             else
-                elt.color = "black";
+                elt.isadd='false'
+                elt.color = "rgb(155, 121, 156)";
         })
         getMessage(this.state.userId, event.target.id, (err, data) => {
             data.forEach(elt => {
@@ -75,7 +80,7 @@ class Chat extends React.Component {
     render() {
         return (
             <div class="box">
-                <div class="leftbar">
+                {/* <div class="leftbar">
                     <ul>
                         <li><i class="fas fa-user"></i></li>
                         <li><i class="fas fa-user-circle"></i></li>
@@ -85,37 +90,107 @@ class Chat extends React.Component {
                         <li><i class="fas fa-envelope"></i></li>
                         <li><i class="fas fa-power-off"></i></li>
                     </ul>
-                </div>
+                </div> */}
                 <div class="container">
                     <div class="chatbox">
                         <div class="chatleft">
                             <div class="top">
-                                <i class="fas fa-bars" style={{"font-size": "1.4em"}}></i>
+                                {/* <i class="fas fa-bars" style={{"font-size": "1.4em"}}></i>
                                 <input type="text" class="search-chatleft" placeholder="search"/>
-                                <button class="searchbtn"><i class="fas fa-search"/></button>
+                                <button class="searchbtn"><i class="fas fa-search"/></button> */}
+                                <div class="appname">
+                                  SwelloDesk
+                                </div>
+                                <div class="personalname">
+                                  <div class="yuan yuanselect"></div>
+                                  <div class="charlefttext">
+                                   Yuanping Yao
+                                  </div>
+                                </div>
                             </div>
-                            <div class="center">
+                           <div class="center">
+                               {/* group message */}
+                           <div class="channel">
+                           <div class="title">Channels</div>
+                                <ul>
+                                    <li>
+                                   <div class="personalname">
+                                  <div class="channellogo">#</div>
+                                  <div class="charlefttext">
+                                  <span class="span-user-left">general</span>
+                                  </div>
+                                </div>
+                                    </li>
+                                    <li>
+                                   <div class="personalname">
+                                  <div class="channellogo">#</div>
+                                  <div class="charlefttext">
+                                  <span class="span-user-left">frontend</span>
+                                  </div>
+                                </div>
+                                    </li>
+                                    <li>
+                                   <div class="personalname">
+                                  <div class="channellogo">#</div>
+                                  <div class="charlefttext">
+                                  <span class="span-user-left">backend</span>
+                                  </div>
+                                </div>
+                                    </li>
+                                    <li>
+                                   <div class="personalname">
+                                  <div class="channellogo">#</div>
+                                  <div class="charlefttext">
+                                  <span class="span-user-left">usefuldocs</span>
+                                  </div>
+                                </div>
+                                    </li>
+                                </ul>
+                                </div>
+                               {/* direct message */}
+                               <div class="direct">
+                                   <div class="title">Direct Message</div>
                                 <ul>
                                     {this.state.listOfFriends.map(friend =>
-                                        <li style={{ color: friend.color }}>
-                                            <img class="pic-user-left" src="http://placehold.it/40x40" />
-                                            <span class="span-user-left" id={friend.userId} onClick={this.handleClick}>{friend.username}</span>
+                                        <li>
+                                   <div class="personalname" id={friend.userId} onClick={this.handleClick}>
+                                  <div className={friend.isadd=="true"? "yuan yuanselect":"yuan"}></div>
+                                  <div class="charlefttext">
+                                  <span class="span-user-left">{friend.username}</span>
+                                  </div>
+                                </div>
                                         </li>
                                     )}
                                 </ul>
+                                </div>
                             </div>
                         </div>
                         <div class="chatright">
                             <div class="top">
-                                <img class="pic-user-right" src="http://placehold.it/40x40" />
+                                <div class="top-left">
+                                <img class="pic-user-right" src="http://placehold.it/40x40" class="userhead"/>
                                 <span class="username-right">{this.state.receiverName}</span>
+                                </div>
+                                <div class="top-right">
+                                <input type="text" class="search-chatleft" placeholder="search"/>
+                                <button class="searchbtn"><i class="fas fa-search"/></button>
+                                 </div>   
                             </div>
                             <div>
-                                <ul>
+                                <ul class="chaton">
                                     {this.state.chatHistory.map(chat =>
                                         <div class="chat-position-right" align={chat.position}>
-                                            <li >
-                                                {chat.senderName}: {chat.Message}
+                                            <li className={chat.position=="right"?"chatli chatli-right":"chatli"}>
+                                            <div className={chat.position=="left"?"chatlileft show chatlileft-left":"chatlileft"}>
+                                                <img src="http://placehold.it/40x40" class="userhead"></img>
+                                            </div>        
+                                                <div class="chatliright">
+                                                <span class="senderName">{chat.senderName}</span>
+                                                <span class="sendMessage">{chat.Message}</span>
+                                                </div>
+                                                <div className={chat.position=="right"?"chatlileft show chatlileft-right":"chatlileft"}>
+                                                <img src="http://placehold.it/40x40" class="userhead"></img>
+                                            </div>       
                                             </li>
                                         </div>
                                     )}
@@ -136,3 +211,4 @@ class Chat extends React.Component {
 }
 
 export default connect(mapStateToProps)(Chat);
+        

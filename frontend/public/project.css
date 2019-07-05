@@ -26,11 +26,11 @@ body {
 
 body,
 html {
-  width: 100%;
   height: calc(100% - 2em);
   margin: 0;
   font-family: "source sans pro", "sans-serif";
 }
+
 
 aside {
   color: #fff;
@@ -57,16 +57,6 @@ nav {
   background: #fff;
 }
 
-:active {
-  position: absolute;
-  display: block;
-  background: #fff;
-  width: 50;
-  left: 0;
-  top: 0;
-  height: 100;
-}
-
 ul {
   display: none;
   list-style-type: none;
@@ -84,7 +74,7 @@ ul li a {
   color: #000;
 }
 
-main {
+#main {
   background: #fff;
   padding: 1em 1.4em;
 }
@@ -112,9 +102,10 @@ p {
 }
 
 @media only screen and (min-width: 768px) {
-  body {
+  #test{
     display: grid;
     grid-template-columns: 20% auto;
+    padding: 2em;
   }
   img {
     display: none;
@@ -126,7 +117,7 @@ p {
     padding: 0;
   }
 
-  main {
+  #main {
     padding: 4em;
     background: #fff;
     background-size: 50%;

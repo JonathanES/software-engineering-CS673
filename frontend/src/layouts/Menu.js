@@ -1,36 +1,45 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import '../css/project.css'
 
 const mapStateToProps = state => ({
-    registerDemand: state.user.registerDemand,
-    connexionDemand: state.user.connexionDemand,
+    registerDemand: state.demand.registerDemand,
+    connexionDemand: state.demand.connexionDemand,
     username: state.user.username,
     tasks: state.user.tasks
 });
 
-const Menu = ({ dispatch, connexionDemand, registerDemand, username }) => (
-    <aside>
-      <figure>
-        <div id="avatar"></div>
-        <figcaption>(profile name)</figcaption>
-      </figure>
-      <nav>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Projects</a></li>
-          <li><a href="#">Tasks</a></li>
-          <li><a href="#">Issues</a></li>
-          <li><a href="#">Upload files</a></li>
-          <li><a href="#">Messages</a></li>
-          <li><a href="#">Calendar</a></li>
-        </ul>
-      </nav>
-    </aside>
+const Menu = ({ dispatch, connexionDemand, registerDemand}) => (
+    <div>
+        <aside>
+            {!connexionDemand && !registerDemand &&
+                <div>
+                    <figure>
+                        <div id="avatar"></div>
+                        <figcaption>(profile name)</figcaption>
+                    </figure>
+                    <nav>
+                        <ul>
+                            <li><a href="#" onClick={(e) => dispatch({ type: 'USER_PROJECT_DEMAND' })}>Projects</a></li>
+                            {<li><a onClick={(e) => dispatch({ type: 'USER_TASK_DEMAND' })} id="task"> Tasks</a></li>}
+                            <li><a href="#"  onClick={(e) => dispatch({ type: 'USER_ISSUE_DEMAND' })}>Issues</a></li>
+                            <li><a href="#" onClick={(e) => dispatch({ type: 'USER_MESSAGE_DEMAND' })}>Messages</a></li>
+                            {registerDemand && !connexionDemand && <li><a onClick={(e) => dispatch({ type: 'USER_CONNEXION_DEMAND' })} id="connect" >Login</a></li>}
+                            {!registerDemand && !connexionDemand && <li><a className="red" onClick={(e) => dispatch({ type: 'USER_LOGOUT' })} id="disconnect"> Logout</a></li>}
+                            {!registerDemand && connexionDemand && <li><a className="red" onClick={(e) => dispatch({ type: 'USER_REGISTER_DEMAND' })} id="register">Register</a></li>}
+
+                        </ul>
+                    </nav>
+                </div>
+            }
+        </aside>
+    </div>
 );
+
 /*
-<div className="header">
+
+    <div>
+        <div className="header">
             <nav>
                 <div id="menuToggle">
                     <input type="checkbox" />
@@ -53,6 +62,7 @@ const Menu = ({ dispatch, connexionDemand, registerDemand, username }) => (
                 
             </div>
         </div>
-*/
+    </div>
+    */
 
 export default connect(mapStateToProps)(Menu);
