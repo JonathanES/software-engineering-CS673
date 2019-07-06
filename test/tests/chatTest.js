@@ -3,10 +3,10 @@ const io = require('socket.io-client');
 const server = require('../../server.js');
 const socketUrl = 'http://localhost:8000';
 const db = require('../../backend/config/database');
-let groupId = 0;
+let groupId = 1;
 const userId = 2;
 const receiverId = 3;
-const groupName = "test";
+const groupName = "backend";
 
 const options = {
   transports: ['websocket'],
