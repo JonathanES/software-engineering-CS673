@@ -3,6 +3,7 @@ CREATE DATABASE swellodeskDatabase;
 USE swellodeskDatabase;
 
 
+
 CREATE TABLE IF NOT EXISTS TaskStatus (
     StatusID INT AUTO_INCREMENT,
     StatusName VARCHAR(64) NOT NULL,
@@ -33,7 +34,7 @@ CREATE TABLE IF NOT EXISTS Users (
     UserID INT AUTO_INCREMENT,
     AccountStatusID INT DEFAULT 0,  /* --0 for active users, 1 for deleted users */ 
     username VARCHAR(30) NOT NULL,
-    email VARCHAR(50) NOT NULL,
+    email VARCHAR(50) UNIQUE,
     password VARCHAR(64) NOT NULL,
     salt VARCHAR(8) NOT NULL,
     PRIMARY KEY (UserID),
@@ -59,8 +60,6 @@ CREATE TABLE IF NOT EXISTS Categories (
     PRIMARY KEY (CategoryID),
     FOREIGN KEY fk_Categoriespid(ProjectID) REFERENCES Projects(ProjectID)
 )  ENGINE=INNODB;
-
-
 
 CREATE TABLE IF NOT EXISTS Tasks (
     TaskID INT AUTO_INCREMENT,
@@ -129,8 +128,6 @@ CREATE TABLE IF NOT EXISTS AccountType (
 )  ENGINE=INNODB;
 
 
-
-
 CREATE TABLE IF NOT EXISTS DirectMessaging (
     MessageID INT AUTO_INCREMENT,
     SenderID INT NOT NULL,
@@ -174,7 +171,7 @@ CREATE TABLE IF NOT EXISTS ProjectUsers (
     AccountTypeID INT,
     PRIMARY KEY (UserID, ProjectID, AccountTypeID),
     FOREIGN KEY fk_projectusersuid(UserID) REFERENCES Users(UserID),
-    FOREIGN KEY fk_projectuserspid(UserID) REFERENCES Projects(ProjectID),
+    FOREIGN KEY fk_projectuserspid(ProjectID) REFERENCES Projects(ProjectID),
     FOREIGN KEY fk_projectusersaid(AccountTypeID) REFERENCES AccountType(AccountTypeID)
 )  ENGINE=INNODB;
 
@@ -187,6 +184,25 @@ CREATE TABLE IF NOT EXISTS ProjectMileStones (
     PRIMARY KEY (MilestonesID),
     FOREIGN KEY fk_milestonepid(ProjectID) REFERENCES Projects(ProjectID)
 )  ENGINE=INNODB;
+
+
+ALTER TABLE Projects AUTO_INCREMENT = 0;
+ALTER TABLE TaskStatus AUTO_INCREMENT = 1;
+ALTER TABLE Tasks AUTO_INCREMENT = 0;
+ALTER TABLE Priority AUTO_INCREMENT = 1;
+ALTER TABLE Categories AUTO_INCREMENT = 1;
+ALTER TABLE ProjectMileStones AUTO_INCREMENT = 1;
+ALTER TABLE AccountType AUTO_INCREMENT = 1;
+ALTER TABLE AccountStatus AUTO_INCREMENT = 1;
+ALTER TABLE IssueStatus AUTO_INCREMENT = 1;
+ALTER TABLE Issues AUTO_INCREMENT = 0;
+ALTER TABLE Users AUTO_INCREMENT = 1;
+ALTER TABLE MessageGroups AUTO_INCREMENT = 1;
+ALTER TABLE GroupMessaging AUTO_INCREMENT = 1;
+ALTER TABLE DirectMessaging AUTO_INCREMENT = 1;
+ALTER TABLE Comments AUTO_INCREMENT = 1;
+
+
 
 
 
