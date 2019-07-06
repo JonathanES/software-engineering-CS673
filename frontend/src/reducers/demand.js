@@ -42,7 +42,6 @@ const user = (state = defaultState, action) => {
                 issueDemand: false,
                 taskDemand: false,
                 messageDemand: false
-
             }
         case 'MESSAGE_DEMAND':
             return {
