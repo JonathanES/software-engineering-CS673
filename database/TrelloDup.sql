@@ -93,8 +93,62 @@ INSERT INTO Comments(IssueID, TaskID, CreatedBy, DateCreated, Message) Value(1,6
 
 Select * from Comments;
 
+INSERT INTO MessageGroups (GroupName) Value('backend');
+INSERT INTO MessageGroups (GroupName) Value('deployment');
+INSERT INTO MessageGroups (GroupName) Value('frontend');
+INSERT INTO MessageGroups (GroupName) Value('general');
+INSERT INTO MessageGroups (GroupName) Value('requirements');
+INSERT INTO MessageGroups (GroupName) Value('usefuldocs');
+Select * from MessageGroups;
 
-
+INSERT INTO GroupUsers(UserID,GroupID) Value(1,1);
+INSERT INTO GroupUsers(UserID,GroupID) Value(1,2);
+INSERT INTO GroupUsers(UserID,GroupID) Value(1,3);
+INSERT INTO GroupUsers(UserID,GroupID) Value(1,4);
+INSERT INTO GroupUsers(UserID,GroupID) Value(1,5);
+INSERT INTO GroupUsers(UserID,GroupID) Value(1,6);
+INSERT INTO GroupUsers(UserID,GroupID) Value(2,1);
+INSERT INTO GroupUsers(UserID,GroupID) Value(2,2);
+INSERT INTO GroupUsers(UserID,GroupID) Value(2,3);
+INSERT INTO GroupUsers(UserID,GroupID) Value(2,4);
+INSERT INTO GroupUsers(UserID,GroupID) Value(2,5);
+INSERT INTO GroupUsers(UserID,GroupID) Value(2,6);
+INSERT INTO GroupUsers(UserID,GroupID) Value(3,1);
+INSERT INTO GroupUsers(UserID,GroupID) Value(3,2);
+INSERT INTO GroupUsers(UserID,GroupID) Value(3,3);
+INSERT INTO GroupUsers(UserID,GroupID) Value(3,4);
+INSERT INTO GroupUsers(UserID,GroupID) Value(3,5);
+INSERT INTO GroupUsers(UserID,GroupID) Value(3,6);
+INSERT INTO GroupUsers(UserID,GroupID) Value(4,1);
+INSERT INTO GroupUsers(UserID,GroupID) Value(4,2);
+INSERT INTO GroupUsers(UserID,GroupID) Value(4,3);
+INSERT INTO GroupUsers(UserID,GroupID) Value(4,4);
+INSERT INTO GroupUsers(UserID,GroupID) Value(4,5);
+INSERT INTO GroupUsers(UserID,GroupID) Value(4,6);
+INSERT INTO GroupUsers(UserID,GroupID) Value(5,1);
+INSERT INTO GroupUsers(UserID,GroupID) Value(5,2);
+INSERT INTO GroupUsers(UserID,GroupID) Value(5,3);
+INSERT INTO GroupUsers(UserID,GroupID) Value(5,4);
+INSERT INTO GroupUsers(UserID,GroupID) Value(5,5);
+INSERT INTO GroupUsers(UserID,GroupID) Value(5,6);
+INSERT INTO GroupUsers(UserID,GroupID) Value(6,1);
+INSERT INTO GroupUsers(UserID,GroupID) Value(6,2);
+INSERT INTO GroupUsers(UserID,GroupID) Value(6,3);
+INSERT INTO GroupUsers(UserID,GroupID) Value(6,4);
+INSERT INTO GroupUsers(UserID,GroupID) Value(6,5);
+INSERT INTO GroupUsers(UserID,GroupID) Value(6,6);
+INSERT INTO GroupUsers(UserID,GroupID) Value(7,1);
+INSERT INTO GroupUsers(UserID,GroupID) Value(7,2);
+INSERT INTO GroupUsers(UserID,GroupID) Value(7,3);
+INSERT INTO GroupUsers(UserID,GroupID) Value(7,4);
+INSERT INTO GroupUsers(UserID,GroupID) Value(7,5);
+INSERT INTO GroupUsers(UserID,GroupID) Value(7,6);
+INSERT INTO GroupUsers(UserID,GroupID) Value(8,1);
+INSERT INTO GroupUsers(UserID,GroupID) Value(8,2);
+INSERT INTO GroupUsers(UserID,GroupID) Value(8,3);
+INSERT INTO GroupUsers(UserID,GroupID) Value(8,4);
+INSERT INTO GroupUsers(UserID,GroupID) Value(8,5);
+INSERT INTO GroupUsers(UserID,GroupID) Value(8,6);
 
 
 
