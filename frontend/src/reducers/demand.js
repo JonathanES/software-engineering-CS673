@@ -39,9 +39,9 @@ const user = (state = defaultState, action) => {
                 connexionDemand: true,
                 registerDemand: false,
                 projectDemand: false,
-                messageDemand: false,
                 issueDemand: false,
-                taskDemand: false
+                taskDemand: false,
+                messageDemand: false
             }
         case 'MESSAGE_DEMAND':
             return {
