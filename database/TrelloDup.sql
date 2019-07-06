@@ -1,6 +1,7 @@
 USE swellodeskDatabase;
 
 
+
 INSERT INTO Users(AccountStatusID,username, email, password, salt) Values(1,'erhan','erhan','P3m7e0NbBTIWUdrv03TNxoHcBvqmXjdOODN7iMoEbeo=','DObTc');
 INSERT INTO Users(AccountStatusID,username, email, password, salt) Values(1,'yyy','yyy','8q/RystUQaXmWnpGCl+YmLe5iwiqYyOi5TyLmpaGzYY=','zmlYY');
 INSERT INTO Users(AccountStatusID,username, email, password, salt) Values(1,'jonathan','jonathan','GJ9AA0vnoZnx+piRZo7jq2BJ+C04xovnD1luqy4YV7c=','njviJ');
@@ -89,6 +90,7 @@ INSERT INTO Comments(IssueID, TaskID, CreatedBy, DateCreated, Message) Value(1,3
 INSERT INTO Comments(IssueID, TaskID, CreatedBy, DateCreated, Message) Value(1,4,2,'2019-07-06','Magnificant');
 INSERT INTO Comments(IssueID, TaskID, CreatedBy, DateCreated, Message) Value(1,5,3,'2019-07-06','Boo');
 INSERT INTO Comments(IssueID, TaskID, CreatedBy, DateCreated, Message) Value(1,6,4,'2019-07-06','foo');
+
 Select * from Comments;
 
 
