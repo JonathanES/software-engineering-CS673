@@ -36,7 +36,13 @@ const user = (state = defaultState, action) => {
         case 'DEMAND_LOGOUT':
             return {
                 ...state,
-                connexionDemand: true
+                connexionDemand: true,
+                registerDemand: false,
+                projectDemand: false,
+                issueDemand: false,
+                taskDemand: false,
+                messageDemand: false
+
             }
         case 'MESSAGE_DEMAND':
             return {
