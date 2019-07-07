@@ -25,8 +25,8 @@ INSERT INTO AccountType(TypeName) VALUES('User');
 -- The following entries will not be accesible from users. It is there for space holder.
 
 INSERT INTO Users(AccountStatusID,username, email, password, salt) Values(1,'admin','admin','ypeBEsobvcr6wjGzmiPcTaeG7/gUfE5yuYB3ha/uSLs=','Egwuh');
-INSERT INTO Projects(ProjectName,DateCreated,DueDate) Values('N/A','2010-01-01', '2010-01-01');
-INSERT INTO Categories(ProjectID, CategoryName) Values(1,'N/A');
-INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, TaskName, TaskInfo, CreatedDate, ExpectedDuration, ActualTimeSpent) Values(1,1,1,1,1,'N/A','N/A','2010-01-01',1,1);
-INSERT INTO Issues(ProjectID,IssueStatusID,AssigneeID,AssignedToID, PriorityID, IssueName, Summary, DateCreated, LastUpdate) Values(1,1,1,1,1,'N/A','N/A','2010-01-01','2010-01-01');
+INSERT INTO Projects(ProjectName,DateCreated,DueDate) Values('Test','2010-01-01', '2010-01-01');
+INSERT INTO Categories(ProjectID, CategoryName) Values(1,'Test');
+INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, TaskName, TaskInfo, CreatedDate, ExpectedDuration, ActualTimeSpent) Values(1,1,1,1,1,'Test','Test','2010-01-01',1,1);
+INSERT INTO Issues(ProjectID,IssueStatusID,AssigneeID,AssignedToID, PriorityID, IssueName, Summary, DateCreated, LastUpdate) Values(1,1,1,1,1,'Test','Test','2010-01-01','2010-01-01');
 
