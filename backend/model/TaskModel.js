@@ -13,7 +13,7 @@ class TaskModel {
     this.actualTimeSpent = actualTimeSpent;
     this.isDeleted = isDeleted;
   }
-
+  
   get getTaskID() {
     return this.taskID;
   }

@@ -81,7 +81,7 @@ INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, TaskName, 
 INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, TaskName, TaskInfo, CreatedDate, ExpectedDuration, ActualTimeSpent) Values(5,5,8,3,2,'Mainpage design html+css','N/A','2019-06-06',10,10);
 INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, TaskName, TaskInfo, CreatedDate, ExpectedDuration, ActualTimeSpent) Values(6,6,3,3,3,'Create the messaging interface','N/A','2019-06-06',10,10);
 INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, TaskName, TaskInfo, CreatedDate, ExpectedDuration, ActualTimeSpent) Values(7,7,4,3,3,'Deploy the database on AWS','N/A','2019-06-06',10,10);
-INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, TaskName, TaskInfo, CreatedDate, ExpectedDuration, ActualTimeSpent) Values(7,7,4,1,3,'Deplyed the backend and frontend on AWS','N/A','2019-06-06',10,10);
+INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, TaskName, TaskInfo, CreatedDate, ExpectedDuration, ActualTimeSpent) Values(7,7,4,1,3,'Deployed the backend and frontend on AWS','N/A','2019-06-06',10,10);
 Select * from Tasks;
 
 
