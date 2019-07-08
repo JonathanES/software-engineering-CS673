@@ -37,7 +37,7 @@ describe("Tests direct communication with the Issues Table in the DB", () => {
         // Start our query to our DB with our test constants from above
         // Recall we have an auto-increment on the PrimaryKey with label: IssueID
         db.query("INSERT INTO Issues (ProjectID, IssueStatusID, AssigneeID, AssignedToID, CommentID, PriorityID, IssueName, Summary, DateCreated, LastUpdate, DateResolved, IsResolved, IsDeleted) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",
-                [projectID, issueStatusID, userID, responsibleUserID, commentID, priorityID, issueName, issueSummary, dateCreated, lastUpdate, dateResolved, isResolved, isDeleted],
+                [projectID, issueStatusID, assigneeID, assignedToID, commentID, priorityID, issueName, summary, dateCreated, lastUpdate, dateResolved, isResolved, isDeleted],
                 (error, results, fields) => {  // NOTE: Do I need an async here? -- NO
                     if (error){
                         assert.fail(error.toString()); // Asserts a failure of this test with the MYSQL error given
