@@ -49,8 +49,8 @@ describe('Testing communication with Tasks table', function () {
                 expect(data[data.length - 1].PriorityID).to.equal(priorityID);
                 expect(data[data.length - 1].TaskName).to.equal(taskName);
                 expect(data[data.length - 1].TaskInfo).to.equal(taskInfo);
-              expect(data[data.length - 1].ExpectedDuration).to.equal(expectedDuration);
-                  expect(data[data.length - 1].ActualTimeSpent).to.equal(actualTimeSpent);
+                expect(data[data.length - 1].ExpectedDuration).to.equal(expectedDuration);
+                expect(data[data.length - 1].ActualTimeSpent).to.equal(actualTimeSpent);
 
 
                 db.query('DELETE FROM Tasks WHERE TaskName = ? ', [taskName], (error) => {
@@ -189,8 +189,7 @@ describe('Testing communication with Tasks table', function () {
             });
         });
     });
-    
-    
+
+
 
 });
-
