@@ -39,8 +39,8 @@ describe('Testing communication with Projects table', function () {
             let pID = await projectController.findProjectID(projectName);
 
             client.on('CREATE_PROJECT', data => {
-                expect(data[data.length-1].ProjectName).to.equal('Test');
-                expect(data[data.length-1].DueDate).to.equal('2010-01-01T10:00:00.000Z');
+                expect(data[data.length-1].ProjectName).to.equal(projectName);
+                expect(data[data.length-1].DueDate).to.equal(dueDate);
                 
                 db.query('DELETE FROM ProjectUsers WHERE ProjectID = ? and UserID = ?', [pID, userID], (error) => {
                     if (error) throw error;
