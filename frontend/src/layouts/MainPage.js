@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Login from '../components/login/Login';
 import Inscription from '../components/register/Register';
 import Chat from '../components/chat/Chat';
+import Project from '../components/project/Project';
 import Menu from './Menu';
 
 const mapStateToProps = state => ({
@@ -23,7 +24,8 @@ const MainPage = ({ dispatch, connexionDemand, registerDemand, messageDemand, pr
             {registerDemand && !connexionDemand && <Inscription dispatch={dispatch} />}
             {connexionDemand && !registerDemand && <Login dispatch={dispatch} />}
             {messageDemand && <Chat dispatch={dispatch} />}
-            {projectDemand && <a href="#" class="cta"> Create your Project </a>}
+            {projectDemand && <Project dispatch={dispatch} />}    
+            {/* {projectDemand && <a href="#" class="cta"> Create your Project </a>} */}
             {issueDemand && <h1>Issue page</h1>}
             {taskDemand && <h1>Task page</h1>}
         </main>
