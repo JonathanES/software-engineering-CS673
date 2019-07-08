@@ -44,7 +44,7 @@ async function updateStatus(taskID, statusID) {
 
         client.query('UPDATE Tasks SET  StatusID = ?  WHERE TaskID = ?; ', [statusID,taskID], async function (error, results, fields) {
             if (error) throw error;
-            console.log("Status modify function called");
+            //console.log("Status modify function called");
             resolve(statusID);
         }); 
     })
@@ -55,7 +55,7 @@ async function updateTaskName(taskID, taskName) {
 
         client.query('UPDATE Tasks SET  TaskName = ?  WHERE TaskID = ?; ', [taskName,taskID], async function (error, results, fields) {
             if (error) throw error;
-            console.log("updateTaskName function called");
+            //console.log("updateTaskName function called");
             resolve(taskName);
         }); 
     })
@@ -66,7 +66,7 @@ async function updatePriority(taskID, priorityID) {
 
         client.query('UPDATE Tasks SET  PriorityID = ?  WHERE TaskID = ?; ', [priorityID,taskID], async function (error, results, fields) {
             if (error) throw error;
-            console.log("updatePriority function called");
+            //console.log("updatePriority function called");
             resolve(priorityID);
         });  
     })
@@ -77,7 +77,7 @@ async function updateTaskInfo(taskID, taskInfo) {
 
         client.query('UPDATE Tasks SET TaskInfo = ?  WHERE TaskID = ?; ', [taskInfo,taskID], async function (error, results, fields) {
             if (error) throw error;
-            console.log("UpdateTaskInfo function called");
+            //console.log("UpdateTaskInfo function called");
             resolve(taskInfo);
         });
     })
@@ -88,7 +88,7 @@ async function updateExpectedDuration(taskID, expDuration) {
 
         client.query('UPDATE Tasks SET ExpectedDuration = ?  WHERE TaskID = ?; ', [expDuration,taskID], async function (error, results, fields) {
             if (error) throw error;
-            console.log("UpdateExpectedDuration function called");
+            //console.log("UpdateExpectedDuration function called");
             resolve(expDuration);
         });
     })
@@ -99,7 +99,7 @@ async function updateActualTimeSpent(taskID, timeSpent) {
 
         client.query('UPDATE Tasks SET  ActualTimeSpent = ?  WHERE TaskID = ?; ', [timeSpent,taskID], async function (error, results, fields) {
             if (error) throw error;
-            console.log("UpdateExpectedDuration function called");
+            //console.log("UpdateExpectedDuration function called");
             resolve(timeSpent);
         });
     })
@@ -110,7 +110,7 @@ async function updateIsDeleted(taskID, isDeleted) {
 
         client.query('UPDATE Tasks SET IsDeleted = ? WHERE TaskID = ?; ', [isDeleted,taskID], async function (error, results, fields) {
             if (error) throw error;
-            console.log("UpdateIsDeleted function called");
+            //console.log("UpdateIsDeleted function called");
             resolve(isDeleted);
         });
     })
