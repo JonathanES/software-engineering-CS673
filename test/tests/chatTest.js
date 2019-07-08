@@ -4,8 +4,8 @@ const server = require('../../server.js');
 const socketUrl = 'http://localhost:8000';
 const db = require('../../backend/config/database');
 let groupId = 1;
-const userId = 2;
-const receiverId = 3;
+const userId = 11;
+const receiverId = 12;
 const groupName = "backend";
 
 const options = {
@@ -26,11 +26,8 @@ describe('Messaging test', function () {
         expect(data[data.length - 1].senderId).to.equal(userId);
         expect(data[data.length - 1].receiverId).to.equal(receiverId);
         expect(data[data.length - 1].Message).to.equal('test');
-        db.query('DELETE FROM DirectMessaging WHERE Message = ? AND senderID = ? AND receiverID = ?', ['test', userId, receiverId], (error) => {
-          if (error) throw error;
-          client.disconnect();
-          done();
-        })
+        client.disconnect();
+        done();
       });
     });
   });
@@ -47,8 +44,11 @@ describe('Messaging test', function () {
         expect(data.length).to.be.above(0);
         expect(data[data.length - 1].senderId).to.equal(userId);
         expect(data[data.length - 1].receiverId).to.equal(receiverId);
-        client.disconnect();
-        done();
+        db.query('DELETE FROM DirectMessaging WHERE Message = ? AND senderID = ? AND receiverID = ?', ['test', userId, receiverId], (error) => {
+          if (error) throw error;
+          client.disconnect();
+          done();
+        })
       });
     });
   });
