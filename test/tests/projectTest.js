@@ -40,7 +40,7 @@ describe('Testing communication with Projects table', function () {
 
             client.on('CREATE_PROJECT', data => {
                 expect(data[data.length-1].ProjectName).to.equal(projectName);
-                expect(data[data.length-1].DueDate).to.equal(dueDate);
+                expect(new Date(data[data.length-1].DueDate).getDate()).to.equal(new Date(dueDate).getDate());
                 
                 db.query('DELETE FROM ProjectUsers WHERE ProjectID = ? and UserID = ?', [pID, userID], (error) => {
                     if (error) throw error;
