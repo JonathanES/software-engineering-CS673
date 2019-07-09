@@ -321,3 +321,8 @@ input {
     position:relative;
     right:130px;
 }
+
+#add-button {
+    margin-left: 1%;
+    width: 7%;
+}

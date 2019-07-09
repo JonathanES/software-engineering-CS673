@@ -124,8 +124,8 @@ describe('Messaging test', function () {
 
       client.emit('USER_GET_USER_GROUP', userId);
       client.on('GET_USER_GROUP', data => {
-        expect(data[0].groupId).to.be.equal(groupId);
-        expect(data[0].groupName).to.be.equal(groupName);
+        expect(data[1].GroupID).to.be.equal(groupId);
+        expect(data[1].GroupName).to.be.equal(groupName);
         client.disconnect();
         done();
       });

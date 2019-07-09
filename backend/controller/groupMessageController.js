@@ -96,12 +96,18 @@ async function getGroupMessages(groupID) {
 
 function getUserGroups(userID) {
     return new Promise((resolve, reject) => {
-        const groups = [];
-        listOfGroups.forEach(group => {
-            if (group.getListOfUsers.some(user => user.getUserId == userID))
-                groups.push(group);
-        })
-        resolve(groups);
+        client.query('SELECT GroupName, GroupUsers.GroupID FROM GroupUsers INNER JOIN MessageGroups ON MessageGroups.GroupID = GroupUsers.GroupID WHERE UserID = ?', [userID], async function (error, results, fields) {
+            results.forEach(group => {
+                const group = new GroupModel(groupId, groupName);
+                const user = UserController.listOfUsers.find(user => user.getUserId == userId);
+                const listOfUsers = [user];
+                group.setListOfUsers = listOfUsers;
+                listOfGroups.push(group);
+            })
+            if (error) throw error;
+            console.log(results);
+            resolve(results);
+        }); 
     })
 }
 
