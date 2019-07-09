@@ -76,7 +76,7 @@ async function getGroupMessages(groupID) {
                 results = results.map(elt => {
                     UserController.listOfUsers.forEach(user => {
                         if (elt.userID === user.getUserId)
-                            elt.username = user.getUsername;
+                            elt.senderName = user.getUsername;
                     })
                     return elt;
                 })
@@ -97,15 +97,13 @@ async function getGroupMessages(groupID) {
 function getUserGroups(userID) {
     return new Promise((resolve, reject) => {
         client.query('SELECT GroupName, GroupUsers.GroupID FROM GroupUsers INNER JOIN MessageGroups ON MessageGroups.GroupID = GroupUsers.GroupID WHERE UserID = ?', [userID], async function (error, results, fields) {
-            results.forEach(group => {
-                const group = new GroupModel(groupId, groupName);
-                const user = UserController.listOfUsers.find(user => user.getUserId == userId);
-                const listOfUsers = [user];
-                group.setListOfUsers = listOfUsers;
-                listOfGroups.push(group);
-            })
             if (error) throw error;
-            console.log(results);
+            results.forEach(async (group) => {
+                const tmp = new GroupModel(group.GroupID, group.GroupName);
+                const listOfUsers = await getGroupUsers(group.GroupID);
+                tmp.setListOfUsers = listOfUsers;
+                listOfGroups.push(tmp);
+            });
             resolve(results);
         }); 
     })

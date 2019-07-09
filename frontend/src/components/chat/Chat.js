@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import io from "socket.io-client";
 import { sendMessage, getMessage } from '../../socket/messagingSocket'
-import { getUserGroups, createGroup, addUserGroup, getGroupMessage } from '../../socket/GroupMessagingSocket'
+import { getUserGroups, createGroup, addUserGroup, getGroupMessage, sendGroupMessage } from '../../socket/GroupMessagingSocket'
 import AddGroup from './AddGroup';
 import { getFriends } from '../../socket/userSocket'
 import '../../css/message.css'
@@ -27,8 +27,8 @@ class Chat extends React.Component {
             receiverId: '',
             receiverName: '',
             listOfGroups: [],
-            groupId: ''
-
+            groupId: '',
+            isGroupDiscussion: false
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -55,9 +55,16 @@ class Chat extends React.Component {
         this.setState({ message: event.target.value });
     }
     handleSubmit(event) {
-        sendMessage(this.state.userId, this.state.receiverId, this.state.message, (err, data) => {
-            this.setState({ chatHistory: data });
-        })
+        if (!this.state.isGroupDiscussion){
+            sendMessage(this.state.userId, this.state.receiverId, this.state.message, (err, data) => {
+                this.setState({ chatHistory: data });
+            })
+        }
+        else{
+            sendGroupMessage(this.state.userId, this.state.recei, this.state.message, (err, data) => {
+                this.setState({ chatHistory: data });
+            })
+        }
         event.preventDefault();
     }
 
@@ -84,7 +91,7 @@ class Chat extends React.Component {
             })
             this.setState({ chatHistory: data })
         })
-        this.setState({ listOfFriends: listOfFriends, receiverId: event.currentTarget.id, receiverName: receiverName });
+        this.setState({ listOfFriends: listOfFriends, receiverId: event.currentTarget.id, receiverName: receiverName, isGroupDiscussion: false });
     }
 
     handleGroupClick(event) {
@@ -104,7 +111,7 @@ class Chat extends React.Component {
         getGroupMessage(event.currentTarget.id, (err, data) => {
             this.setState({ chatHistory: data })
         })
-        this.setState({receiverId: event.currentTarget.id, receiverName: receiverName });
+        this.setState({receiverId: event.currentTarget.id, receiverName: receiverName, isGroupDiscussion: true });
     }
 
     render() {
