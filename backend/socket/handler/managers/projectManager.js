@@ -27,5 +27,11 @@ module.exports = function (io) {
             const result = await projectController.updateProjectIsDeleted(pID,pIsDeleted);
             client.emit('UPDATE_PROJECT_ISDELETED', result);
         })
+
+        
+        client.on('USER_GET_PROJECTCATEGORIES', async (pID) => {
+            const result = await projectController.getCategories(pID);
+            client.emit('GET_PROJECTCATEGORIES', result);
+        })
     })
 };

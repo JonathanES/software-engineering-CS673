@@ -13,4 +13,9 @@ function getListOfProjects(userID, cb){
     socket.emit('USER_GET_PROJECTLIST',userID);
 }
 
-export {addProject, getListOfProjects};
+function showCategories(projectID, cb){
+    socket.on('GET_PROJECTCATEGORIES', data => cb(null, data) );
+    socket.emit('USER_GET_PROJECTCATEGORIES',projectID);
+}
+
+export {addProject, getListOfProjects, showCategories};

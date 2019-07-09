@@ -153,12 +153,12 @@ class Chat extends React.Component {
                                 <ul>
                                     {this.state.listOfFriends.map(friend =>
                                         <li>
-                                   <div class="personalname" id={friend.userId} onClick={this.handleClick}>
-                                  <div className={friend.isadd=="true"? "yuan yuanselect":"yuan"}></div>
-                                  <div class="charlefttext">
-                                  <span class="span-user-left">{friend.username}</span>
-                                  </div>
-                                </div>
+                                            <div class="personalname" id={friend.userId} onClick={this.handleClick}>
+                                                <div className={friend.isadd == "true" ? "yuan yuanselect" : "yuan"}></div>
+                                                <div class="charlefttext">
+                                                    <span class="span-user-left">{friend.username}</span>
+                                                </div>
+                                            </div>
                                         </li>
                                     )}
                                 </ul>

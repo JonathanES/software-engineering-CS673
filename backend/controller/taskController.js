@@ -34,7 +34,7 @@ async function getListofTasksForUser(userID){
            if (error) throw error;
            resolve(listofTaskUsers);
            //console.log('Get List of Tasks for Users called');
-           //console.log(listofTaskUsers);
+           console.log(listofTaskUsers);
        });
     })
 }
@@ -51,7 +51,7 @@ function getListofTasks(categoryID){
                }
            })
            if (error) throw error;
-           resolve(results);
+           resolve(listOfTasks);
        });
     })
 }

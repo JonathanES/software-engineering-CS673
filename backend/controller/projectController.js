@@ -3,6 +3,7 @@ const client = require('../config/database');
 const ProjectModel = require('../model/ProjectModel');
 
 const listOfProjects = [];
+const listOfCategories = [];
 let pID = -1;
 
 //Function to add a new Project
@@ -55,6 +56,25 @@ function getListOfProjects(userID) {
 }
 
 
+function getCategories(pID) {
+    return new Promise((resolve, reject) => {
+        console.log('Categories for Project:', pID)
+        client.query('SELECT * FROM Categories WHERE ProjectID = ?', [pID], function (error, results, fields) {
+            //console.log(results);
+            results.forEach(result => {
+                if (!listOfCategories.some(project => project.getProjectID == result.ProjectID)) {
+                    const project = new ProjectModel(result.ProjectID, result.ProjectName, result.DateCreated, result.DueDate);
+                    listOfCategories.push(project);
+                }
+            })
+            if (error) throw error;
+            resolve(listOfCategories);
+
+        });
+    })
+}
+
+
 
 async function updateProjectName(projectID, projectName) {
     return new Promise(async resolve => {
@@ -97,5 +117,6 @@ module.exports = {
     getListofProjects: getListOfProjects,
     updateProjectName: updateProjectName,
     updateProjectDueDate: updateProjectDueDate,
-    updateProjectIsDeleted: updateProjectIsDeleted
+    updateProjectIsDeleted: updateProjectIsDeleted,
+    getCategories: getCategories
 }

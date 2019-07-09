@@ -16,4 +16,16 @@ input {
     border: 15px solid silver;
     padding: 20px;
     margin: 10px;
+    display:inline-block;
+    /* width:30px;
+    height:30px; */
+    background-color:#ccc;
+    border:1px solid #ff0000;
+    align-content: center;
+    align-items: center;
+    
+}
+
+.span-project-mid{
+    margin-left: 35%;
 }

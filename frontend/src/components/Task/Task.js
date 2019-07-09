@@ -68,7 +68,18 @@ class Task extends React.Component {
                                 <div id={task.taskName} onClick={this.handleClick}>
                                 </div>
                                 <div class="user-task" >
-                                    <span class="span-user-left">{task.taskName}</span>
+                                    <span class="span-user-left"> {task.taskName}</span>
+                                    <ul>
+                                    <li>
+                                    <span class="span-user-left"> Priority: {task.priorityID}</span>
+                                    </li>
+                                    <li>
+                                    <span class="span-user-left"> Status: {task.statusID}</span>
+                                    </li>
+                                    <li>
+                                    <span class="span-user-left"> Assigned To: {this.state.username}</span>
+                                    </li>
+                                    </ul>
                                 </div>
                             </li>
                         )}
