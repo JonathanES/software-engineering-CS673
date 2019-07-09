@@ -7,10 +7,10 @@ const Issues = [];
 
 //// ASYNC CALLABLE FUNCTIONS ////
 // Method to create a new Issue
-async function createNewIssue(issueName, issueSummary, projectID, issueStatusID, userID, responsibleUserID, commentID, priorityID) {
+async function createNewIssue(issueName, issueSummary, projectID, issueStatusID, userID, responsibleUserID, priorityID) {
     return new Promise(async (resolve, reject) => {
-        client.query("INSERT INTO Issues(ProjectID, IssueStatusID, AssigneeID, AssignedToID, CommentID, PriorityID, IssueName, Summary, DateCreated, LastUpdate, DateResolved, IsResolved) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",
-                     [projectID, issueStatusID, userID, responsibleUserID, commentID, priorityID, issueName, issueSummary, dateCreated, lastUpdate, dateResolved, isResolved],
+        client.query("INSERT INTO Issues(ProjectID, IssueStatusID, AssigneeID, AssignedToID, PriorityID, IssueName, Summary, DateCreated, LastUpdate, DateResolved, IsResolved) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",
+                     [projectID, issueStatusID, userID, responsibleUserID, priorityID, issueName, issueSummary, dateCreated, lastUpdate, dateResolved, isResolved],
                       async (error, results, fields) => {
                           if(error) throw error;
                           resolve(results.insertId);
