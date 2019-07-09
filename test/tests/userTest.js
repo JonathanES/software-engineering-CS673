@@ -102,13 +102,13 @@ describe('User test', function () {
     let client = io.connect(socketUrl, options);
 
     client.on('connect', function () {
-      client.emit('USER_FRIENDS', 2);
+      client.emit('USER_FRIENDS', 11);
       client.on('FRIENDS', data => {
-        expect(data[0].userId).to.equal(3);
-        expect(data[0].username).to.equal('toto');
-        expect(data[0].email).to.equal('toto@gmail.com')
+        expect(data[8].userId).to.equal(12);
+        expect(data[8].username).to.equal('toto');
+        expect(data[8].email).to.equal('toto@gmail.com')
         expect(data.length).to.be.above(0);
-        expect(data.some(elt => elt.userId == 1)).to.equal(false);
+        expect(data.some(elt => elt.userId == 11)).to.equal(false);
         expect(data.some(elt => elt.username == "Jonathan")).to.equal(false);
         client.disconnect();
         done();

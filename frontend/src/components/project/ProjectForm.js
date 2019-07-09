@@ -10,10 +10,15 @@ class ProjectForm extends Component {
 
   render() {
     return (
-      <div>
+      <div className='ProjectForm'>
+        <div className='ProjectForm\_inner'>
+          <h1>{this.props.text}</h1>
+          <button onClick={this.props.closeProjectForm}>close me</button>
+        </div>
       </div>
     );
   }
 }
 
 export default ProjectForm;
+
