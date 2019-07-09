@@ -68,7 +68,7 @@ function getCategories(pID) {
                 }
             })
             if (error) throw error;
-            resolve(listOfCategories);
+            resolve(results);
 
         });
     })

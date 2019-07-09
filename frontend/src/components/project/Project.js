@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import io from "socket.io-client";
 import { addProject, getListOfProjects, showCategories } from '../../socket/projectSocket';
+import ProjectTask from '../Task/projectTask.js';
 //import {userId} from '../../socket/userSocket';
 import '../../css/project.css'
 
@@ -9,6 +10,7 @@ const mapStateToProps = state => ({
     username: state.user.username,
     userId: state.user.userId,
     projectID: state.project.projectID,
+    isProjectSelected: state.project.isProjectSelected
     //taskname: state.Task.newtask
 });
 
@@ -75,27 +77,14 @@ class Project extends React.Component {
     }
 
     handleClickProject(event) {
-        console.log('Add Task button pressed before call');
-        const projectcategories = this.state.projectcategories;
-        let pIDS = "";
-        projectcategories.forEach(elt => {
-            if (elt.projectID == event.target.id) {
-                elt.color = "red";
-                elt.isadd='true'
-                pIDS = elt.projectID;
-            }
-            else
-                elt.isadd='false'
-                elt.color = "rgb(155, 121, 156)";
-        })
-        console.log('Add Task button pressed before call');
+        showCategories(event.currentTarget.id, (err,data) => {
+            console.log(data);
+           this.props.dispatch({type:'USER_PROJECT_TASK_DEMAND', projectTaskList:data});
+        });
 
-        showCategories(this.state.projectID, (err, data) => {
-            console.log('Add Project button pressed');
-            this.setState({ projectcategories: data });
-            console.log("inside handleSubmit");
+        this.props.dispatch({type:'USER_IS_PROJECT_DEMAND'});
+        
 
-        })
         event.preventDefault();
     }
 
@@ -105,9 +94,9 @@ class Project extends React.Component {
                 <div class="direct">
                     <div class="title">User Projetcs</div>
                     <ul>
-                        {this.state.getListofProjects.map(project =>
+                        {!this.props.isProjectSelected && this.state.getListofProjects.map(project =>
                             <li>
-                                <div id={project.projectName} onClick={this.handleClickProject}>
+                                <div id={project.projectID} onClick={this.handleClickProject}>
                                     <div class={project.isadd == "true" ? "yuan yuanselect" : "yuan"}></div>
                                     <div class="user-project" >
                                         <span class="span-project-mid">{project.projectName}</span>
@@ -115,6 +104,7 @@ class Project extends React.Component {
                                 </div>
                             </li>
                         )}
+                        {this.props.isProjectSelected && <ProjectTask  dispatch={this.props.dispatch}/>}
                     </ul>
                 </div>
 

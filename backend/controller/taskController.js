@@ -15,7 +15,7 @@ async function insertNewTask(parentID, categoryID, userID, statusID, priorityID,
         client.query('INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, Taskname, Taskinfo, CreatedDate, ExpectedDuration, ActualTimeSpent) VALUES(?,?,?,?,?,?,?,NOW(),?,?)', [parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo,  expectedDuration, actualTimeSpent], async function (error, results, fields) {
             if (error) throw error;
             const tasks = await getListofTasks(categoryID);
-            resolve(tasks);
+            resolve(results);
         });
     })
 }
@@ -32,9 +32,9 @@ async function getListofTasksForUser(userID){
                }
            })
            if (error) throw error;
-           resolve(listofTaskUsers);
+           resolve(results);
            //console.log('Get List of Tasks for Users called');
-           console.log(listofTaskUsers);
+           //console.log(listofTaskUsers);
        });
     })
 }
