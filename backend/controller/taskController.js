@@ -6,6 +6,7 @@ const TaskModel = require('../model/TaskModel');
 
 
 const listOfTasks = [];
+const listofTaskUsers = [];
 
 //Function to add a task to a specific category.
 //Frontend should call this function when they are in a project and under a category. Similar to Trello
@@ -19,6 +20,25 @@ async function insertNewTask(parentID, categoryID, userID, statusID, priorityID,
     })
 }
 
+async function getListofTasksForUser(userID){
+    return new Promise((resolve, reject) => {
+        console.log(userID);
+       client.query('SELECT * FROM Tasks  WHERE UserID = ?', [userID], function (error, results, fields) {
+           //console.log(results);
+           results.forEach(result => {
+               if (!listofTaskUsers.some(task => task.getTaskID == result.TaskID)){
+                   const task = new TaskModel(result.TaskID, result.ParentID, result.CategoryID, result.UserID, result.StatusID, result.PriorityID, result.TaskName, result.TaskInfo, result.CreatedDate, result.ExpectedDuration, result.ActualTimeSpent, result.IsDeleted);
+                   listofTaskUsers.push(task);
+               }
+           })
+           if (error) throw error;
+           resolve(listofTaskUsers);
+           //console.log('Get List of Tasks for Users called');
+           //console.log(listofTaskUsers);
+       });
+    })
+}
+
 //this function will return the list of task under the category.
 function getListofTasks(categoryID){
     return new Promise((resolve, reject) => {
@@ -26,7 +46,7 @@ function getListofTasks(categoryID){
            //console.log(results);
            results.forEach(result => {
                if (!listOfTasks.some(task => task.getTaskID == result.TaskID)){
-                   const task = new TaskModel(result.TaskID, result.ParentID, result.CategoryID, result.UserID, result.StatusID, result.Priority, result.TaskName, result.TaskInfo, result.CreatedDate, result.ExpectedDuration, result.ActualTimeSpent);
+                   const task = new TaskModel(result.TaskID, result.ParentID, result.CategoryID, result.UserID, result.StatusID, result.PriorityID, result.TaskName, result.TaskInfo, result.CreatedDate, result.ExpectedDuration, result.ActualTimeSpent, result.IsDeleted);
                    listOfTasks.push(task);
                }
            })
@@ -122,6 +142,7 @@ async function updateIsDeleted(taskID, isDeleted) {
 module.exports = {
     insertNewTask: insertNewTask,
     getListofTasks: getListofTasks,
+    getListofTasksForUser: getListofTasksForUser,
     updateStatus: updateStatus,
     updatePriority: updatePriority,
     updateTaskName: updateTaskName,

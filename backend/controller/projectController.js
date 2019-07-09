@@ -38,7 +38,9 @@ async function findProjectID(projectName) {
 //this function will return the list of Projects for user
 function getListOfProjects(userID) {
     return new Promise((resolve, reject) => {
+        console.log('Project for user:', userID)
         client.query('SELECT * FROM Projects P Join ProjectUsers PU on P.ProjectID = PU.ProjectID WHERE PU.UserID = ?', [userID], function (error, results, fields) {
+            //console.log(results);
             results.forEach(result => {
                 if (!listOfProjects.some(project => project.getProjectID == result.ProjectID)) {
                     const project = new ProjectModel(result.ProjectID, result.ProjectName, result.DateCreated, result.DueDate);
@@ -46,7 +48,7 @@ function getListOfProjects(userID) {
                 }
             })
             if (error) throw error;
-            resolve(results);
+            resolve(listOfProjects);
 
         });
     })
