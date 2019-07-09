@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import '../../css/group-chat.css'
 
 const mapStateToProps = state => ({
     addGroup: state.message.addGroup
@@ -37,13 +38,13 @@ class AddGroup extends Component {
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Modal Header</h4>
+                                <h4 class="modal-title">Add GroupChannel</h4>
                             </div>
                             <form onSubmit={this.handleSubmit}>
                                 <input id="message-box" type="text" value={this.state.message} onChange={this.handleChange} />
-                                <button class="sendbtn" type="submit">SEND</button>
+                                <button class="submit" type="submit">Submit</button>
                                 <div class="modal-body">
-                                    <p>Some text in the modal.</p>
+                                    <p>Some text</p>
                                 </div>
                                 <div class="modal-footer">
                                     <button  type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
