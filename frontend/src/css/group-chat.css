@@ -27,6 +27,7 @@ input {
     right: 0;
     background: rgba(0,0,0,0.3);
     z-index: 999;
+    border: 1px solid #888;
 }
 .modal-content{
   position: absolute;
@@ -35,7 +36,8 @@ input {
   padding: 0;
   border: 1px solid #888;
   width: 80%;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  height:40%;
+  /*box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);*/
   animation-name: animatetop;
   animation-duration: 0.4s
 }
@@ -50,7 +52,7 @@ input {
     border:10;
     outline: 10;
     left:88%;  
-    top:51%; 
+    top:75%; 
 }
 .modal-footer {
     height: 8%;
@@ -64,14 +66,20 @@ input {
 .submit{  
    position:absolute;  
    height: 35px;
-    width: 80px;
-    border-radius: 10px;
-    background-color:blue;
-    color: white;
-    font-weight: bold;
-    border:10;
-    outline: 10;
+   width: 80px;
+   border-radius: 10px;
+   background-color:#0a8cdd;
+   color: white;
+   font-weight: bold;
+   border:10;
+   outline: 10;
    left:90%;  
-   top:120%;  
+   top:110%;  
    margin:-100px 0 0 -100px 
+}
+.close{
+    position:absolute;
+    left:95%;  
+    top:5%;  
+
 }
