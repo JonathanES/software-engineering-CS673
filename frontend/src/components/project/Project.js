@@ -30,7 +30,7 @@ class Project extends Component {
 
   componentDidMount() {
     //getMessage();
-    console.log(userID);
+    //console.log(userID);
     getProjects(this.state.userID, (err, data) => {
       data.forEach(elt => {
         elt.isadd = 'false'
@@ -39,7 +39,7 @@ class Project extends Component {
       this.setState({ listOfProjects: data });
     });
 
-    console.log(listOfProjects);
+    //console.log(listOfProjects);
   }
 
   handleChange(event) {
