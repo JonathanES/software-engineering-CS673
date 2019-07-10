@@ -7,7 +7,18 @@ module.exports = function (io) {
             const result = await taskController.insertNewTask(parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, expectedDuration, actualTimeSpent);
             client.emit('CREATE_TASK', result);
            })
-            
+        
+        
+        client.on('USER_GET_TASKLIST_USERID', async (userID) => {
+            const result = await taskController.getListofTasksForUser(userID);
+            client.emit('GET_TASKLIST_USERID', result);
+        })
+
+        client.on('USER_GET_TASKLIST_CATEGORYID', async (categoryID) => {
+            const result = await taskController.getListofTasksForCategories(categoryID);
+            client.emit('GET_TASKLIST_CATEGORYID', result);
+        })
+
         client.on('USER_GET_TASKLIST', async (categoryID) => {
             const result = await taskController.getListofTasks(categoryID);
             client.emit('GET_TASKLIST', result);

@@ -1,130 +1,125 @@
-import React, { Component } from 'react';
+import React from "react";
 import { connect } from 'react-redux';
 import io from "socket.io-client";
+import { addProject, getListOfProjects, showCategories } from '../../socket/projectSocket';
+import ProjectTask from '../Task/projectTask.js';
+//import {userId} from '../../socket/userSocket';
+import '../../css/project.css'
 
-import { addproject, getProjects } from '../../socket/projectSocket';
-//import { connect } from 'tls';
-
-import '../../css/project.css';
-
-const maptoStateToProps = state => ({
-  username: state.user.username,
-  userID: state.user.userID
+const mapStateToProps = state => ({
+    username: state.user.username,
+    userId: state.user.userId,
+    projectID: state.project.projectID,
+    isProjectSelected: state.project.isProjectSelected
+    //taskname: state.Task.newtask
 });
 
+class Project extends React.Component {
+    constructor(props) {
+        super(props);
 
-class Project extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userID: props.userID,
-      username: props.username,
-      projectName: props.projectName,
-      dueDate: props.dueDate,
-      listOfProjects: []
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-  }
+        this.state = {
+            userId: props.userId,
+            username: props.username,
+            projectID: props.projectID,
+            getListofProjects : [],
+            projectcategories: [],
+            newtask: '',
+            projectName: "User Projetcs"
+        };
 
-  componentDidMount() {
-    //getMessage();
-    //console.log(userID);
-    getProjects(this.state.userID, (err, data) => {
-      data.forEach(elt => {
-        elt.isadd = 'false'
-        elt.color = "rgb(155, 121, 156)";
-      })
-      this.setState({ listOfProjects: data });
-    });
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.handleClickProject= this.handleClickProject.bind(this);
 
-    //console.log(listOfProjects);
-  }
+    }
 
-  handleChange(event) {
-    // this.setState({ message: event.target.value });
-  }
+    componentDidMount() {
+        //getMessage();
+        getListOfProjects(this.state.userId, (err, data) => {
+            //console.log('inside getTaskUsers in ../src/components/Task/Task.js')
+            //console.log(data);
 
-  handleSubmit(event) {
-    // addproject(this.state.userID, this.state.projectName, this.state.dueDate, (err, data) => {
-    //   this.setState({ listOfProjects: data });
-    // })
-    // event.preventDefault();
-  }
+            // data.forEach(elt => {
+            //     elt.isadd = 'false'
+            //     elt.color = "rgb(155, 121, 156)";
+            // })
+            this.setState({ getListofProjects: data });
+        });
+    }
 
-  handleClick(event) {
-    // const listOfProjects = this.state.listOfProjects;
-    // listOfProjects.forEach(elt => {
-    //   getProjects(this.state.userID, (err, data) => {
-    //     this.setState({ listOfProjects: data })
-    //   })
-    //   this.setState({ listOfProjects: listOfProjects });
-    // })
-  }
+    handleChange(event) {
+        this.setState({ newproject: event.target.value });
+        //console.log("inside handleChange:" + event.target.value);
+    }
+    handleSubmit(event) {
+        console.log('Add Project button pressed before call');
 
+        addProject(this.state.username, this.state.newproject, (err, data) => {
+            console.log('Add Project button pressed');
+            this.setState({ newproject: data });
+            console.log("inside handleSubmit");
 
+        })
+        event.preventDefault();
+    }
 
+    handleClick(event) {
+        console.log('Add Task button pressed before call');
 
-  render() {
-    return (
-      <div class="box">
-        {/* <div class="leftbar">
-              <ul>
-                  <li><i class="fas fa-user"></i></li>
-                  <li><i class="fas fa-user-circle"></i></li>
-                  <li><i class="fas fa-wrench"></i></li>
-                  <li><i class="fas fa-folder-open"></i></li>
-                  <li><i class="fas fa-bell"></i></li>
-                  <li><i class="fas fa-envelope"></i></li>
-                  <li><i class="fas fa-power-off"></i></li>
-              </ul>
-          </div> */}
-        <div class="container">
-          <div class="chatbox">
-            <div class="chatleft">
-              <div class="top">
-                {/* <i class="fas fa-bars" style={{"font-size": "1.4em"}}></i>
-                          <input type="text" class="search-chatleft" placeholder="search"/>
-                          <button class="searchbtn"><i class="fas fa-search"/></button> */}
-                <div class="appname">
-                  SwelloDesk
-                          </div>
-                <div class="personalname">
-                  <div class="yuan yuanselect"></div>
-                  <div class="charlefttext">
-                    Yuanping Yao
-                            </div>
-                </div>
-              </div>
-              <div class="center">
-                {/* group message */}
+        showCategories(this.state.projectID, (err, data) => {
+            console.log('Add Project button pressed');
+            this.setState({ projectcategories: data });
+            console.log("inside handleSubmit");
 
+        })
+        event.preventDefault();
+    }
 
-                {/* direct message */}
+    handleClickProject(event) {
+        showCategories(event.currentTarget.id, (err,data) => {
+            console.log(data);
+            this.setState({projectName: data.length == 0 ? this.state.projectName : data[0].ProjectName})
+           this.props.dispatch({type:'USER_PROJECT_TASK_DEMAND', projectTaskList:data});
+        });
+
+        this.props.dispatch({type:'USER_IS_PROJECT_DEMAND'});
+        
+
+        event.preventDefault();
+    }
+
+    render() {
+        return (
+            <div>
                 <div class="direct">
-                  <div class="title">Direct Message</div>
-                  <ul>
-                    {this.state.listofProjects.map(project =>
-                      <li>
-                        <div class="personalname" id={project.userID} onClick={this.handleClick}>
-                          <div className={project.isadd == "true" ? "yuan yuanselect" : "yuan"}></div>
-                          <div class="charlefttext">
-                            <span class="span-user-left">{project.username}</span>
-                          </div>
-                        </div>
-                      </li>
-                    )}
-                  </ul>
+                    <div class="title">{this.state.projectName}</div>
+                    <ul>
+                        {!this.props.isProjectSelected && this.state.getListofProjects.map(project =>
+                            <li>
+                                <div id={project.projectID} onClick={this.handleClickProject}>
+                                    <div class={project.isadd == "true" ? "yuan yuanselect" : "yuan"}></div>
+                                    <div class="user-project" >
+                                        <span class="span-project-mid">{project.projectName}</span>
+                                    </div>
+                                </div>
+                            </li>
+                        )}
+                        {this.props.isProjectSelected && <ProjectTask  dispatch={this.props.dispatch}/>}
+                    </ul>
                 </div>
-              </div>
+
+                {/* <div class="add_task"> */}
+                <div>
+                    <form onSubmit={this.handleSubmit}>
+                        {/* <input id="add-task-input" type="text" value={this.state.newtask} onChange={this.handleChange} /> */}
+                        <button id="add-project-button" type="submit" onClick={this.handleClick}>Add Project</button>
+                    </form>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+        );
+    }
 }
 
-export default connect(maptoStateToProps)(Project);
-//export default connect(mapStateToProps)(Chat);
+export default connect(mapStateToProps)(Project);

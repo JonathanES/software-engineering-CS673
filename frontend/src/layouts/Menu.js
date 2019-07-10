@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
     tasks: state.user.tasks
 });
 
-const Menu = ({ dispatch, connexionDemand, registerDemand}) => (
+const Menu = ({ dispatch, connexionDemand, registerDemand }) => (
     <div>
         <aside>
             {!connexionDemand && !registerDemand &&
@@ -19,10 +19,14 @@ const Menu = ({ dispatch, connexionDemand, registerDemand}) => (
                         <figcaption>(profile name)</figcaption>
                     </figure>
                     <nav>
-                        <ul>
-                            <li><a href="#" onClick={(e) => dispatch({ type: 'USER_PROJECT_DEMAND' })}>Projects</a></li>
+                        <ul>    
+                            <li><a href="#" onClick={(e) => {
+                                dispatch({ type: 'USER_PROJECT_DEMAND' })
+                                dispatch({ type: 'USER_VIEW_PROJECT' })
+                            }
+                            }>Projects</a></li>
                             {<li><a onClick={(e) => dispatch({ type: 'USER_TASK_DEMAND' })} id="task"> Tasks</a></li>}
-                            <li><a href="#"  onClick={(e) => dispatch({ type: 'USER_ISSUE_DEMAND' })}>Issues</a></li>
+                            <li><a href="#" onClick={(e) => dispatch({ type: 'USER_ISSUE_DEMAND' })}>Issues</a></li>
                             <li><a href="#" onClick={(e) => dispatch({ type: 'USER_MESSAGE_DEMAND' })}>Messages</a></li>
                             {registerDemand && !connexionDemand && <li><a onClick={(e) => dispatch({ type: 'USER_CONNEXION_DEMAND' })} id="connect" >Login</a></li>}
                             {!registerDemand && !connexionDemand && <li><a className="red" onClick={(e) => dispatch({ type: 'USER_LOGOUT' })} id="disconnect"> Logout</a></li>}
