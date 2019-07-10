@@ -1,15 +1,15 @@
 class StatusModel {
-    constructor(statusID, status) {
+    constructor(statusID, statusName) {
       this.statusID = statusID;
-      this.status = status;
+      this.statusName = statusName;
     }
 
     get getStatusID() {
       return this.statusID;
     }
 
-    get getStatus() {
-        return this.status;
+    get getStatusName() {
+        return this.statusName;
       }
 
   }

@@ -1,39 +1,41 @@
 class CommentModel {
-    constructor(CommentID, IssueID, TaskID, CreatedBy, DateCreated, Message) {
-      this.CommentID = CommentID;
-      this.IssueID = IssueID;
-      this.TaskID = TaskID;
-      this.CreatedBy = CreatedBy;
-      this.DateCreated = DateCreated;
-      this.TaskInfo = TaskInfo;
-      this.Priority = Priority;
-      this.Message = Message;
-    }
-
-    get getCommentID() {
-      return this.CommentID;
-    }
-
-    get getIssueID() {
-        return this.IssueID;
-      }
-
-      get getTaskID() {
-        return this.TaskID;
-      }
-
-      get getCreatedBy() {
-        return this.CreatedBy;
-      }
-
-
-      get getDateCreated() {
-        return this.DateCreated;
-      }
-      get getMessage() {
-        return this.Message;
-      }
- 
+  constructor(commentID, issueID, taskID, createdBy, dateCreated, message, isDeleted) {
+    this.commentID = commentID;
+    this.issueID = issueID;
+    this.taskID = taskID;
+    this.createdBy = createdBy;
+    this.dateCreated = dateCreated;
+    this.message = message;
+    this.isDeleted = isDeleted
   }
-  
-  module.exports = CommentModel
+
+  get getCommentID() {
+    return this.commentID;
+  }
+
+  get getIssueID() {
+    return this.issueID;
+  }
+
+  get getTaskID() {
+    return this.taskID;
+  }
+
+  get getCreatedBy() {
+    return this.createdBy;
+  }
+
+  get getDateCreated() {
+    return this.dateCreated;
+  }
+  get getMessage() {
+    return this.message;
+  }
+
+  get getIsDeleted() {
+    return this.isDeleted;
+  }
+
+}
+
+module.exports = CommentModel

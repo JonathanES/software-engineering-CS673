@@ -3,9 +3,9 @@ const io = require('socket.io-client');
 const server = require('../../server.js');
 const socketUrl = 'http://localhost:8000';
 const db = require('../../backend/config/database');
-let groupId = 0;
-const userId = 2;
-const receiverId = 3;
+let groupId = 25;
+const userId = 11;
+const receiverId = 12;
 const groupName = "test";
 
 const options = {
@@ -26,11 +26,8 @@ describe('Messaging test', function () {
         expect(data[data.length - 1].senderId).to.equal(userId);
         expect(data[data.length - 1].receiverId).to.equal(receiverId);
         expect(data[data.length - 1].Message).to.equal('test');
-        db.query('DELETE FROM DirectMessaging WHERE Message = ? AND senderID = ? AND receiverID = ?', ['test', userId, receiverId], (error) => {
-          if (error) throw error;
-          client.disconnect();
-          done();
-        })
+        client.disconnect();
+        done();
       });
     });
   });
@@ -47,8 +44,11 @@ describe('Messaging test', function () {
         expect(data.length).to.be.above(0);
         expect(data[data.length - 1].senderId).to.equal(userId);
         expect(data[data.length - 1].receiverId).to.equal(receiverId);
-        client.disconnect();
-        done();
+        db.query('DELETE FROM DirectMessaging WHERE Message = ? AND senderID = ? AND receiverID = ?', ['test', userId, receiverId], (error) => {
+          if (error) throw error;
+          client.disconnect();
+          done();
+        })
       });
     });
   });
@@ -122,10 +122,10 @@ describe('Messaging test', function () {
 
       // Emit event when all clients are connected.
 
-      client.emit('USER_GET_USER_GROUP', userId);
-      client.on('GET_USER_GROUP', data => {
-        expect(data[0].groupId).to.be.equal(groupId);
-        expect(data[0].groupName).to.be.equal(groupName);
+      client.emit('USER_GET_USER_GROUPS', userId);
+      client.on('GET_USER_GROUPS', data => {
+        expect(data[0].GroupID).to.be.equal(groupId);
+        expect(data[0].GroupName).to.be.equal(groupName);
         client.disconnect();
         done();
       });
@@ -146,7 +146,7 @@ describe('Messaging test', function () {
         expect(data[0].groupID).to.be.equal(groupId);
         expect(data[0].userID).to.be.equal(userId);
         expect(data[0].Message).to.be.equal("hi");
-        expect(data[0].username).to.be.equal("Jonathan");
+        expect(data[0].senderName).to.be.equal("Jonathan");
         client.disconnect();
         done();
       });
@@ -167,7 +167,7 @@ describe('Messaging test', function () {
         expect(data[0].groupID).to.be.equal(groupId);
         expect(data[0].userID).to.be.equal(userId);
         expect(data[0].Message).to.be.equal("hi");
-        expect(data[0].username).to.be.equal("Jonathan");
+        expect(data[0].senderName).to.be.equal("Jonathan");
         db.query('DELETE FROM GroupUsers where GroupID = ?', [groupId], (error) => {
           if (error) throw error;
           db.query('DELETE FROM GroupMessaging where GroupID = ?', [groupId], (error) => {

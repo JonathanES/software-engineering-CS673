@@ -1,61 +1,129 @@
 // this client variable lets us connect to the database and realize the queries we need
 const client = require('../config/database');
-
+const ProjectModel = require('../model/ProjectModel');
+const taskController = require('./taskController');
 
 const listOfProjects = [];
+const listOfCategories = [];
+let pID = -1;
 
 //Function to add a new Project
 //Frontend should call this function when they are adding a new project, assumption is that the one who created the project will have admin rights
-async function insertNewProject  (userID, projectName, dueDate) {
+async function insertNewProject(userID, projectName, dueDate) {
     return new Promise(async resolve => {
         client.query('INSERT INTO Projects(ProjectName, DateCreated, DueDate) VALUES(?,NOW(),?)', [projectName, dueDate], async function (error, results, fields) {
             if (error) throw error;
-            const projects = await getListofProjects(userID);
+            const projects = await getListOfProjects(userID);
             resolve(projects);
         });
 
-        // I am assuming 1 = Admin for user accounts
-        client.query('INSERT INTO ProjectUsers(UserID, ProjectID, AccountTypeID) VALUES(?,?,?)', [userID, ProjectID, 1], async function (error, results, fields) {
+        let pID = await findProjectID(projectName);
+
+        //console.log('pID: ',pID);
+        client.query('INSERT INTO ProjectUsers(UserID, ProjectID, AccountTypeID) VALUES(?,?,?)', [userID, pID, 1], async function (error, results, fields) {
             if (error) throw error;
         });
     })
 }
 
-//this function will return the list of Projects for user
-function getListOfProjects(userID){
+async function findProjectID(projectName) {
     return new Promise((resolve, reject) => {
-       client.query('SELECT * FROM Projects P Join ProjectUsers PU on P.ProjectID = PU.ProjectID WHERE PU.UserID = ?', [userID], function (error, projects, fields) {
-        projects.forEach(project => {
-               if (!listOfProjects.some(elt => elt.getProjectID == project.ProjectID)){
-                   const ProjectModel = new ProjectModel(elt.ProjectID, elt.ProjectName, elt.DateCreated,elt.DueDate);
-                   listOfProjects.push(ProjectModel);
-               }
-           })
-           if (error) throw error;
-           resolve(projects);
-       });
+        client.query('SELECT * FROM Projects WHERE ProjectName = ?', [projectName], function (error, results, fields) {
+            const pID = results[results.length - 1].ProjectID;
+            if (error) throw error;
+            resolve(pID);
+        });
     })
-   }
+}
+
+
+//this function will return the list of Projects for user
+function getListOfProjects(userID) {
+    return new Promise((resolve, reject) => {
+        console.log('Project for user:', userID)
+        client.query('SELECT * FROM Projects P Join ProjectUsers PU on P.ProjectID = PU.ProjectID WHERE PU.UserID = ?', [userID], function (error, results, fields) {
+            //console.log(results);
+            results.forEach(result => {
+                if (!listOfProjects.some(project => project.getProjectID == result.ProjectID)) {
+                    const project = new ProjectModel(result.ProjectID, result.ProjectName, result.DateCreated, result.DueDate);
+                    listOfProjects.push(project);
+                }
+            })
+            if (error) throw error;
+            resolve(listOfProjects);
+
+        });
+    })
+}
+
+
+function getCategories(pID) {
+    return new Promise((resolve, reject) => {
+        console.log('Categories for Project:', pID)
+    client.query('SELECT * FROM Categories INNER JOIN Projects ON Projects.ProjectID = Categories.ProjectID  WHERE Categories.ProjectID = ?', [pID], async function (error, results, fields) {
+        if (error) throw error;
+            //console.log(results);
+            for (category of results){
+                const elt = await taskController.getListofTasksForCategories(category.CategoryID);
+                category["listOfTasks"] = elt;
+
+            }
+            // results.forEach(result => {
+            //     if (!listOfCategories.some(project => project.getProjectID == result.ProjectID)) {
+            //         const project = new ProjectModel(result.ProjectID, result.ProjectName, result.DateCreated, result.DueDate);
+            //         listOfCategories.push(project);
+            //     }
+            // })
+            if (error) throw error;
+            resolve(results);
+
+        });
+    })
+}
 
 
 
-// The following functions are the function related to Task Control
-//Frontend should use it to modify a task
-// async function updateStatus(taskID, statusID) {
-//     return new Promise(async resolve => {
+async function updateProjectName(projectID, projectName) {
+    return new Promise(async resolve => {
 
-//         client.query('UPDATE Tasks SET  SatusID = ?  WHERE TaskID = ?; ', [statusID,taskID], async function (error, results, fields) {
-//             if (error) throw error;
-//             console.log("Status modify function called");
-//             resolve(statusID);
-//         });
+        client.query('UPDATE Projects SET ProjectName = ?  WHERE ProjectID = ?; ', [projectName, projectID], async function (error, results, fields) {
+            if (error) throw error;
+            //console.log("updateProjectName function called");
+            resolve(projectName);
+        });
+    })
+}
+
+async function updateProjectDueDate(projectID, dueDate) {
+    return new Promise(async resolve => {
+
+        client.query('UPDATE Projects SET DueDate = ?  WHERE ProjectID = ?; ', [dueDate, projectID], async function (error, results, fields) {
+            if (error) throw error;
+            //console.log("updateProjectDueDate function called");
+            resolve(dueDate);
+        });
+    })
+}
 
 
-//     })
-//}
+async function updateProjectIsDeleted(projectID, isDeleted) {
+    return new Promise(async resolve => {
+
+        client.query('UPDATE Projects SET IsDeleted = ?  WHERE ProjectID = ?; ', [isDeleted, projectID], async function (error, results, fields) {
+            if (error) throw error;
+            //console.log("updateProjectIsDeleted function called");
+            resolve(isDeleted);
+        });
+    })
+}
 
 
 module.exports = {
     insertNewProject: insertNewProject,
-    getListofProjects: getListOfProjects
+    findProjectID: findProjectID,
+    getListofProjects: getListOfProjects,
+    updateProjectName: updateProjectName,
+    updateProjectDueDate: updateProjectDueDate,
+    updateProjectIsDeleted: updateProjectIsDeleted,
+    getCategories: getCategories
 }

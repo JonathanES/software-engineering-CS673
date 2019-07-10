@@ -3,6 +3,7 @@ CREATE DATABASE swellodeskDatabase;
 USE swellodeskDatabase;
 
 
+
 CREATE TABLE IF NOT EXISTS TaskStatus (
     StatusID INT AUTO_INCREMENT,
     StatusName VARCHAR(64) NOT NULL,
@@ -33,7 +34,7 @@ CREATE TABLE IF NOT EXISTS Users (
     UserID INT AUTO_INCREMENT,
     AccountStatusID INT DEFAULT 0,  /* --0 for active users, 1 for deleted users */ 
     username VARCHAR(30) NOT NULL,
-    email VARCHAR(50) NOT NULL,
+    email VARCHAR(50) UNIQUE,
     password VARCHAR(64) NOT NULL,
     salt VARCHAR(8) NOT NULL,
     PRIMARY KEY (UserID),
@@ -60,8 +61,6 @@ CREATE TABLE IF NOT EXISTS Categories (
     FOREIGN KEY fk_Categoriespid(ProjectID) REFERENCES Projects(ProjectID)
 )  ENGINE=INNODB;
 
-
-
 CREATE TABLE IF NOT EXISTS Tasks (
     TaskID INT AUTO_INCREMENT,
     ParentID INT NOT NULL,
@@ -69,7 +68,7 @@ CREATE TABLE IF NOT EXISTS Tasks (
     UserID INT NOT NULL,
     StatusID INT NOT NULL,
     PriorityID INT NOT NULL,
-    TaskName VARCHAR(30) NOT NULL,
+    TaskName VARCHAR(256) NOT NULL,
     TaskInfo VARCHAR(2048) NOT NULL,
     CreatedDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     ExpectedDuration INT,
@@ -91,7 +90,7 @@ CREATE TABLE IF NOT EXISTS Issues (
     AssigneeID INT NOT NULL,
     AssignedToID INT NOT NULL,
     PriorityID INT NOT NULL,
-    IssueName VARCHAR(64) NOT NULL,
+    IssueName VARCHAR(256) NOT NULL,
     Summary VARCHAR(4096) NOT NULL,
     DateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     LastUpdate TIMESTAMP NOT NULL,
@@ -127,8 +126,6 @@ CREATE TABLE IF NOT EXISTS AccountType (
     TypeName VARCHAR(30) NOT NULL,
     PRIMARY KEY (AccountTypeID)
 )  ENGINE=INNODB;
-
-
 
 
 CREATE TABLE IF NOT EXISTS DirectMessaging (
@@ -174,7 +171,7 @@ CREATE TABLE IF NOT EXISTS ProjectUsers (
     AccountTypeID INT,
     PRIMARY KEY (UserID, ProjectID, AccountTypeID),
     FOREIGN KEY fk_projectusersuid(UserID) REFERENCES Users(UserID),
-    FOREIGN KEY fk_projectuserspid(UserID) REFERENCES Projects(ProjectID),
+    FOREIGN KEY fk_projectuserspid(ProjectID) REFERENCES Projects(ProjectID),
     FOREIGN KEY fk_projectusersaid(AccountTypeID) REFERENCES AccountType(AccountTypeID)
 )  ENGINE=INNODB;
 
@@ -187,6 +184,27 @@ CREATE TABLE IF NOT EXISTS ProjectMileStones (
     PRIMARY KEY (MilestonesID),
     FOREIGN KEY fk_milestonepid(ProjectID) REFERENCES Projects(ProjectID)
 )  ENGINE=INNODB;
+
+
+
+ALTER TABLE Projects AUTO_INCREMENT = 1;
+ALTER TABLE TaskStatus AUTO_INCREMENT = 1;
+ALTER TABLE Tasks AUTO_INCREMENT = 1;
+
+ALTER TABLE Priority AUTO_INCREMENT = 1;
+ALTER TABLE Categories AUTO_INCREMENT = 1;
+ALTER TABLE ProjectMileStones AUTO_INCREMENT = 1;
+ALTER TABLE AccountType AUTO_INCREMENT = 1;
+ALTER TABLE AccountStatus AUTO_INCREMENT = 1;
+ALTER TABLE IssueStatus AUTO_INCREMENT = 1;
+ALTER TABLE Issues AUTO_INCREMENT = 1;
+ALTER TABLE Users AUTO_INCREMENT = 1;
+ALTER TABLE MessageGroups AUTO_INCREMENT = 1;
+ALTER TABLE GroupMessaging AUTO_INCREMENT = 1;
+ALTER TABLE DirectMessaging AUTO_INCREMENT = 1;
+ALTER TABLE Comments AUTO_INCREMENT = 1;
+
+
 
 
 
