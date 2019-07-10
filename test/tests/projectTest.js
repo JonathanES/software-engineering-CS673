@@ -47,8 +47,9 @@ describe('Testing communication with Projects table', function () {
                 
                 db.query('DELETE FROM ProjectUsers WHERE ProjectID = ? and UserID = ?', [pID, userID], (error) => {
                     if (error) throw error;
-                    client.disconnect();
+                    //client.disconnect();
                 })
+
 
                 db.query('DELETE FROM Projects WHERE ProjectID = ? ', [pID], (error) => {
                     if (error) throw error;

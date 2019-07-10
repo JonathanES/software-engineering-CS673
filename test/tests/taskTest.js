@@ -191,8 +191,7 @@ describe('Testing communication with Tasks table', function () {
             });
         });
     });
-    
-    
+
+
 
 });
-

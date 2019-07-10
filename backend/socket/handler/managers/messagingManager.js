@@ -20,26 +20,28 @@
          })
 
 
-         //client.emit('USER_CREATE_GROUP', "test", 2);
-
+         //create a group
          client.on('USER_CREATE_GROUP', async(groupName, userId) => {
              const result = await groupMessagingController.createGroup(groupName, userId);
              client.emit('CREATE_GROUP', result);
          })
 
+         //add user to a group
          client.on('USER_ADD_USER_GROUP', async(userId, groupId) => {
              const result = await groupMessagingController.addUserToGroup(userId, groupId);
              client.emit('ADD_USER_GROUP', result);
          })
 
+         // get users of a group
          client.on('USER_GET_GROUP_USERS', async(groupId) => {
             const result = await groupMessagingController.getGroupUsers(groupId);
             client.emit('GET_GROUP_USERS', result);
         })
 
-         client.on('USER_GET_USER_GROUP', async(userId) => {
+        // get groups of a user
+         client.on('USER_GET_USER_GROUPS', async(userId) => {
              const result = await groupMessagingController.getUserGroups(userId);
-             client.emit('GET_USER_GROUP', result);
+             client.emit('GET_USER_GROUPS', result);
          })
 
          client.on('USER_SEND_GROUP_MESSAGE', async (userID, groupID, message) => {

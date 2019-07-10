@@ -12,19 +12,27 @@ import {socket} from './config'
     socket.on('ADD_USER_GROUP', data => cb(null, data) );
     socket.emit('USER_ADD_USER_GROUP', userId, groupId);
   }
-  function getGroupUser(groupId, cb){
+    // get users of a group
+    function getGroupUsers(groupId, cb){
     socket.on('GET_GROUP_USERS', data => cb(null, data) );
     socket.emit('USER_GET_GROUP_USERS', groupId);
   }
 
-  function getUserGroup(userId, cb){
-    socket.on('GET_USERS_GROUP', data => cb(null, data) );
-    socket.emit('USER_GET_USER_GROUP', userId);
+  // get groups of a user
+  function getUserGroups(userId, cb){
+    socket.on('GET_USER_GROUPS', data => cb(null, data) );
+    socket.emit('USER_GET_USER_GROUPS', userId);
   }
 
+  // send a message to a group
   function sendGroupMessage(userId, groupId,message,cb){
     socket.on('SEND_GROUP_MESSAGE', data => cb(null, data) );
     socket.emit('USER_SEND_GROUP_MESSAGE', userId,groupId,message);
   }
 
-  export {createGroup, addUserGroup,getGroupUser,getUserGroup,sendGroupMessage};
+function getGroupMessage(groupID, cb){
+  socket.on('SEND_GROUP_MESSAGE', data => cb(null, data) );
+  socket.emit('USER_GET_GROUP_MESSAGE', groupID);
+}
+
+  export {createGroup, addUserGroup,getGroupUsers,getUserGroups,sendGroupMessage, getGroupMessage};

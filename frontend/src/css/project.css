@@ -1,7 +1,7 @@
 html, body, #root, #wrapper,.box {
     margin: 0;
     height: 100%;
-    overflow: hidden;
+    overflow-y:scroll;    
 }
 li {
     list-style: none;
