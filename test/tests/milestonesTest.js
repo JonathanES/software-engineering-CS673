@@ -7,6 +7,7 @@ const db = require('../../backend/config/database');
 let milestoneID = 1;
 const milestoneName = 'Test Milestone';
 const nmilestoneName = 'New Test Milestone';
+const dueDate = '2011-01-01T05:00:00.000Z';
 const projectID = 1;
 const isDeleted = 0;
 
@@ -24,7 +25,7 @@ describe('Milestones test', function () {
     client.on('connect', function () {
 
       // Emit event when all clients are connected.
-      client.emit('USER_CREATE_MILESTONE', projectID, milestoneName);
+      client.emit('USER_CREATE_MILESTONE', projectID, milestoneName, dueDate);
       client.on('CREATE_MILESTONE', data => {
         client.emit('USER_GET_MILESTONE', data.insertId);
         client.on('GET_MILESTONE', ress => {

@@ -1,9 +1,10 @@
 class ProjectsMilestones {
-  constructor(MilestoneID, ProjectID, MilestoneName, DateCreated, IsCompleted){
+  constructor(MilestoneID, ProjectID, MilestoneName, DateCreated, DueDate, IsCompleted){
     this.MilestoneID = MilestoneID;
     this.ProjectID = ProjectID;
     this.MilestoneName = MilestoneName;
     this.DateCreated = DateCreated;
+    this.DueDate = DueDate;
     this.IsCompleted = IsCompleted;
     }
   get getMilestoneID(){
@@ -17,6 +18,9 @@ class ProjectsMilestones {
   }
   get getDateCreated(){
     return this.DateCreated;
+  }
+  get getDueDate(){
+    return this.DueDate;
   }
   get getIsCompleted(){
     return this.IsCompleted;

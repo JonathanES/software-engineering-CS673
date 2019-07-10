@@ -2,8 +2,8 @@ const projectMilestonesController = require('../../../controller/projectMileston
 module.exports = function (io) {
     //connect to the socket so that we can link with the frontend
     io.on('connection', client => {
-        client.on('USER_CREATE_MILESTONE', async (projectID, milestoneName) => {
-            const result = await projectMilestonesController.insertNewMilestone(projectID, milestoneName)
+        client.on('USER_CREATE_MILESTONE', async (projectID, milestoneName, dueDate) => {
+            const result = await projectMilestonesController.insertNewMilestone(projectID, milestoneName, dueDate)
             client.emit('CREATE_MILESTONE', result);
            })
 
@@ -26,11 +26,11 @@ module.exports = function (io) {
             client.emit('UPDATE_MILESTONE_NAME', result);
         })
 
-        // client.on('USER_UPDATE_MILESTONE_DATE', async (milestoneID, date) => {
-        //     const result = await projectMilestonesController.updateMilestoneDate(milestoneID, date)
-        //     //client.emit('SEND_MESSAGE', result);
-        //     client.emit('UPDATE_MILESTONE_DATE', result);
-        // })
+        client.on('USER_UPDATE_MILESTONE_DATE', async (milestoneID, dueDate) => {
+            const result = await projectMilestonesController.updateMilestoneDate(milestoneID, dueDate)
+            //client.emit('SEND_MESSAGE', result);
+            client.emit('UPDATE_MILESTONE_DATE', result);
+        })
 
         client.on('USER_UPDATE_MILESTONE_COMPLETED', async (milestoneID, isCompleted) => {
             const result = await projectMilestonesController.updateIsCompleted(milestoneID, isCompleted)
