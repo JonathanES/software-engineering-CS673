@@ -6,6 +6,7 @@ const TaskModel = require('../model/TaskModel');
 
 
 const listOfTasks = [];
+const listofTaskUsers = [];
 
 //Function to add a task to a specific category.
 //Frontend should call this function when they are in a project and under a category. Similar to Trello
@@ -14,8 +15,54 @@ async function insertNewTask(parentID, categoryID, userID, statusID, priorityID,
         client.query('INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, Taskname, Taskinfo, CreatedDate, ExpectedDuration, ActualTimeSpent) VALUES(?,?,?,?,?,?,?,NOW(),?,?)', [parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo,  expectedDuration, actualTimeSpent], async function (error, results, fields) {
             if (error) throw error;
             const tasks = await getListofTasks(categoryID);
-            resolve(tasks);
+            resolve(results);
         });
+    })
+}
+
+async function getSingleTask(taskID) {
+    return new Promise(resolve => {
+        client.query('SELECT * FROM Tasks  WHERE TaskID = ?', [taskID], function (error, results, fields) {
+            if (error) throw error;
+            resolve(results);
+        })
+    })
+}
+
+async function getListofTasksForUser(userID){
+    return new Promise((resolve, reject) => {
+        console.log(userID);
+       client.query('SELECT T.TaskID, T.ParentID, T.CategoryID, T.UserID, TS.StatusName, P.Priority, T.TaskName, T.TaskInfo, T.CreatedDate, T.ExpectedDuration, T.ActualTimeSpent, T.IsDeleted FROM Tasks T JOIN TaskStatus TS on TS.StatusID = T.StatusID JOIN Priority P ON T.PriorityID = P.PriorityID WHERE UserID = ?', [userID], function (error, results, fields) {
+           //console.log(results);
+           results.forEach(result => {
+               if (!listofTaskUsers.some(task => task.getTaskID == result.TaskID)){
+                   const task = new TaskModel(result.TaskID, result.ParentID, result.CategoryID, result.UserID, result.StatusName, result.Priority, result.TaskName, result.TaskInfo, result.CreatedDate, result.ExpectedDuration, result.ActualTimeSpent, result.IsDeleted);
+                   listofTaskUsers.push(task);
+               }
+           })
+           if (error) throw error;
+           resolve(listofTaskUsers);
+           //console.log('Get List of Tasks for Users called');
+           //console.log(listofTaskUsers);
+       });
+    })
+}
+
+async function getListofTasksForCategories(categoryID){
+    return new Promise((resolve, reject) => {
+       client.query('SELECT * FROM Tasks  WHERE CategoryID = ?', [categoryID], function (error, results, fields) {
+           //console.log(results);
+        //    results.forEach(result => {
+        //        if (!listofTaskUsers.some(task => task.getTaskID == result.TaskID)){
+        //            const task = new TaskModel(result.TaskID, result.ParentID, result.CategoryID, result.UserID, result.StatusID, result.PriorityID, result.TaskName, result.TaskInfo, result.CreatedDate, result.ExpectedDuration, result.ActualTimeSpent, result.IsDeleted);
+        //            listofTaskUsers.push(task);
+        //        }
+        //    })
+           if (error) throw error;
+           resolve(results);
+           //console.log('Get List of Tasks for Users called');
+           //console.log(listofTaskUsers);
+       });
     })
 }
 
@@ -26,12 +73,12 @@ function getListofTasks(categoryID){
            //console.log(results);
            results.forEach(result => {
                if (!listOfTasks.some(task => task.getTaskID == result.TaskID)){
-                   const task = new TaskModel(result.TaskID, result.ParentID, result.CategoryID, result.UserID, result.StatusID, result.Priority, result.TaskName, result.TaskInfo, result.CreatedDate, result.ExpectedDuration, result.ActualTimeSpent);
+                   const task = new TaskModel(result.TaskID, result.ParentID, result.CategoryID, result.UserID, result.StatusID, result.PriorityID, result.TaskName, result.TaskInfo, result.CreatedDate, result.ExpectedDuration, result.ActualTimeSpent, result.IsDeleted);
                    listOfTasks.push(task);
                }
            })
            if (error) throw error;
-           resolve(results);
+           resolve(listOfTasks);
        });
     })
 }
@@ -122,11 +169,14 @@ async function updateIsDeleted(taskID, isDeleted) {
 module.exports = {
     insertNewTask: insertNewTask,
     getListofTasks: getListofTasks,
+    getListofTasksForUser: getListofTasksForUser,
+    getSingleTask:getSingleTask,
     updateStatus: updateStatus,
     updatePriority: updatePriority,
     updateTaskName: updateTaskName,
     updateTaskInfo: updateTaskInfo,
     updateExpectedDuration: updateExpectedDuration,
     updateActualTimeSpent: updateActualTimeSpent,
-    updateIsDeleted: updateIsDeleted
+    updateIsDeleted: updateIsDeleted,
+    getListofTasksForCategories:getListofTasksForCategories
 }

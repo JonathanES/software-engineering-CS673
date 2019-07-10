@@ -37,8 +37,8 @@ class AddGroup extends Component {
 
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Add GroupChannel</h4>
+                                <button type="button" class="close" data-dismiss="modal" onClick={this.handleSubmit}>&times;</button>
+                                <h4 class="modal-title">Add Group Channel</h4>
                             </div>
                             <form onSubmit={this.handleSubmit}>
                                 <input id="message-box" type="text" value={this.state.message} onChange={this.handleChange} />

@@ -1,8 +1,10 @@
 // this client variable lets us connect to the database and realize the queries we need
 const client = require('../config/database');
 const ProjectModel = require('../model/ProjectModel');
+const taskController = require('./taskController');
 
 const listOfProjects = [];
+const listOfCategories = [];
 let pID = -1;
 
 //Function to add a new Project
@@ -38,13 +40,40 @@ async function findProjectID(projectName) {
 //this function will return the list of Projects for user
 function getListOfProjects(userID) {
     return new Promise((resolve, reject) => {
+        console.log('Project for user:', userID)
         client.query('SELECT * FROM Projects P Join ProjectUsers PU on P.ProjectID = PU.ProjectID WHERE PU.UserID = ?', [userID], function (error, results, fields) {
+            //console.log(results);
             results.forEach(result => {
                 if (!listOfProjects.some(project => project.getProjectID == result.ProjectID)) {
                     const project = new ProjectModel(result.ProjectID, result.ProjectName, result.DateCreated, result.DueDate);
                     listOfProjects.push(project);
                 }
             })
+            if (error) throw error;
+            resolve(listOfProjects);
+
+        });
+    })
+}
+
+
+function getCategories(pID) {
+    return new Promise((resolve, reject) => {
+        console.log('Categories for Project:', pID)
+    client.query('SELECT * FROM Categories INNER JOIN Projects ON Projects.ProjectID = Categories.ProjectID  WHERE Categories.ProjectID = ?', [pID], async function (error, results, fields) {
+        if (error) throw error;
+            //console.log(results);
+            for (category of results){
+                const elt = await taskController.getListofTasksForCategories(category.CategoryID);
+                category["listOfTasks"] = elt;
+
+            }
+            // results.forEach(result => {
+            //     if (!listOfCategories.some(project => project.getProjectID == result.ProjectID)) {
+            //         const project = new ProjectModel(result.ProjectID, result.ProjectName, result.DateCreated, result.DueDate);
+            //         listOfCategories.push(project);
+            //     }
+            // })
             if (error) throw error;
             resolve(results);
 
@@ -95,5 +124,6 @@ module.exports = {
     getListofProjects: getListOfProjects,
     updateProjectName: updateProjectName,
     updateProjectDueDate: updateProjectDueDate,
-    updateProjectIsDeleted: updateProjectIsDeleted
+    updateProjectIsDeleted: updateProjectIsDeleted,
+    getCategories: getCategories
 }

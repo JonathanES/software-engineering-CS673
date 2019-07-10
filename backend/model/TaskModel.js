@@ -1,5 +1,5 @@
 class TaskModel {
-  constructor(taskID, parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, createdDate, expecedDuration, actualTimeSpent, isDeleted) {
+  constructor(taskID, parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, createdDate, expectedDuration, actualTimeSpent, isDeleted) {
     this.taskID = taskID;
     this.parentID = parentID;
     this.categoryID = categoryID;
@@ -9,7 +9,7 @@ class TaskModel {
     this.taskName = taskName;
     this.taskInfo = taskInfo;
     this.createdDate = createdDate;
-    this.expecedDuration = expecedDuration;
+    this.expectedDuration = expectedDuration;
     this.actualTimeSpent = actualTimeSpent;
     this.isDeleted = isDeleted;
   }
