@@ -32,16 +32,16 @@ async function getSingleTask(taskID) {
 async function getListofTasksForUser(userID){
     return new Promise((resolve, reject) => {
         console.log(userID);
-       client.query('SELECT * FROM Tasks  WHERE UserID = ?', [userID], function (error, results, fields) {
+       client.query('SELECT T.TaskID, T.ParentID, T.CategoryID, T.UserID, TS.StatusName, P.Priority, T.TaskName, T.TaskInfo, T.CreatedDate, T.ExpectedDuration, T.ActualTimeSpent, T.IsDeleted FROM Tasks T JOIN TaskStatus TS on TS.StatusID = T.StatusID JOIN Priority P ON T.PriorityID = P.PriorityID WHERE UserID = ?', [userID], function (error, results, fields) {
            //console.log(results);
            results.forEach(result => {
                if (!listofTaskUsers.some(task => task.getTaskID == result.TaskID)){
-                   const task = new TaskModel(result.TaskID, result.ParentID, result.CategoryID, result.UserID, result.StatusID, result.PriorityID, result.TaskName, result.TaskInfo, result.CreatedDate, result.ExpectedDuration, result.ActualTimeSpent, result.IsDeleted);
+                   const task = new TaskModel(result.TaskID, result.ParentID, result.CategoryID, result.UserID, result.StatusName, result.Priority, result.TaskName, result.TaskInfo, result.CreatedDate, result.ExpectedDuration, result.ActualTimeSpent, result.IsDeleted);
                    listofTaskUsers.push(task);
                }
            })
            if (error) throw error;
-           resolve(results);
+           resolve(listofTaskUsers);
            //console.log('Get List of Tasks for Users called');
            //console.log(listofTaskUsers);
        });
