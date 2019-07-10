@@ -9,6 +9,11 @@ module.exports = function (io) {
            })
         
         
+        client.on('USER_GET_SINGLETASK', async (taskID) => {
+            const result = await taskController.getSingleTask(taskID);
+            client.emit('GET_SINGLETASK', result);
+        })
+
         client.on('USER_GET_TASKLIST_USERID', async (userID) => {
             const result = await taskController.getListofTasksForUser(userID);
             client.emit('GET_TASKLIST_USERID', result);

@@ -1,6 +1,7 @@
 //// REQUIREMENTS ////
 // Require the client class file
 const client = require("../config/database");
+const moment = require("moment")
 
 //// GLOBALS ////
 const Issues = [];
@@ -9,14 +10,18 @@ const Issues = [];
 // Method to create a new Issue
 async function createNewIssue(issueName, issueSummary, projectID, issueStatusID, userID, responsibleUserID, priorityID) {
     return new Promise(async (resolve, reject) => {
-        client.query("INSERT INTO Issues(ProjectID, IssueStatusID, AssigneeID, AssignedToID, PriorityID, IssueName, Summary, DateCreated, LastUpdate, DateResolved, IsResolved) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",
+        const dateCreated = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+        const lastUpdate = dateCreated;
+        const dateResolved = null;
+        const isResolved = false;
+        client.query("INSERT INTO Issues(ProjectID, IssueStatusID, AssigneeID, AssignedToID, PriorityID, IssueName, Summary, DateCreated, LastUpdate, DateResolved, IsResolved) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
                      [projectID, issueStatusID, userID, responsibleUserID, priorityID, issueName, issueSummary, dateCreated, lastUpdate, dateResolved, isResolved],
                       async (error, results, fields) => {
                           if(error) throw error;
                           resolve(results.insertId);
         });
-    })
-}
+    });
+};
 
 // Method to update an Issue's Status to a new Status
 async function updateIssueStatus(issueID, newStatusID){
@@ -26,9 +31,9 @@ async function updateIssueStatus(issueID, newStatusID){
                    async (error, results, fields) =>{
                       if(error) throw error;
                       resolve(results.changedRows) // Return number of changed rows, should be 1
-                   })
-    })
-}
+                  });
+    });
+};
 
 // Empty & Populate Issues Array and return Issues from MySQL database
 async function getIssues(){
@@ -40,22 +45,33 @@ async function getIssues(){
               Issues.push(issue);
           })
           resolve(results);
-        })
-    })
-}
+      });
+  });
+};
+
+// Get and return a particular row in the issue table from ID (PK)
+async function getIssueWithID(issueID){
+    return new Promise(async (resolve, reject) => {
+            client.query("SELECT * FROM Issues WHERE IssueID = ?", [issueID], async (error, results, fields) => {
+                if(error) throw error;
+                resolve(results[0]);
+            });
+    });
+};
 
 // Method to create a new IssueStatus
 async function createNewIssueStatus(status){
     return new Promise(async (resolve, reject) => {
         client.query("INSERT INTO IssueStatus(Status) VALUES(?)", [status], async (error, results, fields) => {
             if(error) throw error;
-        })
-    })
-}
+        });
+    });
+};
 
 module.exports = {
   createNewIssue: createNewIssue,
   updateIssueStatus: updateIssueStatus,
   getIssues: getIssues,
+  getIssueWithID: getIssueWithID,
   createNewIssueStatus: createNewIssueStatus
-}
+};
