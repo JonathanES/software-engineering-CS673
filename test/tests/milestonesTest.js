@@ -6,6 +6,9 @@ const db = require('../../backend/config/database');
 
 let milestoneID = 1;
 const milestoneName = 'Test Milestone';
+const nmilestoneName = 'New Test Milestone';
+const projectID = 1;
+const isDeleted = 0;
 
 
 const options = {
@@ -15,19 +18,22 @@ const options = {
 
 describe('Milestones test', function () {
 
-  it('should create a new milestone', function(done) {
+  it('should create a new milestone', function (done) {
     let client = io.connect(socketUrl, options);
 
     client.on('connect', function () {
 
       // Emit event when all clients are connected.
-      client.emit('USER_CREATE_MILESTONE', projectID, milestoneID, milestoneName, date);
+      client.emit('USER_CREATE_MILESTONE', projectID, milestoneName);
       client.on('CREATE_MILESTONE', data => {
-        testMilestoneID = data.milestoneID;
-        expect(data.milestoneName).to.equal('test');
-        expect(data.isCompleted).to.equal(false);
-        client.disconnect();
-        done();
+        client.emit('USER_GET_MILESTONE', data.insertId);
+        client.on('GET_MILESTONE', ress => {
+          expect(ress[0].MilestoneName).to.equal('Test Milestone');
+          expect(ress[0].IsCompleted).to.equal(isDeleted);
+          client.disconnect();
+          done();
+        })
+
       });
     });
   });
@@ -38,9 +44,10 @@ describe('Milestones test', function () {
     client.on('connect', function () {
 
         // Emit event when all clients are connected.
-        client.emit('USER_UPDATE_MILESTONE_NAME', milestoneID, milestoneName);
+        client.emit('USER_UPDATE_MILESTONE_NAME', milestoneID, nmilestoneName);
         client.on('UPDATE_MILESTONE_NAME', data => {
-            expect(data).to.equal('New Milestone Name');
+            console.log(data);
+            expect(data).to.equal('New Test Milestone');
             client.disconnect();
             done();
         });
@@ -54,9 +61,9 @@ describe('Milestones test', function () {
     client.on('connect', function () {
 
       // Emit event when all clients are connected.
-      client.emit('USER_UPDATE_MILESTONE_COMPLETED',milestoneID, 'True');
+      client.emit('USER_UPDATE_MILESTONE_COMPLETED',milestoneID, 'true');
       client.on('UPDATE_MILESTONE_COMPLETED', data => {
-        expect(data).to.equal('True');
+        expect(data).to.equal('true');
         client.disconnect();
         done();
       });
@@ -69,9 +76,9 @@ describe('Milestones test', function () {
       client.on('connect', function () {
 
           // Emit event when all clients are connected.
-          client.emit('USER_UPDATE_MILESTONE_COMPLETED',milestoneID, 'False');
+          client.emit('USER_UPDATE_MILESTONE_COMPLETED',milestoneID, 'false');
           client.on('UPDATE_MILESTONE_COMPLETED', data => {
-              expect(data).to.equal('False');
+              expect(data).to.equal('false');
               client.disconnect();
               done();
           });
