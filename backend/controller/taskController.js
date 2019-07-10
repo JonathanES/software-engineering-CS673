@@ -20,6 +20,15 @@ async function insertNewTask(parentID, categoryID, userID, statusID, priorityID,
     })
 }
 
+async function getSingleTask(taskID) {
+    return new Promise(resolve => {
+        client.query('SELECT * FROM Tasks  WHERE TaskID = ?', [taskID], function (error, results, fields) {
+            if (error) throw error;
+            resolve(results);
+        })
+    })
+}
+
 async function getListofTasksForUser(userID){
     return new Promise((resolve, reject) => {
         console.log(userID);
@@ -161,6 +170,7 @@ module.exports = {
     insertNewTask: insertNewTask,
     getListofTasks: getListofTasks,
     getListofTasksForUser: getListofTasksForUser,
+    getSingleTask:getSingleTask,
     updateStatus: updateStatus,
     updatePriority: updatePriority,
     updateTaskName: updateTaskName,
