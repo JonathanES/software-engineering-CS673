@@ -14,9 +14,9 @@ const ProjectMilestonesModel = require('../model/ProjectMilestonesModel');
  */
  const listOfMilestones = [];
 
- async function insertNewMilestone(projectID, milestoneName) {
+ async function insertNewMilestone(projectID, milestoneName,dueDate) {
      return new Promise(async resolve => {
-         client.query('INSERT INTO ProjectMileStones(ProjectID, MilestoneName, DateCreated) VALUES(?,?,NOW())', [projectID, milestoneName], async function (error, results, fields) {
+         client.query('INSERT INTO ProjectMileStones(ProjectID, MilestoneName, DateCreated, DueDate) VALUES(?,?,NOW(),?)', [projectID, milestoneName,dueDate], async function (error, results, fields) {
              if (error) throw error;
              const milestones = await getListOfMilestones(projectID);
              resolve(results);
@@ -60,15 +60,15 @@ async function updateMilestoneName(milestoneID, milestoneName) {
     })
 }
 
-//  async function updateMilestoneDate(milestoneID, DateCreated) {
-//      return new Promise(async resolve => {
-//          client.query('UPDATE ProjectMileStones SET  MilestoneDate = ?  WHERE MilestonesID = ?; ', [milestoneDate,milestonesID], async function (error, results, fields) {
-//              if (error) throw error;
-//              console.log("updateMilestoneDate function called");
-//              resolve(milestoneDate);
-//          });
-//      })
-//  }
+ async function updateMilestoneDueDate(milestoneID, dueDate) {
+     return new Promise(async resolve => {
+         client.query('UPDATE ProjectMileStones SET  DueDate = ?  WHERE MilestonesID = ?; ', [dueDate,milestoneID], async function (error, results, fields) {
+             if (error) throw error;
+             console.log("updateMilestoneDate function called");
+             resolve(dueDate);
+         });
+     })
+ }
 
 
  async function updateIsCompleted(milestoneID, isCompleted){
@@ -86,6 +86,6 @@ async function updateMilestoneName(milestoneID, milestoneName) {
    getListOfMilestones: getListOfMilestones,
    updateMilestoneName: updateMilestoneName,
    getMilestone: getMilestone,
-   //updateMilestoneDate: updateMilestoneDate,
+   updateMilestoneDueDate: updateMilestoneDueDate,
    updateIsCompleted: updateIsCompleted
  }

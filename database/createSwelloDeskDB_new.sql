@@ -180,6 +180,7 @@ CREATE TABLE IF NOT EXISTS ProjectMileStones (
     ProjectID INT,
     MilestoneName VARCHAR(64) NOT NULL,
     DateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    DueDate TIMESTAMP NOT NULL,
     IsCompleted BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (MilestonesID),
     FOREIGN KEY fk_milestonepid(ProjectID) REFERENCES Projects(ProjectID)
