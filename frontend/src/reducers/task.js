@@ -1,19 +1,15 @@
 const defaultState = {
     projectID: '',
-    isProjectSelected : false
+    projectTaskList: [],
   };
   
   const project = (state = defaultState, action) => {
     switch (action.type) {
-      case 'IS_PROJECT_DEMAND':
+      case 'PROJECT_TASK_DEMAND':
         return{
           ...state,
-          isProjectSelected: !state.isProjectSelected
+          projectTaskList: action.projectTaskList
 
-        }
-        case 'VIEW_PROJECT': return {
-          ...state,
-          isProjectSelected: false
         }
 
 

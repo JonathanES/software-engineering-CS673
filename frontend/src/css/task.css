@@ -1,0 +1,25 @@
+html, body, #root, #wrapper,.box {
+    margin: 0;
+    height: 100%;
+    /* overflow: hidden; */
+}
+li {
+    list-style: none;
+}
+input {
+    border-radius: 5px;
+}
+
+.user-task{
+    background-color: lightgrey;
+    width: 300px;
+    border: 15px solid silver;
+    padding: 20px;
+    margin: 10px;
+}
+
+ul li{
+    display: inline;
+    padding: 20px;
+    margin: 10px;
+}

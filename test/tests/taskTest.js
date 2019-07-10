@@ -41,22 +41,24 @@ describe('Testing communication with Tasks table', function () {
             //Creating and deleting a new task
             client.emit('USER_CREATE_TASK', parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, expectedDuration, actualTimeSpent);
             client.on('CREATE_TASK', data => {
+                client.emit('USER_GET_SINGLETASK', data.insertId);
+                client.on('GET_SINGLETASK', taskData => {
+                    
+                    expect(taskData[0].ParentID).to.equal(parentID);
+                    expect(taskData[0].CategoryID).to.equal(categoryID);
+                    expect(taskData[0].UserID).to.equal(userID);
+                    expect(taskData[0].StatusID).to.equal(statusID);
+                    expect(taskData[0].PriorityID).to.equal(priorityID);
+                    expect(taskData[0].TaskName).to.equal(taskName);
+                    expect(taskData[0].TaskInfo).to.equal(taskInfo);
+                    expect(taskData[0].ExpectedDuration).to.equal(expectedDuration);
+                    expect(taskData[0].ActualTimeSpent).to.equal(actualTimeSpent);
 
-                expect(data[data.length - 1].ParentID).to.equal(parentID);
-                expect(data[data.length - 1].CategoryID).to.equal(categoryID);
-                expect(data[data.length - 1].UserID).to.equal(userID);
-                expect(data[data.length - 1].StatusID).to.equal(statusID);
-                expect(data[data.length - 1].PriorityID).to.equal(priorityID);
-                expect(data[data.length - 1].TaskName).to.equal(taskName);
-                expect(data[data.length - 1].TaskInfo).to.equal(taskInfo);
-                expect(data[data.length - 1].ExpectedDuration).to.equal(expectedDuration);
-                expect(data[data.length - 1].ActualTimeSpent).to.equal(actualTimeSpent);
-
-
-                db.query('DELETE FROM Tasks WHERE TaskName = ? ', [taskName], (error) => {
-                    if (error) throw error;
-                    client.disconnect();
-                    done();
+                    db.query('DELETE FROM Tasks WHERE TaskName = ? ', [taskName], (error) => {
+                        if (error) throw error;
+                        client.disconnect();
+                        done();
+                    })
                 })
             });
         });

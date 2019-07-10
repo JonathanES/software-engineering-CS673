@@ -39,13 +39,17 @@ describe('Testing communication with Projects table', function () {
             let pID = await projectController.findProjectID(projectName);
 
             client.on('CREATE_PROJECT', data => {
-                expect(data[data.length-1].ProjectName).to.equal(projectName);
-                expect(new Date(data[data.length-1].DueDate).getDate()).to.equal(new Date(dueDate).getDate());
+                //console.log(data);
+                //console.log('Project data length: ',data.length);
+                //console.log('Project Name: ',data[data.length-1].projectName)
+                expect(data[data.length-1].projectName).to.equal(projectName);
+                expect(new Date(data[data.length-1].dueDate).getDate()).to.equal(new Date(dueDate).getDate());
                 
                 db.query('DELETE FROM ProjectUsers WHERE ProjectID = ? and UserID = ?', [pID, userID], (error) => {
                     if (error) throw error;
-                    client.disconnect();
+                    //client.disconnect();
                 })
+
 
                 db.query('DELETE FROM Projects WHERE ProjectID = ? ', [pID], (error) => {
                     if (error) throw error;
