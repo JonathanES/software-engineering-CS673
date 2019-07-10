@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { addTask, getTasksUsers } from '../../socket/taskSocket';
+import { addTask, getTasksUsers, getListofTasksForCategories } from '../../socket/taskSocket';
 import '../../css/task.css'
 
 const mapStateToProps = state => ({
@@ -59,17 +59,19 @@ class ProjectTask extends React.Component {
 
     render() {
         return (
-            <div>
-                {this.props.projectTaskList.map(task =>
-                    <li>
-                        <div id={task.projectID} onClick={this.handleClickProject}>
-                            <div class={task.isadd == "true" ? "yuan yuanselect" : "yuan"}></div>
-                            <div class="user-project" >
-                                <span class="span-project-mid">{task.CategoryName}</span>
-                            </div>
-                        </div>
-                    </li>
-                )}
+            <div id="propnav">
+                <ul>
+                    {this.props.projectTaskList.map(category =>
+                        <li id={category.projectID} onClick={this.handleClickProject}>
+                            <span>{category.CategoryName}</span>
+                            {category.listOfTasks.map(task =>
+                                <li>
+                                    <span>{task.TaskName}</span>
+                                </li>
+                            )}
+                        </li>
+                    )}
+                </ul>
             </div>
         );
     }

@@ -24,7 +24,8 @@ class Project extends React.Component {
             projectID: props.projectID,
             getListofProjects : [],
             projectcategories: [],
-            newtask: ''
+            newtask: '',
+            projectName: "User Projetcs"
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -79,6 +80,7 @@ class Project extends React.Component {
     handleClickProject(event) {
         showCategories(event.currentTarget.id, (err,data) => {
             console.log(data);
+            this.setState({projectName: data.length == 0 ? this.state.projectName : data[0].ProjectName})
            this.props.dispatch({type:'USER_PROJECT_TASK_DEMAND', projectTaskList:data});
         });
 
@@ -92,7 +94,7 @@ class Project extends React.Component {
         return (
             <div>
                 <div class="direct">
-                    <div class="title">User Projetcs</div>
+                    <div class="title">{this.state.projectName}</div>
                     <ul>
                         {!this.props.isProjectSelected && this.state.getListofProjects.map(project =>
                             <li>

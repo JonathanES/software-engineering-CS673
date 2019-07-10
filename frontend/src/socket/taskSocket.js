@@ -10,5 +10,12 @@ function addTask(userId, taskName, cb){
     socket.emit('USER_GET_TASKLIST_USERID', userID);
   }
 
+  function getListofTasksForCategories(categoryID, cb){
+    socket.on('GET_TASKLIST_CATEGORYID', data => cb(null, data) );
+    socket.emit('USER_GET_TASKLIST_CATEGORYID', categoryID);
+  }
 
-  export {addTask, getTasksUsers};
+
+
+
+  export {addTask, getTasksUsers,getListofTasksForCategories};

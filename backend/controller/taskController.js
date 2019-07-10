@@ -39,6 +39,24 @@ async function getListofTasksForUser(userID){
     })
 }
 
+async function getListofTasksForCategories(categoryID){
+    return new Promise((resolve, reject) => {
+       client.query('SELECT * FROM Tasks  WHERE CategoryID = ?', [categoryID], function (error, results, fields) {
+           //console.log(results);
+        //    results.forEach(result => {
+        //        if (!listofTaskUsers.some(task => task.getTaskID == result.TaskID)){
+        //            const task = new TaskModel(result.TaskID, result.ParentID, result.CategoryID, result.UserID, result.StatusID, result.PriorityID, result.TaskName, result.TaskInfo, result.CreatedDate, result.ExpectedDuration, result.ActualTimeSpent, result.IsDeleted);
+        //            listofTaskUsers.push(task);
+        //        }
+        //    })
+           if (error) throw error;
+           resolve(results);
+           //console.log('Get List of Tasks for Users called');
+           //console.log(listofTaskUsers);
+       });
+    })
+}
+
 //this function will return the list of task under the category.
 function getListofTasks(categoryID){
     return new Promise((resolve, reject) => {
@@ -149,5 +167,6 @@ module.exports = {
     updateTaskInfo: updateTaskInfo,
     updateExpectedDuration: updateExpectedDuration,
     updateActualTimeSpent: updateActualTimeSpent,
-    updateIsDeleted: updateIsDeleted
+    updateIsDeleted: updateIsDeleted,
+    getListofTasksForCategories:getListofTasksForCategories
 }

@@ -1,6 +1,7 @@
 // this client variable lets us connect to the database and realize the queries we need
 const client = require('../config/database');
 const ProjectModel = require('../model/ProjectModel');
+const taskController = require('./taskController');
 
 const listOfProjects = [];
 const listOfCategories = [];
@@ -59,14 +60,20 @@ function getListOfProjects(userID) {
 function getCategories(pID) {
     return new Promise((resolve, reject) => {
         console.log('Categories for Project:', pID)
-        client.query('SELECT * FROM Categories WHERE ProjectID = ?', [pID], function (error, results, fields) {
+    client.query('SELECT * FROM Categories INNER JOIN Projects ON Projects.ProjectID = Categories.ProjectID  WHERE Categories.ProjectID = ?', [pID], async function (error, results, fields) {
+        if (error) throw error;
             //console.log(results);
-            results.forEach(result => {
-                if (!listOfCategories.some(project => project.getProjectID == result.ProjectID)) {
-                    const project = new ProjectModel(result.ProjectID, result.ProjectName, result.DateCreated, result.DueDate);
-                    listOfCategories.push(project);
-                }
-            })
+            for (category of results){
+                const elt = await taskController.getListofTasksForCategories(category.CategoryID);
+                category["listOfTasks"] = elt;
+
+            }
+            // results.forEach(result => {
+            //     if (!listOfCategories.some(project => project.getProjectID == result.ProjectID)) {
+            //         const project = new ProjectModel(result.ProjectID, result.ProjectName, result.DateCreated, result.DueDate);
+            //         listOfCategories.push(project);
+            //     }
+            // })
             if (error) throw error;
             resolve(results);
 
