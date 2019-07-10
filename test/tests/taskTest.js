@@ -44,7 +44,7 @@ describe('Testing communication with Tasks table', function () {
                 //console.log(data);
                 //console.log('data.length:', data.length);
                 //console.log('data[data.length - 1].value:',data[data.length - 1].ExpectedDuration);
-                expect(data[data.length - 1].parentID).to.equal(parentID);
+                expect(data[data.length - 1].ParentID).to.equal(parentID);
                 expect(data[data.length - 1].categoryID).to.equal(categoryID);
                 expect(data[data.length - 1].userID).to.equal(userID);
                 expect(data[data.length - 1].statusID).to.equal(statusID);
