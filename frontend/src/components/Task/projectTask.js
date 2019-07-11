@@ -63,10 +63,10 @@ class ProjectTask extends React.Component {
                 <ul>
                     {this.props.projectTaskList.map(category =>
                         <li id={category.projectID} onClick={this.handleClickProject}>
-                            <span>{category.CategoryName}</span>
+                            <span class="category">{category.CategoryName}</span>
                             {category.listOfTasks.map(task =>
                                 <li>
-                                    <span>{task.TaskName}</span>
+                                    <span class="cat_task">{task.TaskName}</span>
                                 </li>
                             )}
                         </li>

@@ -3,9 +3,9 @@ html, body, #root, #wrapper,.box {
     height: 100%;
     /* overflow: hidden; */
 }
-li {
+/* li {
     list-style: none;
-}
+} */
 input {
     border-radius: 5px;
 }
@@ -14,12 +14,37 @@ input {
     background-color: lightgrey;
     width: 300px;
     border: 15px solid silver;
-    padding: 20px;
-    margin: 10px;
+    /* padding: 20px;*/
+    margin: 20px; 
 }
+
+.category{
+    display: block;
+    padding: 20px;
+    margin: 5px;
+    position: relative !important;
+    background: silver !important;
+    width: 20% !important
+}
+
+.cat_task{
+    display: block;
+    padding: 10px;
+    margin: 5px;
+}
+
 
 ul li{
     display: inline;
-    padding: 20px;
-    margin: 10px;
+    margin-top: 2em;
+    /* position: relative !important;
+    background: none !important;
+    width: 100% !important;
+     */
+    /* padding: 20px;
+    margin: 10px; */
+}
+
+.span-project-mid{
+    display: block;
 }

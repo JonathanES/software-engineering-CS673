@@ -99,7 +99,7 @@ class Project extends React.Component {
                         {!this.props.isProjectSelected && this.state.getListofProjects.map(project =>
                             <li>
                                 <div id={project.projectID} onClick={this.handleClickProject}>
-                                    <div class={project.isadd == "true" ? "yuan yuanselect" : "yuan"}></div>
+                                    {/* <div class={project.isadd == "true" ? "yuan yuanselect" : "yuan"}></div> */}
                                     <div class="user-project" >
                                         <span class="span-project-mid">{project.projectName}</span>
                                     </div>
