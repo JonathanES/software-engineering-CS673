@@ -20,9 +20,13 @@ describe('Messaging test', function () {
 
     client.on('connect', function () {
 
+      client.emit('USER_LOGIN', 'jonathan.espiard@gmail.com', 'pwd');
+      client.emit('USER_LOGIN', 'toto@gmail.com', 'pwd');
+
       // Emit event when all clients are connected.
       client.emit('USER_SEND_MESSAGE', userId, receiverId, 'test');
       client.on('SEND_MESSAGE', data => {
+        console.log("test " + data);
         expect(data[data.length - 1].senderId).to.equal(userId);
         expect(data[data.length - 1].receiverId).to.equal(receiverId);
         expect(data[data.length - 1].Message).to.equal('test');
@@ -38,6 +42,8 @@ describe('Messaging test', function () {
 
     client.on('connect', function () {
 
+      client.emit('USER_LOGIN', 'jonathan.espiard@gmail.com', 'pwd');
+      client.emit('USER_LOGIN', 'toto@gmail.com', 'pwd');
       // Emit event when all clients are connected.
       client.emit('USER_GET_MESSAGE', userId, receiverId);
       client.on('SEND_MESSAGE', data => {
