@@ -7,7 +7,19 @@ const moment = require("moment")
 const Issues = [];
 
 //// ASYNC CALLABLE FUNCTIONS ////
+
 // Method to create a new Issue
+/**
+ * This function creates a new Issue in the database
+ * @param {string} issueName Any name
+ * @param {string} issueSummary Any summary
+ * @param {number} projectID A projectID number
+ * @param {number} issueStatusID An issueStatusID number
+ * @param {number} userID A userID number
+ * @param {number} responsibleUserID A userID number who is responible for the Issue
+ * @param {number} priorityID A priorityID number to give a priority to the Issue
+ * @returns {number} Inserted Row's Primary Key
+ */
 async function createNewIssue(issueName, issueSummary, projectID, issueStatusID, userID, responsibleUserID, priorityID) {
     return new Promise(async (resolve, reject) => {
         const dateCreated = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
