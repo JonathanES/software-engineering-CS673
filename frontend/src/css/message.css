@@ -9,11 +9,11 @@ li {
 input {
     border-radius: 5px;
 }
-/* .leftbar ul {
+.leftbar ul {
     padding: 0px;
 }
 .leftbar li {
-    padding: 10px;
+    padding: 0px;
 }
 .leftbar {
     background-color: #212e3e;
@@ -23,7 +23,7 @@ input {
     padding: 0px;
     text-align: center;
     position: absolute;
-} */
+}
 .container {
     height: calc(100% - 30px);
     width: 100%;
@@ -75,7 +75,8 @@ input {
 .personalname{
     display: flex;
     MARGIN-TOP:10px;
-    height:30px;
+    height:5px;
+    padding:1;
     color: white;
     width:90%;
     margin-left:5%;
@@ -239,9 +240,10 @@ input {
     margin-top: 8px;
 }
 
-/* .span-user-left{
+.span-user-left{
+    padding:0;
     margin-left: 20px;
-} */
+}
 
 .username-right{
    margin-left: 20px;
