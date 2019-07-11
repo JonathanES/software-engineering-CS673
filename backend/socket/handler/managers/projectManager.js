@@ -2,7 +2,7 @@
 const projectController = require('../../../controller/projectController');
 module.exports = function (io) {
     //connect to the socket so that we can link with the frontend
-    io.on('connection', client => { 
+    io.on('connection', (client) => {
         client.on('USER_CREATE_PROJECT', async (userID, projectName, dueDate ) => {
             const result = await projectController.insertNewProject(userID,projectName,dueDate);
             client.emit('CREATE_PROJECT', result);
@@ -11,6 +11,11 @@ module.exports = function (io) {
         client.on('USER_GET_PROJECTLIST', async (userID) => {
             const result = await projectController.getListofProjects(userID);
             client.emit('GET_PROJECTLIST', result);
+        })
+
+        client.on('USER_GET_PROJECTID', async (projectName) => {
+            const result = await projectController.findProjectID(projectName);
+            client.emit('GET_PROJECTID', result);
         })
 
         client.on('USER_UPDATE_PROJECT_NAME', async (pID,pName) => {

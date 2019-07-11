@@ -24,7 +24,7 @@ class RegisterDesign extends Component {
                     left: 0;
                     right: 0;
                     top: 10%;" <div class="text-center">
-                <img src="frontend/src/images/swellodesk_image.png" class="rounded mx-auto d-block" alt="swello">
+                <img src="frontend/src/images/swellodesk_image.png" class="rounded mx-auto d-block" alt="swello"></img>
               </div>
             </div>
           </div>

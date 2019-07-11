@@ -35,10 +35,6 @@ class IssueModel {
     return this.assignedToID;
   }
 
-  get getCommentID() {
-    return this.commentID;
-  }
-
   get getPriorityID() {
     return this.priorityID;
   }

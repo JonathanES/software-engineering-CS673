@@ -1,5 +1,6 @@
 //constant allows for connection to the database and access to the queries required
 const client = require('../config/database');
+const ProjectMilestonesModel = require('../model/ProjectMilestonesModel');
 
 /**
  *
@@ -13,60 +14,78 @@ const client = require('../config/database');
  */
  const listOfMilestones = [];
 
- async function insertNewMilestone(projectID, milestoneID, milestoneName, date, isCompleted) {
+ async function insertNewMilestone(projectID, milestoneName,dueDate) {
      return new Promise(async resolve => {
-         client.query('INSERT INTO ProjectsMilestones(ProjectID, MilestoneID, MilestoneName, Date) VALUES(?,?,?,NOW())', [projectID, milestoneID, milestoneName, date], async function (error, results, fields) {
+         client.query('INSERT INTO ProjectMileStones(ProjectID, MilestoneName, DateCreated, DueDate) VALUES(?,?,NOW(),?)', [projectID, milestoneName,dueDate], async function (error, results, fields) {
              if (error) throw error;
              const milestones = await getListOfMilestones(projectID);
-             resolve(milestones);
+             resolve(results);
          });
      })
  }
- function getListOfMilestones(projectID){
-     return new Promise((resolve, reject) => {
-        client.query('SELECT * FROM ProjectsMilestones WHERE ProjectID = ?', [projectID], function (error, milestones, fields) {
-            milestones.forEach(milestone => {
-                if (!listOfMilestones.some(elt => elt.getMilestoneID == milestones.MilestoneID)){
-                    const milestonesModel = new ProjectsMilestones(elt.MilestoneID, elt.ProjectID, elt.MilestoneName,elt.Date,elt.IsCompleted);
-                    listOfMilestones.push(milestonesModel);
+
+ function getMilestone(mileStoneID){
+     return new Promise((resolve, reject)=>{
+         console.log('mileStoneID:', mileStoneID);
+         client.query('Select * FROM ProjectMileStones WHERE MilestonesID = ?', [mileStoneID], function(error, result,fields){
+             if(error) throw error;
+             resolve(result);
+         })
+     })
+ }
+
+function getListOfMilestones(projectID) {
+    return new Promise((resolve, reject) => {
+        client.query('SELECT * FROM ProjectMileStones WHERE ProjectID = ?', [projectID], function (error, results, fields) {
+            //console.log(results);
+            results.forEach(result => {
+                if (!listOfMilestones.some(elt => elt.getMilestoneID == result.MilestonesID)) {
+                    const elt = new ProjectMilestonesModel(result.MilestonesID, result.ProjectID, result.MilestoneName, result.DateCreated, result.IsCompleted);
+                    listOfMilestones.push(elt);
                 }
             })
             if (error) throw error;
-            resolve(milestones);
+            resolve(results);
         });
-     })
-    }
- async function updateMilestoneName(milestoneID, milestoneName) {
+    })
+}
+
+async function updateMilestoneName(milestoneID, milestoneName) {
+    return new Promise(async resolve => {
+        client.query('UPDATE ProjectMileStones SET  MilestoneName = ?  WHERE MilestonesID = ?; ', [milestoneName, milestoneID], async function (error, results, fields) {
+            if (error) throw error;
+            console.log("updateMilestoneName function called");
+            resolve(milestoneName);
+        });
+    })
+}
+
+ async function updateMilestoneDueDate(milestoneID, dueDate) {
      return new Promise(async resolve => {
-         client.query('UPDATE ProjectsMilestones SET  MilestoneName = ?  WHERE MilestoneID = ?; ', [milestoneName,milestoneID], async function (error, results, fields) {
-             if (error) throw error;
-             console.log("updateMilestoneName function called");
-             resolve(milestoneName);
-         });
-     })
- }
- async function updateMilestoneDate(milestoneID, date) {
-     return new Promise(async resolve => {
-         client.query('UPDATE ProjectsMilestones SET  MilestoneDate = ?  WHERE MilestoneID = ?; ', [milestoneDate,milestoneID], async function (error, results, fields) {
+         client.query('UPDATE ProjectMileStones SET  DueDate = ?  WHERE MilestonesID = ?; ', [dueDate,milestoneID], async function (error, results, fields) {
              if (error) throw error;
              console.log("updateMilestoneDate function called");
-             resolve(milestoneDate);
+             resolve(dueDate);
          });
      })
  }
+
+
  async function updateIsCompleted(milestoneID, isCompleted){
    return new Promise(async resolve => {
-     client.query('UPDATE ProjectsMilestones SET  IsCompleted = ?  WHERE MilestoneID = ?; ', [isCompleted,milestoneID], async function (error, results, fields) {
+     client.query('UPDATE ProjectMileStones SET  IsCompleted = ?  WHERE MilestonesID = ?; ', [isCompleted,milestoneID], async function (error, results, fields) {
        if (error) throw error;
        console.log("updateIsCompleted function called");
        resolve(isCompleted);
      });
    })
  }
+
  module.exports = {
    insertNewMilestone: insertNewMilestone,
    getListOfMilestones: getListOfMilestones,
    updateMilestoneName: updateMilestoneName,
-   updateMilestoneDate: updateMilestoneDate,
-   updateIsComplete: updateIsComplete
+   getMilestone: getMilestone,
+   updateMilestoneDueDate: updateMilestoneDueDate,
+   updateIsCompleted: updateIsCompleted
  }
