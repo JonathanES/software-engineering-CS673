@@ -30,7 +30,9 @@ input {
 .cat_task{
     display: block;
     padding: 10px;
-    margin: 5px;
+    background: rgb(240, 234, 234) !important;
+    margin: 10px;
+    width: 20% !important
 }
 
 
