@@ -80,6 +80,8 @@ class Project extends React.Component {
     handleClickProject(event) {
         showCategories(event.currentTarget.id, (err,data) => {
             console.log(data);
+            console.log(event);
+            //this.setState({projectName:  data[0].ProjectName})
             this.setState({projectName: data.length == 0 ? this.state.projectName : data[0].ProjectName})
            this.props.dispatch({type:'USER_PROJECT_TASK_DEMAND', projectTaskList:data});
         });
