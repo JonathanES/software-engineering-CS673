@@ -40,7 +40,7 @@ async function createNewIssue(issueName, issueSummary, projectID, issueStatusID,
 /**
  * This function updates an Issue's status in the database
  * @param {number} issueID The ID of the Issue whose status you want to update
- * @param {number} issueStatusID An issueStatusID number to set the new issueStatus of the Issue
+ * @param {number} newStatusID An issueStatusID number to set the new issueStatus of the Issue
  * @returns {number} Returns the count/number of changed rows in the database
  */
 async function updateIssueStatus(issueID, newStatusID){
