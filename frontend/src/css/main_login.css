@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
 }
-
+/* 
 .leftside, .rightside {
   height: 100vh;
   width: 50vw;
@@ -29,10 +29,11 @@ p {
   font-style: italic;
   font-size: 130%
 }
+/* 
 h1{
   font-family: 'Tinos', serif;
-}
-
+} */
+/* 
 ul {
   list-style-type: none;
   text-align: center;
@@ -40,7 +41,7 @@ ul {
 
 ul li {
   display: inline-block;
-}
+} */
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) {
@@ -172,7 +173,7 @@ ul li {
   h1{
     font-family: 'Tinos', serif;
   }
-
+/* 
   ul {
     list-style-type: none;
     text-align: center;
@@ -180,7 +181,7 @@ ul li {
 
   ul li {
     display: inline-block;
-  }
+  } */
 }
 
 // Extra large devices (large desktops, 1200px and up)
@@ -219,7 +220,7 @@ ul li {
   h1{
     font-family: 'Tinos', serif;
   }
-
+/* 
   ul {
     list-style-type: none;
     text-align: center;
@@ -227,5 +228,5 @@ ul li {
 
   ul li {
     display: inline-block;
-  }
+  } */
 }

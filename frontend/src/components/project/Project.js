@@ -80,6 +80,8 @@ class Project extends React.Component {
     handleClickProject(event) {
         showCategories(event.currentTarget.id, (err,data) => {
             console.log(data);
+            console.log(event);
+            //this.setState({projectName:  data[0].ProjectName})
             this.setState({projectName: data.length == 0 ? this.state.projectName : data[0].ProjectName})
            this.props.dispatch({type:'USER_PROJECT_TASK_DEMAND', projectTaskList:data});
         });
@@ -99,7 +101,7 @@ class Project extends React.Component {
                         {!this.props.isProjectSelected && this.state.getListofProjects.map(project =>
                             <li>
                                 <div id={project.projectID} onClick={this.handleClickProject}>
-                                    <div class={project.isadd == "true" ? "yuan yuanselect" : "yuan"}></div>
+                                    {/* <div class={project.isadd == "true" ? "yuan yuanselect" : "yuan"}></div> */}
                                     <div class="user-project" >
                                         <span class="span-project-mid">{project.projectName}</span>
                                     </div>
