@@ -13,6 +13,11 @@ module.exports = function (io) {
             client.emit('GET_PROJECTLIST', result);
         })
 
+        client.on('USER_GET_PROJECTID', async (projectName) => {
+            const result = await projectController.findProjectID(projectName);
+            client.emit('GET_PROJECTID', result);
+        })
+
         client.on('USER_UPDATE_PROJECT_NAME', async (pID,pName) => {
             const result = await projectController.updateProjectName(pID,pName);
             client.emit('UPDATE_PROJECT_NAME', result);
