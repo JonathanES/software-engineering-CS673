@@ -51,8 +51,7 @@
 
          client.on('USER_SEND_GROUP_MESSAGE', async (userID, groupID, message) => {
             const result = await groupMessagingController.insertGroupMessage(userID,groupID, message)
-            //io.sockets.in(groupID)
-            client.emit('SEND_GROUP_MESSAGE', result);
+            io.sockets.in(groupID).emit('SEND_GROUP_MESSAGE', result);
            })
 
         client.on('USER_GET_GROUP_MESSAGE', async (groupID) => {
