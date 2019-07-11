@@ -10,13 +10,15 @@
      //connect to the socket so that we can link with the frontend
      io.on('connection', client => { 
          client.on('USER_SEND_MESSAGE', async (senderID, receiverID, message) => {
-             const result = await messagingController.insertDirectMessage(senderID, receiverID, message)
-             client.emit('SEND_MESSAGE', result);
+             const result = await messagingController.insertDirectMessage(senderID, receiverID, message);
+             io.sockets.in(receiverID).emit('SEND_MESSAGE', result);
+             io.sockets.in(senderID).emit('SEND_MESSAGE', result);
             })
  
          client.on('USER_GET_MESSAGE', async (senderID, receiverID) => {
              const result = await messagingController.getDirectMessages(senderID, receiverID);
-             client.emit('SEND_MESSAGE', result);
+             io.sockets.in(senderID).emit('SEND_MESSAGE', result);
+             io.sockets.in(receiverID).emit('SEND_MESSAGE', result);
          })
 
 
@@ -41,12 +43,15 @@
         // get groups of a user
          client.on('USER_GET_USER_GROUPS', async(userId) => {
              const result = await groupMessagingController.getUserGroups(userId);
+             result.forEach(group => {
+                client.join(group.GroupID);
+             })
              client.emit('GET_USER_GROUPS', result);
          })
 
          client.on('USER_SEND_GROUP_MESSAGE', async (userID, groupID, message) => {
             const result = await groupMessagingController.insertGroupMessage(userID,groupID, message)
-            client.emit('SEND_GROUP_MESSAGE', result);
+            io.sockets.in(groupID).emit('SEND_GROUP_MESSAGE', result);
            })
 
         client.on('USER_GET_GROUP_MESSAGE', async (groupID) => {

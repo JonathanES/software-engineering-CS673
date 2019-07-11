@@ -18,16 +18,20 @@ describe('Messaging test', function () {
     // Set up client1 connection
     let client = io.connect(socketUrl, options);
 
-    client.on('connect', function () {
+    client.on('connect', async function () {
 
-      // Emit event when all clients are connected.
-      client.emit('USER_SEND_MESSAGE', userId, receiverId, 'test');
-      client.on('SEND_MESSAGE', data => {
-        expect(data[data.length - 1].senderId).to.equal(userId);
-        expect(data[data.length - 1].receiverId).to.equal(receiverId);
-        expect(data[data.length - 1].Message).to.equal('test');
-        client.disconnect();
-        done();
+      client.emit('USER_LOGIN', 'toto@gmail.com', 'pwd');
+      client.on('LOGIN', data => {
+        expect(data.username).to.equal('toto');
+        expect(data.email).to.equal('toto@gmail.com');
+        client.emit('USER_SEND_MESSAGE', userId, receiverId, 'test');
+        client.on('SEND_MESSAGE', async (data) => {
+          expect(data[data.length - 1].senderId).to.equal(userId);
+          expect(data[data.length - 1].receiverId).to.equal(receiverId);
+          expect(data[data.length - 1].Message).to.equal('test');
+          client.disconnect();
+          done();
+        });
       });
     });
   });
@@ -38,17 +42,21 @@ describe('Messaging test', function () {
 
     client.on('connect', function () {
 
-      // Emit event when all clients are connected.
-      client.emit('USER_GET_MESSAGE', userId, receiverId);
-      client.on('SEND_MESSAGE', data => {
-        expect(data.length).to.be.above(0);
-        expect(data[data.length - 1].senderId).to.equal(userId);
-        expect(data[data.length - 1].receiverId).to.equal(receiverId);
-        db.query('DELETE FROM DirectMessaging WHERE Message = ? AND senderID = ? AND receiverID = ?', ['test', userId, receiverId], (error) => {
-          if (error) throw error;
-          client.disconnect();
-          done();
-        })
+      client.emit('USER_LOGIN', 'toto@gmail.com', 'pwd');
+      client.on('LOGIN', data => {
+        expect(data.username).to.equal('toto');
+        expect(data.email).to.equal('toto@gmail.com');
+        client.emit('USER_GET_MESSAGE', userId, receiverId);
+        client.on('SEND_MESSAGE', data => {
+          expect(data.length).to.be.above(0);
+          expect(data[data.length - 1].senderId).to.equal(userId);
+          expect(data[data.length - 1].receiverId).to.equal(receiverId);
+          db.query('DELETE FROM DirectMessaging WHERE Message = ? AND senderID = ? AND receiverID = ?', ['test', userId, receiverId], (error) => {
+            if (error) throw error;
+            client.disconnect();
+            done();
+          });
+        });
       });
     });
   });
@@ -138,18 +146,24 @@ describe('Messaging test', function () {
 
     client.on('connect', function () {
 
+      client.emit('USER_GET_USER_GROUPS', userId);
+      client.on('GET_USER_GROUPS', data => {
+        expect(data[0].GroupID).to.be.equal(groupId);
+        expect(data[0].GroupName).to.be.equal(groupName);
+        client.emit('USER_SEND_GROUP_MESSAGE', userId, groupId, "hi");
+        client.on('SEND_GROUP_MESSAGE', data => {
+          expect(data.length).to.be.above(0);
+          expect(data[0].groupID).to.be.equal(groupId);
+          expect(data[0].userID).to.be.equal(userId);
+          expect(data[0].Message).to.be.equal("hi");
+          expect(data[0].senderName).to.be.equal("Jonathan");
+          client.disconnect();
+          done();
+        });
+      });
       // Emit event when all clients are connected.
 
-      client.emit('USER_SEND_GROUP_MESSAGE', userId, groupId, "hi");
-      client.on('SEND_GROUP_MESSAGE', data => {
-        expect(data.length).to.be.above(0);
-        expect(data[0].groupID).to.be.equal(groupId);
-        expect(data[0].userID).to.be.equal(userId);
-        expect(data[0].Message).to.be.equal("hi");
-        expect(data[0].senderName).to.be.equal("Jonathan");
-        client.disconnect();
-        done();
-      });
+
     });
   });
 
@@ -161,21 +175,26 @@ describe('Messaging test', function () {
 
       // Emit event when all clients are connected.
 
-      client.emit('USER_SEND_GROUP_MESSAGE', userId, groupId, "hi");
-      client.on('SEND_GROUP_MESSAGE', data => {
-        expect(data.length).to.be.above(0);
-        expect(data[0].groupID).to.be.equal(groupId);
-        expect(data[0].userID).to.be.equal(userId);
-        expect(data[0].Message).to.be.equal("hi");
-        expect(data[0].senderName).to.be.equal("Jonathan");
-        db.query('DELETE FROM GroupUsers where GroupID = ?', [groupId], (error) => {
-          if (error) throw error;
-          db.query('DELETE FROM GroupMessaging where GroupID = ?', [groupId], (error) => {
+      client.emit('USER_GET_USER_GROUPS', userId);
+      client.on('GET_USER_GROUPS', data => {
+        expect(data[0].GroupID).to.be.equal(groupId);
+        expect(data[0].GroupName).to.be.equal(groupName);
+        client.emit('USER_SEND_GROUP_MESSAGE', userId, groupId, "hi");
+        client.on('SEND_GROUP_MESSAGE', data => {
+          expect(data.length).to.be.above(0);
+          expect(data[0].groupID).to.be.equal(groupId);
+          expect(data[0].userID).to.be.equal(userId);
+          expect(data[0].Message).to.be.equal("hi");
+          expect(data[0].senderName).to.be.equal("Jonathan");
+          db.query('DELETE FROM GroupUsers where GroupID = ?', [groupId], (error) => {
             if (error) throw error;
-            db.query('DELETE FROM MessageGroups where GroupID = ?', [groupId], (error) => {
+            db.query('DELETE FROM GroupMessaging where GroupID = ?', [groupId], (error) => {
               if (error) throw error;
-              client.disconnect();
-              done();
+              db.query('DELETE FROM MessageGroups where GroupID = ?', [groupId], (error) => {
+                if (error) throw error;
+                client.disconnect();
+                done();
+              });
             });
           });
         });

@@ -1,34 +1,34 @@
 body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
 
 .leftside, .rightside {
-   height: 100vh;
-   width: 50vw;
-   border: 2px solid black;
+ height: 100vh;
+ width: 50vw;
+ border: 2px solid black;
 }
 
 
 .leftside{
-  background-color: #87cefa;
+background-color: #87cefa;
 
 }
 
 .signup{
 
-  position:fixed;
-  left: 50px;
+position:fixed;
+left: 50px;
 }
 
 .rightside{
-  background-color: white;
+background-color: white;
 }
 
 p {
-  font-size: 300%;
-  font-family: sans-serif;
+font-size: 300%;
+font-family: sans-serif;
 }
 
 ul{list-style-type: none;
