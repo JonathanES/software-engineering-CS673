@@ -76,6 +76,46 @@
               
                 
                 <li><a
+                  href='#updateissuestatus'
+                  class="">
+                  updateIssueStatus
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getissues'
+                  class="">
+                  getIssues
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getissuewithid'
+                  class="">
+                  getIssueWithID
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#createnewissuestatus'
+                  class="">
+                  createNewIssueStatus
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
                   href='#listofmilestones'
                   class="">
                   listOfMilestones
@@ -594,6 +634,281 @@ Then I return the messages that have been sent
 
       
     
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='updateissuestatus'>
+      updateIssueStatus
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This function updates an Issue's status in the database</p>
+
+    <div class='pre p1 fill-light mt0'>updateIssueStatus(issueID: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, newStatusID: any, issueStatusID: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>issueID</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    The ID of the Issue whose status you want to update
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>newStatusID</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>issueStatusID</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    An issueStatusID number to set the new issueStatus of the Issue
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
+        Returns the count/number of changed rows in the database
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getissues'>
+      getIssues
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This function returns all the Issues in the DB in an array</p>
+
+    <div class='pre p1 fill-light mt0'>getIssues(): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">array</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">array</a></code>:
+        Returns an array with all the Row objects in the Issues table
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getissuewithid'>
+      getIssueWithID
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This function gets a specific Issue from the DB</p>
+
+    <div class='pre p1 fill-light mt0'>getIssueWithID(issueID: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>issueID</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    The ID of the Issue you are interested in
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        Returns the row object of the IssueID specified
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='createnewissuestatus'>
+      createNewIssueStatus
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This function generates a new IssueStatus type in the DB</p>
+
+    <div class='pre p1 fill-light mt0'>createNewIssueStatus(status: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>status</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The name of the status you want to be created in the database
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
   
 
   
