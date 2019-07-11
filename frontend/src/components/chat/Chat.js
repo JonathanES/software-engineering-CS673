@@ -72,7 +72,7 @@ class Chat extends React.Component {
             })
         }
         else {
-            sendGroupMessage(this.state.userId, this.state.recei, this.state.message, (err, data) => {
+            sendGroupMessage(this.state.userId, this.state.receiverId, this.state.message, (err, data) => {
                 this.setState({ chatHistory: data });
             })
         }
