@@ -26,7 +26,7 @@ class LoginDesign extends Component {
                     left: 0;
                     right: 0;
                     top: 10%;">
-                <img src="frontend/src/images/swellodesk_image.png" class="rounded mx-auto d-block" alt="swello">
+                <img src="frontend/src/images/swellodesk_image.png" class="rounded mx-auto d-block" alt="swello"></img>
 
               </div>
               <p class="text-center">Build your dream project.
