@@ -5,6 +5,7 @@
 
 //retrieve the functions that has been exported in the userController
 const userController = require('../../../controller/userController');
+
 module.exports = function (io) {
     const history = [];
     //connect to the socket so that we can link with the frontend
@@ -16,7 +17,7 @@ module.exports = function (io) {
          * */
         client.on('USER_LOGIN', async (email, password) => {
             const result = await userController.getSingleUser(email, password);
-            console.log(result.username + " is connected");
+            client.join(result.userId);
             client.emit('LOGIN', result);
         });
         /**
@@ -26,6 +27,7 @@ module.exports = function (io) {
          * */
         client.on('USER_REGISTER', async (username, email, password) => {
             const result = await userController.insertUser(email, username, password);
+            client.join(result.userId);
             client.emit('REGISTER', result);
         });
 
@@ -35,3 +37,4 @@ module.exports = function (io) {
         })
     })
 };
+

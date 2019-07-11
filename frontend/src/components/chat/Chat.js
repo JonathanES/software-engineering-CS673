@@ -30,11 +30,14 @@ class Chat extends React.Component {
             groupId: '',
             isGroupDiscussion: false
         };
+
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleGroupClick = this.handleGroupClick.bind(this);
     }
+
+
     componentDidMount() {
         //getMessage();
         getFriends(this.state.userId, (err, data) => {
@@ -55,12 +58,20 @@ class Chat extends React.Component {
         this.setState({ message: event.target.value });
     }
     handleSubmit(event) {
-        if (!this.state.isGroupDiscussion){
+        if (!this.state.isGroupDiscussion) {
+            const history = this.state.chatHistory;
+            history.push({ senderId: this.state.userId, receiverId: this.state.receiverId, Message: this.state.message, senderName: this.state.username, receiverName: this.state.receiverName })
+            history.forEach(elt => {
+                if (elt.receiverId == this.state.receiverId)
+                    elt.position = "right";
+                else
+                    elt.position = "left";
+            })
+            this.setState({ chatHistory: history, message: "" });
             sendMessage(this.state.userId, this.state.receiverId, this.state.message, (err, data) => {
-                this.setState({ chatHistory: data });
             })
         }
-        else{
+        else {
             sendGroupMessage(this.state.userId, this.state.recei, this.state.message, (err, data) => {
                 this.setState({ chatHistory: data });
             })
@@ -111,7 +122,7 @@ class Chat extends React.Component {
         getGroupMessage(event.currentTarget.id, (err, data) => {
             this.setState({ chatHistory: data })
         })
-        this.setState({receiverId: event.currentTarget.id, receiverName: receiverName, isGroupDiscussion: true });
+        this.setState({ receiverId: event.currentTarget.id, receiverName: receiverName, isGroupDiscussion: true });
     }
 
     render() {
@@ -130,7 +141,7 @@ class Chat extends React.Component {
                 </div> */}
                 <div class="container">
                     <div class="chatbox">
-                        {this.props.addGroup && <AddGroup  dispatch={this.props.dispatch} />}
+                        {this.props.addGroup && <AddGroup dispatch={this.props.dispatch} />}
                         <div class="chatleft">
                             <div class="top">
                                 {/* <i class="fas fa-bars" style={{"font-size": "1.4em"}}></i>
@@ -151,7 +162,7 @@ class Chat extends React.Component {
                                 <div class="channel">
                                     <div class="title">
                                         Channels
-                                    <input id="add-button" type="image" src={require("../../images/plus.svg")} onClick={() =>  this.props.dispatch({ type: 'USER_ADD_GROUP_DEMAND' })} />
+                                    <input id="add-button" type="image" src={require("../../images/plus.svg")} onClick={() => this.props.dispatch({ type: 'USER_ADD_GROUP_DEMAND' })} />
                                     </div>
                                     <ul>
                                         {this.state.listOfGroups.map(group =>
