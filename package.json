@@ -8,7 +8,9 @@
     "backend": "nodemon server.js",
     "frontend": "cd ./frontend && npm start",
     "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
-    "docs:build":"documentation build backend/** -f html -o docs && documentation build frontend/** -f html -o docs"
+    "docs:backend": "documentation build backend/** -f html -o docs",
+    "docs:frontend": "documentation build frontend/** -f html -o docs",
+    "docs:build": "documentation build backend/** -f html -o docs && documentation build frontend/** -f html -o docs"
   },
   "repository": {
     "type": "git",
