@@ -61,13 +61,13 @@ Select * from Categories;
 
 
 INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, TaskName, TaskInfo, CreatedDate, ExpectedDuration, ActualTimeSpent) Values(2,2,4,2,1,'Creating messaging groups','N/A','2019-06-06',10,10);
-INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, TaskName, TaskInfo, CreatedDate, ExpectedDuration, ActualTimeSpent) Values(2,2,4,3,3,'Save char into database','N/A','2019-06-06',10,10);
+INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, TaskName, TaskInfo, CreatedDate, ExpectedDuration, ActualTimeSpent) Values(2,2,4,3,3,'Save chat into database','N/A','2019-06-06',10,10);
 INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, TaskName, TaskInfo, CreatedDate, ExpectedDuration, ActualTimeSpent) Values(2,2,4,2,3,'Direct messaging','N/A','2019-06-06',10,10);
-INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, TaskName, TaskInfo, CreatedDate, ExpectedDuration, ActualTimeSpent) Values(3,3,4,2,3,'[BUG] Do not display a char to everybody','N/A','2019-06-06',10,10);
+INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, TaskName, TaskInfo, CreatedDate, ExpectedDuration, ActualTimeSpent) Values(3,3,4,2,3,'[BUG] Do not display a chat to everybody','N/A','2019-06-06',10,10);
 INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, TaskName, TaskInfo, CreatedDate, ExpectedDuration, ActualTimeSpent) Values(3,3,4,1,2,'update direct message','N/A','2019-06-06',10,10);
 INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, TaskName, TaskInfo, CreatedDate, ExpectedDuration, ActualTimeSpent) Values(3,3,6,1,2,'create issue backend support','N/A','2019-06-06',10,10);
 INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, TaskName, TaskInfo, CreatedDate, ExpectedDuration, ActualTimeSpent) Values(3,3,7,2,2,'Finish Milestones Controller','N/A','2019-06-06',10,10);
-INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, TaskName, TaskInfo, CreatedDate, ExpectedDuration, ActualTimeSpent) Values(4,4,2,3,2,'able to add tasj to database table','N/A','2019-06-06',10,10);
+INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, TaskName, TaskInfo, CreatedDate, ExpectedDuration, ActualTimeSpent) Values(4,4,2,3,2,'able to add task to database table','N/A','2019-06-06',10,10);
 INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, TaskName, TaskInfo, CreatedDate, ExpectedDuration, ActualTimeSpent) Values(4,4,2,3,2,'add priority status table','N/A','2019-06-06',10,10);
 INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, TaskName, TaskInfo, CreatedDate, ExpectedDuration, ActualTimeSpent) Values(4,4,4,3,2,'get direct messages of a chat','N/A','2019-06-06',10,10);
 INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, TaskName, TaskInfo, CreatedDate, ExpectedDuration, ActualTimeSpent) Values(4,4,4,3,2,'insert direct message in database','N/A','2019-06-06',10,10);
