@@ -356,29 +356,9 @@
               
                 
                 <li><a
-                  href='#on'
+                  href='#get_issues'
                   class="">
-                  on
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#on'
-                  class="">
-                  on
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#on'
-                  class="">
-                  on
+                  GET_ISSUES
                   
                 </a>
                 
@@ -419,6 +399,26 @@
                   href='#usercontroller'
                   class="">
                   userController
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#on'
+                  class="">
+                  on
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#on'
+                  class="">
+                  on
                   
                 </a>
                 
@@ -1707,41 +1707,44 @@ client.emit('UPDATE_PROJECT_ISDELETED', result);
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>milestoneID</span> <code class='quiet'>(any)</code>
-	    
+            <span class='code bold'>milestoneID</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    Milestone ID number
+
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>projectID</span> <code class='quiet'>(any)</code>
-	    
+            <span class='code bold'>projectID</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    Project ID number
+
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>milestoneName</span> <code class='quiet'>(any)</code>
-	    
+            <span class='code bold'>milestoneName</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The name of the milestone
+
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>date</span> <code class='quiet'>(any)</code>
-	    
+            <span class='code bold'>dueDate</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    Due date of the milestone
+
           </div>
           
         </div>
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>isCompleted</span> <code class='quiet'>(any)</code>
-	    I insert the milestone into the database
-then I return the chat history to the frontend
+            <span class='code bold'>isCompleted</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
+	    Marks completion of the milestone
 
           </div>
           
@@ -3109,16 +3112,17 @@ client.emit('UPDATE_TASK_ISDELETE', result);
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='on'>
-      on
+    <h3 class='fl m0' id='get_issues'>
+      GET_ISSUES
     </h3>
     
     
   </div>
   
 
-  
-    <div class='pre p1 fill-light mt0'>on</div>
+  <p>This API call returns all the Issues in the DB in an array</p>
+
+    <div class='pre p1 fill-light mt0'>GET_ISSUES</div>
   
   
 
@@ -3141,106 +3145,6 @@ client.emit('UPDATE_TASK_ISDELETE', result);
 
       
     
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='on'>
-      on
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>when the frontend sends a USER_LOGIN request
-1) call the getSinglerUser function from the usercontroller
-2) send to the frontend (client.emit) the information that has been retrieved by the controller.</p>
-
-    <div class='pre p1 fill-light mt0'>on</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='on'>
-      on
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>when the frontend sends a USER_REGISTER request
-1) call the insertUser function from the usercontroller
-2) send to the frontend (client.emit) the information that has been retrieved by the controller.</p>
-
-    <div class='pre p1 fill-light mt0'>on</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
   
 
   
@@ -3457,6 +3361,106 @@ it is the link between the frontend and the backend for the user</p>
 it is the link between the frontend and the backend for the user</p>
 
     <div class='pre p1 fill-light mt0'>userController</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='on'>
+      on
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>when the frontend sends a USER_LOGIN request
+1) call the getSinglerUser function from the usercontroller
+2) send to the frontend (client.emit) the information that has been retrieved by the controller.</p>
+
+    <div class='pre p1 fill-light mt0'>on</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='on'>
+      on
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>when the frontend sends a USER_REGISTER request
+1) call the insertUser function from the usercontroller
+2) send to the frontend (client.emit) the information that has been retrieved by the controller.</p>
+
+    <div class='pre p1 fill-light mt0'>on</div>
   
   
 
