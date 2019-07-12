@@ -40,8 +40,8 @@ module.exports = (io) => {
 
          // Empty & Populate Issues Array and return Issues from MySQL database
          /**
-         * @name GET_ISSUES
          * This API call returns all the Issues in the DB in an array
+         * @name GET_ISSUES
          * @returns {array} Returns an array with all the Row objects in the Issues table
          */
         client.on("GET_ISSUES", async () => {
