@@ -1,21 +1,21 @@
-import {socket} from './config'
+import { socket } from './config'
 
-function addTask(userId, taskName, cb){
-    socket.on('ADD_TASK', data => cb(null, data) );
-    socket.emit('USER_ADD_TASK', userId);
-  }
+function addTask(parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, expDuration, actTimeSpent, cb) {
+  socket.on('ADD_TASK', data => cb(null, data));
+  socket.emit('USER_ADD_TASK', parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, expDuration, actTimeSpent);
+}
 
-  function getTasksUsers(userID, cb){
-    socket.on('GET_TASKLIST_USERID', data => cb(null, data) );
-    socket.emit('USER_GET_TASKLIST_USERID', userID);
-  }
+function getTasksUsers(userID, cb) {
+  socket.on('GET_TASKLIST_USERID', data => cb(null, data));
+  socket.emit('USER_GET_TASKLIST_USERID', userID);
+}
 
-  function getListofTasksForCategories(categoryID, cb){
-    socket.on('GET_TASKLIST_CATEGORYID', data => cb(null, data) );
-    socket.emit('USER_GET_TASKLIST_CATEGORYID', categoryID);
-  }
-
-
+function getListofTasksForCategories(categoryID, cb) {
+  socket.on('GET_TASKLIST_CATEGORYID', data => cb(null, data));
+  socket.emit('USER_GET_TASKLIST_CATEGORYID', categoryID);
+}
 
 
-  export {addTask, getTasksUsers,getListofTasksForCategories};
+
+
+export { addTask, getTasksUsers, getListofTasksForCategories };
