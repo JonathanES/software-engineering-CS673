@@ -42,7 +42,7 @@ module.exports = (io) => {
          /**
          * This API call returns all the Issues in the DB in an array
          * @name GET_ISSUES
-         * @returns {array} GOT_ISSUES: Returns an array with all the Row objects in the Issues table
+         * @returns {array} GOT_ISSUES: Returns an array with all the row objects in the Issues table
          */
         client.on("GET_ISSUES", async () => {
             const result = await issueController.getIssues();
