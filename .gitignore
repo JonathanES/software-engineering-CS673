@@ -80,3 +80,6 @@ backend/config/database.js
 backend/.DS_Store
 .DS_Store
 backend/config/database.js
+
+docs/**
+docs/index.html
