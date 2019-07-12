@@ -186,9 +186,59 @@
               
                 
                 <li><a
-                  href='#listofmilestones'
+                  href='#insertnewmilestone'
                   class="">
-                  listOfMilestones
+                  insertNewMilestone
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getmilestone'
+                  class="">
+                  getMilestone
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#getlistofmilestones'
+                  class="">
+                  getListOfMilestones
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#updatemilestonename'
+                  class="">
+                  updateMilestoneName
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#updatemilestoneduedate'
+                  class="">
+                  updateMilestoneDueDate
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#updateiscompleted'
+                  class="">
+                  updateIsCompleted
                   
                 </a>
                 
@@ -1681,16 +1731,17 @@ client.emit('UPDATE_PROJECT_ISDELETED', result);
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='listofmilestones'>
-      listOfMilestones
+    <h3 class='fl m0' id='insertnewmilestone'>
+      insertNewMilestone
     </h3>
     
     
   </div>
   
 
-  
-    <div class='pre p1 fill-light mt0'>listOfMilestones</div>
+  <p>This function creates a new Milestone in the database</p>
+
+    <div class='pre p1 fill-light mt0'>insertNewMilestone(projectID: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, milestoneName: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>, dueDate: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, mileStoneID: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</div>
   
   
 
@@ -1704,15 +1755,6 @@ client.emit('UPDATE_PROJECT_ISDELETED', result);
   
     <div class='py1 quiet mt1 prose-big'>Parameters</div>
     <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>milestoneID</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-	    Milestone ID number
-
-          </div>
-          
-        </div>
       
         <div class='space-bottom0'>
           <div>
@@ -1743,8 +1785,8 @@ client.emit('UPDATE_PROJECT_ISDELETED', result);
       
         <div class='space-bottom0'>
           <div>
-            <span class='code bold'>isCompleted</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
-	    Marks completion of the milestone
+            <span class='code bold'>mileStoneID</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    Milestone ID number
 
           </div>
           
@@ -1755,6 +1797,390 @@ client.emit('UPDATE_PROJECT_ISDELETED', result);
 
   
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getmilestone'>
+      getMilestone
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This function returns a specific milestone given the MilestoneID</p>
+
+    <div class='pre p1 fill-light mt0'>getMilestone(mileStoneID: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>mileStoneID</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    The ID of the milestone you wish to retrieve from the DB
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        Returns the Milestone based on the ID provided
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='getlistofmilestones'>
+      getListOfMilestones
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This function returns an array of the milestones attached to a given project</p>
+
+    <div class='pre p1 fill-light mt0'>getListOfMilestones(projectID: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">array</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>projectID</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    The ID of the project from which you wish to pull the milestones
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">array</a></code>:
+        Returns an array containing a list of the milestones for the specified project
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='updatemilestonename'>
+      updateMilestoneName
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This function returns</p>
+
+    <div class='pre p1 fill-light mt0'>updateMilestoneName(milestoneID: any, milestoneName: any, projectID: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">array</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>milestoneID</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>milestoneName</span> <code class='quiet'>(any)</code>
+	    
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>projectID</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    The ID of the project from which you wish to pull the milestones
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">array</a></code>:
+        Returns an array containing a list of the milestones for the specified project
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='updatemilestoneduedate'>
+      updateMilestoneDueDate
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This function updates the due date of a specified milestone in the DB</p>
+
+    <div class='pre p1 fill-light mt0'>updateMilestoneDueDate(milestoneID: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, dueDate: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>milestoneID</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    The ID of the milestone for which you wish to change the date
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>dueDate</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    The new due date of the milestone
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
+        Returns the new due date
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='updateiscompleted'>
+      updateIsCompleted
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This function updates the completion status of a specified milestone in the DB</p>
+
+    <div class='pre p1 fill-light mt0'>updateIsCompleted(milestoneID: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>, isCompleted: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>): <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>milestoneID</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    The ID of the milestone for which you wish to change the completion status
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>isCompleted</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
+	    The new due date of the milestone
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></code>:
+        Returns the new completion status
+
+      
+    
   
 
   
