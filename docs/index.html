@@ -356,29 +356,9 @@
               
                 
                 <li><a
-                  href='#on'
+                  href='#get_issues'
                   class="">
-                  on
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#on'
-                  class="">
-                  on
-                  
-                </a>
-                
-                </li>
-              
-                
-                <li><a
-                  href='#on'
-                  class="">
-                  on
+                  GET_ISSUES
                   
                 </a>
                 
@@ -419,6 +399,26 @@
                   href='#usercontroller'
                   class="">
                   userController
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#on'
+                  class="">
+                  on
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#on'
+                  class="">
+                  on
                   
                 </a>
                 
@@ -3003,7 +3003,7 @@ client.emit('UPDATE_TASK_ISDELETE', result);
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
-        Inserted Row's Primary Key
+        CREATED_NEW_ISSUE: Inserted Row's Primary Key
 
       
     
@@ -3082,7 +3082,7 @@ client.emit('UPDATE_TASK_ISDELETE', result);
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code>:
-        Returns the count/number of changed rows in the database
+        UPDATED_ISSUE_STATUS: Returns the count/number of changed rows in the database
 
       
     
@@ -3109,16 +3109,17 @@ client.emit('UPDATE_TASK_ISDELETE', result);
   
   <div class='clearfix'>
     
-    <h3 class='fl m0' id='on'>
-      on
+    <h3 class='fl m0' id='get_issues'>
+      GET_ISSUES
     </h3>
     
     
   </div>
   
 
-  
-    <div class='pre p1 fill-light mt0'>on</div>
+  <p>This API call returns all the Issues in the DB in an array</p>
+
+    <div class='pre p1 fill-light mt0'>GET_ISSUES</div>
   
   
 
@@ -3137,10 +3138,248 @@ client.emit('UPDATE_TASK_ISDELETE', result);
     
       <div class='py1 quiet mt1 prose-big'>Returns</div>
       <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">array</a></code>:
-        Returns an array with all the Row objects in the Issues table
+        GOT_ISSUES: Returns an array with all the Row objects in the Issues table
 
       
     
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='get_issue_with_id'>
+      GET_ISSUE_WITH_ID
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This API call gets a specific Issue from the DB</p>
+
+    <div class='pre p1 fill-light mt0'>GET_ISSUE_WITH_ID</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>issueID</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
+	    The ID of the Issue you are interested in
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
+        GOT_ISSUE_WITH_ID: Returns the row object of the IssueID specified
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='create_new_issue_status'>
+      CREATE_NEW_ISSUE_STATUS
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>This API call generates a new IssueStatus type in the DB</p>
+
+    <div class='pre p1 fill-light mt0'>CREATE_NEW_ISSUE_STATUS</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>status</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    The name of the status you want to be created in the database
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+    
+      <div class='py1 quiet mt1 prose-big'>Returns</div>
+      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></code>:
+        CREATED_NEW_ISSUE_STATUS
+
+      
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='messagingcontroller'>
+      messagingController
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>socket section that is about the user
+it is the link between the frontend and the backend for the user</p>
+
+    <div class='pre p1 fill-light mt0'>messagingController</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='usercontroller'>
+      userController
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>socket section that is about the user
+it is the link between the frontend and the backend for the user</p>
+
+    <div class='pre p1 fill-light mt0'>userController</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
   
 
   
@@ -3227,236 +3466,6 @@ client.emit('UPDATE_TASK_ISDELETE', result);
 2) send to the frontend (client.emit) the information that has been retrieved by the controller.</p>
 
     <div class='pre p1 fill-light mt0'>on</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='get_issue_with_id'>
-      GET_ISSUE_WITH_ID
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>This API call gets a specific Issue from the DB</p>
-
-    <div class='pre p1 fill-light mt0'>GET_ISSUE_WITH_ID</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>issueID</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>)</code>
-	    The ID of the Issue you are interested in
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-    
-      <div class='py1 quiet mt1 prose-big'>Returns</div>
-      <code><a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></code>:
-        Returns the row object of the IssueID specified
-
-      
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='create_new_issue_status'>
-      CREATE_NEW_ISSUE_STATUS
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>This API call generates a new IssueStatus type in the DB</p>
-
-    <div class='pre p1 fill-light mt0'>CREATE_NEW_ISSUE_STATUS</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-    <div class='py1 quiet mt1 prose-big'>Parameters</div>
-    <div class='prose'>
-      
-        <div class='space-bottom0'>
-          <div>
-            <span class='code bold'>status</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
-	    The name of the status you want to be created in the database
-
-          </div>
-          
-        </div>
-      
-    </div>
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='messagingcontroller'>
-      messagingController
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>socket section that is about the user
-it is the link between the frontend and the backend for the user</p>
-
-    <div class='pre p1 fill-light mt0'>messagingController</div>
-  
-  
-
-  
-  
-  
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-</section>
-
-          
-        
-          
-          <section class='p2 mb2 clearfix bg-white minishadow'>
-
-  
-  <div class='clearfix'>
-    
-    <h3 class='fl m0' id='usercontroller'>
-      userController
-    </h3>
-    
-    
-  </div>
-  
-
-  <p>socket section that is about the user
-it is the link between the frontend and the backend for the user</p>
-
-    <div class='pre p1 fill-light mt0'>userController</div>
   
   
 
