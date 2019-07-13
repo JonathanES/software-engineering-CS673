@@ -11,7 +11,13 @@ const defaultState = {
           projectTaskList: action.projectTaskList
 
         }
-
+      
+        case 'PROJECT_ADD_TASK_DEMAND':
+          return{
+            ...state,
+            projectAddTask: action.projectAddTask
+  
+          }
 
       default:
         return {

@@ -47,13 +47,14 @@ class Task extends React.Component {
     }
     handleSubmit(event) {
         console.log('Add Task button pressed before call');
+        this.props.dispatch({type:'USER_PROJECT_ADD_TASK_DEMAND'});
+        
+        // addTask(this.state.username, this.state.newtask, (err, data) => {
+        //     console.log('Add Task button pressed');
+        //     this.setState({ newtask: data });
+        //     console.log("inside handleSubmit");
 
-        addTask(this.state.username, this.state.newtask, (err, data) => {
-            console.log('Add Task button pressed');
-            this.setState({ newtask: data });
-            console.log("inside handleSubmit");
-
-        })
+        //})
         event.preventDefault();
     }
 
@@ -89,7 +90,7 @@ class Task extends React.Component {
                 {/* <div class="add_task"> */}
                 <div>
                     <form onSubmit={this.handleSubmit}>
-                        <input id="add-task-input" type="text" value={this.state.newtask} onChange={this.handleChange} />
+                        {/* <input id="add-task-input" type="text" value={this.state.newtask} onChange={this.handleChange} /> */}
                         <button id="add-task-button" type="submit">Add Task</button>
                     </form>
                 </div>
