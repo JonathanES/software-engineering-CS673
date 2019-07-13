@@ -60,6 +60,7 @@ class TaskForm extends Component {
             </div>
         );
     }
+
 }
 
 export default connect(mapStateToProps)(TaskForm);

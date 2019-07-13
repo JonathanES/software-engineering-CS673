@@ -5,6 +5,7 @@ import Inscription from '../components/register/Register';
 import Chat from '../components/chat/Chat';
 import Project from '../components/project/Project';
 import Task from '../components/Task/Task';
+import TaskForm from '../components/task-design/TaskForm';
 import Menu from './Menu';
 
 const mapStateToProps = state => ({

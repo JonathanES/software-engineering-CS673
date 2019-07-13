@@ -2,7 +2,8 @@ import React from "react";
 import { connect } from 'react-redux';
 import io from "socket.io-client";
 import { addTask, getTasksUsers } from '../../socket/taskSocket';
-import {userId} from '../../socket/userSocket';
+import TaskForm from '../task-design/TaskForm';
+//mport {userId} from '../../socket/userSocket';
 import '../../css/task.css'
 
 const mapStateToProps = state => ({
@@ -47,14 +48,16 @@ class Task extends React.Component {
     }
     handleSubmit(event) {
         console.log('Add Task button pressed before call');
-        this.props.dispatch({type:'USER_PROJECT_ADD_TASK_DEMAND'});
-        
-        // addTask(this.state.username, this.state.newtask, (err, data) => {
+
+        this.props.dispatch({ type: 'USER_ADD_TASK_DEMAND' });
+        // dispatch: <TaskForm  dispatch={this.props.dispatch}/>;
+
+        // addTask(this.state.userId, this.state.newtask, (err, data) => {
         //     console.log('Add Task button pressed');
         //     this.setState({ newtask: data });
         //     console.log("inside handleSubmit");
 
-        //})
+        // })
         event.preventDefault();
     }
 

@@ -1,6 +1,7 @@
 const defaultState = {
     projectID: '',
     projectTaskList: [],
+    addTask: false
   };
   
   const project = (state = defaultState, action) => {
@@ -11,13 +12,12 @@ const defaultState = {
           projectTaskList: action.projectTaskList
 
         }
-      
-        case 'PROJECT_ADD_TASK_DEMAND':
-          return{
-            ...state,
-            projectAddTask: action.projectAddTask
-  
-          }
+
+      case 'ADD_TASK_DEMAND':
+        return{
+          ...state,
+          addTask: !state.addTask
+        }
 
       default:
         return {

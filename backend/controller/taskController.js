@@ -26,15 +26,15 @@ const listofTaskUsers = [];
  * 2) query adds the task under the selected category of the selected project
  * 3) this function can be called from Frontend as follows
  * 
- * client.on('USER_CREATE_TASK', async (parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo,  expectedDuration, actualTimeSpent) => {
+ * client.on('USER_ADD_TASK', async (parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo,  expectedDuration, actualTimeSpent) => {
             const result = await taskController.insertNewTask(parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, expectedDuration, actualTimeSpent);
-            client.emit('CREATE_TASK', result);
+            client.emit('ADD_TASK', result);
            })
 
-           function addTask(userId, taskName, cb){
-    socket.on('ADD_TASK', data => cb(null, data) );
-    socket.emit('USER_ADD_TASK', userId);
-  }
+    function addTask(parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, taskInfo, expDuration, actTimeSpent, cb) {
+        socket.on('ADD_TASK', data => cb(null, data));
+        socket.emit('USER_ADD_TASK', parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, taskInfo, expDuration, actTimeSpent);
+    }
  */
 async function insertNewTask(parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, expectedDuration, actualTimeSpent) {
     return new Promise(async resolve => {
