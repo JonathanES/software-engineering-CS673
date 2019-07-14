@@ -117,15 +117,18 @@ function getListOfProjects(userID) {
 function getCategories(pID) {
     return new Promise((resolve, reject) => {
         console.log('Categories for Project:', pID)
-    client.query('SELECT * FROM Categories INNER JOIN Projects ON Projects.ProjectID = Categories.ProjectID  WHERE Categories.ProjectID = ?', [pID], async function (error, results, fields) {
-        if (error) throw error;
-            //console.log(results);
-            for (category of results){
+        client.query('SELECT * FROM Categories INNER JOIN Projects ON Projects.ProjectID = Categories.ProjectID  WHERE Categories.ProjectID = ?', [pID], async function (error, results, fields) {
+            if (error) throw error;
+            console.log(results.length);
+            for (category of results) {
                 const elt = await taskController.getListofTasksForCategories(category.CategoryID);
                 category["listOfTasks"] = elt;
 
             }
-            if (error) throw error;
+            //if (error) throw error;
+            //console.log('results of getCategories:', results);
+            //console.log('category array:', category);
+            //resolve(results);
             resolve(results);
 
         });

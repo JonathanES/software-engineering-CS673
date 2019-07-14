@@ -13,7 +13,7 @@ import Menu from './Menu';
 const mapStateToProps = state => ({
     username: state.user.username,
     id_user: state.user.id_user,
-    projectID: '',
+    projectID: state.project.projectID,
     registerDemand: state.demand.registerDemand,
     connexionDemand: state.demand.connexionDemand,
     messageDemand: state.demand.messageDemand,
@@ -32,7 +32,6 @@ const MainPage = ({ dispatch, connexionDemand, registerDemand, messageDemand, pr
             {connexionDemand && !registerDemand && <Login dispatch={dispatch} />}
             {messageDemand && <Chat dispatch={dispatch} />}
             {projectDemand && <Project dispatch={dispatch} />}    
-            {/* {projectDemand && <a href="#" class="cta"> Create your Project </a>} */}
             {issueDemand && <h1>Issue page</h1>}
             {taskDemand && <Task dispatch={dispatch} />}
             {projectTaskDemand && <ProjectTask dispatch={dispatch} />}

@@ -23,8 +23,8 @@ function* handleTaskDemand(){
     yield put({type: "TASK_DEMAND"});
 }
 
-function* handleProjectTaskDemand(){
-    yield put({type: "PROJECTTASK_DEMAND"});
+function* handleProjectTaskDemand(action){
+    yield put({type: "PROJECTTASK_DEMAND", projectID:action.projectID});
 }
 
 function* handleAddTaskDemand(){

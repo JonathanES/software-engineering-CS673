@@ -34,7 +34,7 @@ const user = (state = defaultState, action) => {
                 ...state,
                 connexionDemand: true,
                 registerDemand: false,
-                projectDemand: true,
+                projectDemand: false,
                 messageDemand: false,
                 issueDemand: false,
                 taskDemand: false,

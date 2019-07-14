@@ -8,6 +8,7 @@ const defaultState = {
       case 'IS_PROJECT_DEMAND':
         return{
           ...state,
+          projectID: action.ProjectID,
           isProjectSelected: !state.isProjectSelected
 
         }
@@ -17,12 +18,19 @@ const defaultState = {
           isProjectSelected: false
         }
 
-        case 'USER_GET_PROJECTFORM':
+        case 'PROJECTFORM_DEMAND':
           return{
             ...state,
+            projectID: action.projectID,
             isProjectSelected: false,
             projectForm: action.projectForm
           }
+
+          case ' VIEW_PROJECTTASKS':
+            return{
+              ...state,
+              projectID: action.projectID
+            }
 
 
       default:

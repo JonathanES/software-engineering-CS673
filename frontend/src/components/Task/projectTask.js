@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import Project from '../project/Project';
-import { addTask, getTasksUsers } from '../../socket/taskSocket';
+import { addTask } from '../../socket/taskSocket';
 import { addCategory, showCategories } from '../../socket/projectSocket';
 import '../../css/projectTask.css'
 
@@ -46,20 +45,21 @@ class ProjectTask extends React.Component {
 
         
         console.log('Show Categories called for Project:', this.state.pID);
-        showCategories(this.state.pID, (err, data) => {
-            //console.log(data);
-            console.log('Does it ever comes here!! Line 47 of projectTask')
-            console.log('ProjectID:',this.state.pID);
-            //this.setState({projectName:  data[0].ProjectName})
-            this.setState({ projectName: data.length == 0 ? this.state.projectName : data[0].ProjectName });
-            //console.log(data[0].ProjectName);
-            //console.log(data[0].ProjectID);
-            //console.log(data[0]);
-            //this.setState({ pID: this.state.ProjectID});
-            //this.props.dispatch()
-            this.props.dispatch({ type: 'USER_PROJECT_TASK_DEMAND', projectTaskList: data });
-            //this.setState({projectTaskList: ''});
-        });
+        // showCategories(this.state.pID, (err, data) => {
+        //     this.setState({projectID : this.state.pID});
+        //     console.log(data);
+        //     console.log('Does it ever comes here!! Line 47 of projectTask')
+        //     console.log('ProjectID:',this.state.pID);
+        //     //this.setState({projectName:  data[0].ProjectName})
+        //     this.setState({ projectName: data.length == 0 ? this.state.projectName : data[0].ProjectName });
+        //     //console.log(data[0].ProjectName);
+        //     //console.log(data[0].ProjectID);
+        //     //console.log(data[0]);
+        //     //this.setState({ pID: this.state.ProjectID});
+        //     //this.props.dispatch()
+        //     this.props.dispatch({ type: 'USER_PROJECTTASK_DEMAND', projectTaskList: data });
+        //     //this.setState({projectTaskList: ''});
+        // });
     }
 
     handleChange(event) {
@@ -84,7 +84,7 @@ class ProjectTask extends React.Component {
                 break;
             case "add-cat-button":
                     console.log('add cat btn pressed');
-                    console.log('Project ID:' , this.state.pID, ' Cat Name: ', this.state.catName);
+                    console.log('Project ID:' , this.state.projectID, ' Cat Name: ', this.state.catName);
                     // addCategory(this.state.pID, this.state.catName, (err, data) => {
                     //     console.log('Add Project button pressed');
                     //     this.setState({ catName: data });
