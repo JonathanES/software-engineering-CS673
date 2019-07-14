@@ -13,8 +13,16 @@ const defaultState = {
         }
         case 'VIEW_PROJECT': return {
           ...state,
+          projectID: action.projectID,
           isProjectSelected: false
         }
+
+        case 'USER_GET_PROJECTFORM':
+          return{
+            ...state,
+            isProjectSelected: false,
+            projectForm: action.projectForm
+          }
 
 
       default:

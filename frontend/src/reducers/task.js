@@ -9,6 +9,7 @@ const defaultState = {
       case 'PROJECT_TASK_DEMAND':
         return{
           ...state,
+          projectID: action.projectID,
           projectTaskList: action.projectTaskList
 
         }

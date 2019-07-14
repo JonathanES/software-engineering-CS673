@@ -86,7 +86,6 @@ function getListOfProjects(userID) {
     return new Promise((resolve, reject) => {
         console.log('Project for user:', userID)
         client.query('SELECT * FROM Projects P Join ProjectUsers PU on P.ProjectID = PU.ProjectID WHERE PU.UserID = ?', [userID], function (error, results, fields) {
-            //console.log(results);
             results.forEach(result => {
                 if (!listOfProjects.some(project => project.getProjectID == result.ProjectID)) {
                     const project = new ProjectModel(result.ProjectID, result.ProjectName, result.DateCreated, result.DueDate);
@@ -126,6 +125,18 @@ function getCategories(pID) {
                 category["listOfTasks"] = elt;
 
             }
+            if (error) throw error;
+            resolve(results);
+
+        });
+    })
+}
+
+function addCategory(pID,categoryName) {
+    return new Promise((resolve, reject) => {
+    client.query('INSERT INTO Categories(ProjectID, CategoryName) Values(?,?)', [pID, categoryName], async function (error, results, fields) {
+        if (error) throw error;
+            //console.log(results);
             if (error) throw error;
             resolve(results);
 
@@ -220,5 +231,6 @@ module.exports = {
     updateProjectName: updateProjectName,
     updateProjectDueDate: updateProjectDueDate,
     updateProjectIsDeleted: updateProjectIsDeleted,
-    getCategories: getCategories
+    getCategories: getCategories,
+    addCategory: addCategory
 }

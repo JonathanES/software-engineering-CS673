@@ -4,7 +4,11 @@ const defaultState = {
     projectDemand: false,
     messageDemand: false,
     issueDemand: false,
-    taskDemand: false
+    taskDemand: false,
+    projectTaskDemand:false,
+    projectFormDemand: false
+
+
 };
 
 const user = (state = defaultState, action) => {
@@ -21,17 +25,21 @@ const user = (state = defaultState, action) => {
                 projectDemand: false,
                 messageDemand: false,
                 issueDemand: false,
-                taskDemand: false
+                taskDemand: false,
+                projectFormDemand: false,
+                projectTaskDemand: false,
             };
         case 'CONNEXION_DEMAND':
             return {
                 ...state,
                 connexionDemand: true,
                 registerDemand: false,
-                projectDemand: false,
+                projectDemand: true,
                 messageDemand: false,
                 issueDemand: false,
-                taskDemand: false
+                taskDemand: false,
+                projectFormDemand: false,
+                projectTaskDemand: false,
             };
         case 'DEMAND_LOGOUT':
             return {
@@ -41,7 +49,9 @@ const user = (state = defaultState, action) => {
                 projectDemand: false,
                 issueDemand: false,
                 taskDemand: false,
-                messageDemand: false
+                messageDemand: false,
+                projectFormDemand: false,
+                projectTaskDemand: false,
             }
         case 'MESSAGE_DEMAND':
             return {
@@ -51,7 +61,9 @@ const user = (state = defaultState, action) => {
                 registerDemand: false,
                 projectDemand: false,
                 issueDemand: false,
-                taskDemand: false
+                taskDemand: false,
+                projectFormDemand: false,
+                projectTaskDemand: false,
             };
         case 'PROJECT_DEMAND':
             return {
@@ -61,7 +73,9 @@ const user = (state = defaultState, action) => {
                 connexionDemand: false,
                 registerDemand: false,
                 issueDemand: false,
-                taskDemand: false
+                taskDemand: false,
+                projectFormDemand: false,
+                projectTaskDemand: false,
             };
         case 'ISSUE_DEMAND':
             return {
@@ -71,7 +85,9 @@ const user = (state = defaultState, action) => {
                 messageDemand: false,
                 connexionDemand: false,
                 registerDemand: false,
-                taskDemand: false
+                taskDemand: false,
+                projectFormDemand: false,
+                projectTaskDemand: false,
             };
         case 'TASK_DEMAND':
             return {
@@ -82,7 +98,35 @@ const user = (state = defaultState, action) => {
                 messageDemand: false,
                 connexionDemand: false,
                 registerDemand: false,
+                projectFormDemand: false,
+                projectTaskDemand: false,
             };
+
+        case 'PROJECTTASK_DEMAND':
+            return {
+                ...state,
+                projectTaskDemand: true,
+                projectFormDemand: false,
+                taskDemand: false,
+                issueDemand: false,
+                projectDemand: false,
+                messageDemand: false,
+                connexionDemand: false,
+                registerDemand: false,
+            }
+
+        case 'PROJECTFORM_DEMAND':
+            return {
+                ...state,
+                projectFormDemand: true,
+                taskDemand: false,
+                issueDemand: false,
+                projectDemand: false,
+                messageDemand: false,
+                connexionDemand: false,
+                registerDemand: false,
+                projectTaskDemand: false,
+            }
         default:
             return state;
     }

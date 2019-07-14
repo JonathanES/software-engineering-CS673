@@ -5,19 +5,26 @@ import ProjectTask from '../Task/projectTask.js';
 //import {userId} from '../../socket/userSocket';
 import '../../css/project.css'
 
+const mapStateToProps = state => ({
+  username: state.user.username,
+  userId: state.user.userId,
+  //projectID: state.project.projectID,
+  //isProjectSelected: state.project.isProjectSelected
+  //taskname: state.Task.newtask
+});
 
 
-
-class Project_Form extends Component {
+class ProjectForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      projectname:'',
+      userId: props.userId,
+      projectName:'',
       username: '',
-      userId: '',
       dueDate:''
 
     };
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -47,7 +54,10 @@ class Project_Form extends Component {
 
   
   handleSubmit(event) {
-    createProject(this.state.projectName, this.state.dueDate, this.state.userID, (err, data) => {
+
+    console.log('After clicking add project button');
+    console.log('Handle Submit: userID', this.state.userId, ' Project Name:', this.state.projectName, ' Due Date:', this.state.dueDate)
+    addProject(this.state.userId, this.state.projectName, this.state.dueDate, (err, data) => {
       console.log(data);
       //here we should call the mainpage, so they can see the project added to their screen, wonder how we will do it
       //this.props.dispatch({ type: 'USER_LOGIN', username: data.username});
@@ -81,7 +91,7 @@ class Project_Form extends Component {
                   <label htmlFor="password-confirmation">Confirmation :</label>
                   <input id="password-confirmation" type="password" value={this.state.passwordConfirmation} onChange={this.handleChange} />
                 </div> */}
-                <button type="submit" className="projectformbtn uppercase">Create Project</button>
+                <button type="submit" className="projectformbtn uppercase">Add Project</button>
               </form>
             </div>
             {/* <p className="account-help">You already have an account ? <a onClick={this.handleClick} className="underline red" >Login</a></p> */}
@@ -91,4 +101,4 @@ class Project_Form extends Component {
     );
   }
 }
-export default connect(mapStateToProps)(Project_Form);
+export default connect(mapStateToProps)(ProjectForm);
