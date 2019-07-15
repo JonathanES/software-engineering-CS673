@@ -2,7 +2,8 @@ import React from "react";
 import { connect } from 'react-redux';
 import io from "socket.io-client";
 import { addTask, getTasksUsers } from '../../socket/taskSocket';
-import {userId} from '../../socket/userSocket';
+import TaskForm from '../task-design/TaskForm';
+//mport {userId} from '../../socket/userSocket';
 import '../../css/task.css'
 
 const mapStateToProps = state => ({
@@ -48,12 +49,15 @@ class Task extends React.Component {
     handleSubmit(event) {
         console.log('Add Task button pressed before call');
 
-        addTask(this.state.username, this.state.newtask, (err, data) => {
-            console.log('Add Task button pressed');
-            this.setState({ newtask: data });
-            console.log("inside handleSubmit");
+        this.props.dispatch({ type: 'USER_ADD_TASK_DEMAND' });
+        // dispatch: <TaskForm  dispatch={this.props.dispatch}/>;
 
-        })
+        // addTask(this.state.userId, this.state.newtask, (err, data) => {
+        //     console.log('Add Task button pressed');
+        //     this.setState({ newtask: data });
+        //     console.log("inside handleSubmit");
+
+        // })
         event.preventDefault();
     }
 
@@ -89,7 +93,7 @@ class Task extends React.Component {
                 {/* <div class="add_task"> */}
                 <div>
                     <form onSubmit={this.handleSubmit}>
-                        <input id="add-task-input" type="text" value={this.state.newtask} onChange={this.handleChange} />
+                        {/* <input id="add-task-input" type="text" value={this.state.newtask} onChange={this.handleChange} /> */}
                         <button id="add-task-button" type="submit">Add Task</button>
                     </form>
                 </div>

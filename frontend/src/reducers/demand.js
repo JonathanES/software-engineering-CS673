@@ -4,7 +4,13 @@ const defaultState = {
     projectDemand: false,
     messageDemand: false,
     issueDemand: false,
-    taskDemand: false
+    taskDemand: false,
+    projectTaskDemand:false,
+    projectFormDemand: false,
+    taskFromDemand: false,
+    categoryID:''
+
+
 };
 
 const user = (state = defaultState, action) => {
@@ -21,7 +27,10 @@ const user = (state = defaultState, action) => {
                 projectDemand: false,
                 messageDemand: false,
                 issueDemand: false,
-                taskDemand: false
+                taskDemand: false,
+                projectFormDemand: false,
+                projectTaskDemand: false,
+                taskFromDemand: false,
             };
         case 'CONNEXION_DEMAND':
             return {
@@ -31,7 +40,10 @@ const user = (state = defaultState, action) => {
                 projectDemand: false,
                 messageDemand: false,
                 issueDemand: false,
-                taskDemand: false
+                taskDemand: false,
+                projectFormDemand: false,
+                projectTaskDemand: false,
+                taskFromDemand: false,
             };
         case 'DEMAND_LOGOUT':
             return {
@@ -41,7 +53,10 @@ const user = (state = defaultState, action) => {
                 projectDemand: false,
                 issueDemand: false,
                 taskDemand: false,
-                messageDemand: false
+                messageDemand: false,
+                projectFormDemand: false,
+                projectTaskDemand: false,
+                taskFromDemand: false,
             }
         case 'MESSAGE_DEMAND':
             return {
@@ -51,7 +66,10 @@ const user = (state = defaultState, action) => {
                 registerDemand: false,
                 projectDemand: false,
                 issueDemand: false,
-                taskDemand: false
+                taskDemand: false,
+                projectFormDemand: false,
+                projectTaskDemand: false,
+                taskFromDemand: false,
             };
         case 'PROJECT_DEMAND':
             return {
@@ -61,7 +79,10 @@ const user = (state = defaultState, action) => {
                 connexionDemand: false,
                 registerDemand: false,
                 issueDemand: false,
-                taskDemand: false
+                taskDemand: false,
+                projectFormDemand: false,
+                projectTaskDemand: false,
+                taskFromDemand: false,
             };
         case 'ISSUE_DEMAND':
             return {
@@ -71,7 +92,10 @@ const user = (state = defaultState, action) => {
                 messageDemand: false,
                 connexionDemand: false,
                 registerDemand: false,
-                taskDemand: false
+                taskDemand: false,
+                projectFormDemand: false,
+                projectTaskDemand: false,
+                taskFromDemand: false,
             };
         case 'TASK_DEMAND':
             return {
@@ -82,7 +106,52 @@ const user = (state = defaultState, action) => {
                 messageDemand: false,
                 connexionDemand: false,
                 registerDemand: false,
+                projectFormDemand: false,
+                projectTaskDemand: false,
+                taskFromDemand: false,
+                categoryID: action.categoryID
             };
+
+        // case 'PROJECTTASK_DEMAND':
+        //     return {
+        //         ...state,
+        //         projectTaskDemand: true,
+        //         projectFormDemand: false,
+        //         taskDemand: false,
+        //         issueDemand: false,
+        //         projectDemand: false,
+        //         messageDemand: false,
+        //         connexionDemand: false,
+        //         registerDemand: false,
+        //     }
+
+        case 'PROJECTFORM_DEMAND':
+            return {
+                ...state,
+                projectFormDemand: true,
+                taskDemand: false,
+                issueDemand: false,
+                projectDemand: false,
+                messageDemand: false,
+                connexionDemand: false,
+                registerDemand: false,
+                projectTaskDemand: false,
+                taskFromDemand: false,
+            }
+
+        case 'ADD_TASKFORM_DEMAND':
+            return {
+                ...state,
+                taskFromDemand: true,
+                projectFormDemand: false,
+                taskDemand: false,
+                issueDemand: false,
+                projectDemand: false,
+                messageDemand: false,
+                connexionDemand: false,
+                registerDemand: false,
+                projectTaskDemand: false,
+            }
         default:
             return state;
     }

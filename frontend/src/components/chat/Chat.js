@@ -73,7 +73,7 @@ class Chat extends React.Component {
         }
         else {
             sendGroupMessage(this.state.userId, this.state.receiverId, this.state.message, (err, data) => {
-                this.setState({ chatHistory: data });
+                this.setState({ chatHistory: data, message: ""  });
             })
         }
         event.preventDefault();
@@ -151,7 +151,7 @@ class Chat extends React.Component {
                                     SwelloDesk
                                 </div>
                                 <div class="personalname">
-                                    <div class="yuan yuanselect"></div>
+                                    {/* <div class="yuan yuanselect"></div> */}
                                     <div class="charlefttext">
                                         {this.state.username}
                                     </div>

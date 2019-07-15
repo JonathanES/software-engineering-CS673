@@ -3,9 +3,10 @@
  */
 import {socket} from './config'
 
+
 function addProject(userID, pname, duedate, cb){
-    socket.on('ADD_PROJECT', data => cb(null, data) );
-    socket.emit('USER_ADD_PROJECT', userID, pname, duedate);
+    socket.on('CREATE_PROJECT', data => cb(null, data) );
+    socket.emit('USER_CREATE_PROJECT', userID, pname, duedate);
 }
 
 function getListOfProjects(userID, cb){
@@ -18,4 +19,9 @@ function showCategories(projectID, cb){
     socket.emit('USER_GET_PROJECTCATEGORIES',projectID);
 }
 
-export {addProject, getListOfProjects, showCategories};
+function addCategory(projectID, projectName, cb){
+    socket.on('ADD_CATEGORY', data => cb(null, data));
+    socket.emit('USER_ADD_CATEGORY',projectID, projectName);
+}
+
+export {addProject, getListOfProjects, showCategories, addCategory};

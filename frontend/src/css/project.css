@@ -29,3 +29,16 @@ input {
 .span-project-mid{
     margin-left: 35%;
 }
+
+.addprojectbtn {
+    display: block;
+    color: #fff;
+    background: #0e7fff;
+    text-decoration: none;
+    padding: 8px 50px;
+    font-size: 1.2em;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 4px;
+    margin: 2em 0;
+  }
