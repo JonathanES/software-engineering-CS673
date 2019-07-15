@@ -141,7 +141,7 @@ class Project extends React.Component {
                         )}
                         {this.props.isProjectSelected && <ProjectTask dispatch={this.props.dispatch} />}
                     </ul>
-
+                    {!this.props.isProjectSelected &&
                     <div>
                         <form onClick={this.handleClick}>
                             {/* <input id="add-task-input" type="text" value={this.state.newtask} onChange={this.handleChange} /> */}
@@ -149,6 +149,7 @@ class Project extends React.Component {
                             <button id="add-project-button" class="addprojectbtn" onClick={this.handleClick}>Add Project</button>
                         </form>
                     </div>
+                    }
 
                 </div>
 
