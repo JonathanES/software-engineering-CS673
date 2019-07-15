@@ -23,13 +23,13 @@ class ProjectTask extends React.Component {
             userId: props.userId,
             username: props.username,
             listOfTasks: [],
-            categoryID:0,
+            categoryID: '',
             getListofTasksForUser:[],
             newtask: '',
             catName: '',
         };
 
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleClick = this.handleClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
 
     }
@@ -70,35 +70,36 @@ class ProjectTask extends React.Component {
 
     
 
-    handleSubmit(event) {
+    handleClick(event) {
         event.preventDefault();
 
         //console.log(event);
         //console.log(event.target.id);
 
-        switch (event.target.id) {     
+        switch (event.target.className) {
 
-            case "add-cat-button":
-                    console.log('add cat btn pressed');
-                    console.log('Project ID:' , this.state.pID, ' Cat Name: ', this.state.catName);
-                    addCategory(this.state.pID, this.state.catName, (err, data) => {
-                        console.log('Add Project button pressed');
-                        this.setState({ catName: '' });
-                        console.log("inside handleSubmit");
-                    })
+            case "add_category_button":
+                console.log('add cat btn pressed');
+                console.log('Project ID:', this.state.pID, ' Cat Name: ', this.state.catName);
+                addCategory(this.state.pID, this.state.catName, (err, data) => {
+                    console.log('Add Project button pressed');
+                    this.setState({ catName: '' });
+                    console.log("inside handleSubmit");
+                })
+                break;
+
+            case "add_task_button":
+
+                console.log('ProjectID:', this.state.pID);
+                console.log(this.props.projectTaskList[0].CategoryID);
+                console.log('catID:', event.target.id);
+                this.setState({ categoryID: event.target.id })
+                console.log('categoryID', this.state.categoryID);
+                this.props.dispatch({ type: 'USER_ADD_TASKFORM_DEMAND', categoryID: event.target.id });
                 break;
 
             default:
-                case "add-task-button":
-
-                console.log('ProjectID:',this.state.pID );
-                console.log(this.props.projectTaskList[0].CategoryID);
-                console.log('catID:', event.target.id);
-                this.setState({categoryID: event.target.id}) 
-                console.log('categoryID', this.state.categoryID);   
-                this.props.dispatch({ type: 'USER_ADD_TASKFORM_DEMAND', categoryID: event.target.id });
-                break;   
-
+                break;
         }
         
     }
@@ -115,22 +116,21 @@ class ProjectTask extends React.Component {
                                     <span class="cat_task">{task.TaskName}</span>
                                 </li>
                             )}
-                            <form onClick={this.handleSubmit}>
+                            <form onClick={this.handleClick}>
                                 {/* <input id="add-task-input" type="text" value={this.state.newtask} onChange={this.handleChange} /> */}
                                 {/* <button id="add-task-button" type="submit">Add Task</button> */}
-                                <button id={category.CategoryID} type="submit">Add Task</button>
+                                <button class="add_task_button" id={category.CategoryID} type="submit">Add Task</button>
                                 {/* <button id={"add-task-button"} type="submit">Add Task</button> */}
                             </form>
                         </li>
                     )}
                     <div>
 
-
                     </div>
                 </ul>
-                <form onClick={this.handleSubmit}>
+                <form onClick={this.handleClick}>
                     <input id="catName" type="text" value={this.state.catName} onChange={this.handleChange} />
-                    <button id="add-cat-button" type="submit">Add Category</button>
+                    <button class="add_category_button" id="add-cat-button" type="submit">Add Category</button>
                 </form>
             </div>
 
