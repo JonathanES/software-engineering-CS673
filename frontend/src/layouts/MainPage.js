@@ -22,7 +22,8 @@ const mapStateToProps = state => ({
     taskDemand: state.demand.taskDemand,
     projectTaskDemand: state.demand.projectTaskDemand,
     projectFormDemand:state.demand.projectFormDemand,
-    taskFromDemand:state.demand.taskFromDemand
+    taskFromDemand:state.demand.taskFromDemand,
+    categoryID: state.demand.categoryID
 });
 
 const MainPage = ({ dispatch, connexionDemand, registerDemand, messageDemand, projectDemand, issueDemand, taskDemand, projectFormDemand, projectTaskDemand,taskFromDemand }) => (

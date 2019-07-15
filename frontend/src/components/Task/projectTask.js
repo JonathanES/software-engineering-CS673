@@ -23,7 +23,7 @@ class ProjectTask extends React.Component {
             userId: props.userId,
             username: props.username,
             listOfTasks: [],
-            categoryID:'',
+            categoryID:0,
             getListofTasksForUser:[],
             newtask: '',
             catName: '',
@@ -79,9 +79,11 @@ class ProjectTask extends React.Component {
         switch (event.target.id) {
             case "add-task-button":
 
+                console.log('ProjectID:',this.state.pID );
                 console.log(this.props.projectTaskList[0].CategoryID);
-                this.setState({categoryID: this.props.projectTaskList[0].CategoryID})    
-                this.props.dispatch({ type: 'USER_ADD_TASKFORM_DEMAND', categoryID:this.props.categoryID });
+                this.setState({categoryID: this.props.projectTaskList[0].CategoryID}) 
+                console.log('categoryID', this.state.categoryID);   
+                this.props.dispatch({ type: 'USER_ADD_TASKFORM_DEMAND', categoryID:this.props.projectTaskList[0].CategoryID });
                 break;        
 
             case "add-cat-button":
