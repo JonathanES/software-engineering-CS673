@@ -23,12 +23,12 @@ function* handleTaskDemand(){
     yield put({type: "TASK_DEMAND"});
 }
 
-function* handleProjectTaskDemand(action){
-    yield put({type: "PROJECTTASK_DEMAND", projectID:action.projectID});
-}
+// function* handleProjectTaskDemand(action){
+//     yield put({type: "PROJECTTASK_DEMAND", projectID:action.projectID});
+// }
 
-function* handleAddTaskDemand(){
-    yield put({type: "ADD_TASK_DEMAND"});
+function* handleAddTaskDemand(action){
+    yield put({type: "ADD_TASK_DEMAND", categoryID:action.categoryID});
 }
 
 function* handleLogOut(){
@@ -45,7 +45,7 @@ function *demandSaga(){
     yield takeEvery('USER_ISSUE_DEMAND', handleIssueDemand);
     yield takeEvery('USER_TASK_DEMAND', handleTaskDemand);
     yield takeEvery('USER_ADD_TASK_DEMAND', handleAddTaskDemand);
-    yield takeEvery('USER_PROJECTTASK_DEMAND', handleProjectTaskDemand);
+    //yield takeEvery('USER_PROJECTTASK_DEMAND', handleProjectTaskDemand);
 }
 
 export default demandSaga;

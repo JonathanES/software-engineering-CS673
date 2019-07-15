@@ -19,9 +19,9 @@ function showCategories(projectID, cb){
     socket.emit('USER_GET_PROJECTCATEGORIES',projectID);
 }
 
-function addCategory(projectID, cb){
+function addCategory(projectID, projectName, cb){
     socket.on('ADD_CATEGORY', data => cb(null, data));
-    socket.emit('USER_ADD_CATEGORY',projectID);
+    socket.emit('USER_ADD_CATEGORY',projectID, projectName);
 }
 
 export {addProject, getListOfProjects, showCategories, addCategory};

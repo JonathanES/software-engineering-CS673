@@ -1,5 +1,6 @@
 const defaultState = {
     projectID: '',
+    categories: [],
     isProjectSelected : false
   };
   
@@ -8,7 +9,7 @@ const defaultState = {
       case 'IS_PROJECT_DEMAND':
         return{
           ...state,
-          projectID: action.ProjectID,
+          projectID: action.projectID,
           isProjectSelected: !state.isProjectSelected
 
         }

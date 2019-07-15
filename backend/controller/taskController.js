@@ -38,6 +38,7 @@ const listofTaskUsers = [];
  */
 async function insertNewTask(parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, expectedDuration, actualTimeSpent) {
     return new Promise(async resolve => {
+        console.log('Came here with the category id:', categoryID);
         client.query('INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, Taskname, Taskinfo, CreatedDate, ExpectedDuration, ActualTimeSpent) VALUES(?,?,?,?,?,?,?,NOW(),?,?)', [parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo,  expectedDuration, actualTimeSpent], async function (error, results, fields) {
             if (error) throw error;
             const tasks = await getListofTasks(categoryID);

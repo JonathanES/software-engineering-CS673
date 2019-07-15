@@ -3,8 +3,8 @@ import {put, takeEvery, actionChannel} from 'redux-saga/effects'
 
 
 
-function* handleProjectDemand(){
-    yield put({type: "IS_PROJECT_DEMAND"});
+function* handleProjectDemand(action){
+    yield put({type: "IS_PROJECT_DEMAND",projectID: action.projectID });
 }
 
  function* handleViewProjectTasks(action){
@@ -16,8 +16,12 @@ function* handleViewProjectsDemand(action){
     yield put({type: 'VIEW_PROJECT', projectID: action.projectID});
 }
 
-function* handleAddProjectDemand(action){
-    yield put({type: 'PROJECTFORM_DEMAND', projectForm: action.projectForm});
+// function* handleAddProjectDemand(action){
+//     yield put({type: 'PROJECTFORM_DEMAND', projectForm: action.projectForm});
+// }
+
+function* handleAddProjectDemand(){
+    yield put({type: 'PROJECTFORM_DEMAND'});
 }
 
  function *projectSaga(){

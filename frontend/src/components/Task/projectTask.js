@@ -23,6 +23,7 @@ class ProjectTask extends React.Component {
             userId: props.userId,
             username: props.username,
             listOfTasks: [],
+            categoryID:'',
             getListofTasksForUser:[],
             newtask: '',
             catName: '',
@@ -72,25 +73,27 @@ class ProjectTask extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
-
+        //console.log(event);
+        //console.log(event.target.id);
 
         switch (event.target.id) {
             case "add-task-button":
-                addTask(this.state.username, this.state.newtask, (err, data) => {
-                console.log('Add Task button pressed');
-                this.setState({ newtask: data });
-                console.log("inside handleSubmit"); 
-                })
-                break;
+
+                console.log(this.props.projectTaskList[0].CategoryID);
+                this.setState({categoryID: this.props.projectTaskList[0].CategoryID})    
+                this.props.dispatch({ type: 'USER_ADD_TASKFORM_DEMAND', categoryID:this.props.categoryID });
+                break;        
+
             case "add-cat-button":
                     console.log('add cat btn pressed');
-                    console.log('Project ID:' , this.state.projectID, ' Cat Name: ', this.state.catName);
-                    // addCategory(this.state.pID, this.state.catName, (err, data) => {
-                    //     console.log('Add Project button pressed');
-                    //     this.setState({ catName: data });
-                    //     console.log("inside handleSubmit");
-                    // })
+                    console.log('Project ID:' , this.state.pID, ' Cat Name: ', this.state.catName);
+                    addCategory(this.state.pID, this.state.catName, (err, data) => {
+                        console.log('Add Project button pressed');
+                        this.setState({ catName: '' });
+                        console.log("inside handleSubmit");
+                    })
                 break;
+
             default:
                 break;
 
@@ -101,7 +104,7 @@ class ProjectTask extends React.Component {
     render() {
         return (
             <div id="propnav">
-                <ul class="category">
+                <ul class="category_ul">
                     {this.props.projectTaskList.map(category =>
                         <li class="cat-task" id={category.projectID} onClick={this.handleClickProject}>
                             <span class="category">{category.CategoryName}</span>
@@ -110,9 +113,10 @@ class ProjectTask extends React.Component {
                                     <span class="cat_task">{task.TaskName}</span>
                                 </li>
                             )}
-                            <form onSubmit={this.handleSubmit}>
+                            <form onClick={this.handleSubmit}>
                                 {/* <input id="add-task-input" type="text" value={this.state.newtask} onChange={this.handleChange} /> */}
                                 <button id="add-task-button" type="submit">Add Task</button>
+                                {/* <button id={"add-task-button"} type="submit">Add Task</button> */}
                             </form>
                         </li>
                     )}
