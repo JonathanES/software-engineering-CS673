@@ -76,15 +76,7 @@ class ProjectTask extends React.Component {
         //console.log(event);
         //console.log(event.target.id);
 
-        switch (event.target.id) {
-            case "add-task-button":
-
-                console.log('ProjectID:',this.state.pID );
-                console.log(this.props.projectTaskList[0].CategoryID);
-                this.setState({categoryID: this.props.projectTaskList[0].CategoryID}) 
-                console.log('categoryID', this.state.categoryID);   
-                this.props.dispatch({ type: 'USER_ADD_TASKFORM_DEMAND', categoryID:this.props.projectTaskList[0].CategoryID });
-                break;        
+        switch (event.target.id) {     
 
             case "add-cat-button":
                     console.log('add cat btn pressed');
@@ -97,7 +89,15 @@ class ProjectTask extends React.Component {
                 break;
 
             default:
-                break;
+                case "add-task-button":
+
+                console.log('ProjectID:',this.state.pID );
+                console.log(this.props.projectTaskList[0].CategoryID);
+                console.log('catID:', event.target.id);
+                this.setState({categoryID: event.target.id}) 
+                console.log('categoryID', this.state.categoryID);   
+                this.props.dispatch({ type: 'USER_ADD_TASKFORM_DEMAND', categoryID: event.target.id });
+                break;   
 
         }
         
@@ -117,7 +117,8 @@ class ProjectTask extends React.Component {
                             )}
                             <form onClick={this.handleSubmit}>
                                 {/* <input id="add-task-input" type="text" value={this.state.newtask} onChange={this.handleChange} /> */}
-                                <button id="add-task-button" type="submit">Add Task</button>
+                                {/* <button id="add-task-button" type="submit">Add Task</button> */}
+                                <button id={category.CategoryID} type="submit">Add Task</button>
                                 {/* <button id={"add-task-button"} type="submit">Add Task</button> */}
                             </form>
                         </li>
