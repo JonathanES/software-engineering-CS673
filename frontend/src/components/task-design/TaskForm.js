@@ -5,7 +5,7 @@ import '../../css/task_add.css'
 
 const mapStateToProps = state => ({
     userId : state.user.userId,
-    categoryID: state.project.categoryID,
+    catID: state.task.categoryID,
     //addTask: state.message.addTask
 });
 
@@ -16,7 +16,7 @@ class TaskForm extends Component {
         this.state = {
           userId: props.userId,
           parentID: props.categoryID,
-          categoryID:props.categoryID,
+          categoryID: props.catID,
           priorityID: '',
           taskName: '',
           taskInfo:'N/A',
@@ -57,7 +57,7 @@ class TaskForm extends Component {
     
         console.log('After clicking add project button');
         console.log('Handle Submit: userID', this.state.userId);
-        console.log('Category ID:', this.props.categoryID);
+        console.log('Category ID:', this.state.categoryID);
         console.log('TaskName:', this.props.taskName);
 
         // addTask(this.props.parentID, this.props.categoryID, this.state.userId, 0, this.props.priorityID, this.props.taskName, this.props.taskInfo, this.props.expDuration, 0 , (err,data) =>{

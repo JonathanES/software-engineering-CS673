@@ -151,6 +151,7 @@ const user = (state = defaultState, action) => {
                 connexionDemand: false,
                 registerDemand: false,
                 projectTaskDemand: false,
+                categoryID: action.categoryID
             }
         default:
             return state;
