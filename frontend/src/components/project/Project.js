@@ -33,6 +33,7 @@ class Project extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handleDeleteClick = this.handleDeleteClick.bind(this);
 
     }
 
@@ -64,6 +65,26 @@ class Project extends React.Component {
         // event.preventDefault();
     }
 
+    handleDeleteClick(event) {
+
+        // console.log('Add Task button pressed before call');
+
+        // showCategories(this.state.projectID, (err, data) => {
+        //     console.log('Add Project button pressed');
+        //     this.setState({ projectcategories: data });
+        //     console.log("inside handleSubmit");
+
+        // })
+        // event.preventDefault();
+        //event.preventDefault();
+
+        console.log('Delete Button for ProjectID:', event.currentTarget.id, ' is pressed');
+
+        
+                
+     
+    }
+
     handleClick(event) {
 
         // console.log('Add Task button pressed before call');
@@ -85,7 +106,8 @@ class Project extends React.Component {
                 console.log('Add Task button pressed before call');
                 this.props.dispatch({ type: 'USER_PROJECTFORM_DEMAND' });
                 break;
-
+            case "deletebtn" + event.currentTarget.id:
+                console.log("delete button for project id:",event.currentTarget.id, " is pressed" )
             default:
                 console.log('src/component/project/project.js Project button is clicked:', event.currentTarget.id);
                 //this.setState({ listOfProjects: data });
@@ -124,19 +146,23 @@ class Project extends React.Component {
     render() {
         return (
             <div>
-                <div class="direct">
+                <div class="project">
                     <div class="title">{this.state.projectName}</div>
-                    <ul class="projects">
+                    <ul >
                         {!this.props.isProjectSelected && this.state.listOfProjects.map(project =>
-                        // {this.state.listOfProjects.map(project =>
-                            <li class="project_list">
-                                {/* <div id={project.projectID} onClick={this.handleClickProject}> */}
-                                <div id={project.projectID} onClick={this.handleClick}>
-                                    {/* <div class={project.isadd == "true" ? "yuan yuanselect" : "yuan"}></div> */}
-                                    <div class="user-project" >
-                                        <span class="span-project-mid">{project.projectName}</span>
-                                    </div>
+                            // <li class="project_list">
+                            //     <div id={project.projectID} onClick={this.handleClick}>
+                            //         <div class="user-project" >
+                            //             <span class="span-project-mid">{project.projectName}</span>
+                            //         </div>
+                            //     </div>
+                            // </li>
+                            <li>
+                                <a id={project.projectID} onClick={this.handleClick}></a>
+                                <div>
+                                    <span id={project.projectID} onClick={this.handleClick} class="project-content">{project.projectName}</span>
                                 </div>
+                                <a class="deletebtn" id ={project.projectID} onClick={this.handleDeleteClick}> </a>
                             </li>
                         )}
                         {this.props.isProjectSelected && <ProjectTask dispatch={this.props.dispatch} />}
