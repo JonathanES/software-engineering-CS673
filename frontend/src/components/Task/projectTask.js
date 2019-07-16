@@ -80,6 +80,10 @@ class ProjectTask extends React.Component {
 
             case "add_category_button":
                 console.log('add cat btn pressed');
+                if(this.state.catName ==""){
+                    console.log('it came here')
+                    break;
+                } 
                 console.log('Project ID:', this.state.pID, ' Cat Name: ', this.state.catName);
                 addCategory(this.state.pID, this.state.catName, (err, data) => {
                     console.log('Add Project button pressed');
