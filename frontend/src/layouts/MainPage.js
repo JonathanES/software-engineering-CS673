@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Login from '../components/login/Login';
-import Inscription from '../components/register/Register';
 import Chat from '../components/chat/Chat';
 import Project from '../components/project/Project';
 import ProjectForm from '../components/project/ProjectForm';
@@ -9,7 +7,6 @@ import Task from '../components/Task/Task';
 import ProjectTask from '../components/Task/projectTask';
 import TaskForm from '../components/task-design/TaskForm';
 import Issues from '../components/issue-design/issue';
-import Menu from './Menu';
 
 const mapStateToProps = state => ({
     username: state.user.username,
@@ -27,12 +24,9 @@ const mapStateToProps = state => ({
     categoryID: state.demand.categoryID
 });
 
-const MainPage = ({ dispatch, connexionDemand, registerDemand, messageDemand, projectDemand, issueDemand, taskDemand, projectFormDemand, projectTaskDemand,taskFromDemand }) => (
+const MainPage = ({ dispatch,messageDemand, projectDemand, issueDemand, taskDemand, projectFormDemand, projectTaskDemand,taskFromDemand }) => (
     <div id="test">
-        <Menu />
         <main>
-            {registerDemand && !connexionDemand && <Inscription dispatch={dispatch} />}
-            {connexionDemand && !registerDemand && <Login dispatch={dispatch} />}
             {messageDemand && <Chat dispatch={dispatch} />}
             {projectDemand && <Project dispatch={dispatch} />}    
             {issueDemand && <Issues dispath={dispatch} />}
