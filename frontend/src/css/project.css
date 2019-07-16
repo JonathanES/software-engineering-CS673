@@ -3,9 +3,9 @@ html, body, #root, #wrapper,.box {
     height: 100%;
     overflow-y:scroll;    
 }
-li {
+/* li {
     list-style: none;
-}
+} */
 input {
     border-radius: 5px;
 }
@@ -30,6 +30,33 @@ input {
     margin-left: 35%;
 }
 
+
+.project ul li{
+    border: 1px solid #ccc;
+    background-color: #fff;
+    margin: 2px 24px 24px;
+    display: inline-block;
+    vertical-align: top;
+    padding: 1px 1 1px 1px;
+    width: 163px;
+}
+
+.project ul li a.deletebtn {
+    border:inline;
+    padding: 1px 0 20px 24px;
+    background: url('../images/admin-tool.png') no-repeat right center;
+}
+
+.project ul li a{
+    /* display: inline-block; */
+  vertical-align: top;
+  padding: 108px 0 12px 24px;
+    background: url('../images/projectbackground.png') no-repeat left center;
+}
+
+.project-list{
+    background: url('../images/projectbackground.png');
+}
 .addprojectbtn {
     display: block;
     color: #fff;
