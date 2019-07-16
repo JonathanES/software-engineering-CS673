@@ -79,9 +79,9 @@ class ProjectTask extends React.Component {
         switch (event.target.className) {
 
             case "add_category_button":
-                console.log('add cat btn pressed');
+                //console.log('add cat btn pressed');
                 if(this.state.catName ==""){
-                    console.log('it came here')
+                    //console.log('it came here')
                     break;
                 } 
                 console.log('Project ID:', this.state.pID, ' Cat Name: ', this.state.catName);
