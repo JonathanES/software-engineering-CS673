@@ -20,7 +20,7 @@ class Issues extends React.Component {
   render() {
     return (
       <div>
-        <h2> I love Clement</h2>
+        <h2> I love Clement</h2> 
       </div>
     );
   }
