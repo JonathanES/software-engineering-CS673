@@ -19,7 +19,7 @@ class Task extends React.Component {
         this.state = {
             userId: props.userId,
             username: props.username,
-            getListofTasksForUser : [],
+            getListofTasksForUser: [],
             newtask: ''
         };
 
@@ -30,6 +30,7 @@ class Task extends React.Component {
 
     componentDidMount() {
         //getMessage();
+        console.log(this.state.userId);
         getTasksUsers(this.state.userId, (err, data) => {
             console.log('inside getTaskUsers in ../src/components/Task/Task.js')
             //console.log(data);
@@ -74,15 +75,15 @@ class Task extends React.Component {
                                 <div class="user-task" >
                                     <span class="span-user-left"> {task.taskName}</span>
                                     <ul>
-                                    <li>
-                                    <span class="span-user-left"> Priority: {task.priorityID}</span>
-                                    </li>
-                                    <li>
-                                    <span class="span-user-left"> Status: {task.statusID}</span>
-                                    </li>
-                                    <li>
-                                    <span class="span-user-left"> Assigned To: {this.state.username}</span>
-                                    </li>
+                                        <li>
+                                            <span class="span-user-left"> Priority: {task.priorityID}</span>
+                                        </li>
+                                        <li>
+                                            <span class="span-user-left"> Status: {task.statusID}</span>
+                                        </li>
+                                        <li>
+                                            <span class="span-user-left"> Assigned To: {this.state.username}</span>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
