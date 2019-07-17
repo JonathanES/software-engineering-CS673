@@ -73,7 +73,6 @@ class Chat extends React.Component {
         }
         else {
             sendGroupMessage(this.state.userId, this.state.receiverId, this.state.message, (err, data) => {
-                this.setState({ chatHistory: data, message: ""  });
             })
         }
         event.preventDefault();
@@ -92,6 +91,8 @@ class Chat extends React.Component {
                 elt.isadd = 'false'
             elt.color = "rgb(155, 121, 156)";
         })
+        if (event.currentTarget.id)
+            this.setState({ listOfFriends: listOfFriends, receiverId: event.currentTarget.id, receiverName: receiverName, isGroupDiscussion: false });
         getMessage(this.state.userId, event.currentTarget.id, (err, data) => {
             data.forEach(elt => {
                 if (elt.receiverId == this.state.receiverId)
@@ -100,9 +101,14 @@ class Chat extends React.Component {
                     elt.position = "left";
 
             })
-            this.setState({ chatHistory: data })
+            if (data.length > 0) {
+                if (data[0].receiverId == this.state.receiverId || data[0].senderId == this.state.receiverId)
+                    this.setState({ chatHistory: data })
+            }
+            else {
+                this.setState({ chatHistory: [] })
+            }
         })
-        this.setState({ listOfFriends: listOfFriends, receiverId: event.currentTarget.id, receiverName: receiverName, isGroupDiscussion: false });
     }
 
     handleGroupClick(event) {
@@ -118,11 +124,18 @@ class Chat extends React.Component {
                 elt.isadd = 'false'
             elt.color = "rgb(155, 121, 156)";
         })
-
+        if (event.currentTarget.id)
+            this.setState({ receiverId: event.currentTarget.id, receiverName: receiverName, isGroupDiscussion: true });
         getGroupMessage(event.currentTarget.id, (err, data) => {
+            if (data.length > 0) {
+                if (data[0].groupID == this.state.receiverId)
+                    this.setState({ chatHistory: data })
+            }
+            else {
+                this.setState({ chatHistory: [] })
+            }
             this.setState({ chatHistory: data })
         })
-        this.setState({ receiverId: event.currentTarget.id, receiverName: receiverName, isGroupDiscussion: true });
     }
 
     render() {
