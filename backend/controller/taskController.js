@@ -95,8 +95,9 @@ async function getListofTasksForUser(userID){
                    listofTaskUsers.push(task);
                }
            })
+           let userTasks = listofTaskUsers.filter(task => {if (task.getUserID == userID) return task});
            if (error) throw error;
-           resolve(listofTaskUsers);
+           resolve(userTasks);
        });
     })
 }
