@@ -88,12 +88,15 @@ function getListOfProjects(userID) {
         client.query('SELECT * FROM Projects P Join ProjectUsers PU on P.ProjectID = PU.ProjectID WHERE PU.UserID = ?', [userID], function (error, results, fields) {
             results.forEach(result => {
                 if (!listOfProjects.some(project => project.getProjectID == result.ProjectID)) {
-                    const project = new ProjectModel(result.ProjectID, result.ProjectName, result.DateCreated, result.DueDate);
+                    const project = new ProjectModel(result.ProjectID, result.ProjectName, result.UserID, result.DateCreated, result.DueDate);
                     listOfProjects.push(project);
                 }
             })
+            let userProjects = listOfProjects.filter(project => {
+                if (project.getUserID == userID) return project
+            });
             if (error) throw error;
-            resolve(listOfProjects);
+            resolve(userProjects);
 
         });
     })
