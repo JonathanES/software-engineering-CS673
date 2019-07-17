@@ -8,16 +8,17 @@ import '../../css/project.css'
 const mapStateToProps = state => ({
   username: state.user.username,
   userId: state.user.userId,
-  projectID: state.project.projectID,
+  //projectID: state.project.projectID,
+  //isProjectSelected: state.project.isProjectSelected
+  //taskname: state.Task.newtask
 });
 
 
-class ProjectForm extends React.Component {
+class ProjectUpdate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       userId: props.userId,
-      projectID : props.projectID,
       projectName:'',
       username: '',
       dueDate:''
@@ -40,12 +41,6 @@ class ProjectForm extends React.Component {
       case "dueDate":
         this.setState({ dueDate: event.target.value });
         break;
-      // case "password":
-      //   this.setState({ password: event.target.value });
-      //   break;
-      // case "password-confirmation":
-      //   this.setState({ passwordConfirmation: event.target.value });
-      //   break;
       default:
         break;
     }
@@ -106,4 +101,4 @@ class ProjectForm extends React.Component {
     );
   }
 }
-export default connect(mapStateToProps)(ProjectForm);
+export default connect(mapStateToProps)(ProjectUpdate);

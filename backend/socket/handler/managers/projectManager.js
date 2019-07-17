@@ -44,5 +44,10 @@ module.exports = function (io) {
             const result = await projectController.addCategory(pID, catName);
             client.emit('ADD_CATEGORY', result);
         })
+
+        client.on('USER_GET_USERPREV', async(projectID, userID) =>{
+            const result = await projectController.getuserprev(projectID, userID);
+            client.emit('GET_USERPREV', result);
+        })
     })
 };

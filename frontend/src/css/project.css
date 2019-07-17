@@ -41,7 +41,7 @@ input {
     width: 163px;
 }
 
-.project ul li a.deletebtn {
+.project ul li a.updatebtn {
     border:inline;
     padding: 1px 0 20px 24px;
     background: url('../images/admin-tool.png') no-repeat right center;

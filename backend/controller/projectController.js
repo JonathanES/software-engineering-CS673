@@ -230,6 +230,16 @@ async function updateProjectIsDeleted(projectID, isDeleted) {
 }
 
 
+async function getuserprev(projectID, userID){
+    return new Promise((resolve, reject) => {
+        console.log(projectID, userID);
+       client.query('SELECT AccountTypeID FROM ProjectUsers WHERE UserID = ? and ProjectID=?', [userID, projectID], function (error, results, fields) {
+            if(error) throw error;   
+            resolve(results);
+       });
+    })
+}
+
 module.exports = {
     insertNewProject: insertNewProject,
     findProjectID: findProjectID,
@@ -238,5 +248,6 @@ module.exports = {
     updateProjectDueDate: updateProjectDueDate,
     updateProjectIsDeleted: updateProjectIsDeleted,
     getCategories: getCategories,
-    addCategory: addCategory
+    addCategory: addCategory,
+    getuserprev:getuserprev
 }
