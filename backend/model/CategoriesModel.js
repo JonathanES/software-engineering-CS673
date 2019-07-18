@@ -1,14 +1,14 @@
 class CategoriesModel {
-    constructor(categoriesID, projectID, categoryName, dateCreated, isDeleted) {
-      this.categoriesID = categoriesID;
+    constructor(categoryID, projectID, categoryName, dateCreated, isDeleted) {
+      this.categoryID = categoryID;
       this.projectID = projectID;
       this.categoryName = categoryName;
       this.dateCreated = dateCreated;
       this.isDeleted = isDeleted;
     }
 
-    get getCategoriesID() {
-      return this.categoriesID;
+    get getCategoryID() {
+      return this.categoryID;
     }
 
     get getProjectID() {

@@ -42,7 +42,7 @@ input {
 
 ul li{
     display: inline;
-    margin-top: 2em;
+    /* margin-top: 2em; */
     
     /* position: relative !important;
     background: none !important;

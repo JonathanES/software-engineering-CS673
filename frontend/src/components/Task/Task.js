@@ -2,7 +2,8 @@ import React from "react";
 import { connect } from 'react-redux';
 import io from "socket.io-client";
 import { addTask, getTasksUsers } from '../../socket/taskSocket';
-import {userId} from '../../socket/userSocket';
+import TaskForm from '../task-design/TaskForm';
+//mport {userId} from '../../socket/userSocket';
 import '../../css/task.css'
 
 const mapStateToProps = state => ({
@@ -18,7 +19,7 @@ class Task extends React.Component {
         this.state = {
             userId: props.userId,
             username: props.username,
-            getListofTasksForUser : [],
+            getListofTasksForUser: [],
             newtask: ''
         };
 
@@ -29,6 +30,7 @@ class Task extends React.Component {
 
     componentDidMount() {
         //getMessage();
+        console.log(this.state.userId);
         getTasksUsers(this.state.userId, (err, data) => {
             console.log('inside getTaskUsers in ../src/components/Task/Task.js')
             //console.log(data);
@@ -48,12 +50,15 @@ class Task extends React.Component {
     handleSubmit(event) {
         console.log('Add Task button pressed before call');
 
-        addTask(this.state.username, this.state.newtask, (err, data) => {
-            console.log('Add Task button pressed');
-            this.setState({ newtask: data });
-            console.log("inside handleSubmit");
+        this.props.dispatch({ type: 'USER_ADD_TASK_DEMAND' });
+        // dispatch: <TaskForm  dispatch={this.props.dispatch}/>;
 
-        })
+        // addTask(this.state.userId, this.state.newtask, (err, data) => {
+        //     console.log('Add Task button pressed');
+        //     this.setState({ newtask: data });
+        //     console.log("inside handleSubmit");
+
+        // })
         event.preventDefault();
     }
 
@@ -70,15 +75,15 @@ class Task extends React.Component {
                                 <div class="user-task" >
                                     <span class="span-user-left"> {task.taskName}</span>
                                     <ul>
-                                    <li>
-                                    <span class="span-user-left"> Priority: {task.priorityID}</span>
-                                    </li>
-                                    <li>
-                                    <span class="span-user-left"> Status: {task.statusID}</span>
-                                    </li>
-                                    <li>
-                                    <span class="span-user-left"> Assigned To: {this.state.username}</span>
-                                    </li>
+                                        <li>
+                                            <span class="span-user-left"> Priority: {task.priorityID}</span>
+                                        </li>
+                                        <li>
+                                            <span class="span-user-left"> Status: {task.statusID}</span>
+                                        </li>
+                                        <li>
+                                            <span class="span-user-left"> Assigned To: {this.state.username}</span>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -89,7 +94,7 @@ class Task extends React.Component {
                 {/* <div class="add_task"> */}
                 <div>
                     <form onSubmit={this.handleSubmit}>
-                        <input id="add-task-input" type="text" value={this.state.newtask} onChange={this.handleChange} />
+                        {/* <input id="add-task-input" type="text" value={this.state.newtask} onChange={this.handleChange} /> */}
                         <button id="add-task-button" type="submit">Add Task</button>
                     </form>
                 </div>

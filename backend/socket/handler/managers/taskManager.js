@@ -2,13 +2,13 @@
 const taskController = require('../../../controller/taskController');
 module.exports = function (io) {
     //connect to the socket so that we can link with the frontend
-    io.on('connection', client => { 
-        client.on('USER_CREATE_TASK', async (parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo,  expectedDuration, actualTimeSpent) => {
+    io.on('connection', client => {
+        client.on('USER_ADD_TASK', async (parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, expectedDuration, actualTimeSpent) => {
             const result = await taskController.insertNewTask(parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, expectedDuration, actualTimeSpent);
-            client.emit('CREATE_TASK', result);
-           })
-        
-        
+            client.emit('ADD_TASK', result);
+        })
+
+
         client.on('USER_GET_SINGLETASK', async (taskID) => {
             const result = await taskController.getSingleTask(taskID);
             client.emit('GET_SINGLETASK', result);
