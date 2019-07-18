@@ -39,7 +39,6 @@ class Chat extends React.Component {
 
 
     componentDidMount() {
-        //getMessage();
         getFriends(this.state.userId, (err, data) => {
             data.forEach(elt => {
                 elt.isadd = 'false'
@@ -49,7 +48,6 @@ class Chat extends React.Component {
         });
 
         getUserGroups(this.state.userId, (err, data) => {
-            console.log(data);
             this.setState({ listOfGroups: data });
         })
     }
@@ -68,12 +66,10 @@ class Chat extends React.Component {
                     elt.position = "left";
             })
             this.setState({ chatHistory: history, message: "" });
-            sendMessage(this.state.userId, this.state.receiverId, this.state.message, (err, data) => {
-            })
+            sendMessage(this.state.userId, this.state.receiverId, this.state.message);
         }
         else {
-            sendGroupMessage(this.state.userId, this.state.receiverId, this.state.message, (err, data) => {
-            })
+            sendGroupMessage(this.state.userId, this.state.receiverId, this.state.message);
         }
         event.preventDefault();
     }
