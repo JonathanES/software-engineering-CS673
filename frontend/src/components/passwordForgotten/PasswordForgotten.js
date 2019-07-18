@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../../css/main.css'
-import { login } from '../../socket/userSocket';
+import { passwordForgotten } from '../../socket/userSocket';
 
 
 class PasswordForgotten extends Component {
@@ -8,7 +8,6 @@ class PasswordForgotten extends Component {
     super(props);
     this.state = {
       email: '',
-      password: '',
       id_user: '',
     };
 
@@ -26,9 +25,6 @@ class PasswordForgotten extends Component {
       case "email":
         this.setState({ email: event.target.value });
         break;
-      case "password":
-        this.setState({ password: event.target.value });
-        break;
       default:
         break;
     }
@@ -36,10 +32,7 @@ class PasswordForgotten extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    login(this.state.email, this.state.password, (err, data) => {
-      console.log(data);
-      this.props.dispatch({ type: 'USER_LOGIN', username: data.username, id_user: data.id_user });
-    });
+    passwordForgotten(this.state.email);
   }
 
   render() {
@@ -55,14 +48,6 @@ class PasswordForgotten extends Component {
                 <div className="form-field">
                   <label htmlFor="email">Email :</label>
                   <input id="email" type="text" value={this.state.email} onChange={this.handleChange} />
-                </div>
-                <div className="form-field">
-                  <label htmlFor="password">Password :</label>
-                  <input id="password" type="password" value={this.state.password} onChange={this.handleChange} />
-                </div>
-                <div className="form-field">
-                  <label htmlFor="password-confirmation">Confirmation :</label>
-                  <input id="password-confirmation" type="password" value={this.state.passwordConfirmation} onChange={this.handleChange} />
                 </div>
                 <button className="btn uppercase" type="submit">Submit</button>
               </div>
