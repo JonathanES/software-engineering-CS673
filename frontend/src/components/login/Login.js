@@ -30,8 +30,6 @@ class Login extends Component {
   componentDidMount() {
 
     if (cookies) {
-      //cookies.remove('username');
-      //cookies.remove('userId')
       if (cookies.get('username') && cookies.get('userId'))
         this.props.dispatch({ type: 'USER_LOGIN', username: cookies.get('username'), userId: cookies.get('userId') });
     }
