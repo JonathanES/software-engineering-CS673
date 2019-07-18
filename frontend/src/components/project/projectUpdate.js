@@ -1,14 +1,17 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { addProject, getListOfProjects, showCategories } from '../../socket/projectSocket';
-import ProjectTask from '../Task/projectTask.js';
-//import {userId} from '../../socket/userSocket';
-import '../../css/project.css'
+
+import { getAvailableUsers } from '../../socket/userSocket';
+import { getAddtoProject, getUserLevel, getprojectdetail} from '../../socket/projectSocket';
+import {getuserprev} from '../../socket/taskSocket';
+
+import '../../css/projectUpdate.css'
 
 const mapStateToProps = state => ({
   username: state.user.username,
   userId: state.user.userId,
-  //projectID: state.project.projectID,
+  projectID: state.demand.projectID,
+  projectName: state.demand.projectName,
   //isProjectSelected: state.project.isProjectSelected
   //taskname: state.Task.newtask
 });
@@ -19,50 +22,94 @@ class ProjectUpdate extends React.Component {
     super(props);
     this.state = {
       userId: props.userId,
-      projectName:'',
+      pID: props.projectID,
+      projectName: props.projectName,
+      listOfFriends: [],
+      userlevels:[],
       username: '',
-      dueDate:''
+      dueDate:'',
+      userType:false,
+      pname:'',
+      newuserid:'',
+      newusertype: '',
+
 
     };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleLevelChange = this.handleLevelChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleAddUser = this.handleAddUser.bind(this);
+    this.handleNewUser = this.handleNewUser.bind(this);
   }
+
+  componentDidMount() {
+
+    getAvailableUsers(this.state.pID, this.state.userId, (err, data) => {
+      this.setState({ listOfFriends: data });
+      console.log('Available users:', data);
+    });
+
+    getprojectdetail(this.state.pID, (err,data) =>{
+      console.log('projectdetail:',data)
+      this.setState({pname:data[0].ProjectName})
+    })
+
+    getuserprev(this.state.pID, this.state.userId, (err,data) => {
+      console.log(data[0].AccountTypeID);
+
+      if(data[0].AccountTypeID != 3 ){
+          this.setState({userType:true})
+          getUserLevel((err,data)=>{
+            this.setState({userlevels:data})
+            console.log('User levels:',data);
+          })
+          console.log('Call the update page with id: ', this.state.pID);
+          console.log('User type is admin');
+      }
+      else{
+          this.setState({userType:false})
+          console.log('Sorry you don\'t have the admin privilidges' );
+      }
+    })
+
+    
+
+
+  }
+
+  handleAddUser(event){
+
+    getAddtoProject(this.state.pID, this.state.newuserid, this.state.userType, (err,data) =>{
+      console.log(data);
+      
+    } )
+
+  }
+
 
   handleClick(event) {
-    this.props.dispatch({ type: 'USER_CREATE_PROJECT_DEMAND'})
-  }
-  handleChange(event) {
-    switch (event.target.id) {
-      case "projectName":
-        this.setState({ projectName: event.target.value });
-        break;
-      case "dueDate":
-        this.setState({ dueDate: event.target.value });
-        break;
-      default:
-        break;
-    }
+    
   }
 
-  
+
+  handleLevelChange(event) {
+    console.log('User Type:',event.target.value);
+    this.setState({newusertype: event.target.value}); 
+    
+  }
+
+
+  handleNewUser(event){
+
+    console.log('User ID:',event.target.value);
+    this.setState({newuserid: event.target.value}); 
+
+  }
+
+
   handleSubmit(event) {
 
-    console.log('After clicking add project button');
-    console.log('Handle Submit: userID', this.state.userId, ' Project Name:', this.state.projectName, ' Due Date:', this.state.dueDate)
-    if (this.state.projectName == "" || this.state.dueDate == '') {
-      console.log('Check your inputs');
-      
-    }
-    else {
-      addProject(this.state.userId, this.state.projectName, this.state.dueDate, (err, data) => {
-        console.log(data);
-        //here we should call the mainpage, so they can see the project added to their screen, wonder how we will do it
-        //this.props.dispatch({ type: 'USER_LOGIN', username: data.username});
-      });
-    }
-    event.preventDefault();
   }
 
   render() {
@@ -70,7 +117,7 @@ class ProjectUpdate extends React.Component {
       <div>
         <div className="projectform">
           <div className="projectform-header">
-            <h1 className="uppercase"> Add a new Project </h1>
+            <h2> Update Project Information for Project {this.state.pname} </h2>
           </div>
           <div className="projectform-contain">
             <div className="projectform-group">
@@ -83,15 +130,30 @@ class ProjectUpdate extends React.Component {
                   <label htmlFor="dueDate">Due Date :</label>
                   <input id="dueDate" type="text" value={this.state.dueDate} onChange={this.handleChange} />
                 </div>
-                {/* <div className="projectform-field">
-                  <label htmlFor="password">Password :</label>
-                  <input id="password" type="password" value={this.state.password} onChange={this.handleChange} />
-                </div>
                 <div className="projectform-field">
-                  <label htmlFor="password-confirmation">Confirmation :</label>
-                  <input id="password-confirmation" type="password" value={this.state.passwordConfirmation} onChange={this.handleChange} />
-                </div> */}
-                <button type="submit" className="projectformbtn uppercase">Add Project</button>
+                  <label htmlFor="adduser">Add User to Project:</label>
+                  <select onChange = {this.handleNewUser}>
+                    {this.state.listOfFriends.map(friend =>
+                      <option value={friend.userId}>{friend.username}</option>
+
+                    )}
+                  </select>
+                  </div>
+                  {this.state.userType && 
+                  <div>
+                    <label htmlFor="UserlevelSelection">Select the Type for user privileges:</label>
+                    <select onChange ={this.handleLevelChange}>
+                      {this.state.userlevels.map(level =>
+                        <option value={level.AccountTypeID}> {level.TypeName} </option>
+
+                      )}
+                    </select>
+                    </div>
+                  }
+                  <button type="submit" className="addUserToProject" onClick={this.handleAddUser}>Add to Project</button>
+                
+                <div><button type="submit" className="projectformbtn uppercase">Update Project</button></div>
+
               </form>
             </div>
             {/* <p className="account-help">You already have an account ? <a onClick={this.handleClick} className="underline red" >Login</a></p> */}

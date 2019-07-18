@@ -18,4 +18,9 @@ function login(email, password, cb){
     socket.emit('USER_FRIENDS',userId);
   }
 
-  export {login, register, getFriends};
+  function getAvailableUsers(projectID, userID, cb){
+    socket.on('AVAILABLEUSER', data => cb(null, data));
+    socket.emit('GET_AVAILABLEUSER', projectID, userID);
+  }
+
+  export {login, register, getFriends, getAvailableUsers};

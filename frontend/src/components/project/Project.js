@@ -28,7 +28,7 @@ class Project extends React.Component {
             getListofProjects : [],
             listOfProjects: [],
             projectcategories: [],
-            projectName: "User Projetcs"
+            projectName: "User Projects"
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -70,18 +70,25 @@ class Project extends React.Component {
     handleUpdateClick(event) {
 
         // console.log("update button for project id:",event.currentTarget.id, " is pressed for user:", this.state.userId );
-        getuserprev(event.currentTarget.id, this.state.userId, (err,data) => {
+        let pID = parseInt(this.newMethod(event));
+        // getuserprev(this.newMethod(event), this.state.userId, (err,data) => {
+        getuserprev(event.target.id, this.state.userId, (err,data) => {
             console.log(data[0].AccountTypeID);
 
             if(data[0].AccountTypeID == 1){
-                console.log('Call the update page');
-                this.props.dispatch({type:'USER_PROJECTUPDATE_DEMAND', projectID:event.currentTarget.id});
+                console.log('Call the update page with id: ', pID);
+
+                this.props.dispatch({type:'USER_PROJECTUPDATE_DEMAND', projectID: pID});
             }
             else{
                 console.log('Sorry you don\'t have the admin privilidges' );
             }
         })
         
+    }
+
+    newMethod(event) {
+        return event.currentTarget.id;
     }
 
     handleClick(event) {

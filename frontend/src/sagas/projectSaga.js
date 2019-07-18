@@ -25,7 +25,7 @@ function* handleAddProjectDemand(){
 }
 
 function* handleProjectUpdateDemand(action){
-    yield put({type: "PROJECTUPDATE_DEMAND",projectID: action.projectID });
+    yield put({type: "PROJECTUPDATEFORM_DEMAND", projectID: action.projectID, projectName:action.projectName });
 }
 
  function *projectSaga(){
@@ -34,7 +34,6 @@ function* handleProjectUpdateDemand(action){
     yield takeEvery('USER_PROJECTFORM_DEMAND', handleAddProjectDemand);
     yield takeEvery('USER_VIEW_PROJECTTASKS', handleViewProjectTasks);
     yield takeEvery('USER_PROJECTUPDATE_DEMAND', handleProjectUpdateDemand);
-
 }
 
 export default projectSaga;

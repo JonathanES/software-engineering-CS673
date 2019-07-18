@@ -44,11 +44,30 @@ function getSingleUser(email, password) {
                     const user = new UserModel(results[0].userId, results[0].username, results[0].email);
                     listOfUsers.push(user);
                 }
+                let logintest = userinfo(results[0].userId);
                 resolve(results[0]);
             });
+
+            
         }
         else
             resolve("wrong email or wrong password");
+    });
+}
+
+
+async function userinfo(userId) {
+    return new Promise(async (resolve) => {
+        client.query('SELECT username FROM Users where UserID =?', [userId], function (error, result, fields) {
+            console.log(result);
+            let username = result[0].username;
+            client.query('INSERT INTO UserLog(UserID, UserName) Values(?,?)', [userId, username], function (error, results, fields) {
+                console.log(results);
+                if (error) throw error;
+                resolve(results);
+            });
+            resolve(result);
+        })
     });
 }
 
@@ -133,10 +152,24 @@ function updatePassword(userID, password){
     
 }
 
+async function getListOfAvailableUser(projectID, userID){
+    return new Promise(async (resolve, reject) => {
+        client.query('SELECT U.userId, U.username FROM Users U LEFT JOIN ProjectUsers PU on PU.UserID = U.UserID where PU.userID != ? and PU.ProjectID = ?', [userID, projectID], function(error, result, fields){
+            
+        if(error) throw error;
+            console.log('Project ID:', projectID);
+            console.log('UserID:', userID);
+            console.log('result:', result);
+            resolve(result);
+        })
+    })
+};
+
 // we export the function that we want to use in another file
 module.exports = {
     insertUser: insertUser,
     getSingleUser: getSingleUser,
     getListofUsers: getListofUsers,
-    listOfUsers: listOfUsers
+    listOfUsers: listOfUsers,
+    getListOfAvailableUser: getListOfAvailableUser
 }

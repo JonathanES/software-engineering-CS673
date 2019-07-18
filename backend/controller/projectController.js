@@ -240,6 +240,51 @@ async function getuserprev(projectID, userID){
     })
 }
 
+
+async function getprojectdetail(projectID){
+    return new Promise((resolve, reject)=>{
+        client.query('Select P.ProjectID, P.ProjectName, P.DateCreated, P.DueDate, P.IsDeleted, PU.UserID From Projects P JOIN ProjectUsers PU on PU.ProjectID = P.ProjectID where P.ProjectID = ?', [projectID], function (error, results, fields) {
+            console.log('Retrieveing information for ProjectID:', projectID);
+            if(error) throw error;
+            resolve(results);
+        } )
+    })
+}
+
+
+
+async function addusertoproject(projectID, userID,userType){
+    return new Promise((resolve, reject) => {
+        console.log(projectID, userID);
+       client.query('INSERT INTO ProjectUsers(UserID, ProjectID, AccountTypeID) VALUES(?,?,?)', [userID, projectID, userType], function (error, results, fields) {
+        if(error) throw error;   
+            resolve(results);
+       });
+    })
+}
+
+
+
+async function getpriority(){
+    return new Promise((resolve, reject)=>{
+        console.log('Getting priorities');
+        client.query('Select PriorityID, Priority From Priority', function(error,results, fields){
+            if(error) throw error;
+            resolve(results);
+        })
+    })
+};
+
+async function getlevel(){
+    return new Promise((resolve, reject)=>{
+        console.log('Getting priorities');
+        client.query('Select AccountTypeID, TypeName From AccountType', function(error,results, fields){
+            if(error) throw error;
+            resolve(results);
+        })
+    })
+};
+            
 module.exports = {
     insertNewProject: insertNewProject,
     findProjectID: findProjectID,
@@ -249,5 +294,9 @@ module.exports = {
     updateProjectIsDeleted: updateProjectIsDeleted,
     getCategories: getCategories,
     addCategory: addCategory,
-    getuserprev:getuserprev
+    getuserprev:getuserprev,
+    addusertoproject:addusertoproject,
+    getpriority:getpriority,
+    getlevel:getlevel,
+    getprojectdetail:getprojectdetail
 }

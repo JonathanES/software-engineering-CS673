@@ -21,12 +21,12 @@ const mapStateToProps = state => ({
     taskDemand: state.demand.taskDemand,
     projectTaskDemand: state.demand.projectTaskDemand,
     projectFormDemand:state.demand.projectFormDemand,
-    taskFromDemand:state.demand.taskFromDemand,
+    taskFormDemand:state.demand.taskFormDemand,
+    projectUpdateDemand: state.demand.projectUpdateDemand,
     categoryID: state.demand.categoryID,
-    projectUpdateDemand: state.demand.projectUpdateDemand
 });
 
-const MainPage = ({ dispatch,messageDemand, projectDemand, issueDemand, taskDemand, projectFormDemand, projectTaskDemand,taskFromDemand,projectUpdateDemand }) => (
+const MainPage = ({ dispatch,messageDemand, projectDemand, issueDemand, taskDemand, projectFormDemand, projectTaskDemand,taskFormDemand,projectUpdateDemand }) => (
     <div id="test">
         <main>
             {messageDemand && <Chat dispatch={dispatch} />}
@@ -35,7 +35,7 @@ const MainPage = ({ dispatch,messageDemand, projectDemand, issueDemand, taskDema
             {taskDemand && <Task dispatch={dispatch} />}
             {projectTaskDemand && <ProjectTask dispatch={dispatch} />}
             {projectFormDemand && <ProjectForm dispatch={dispatch} />}
-            {taskFromDemand && <TaskForm dispatch={dispatch}/>}
+            {taskFormDemand && <TaskForm dispatch={dispatch}/>}
             {projectUpdateDemand && <ProjectUpdate dispatch={dispatch}/>}
         </main>
     </div>

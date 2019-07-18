@@ -24,4 +24,25 @@ function addCategory(projectID, projectName, cb){
     socket.emit('USER_ADD_CATEGORY',projectID, projectName);
 }
 
-export {addProject, getListOfProjects, showCategories, addCategory};
+function getAddtoProject(projectID, userID, userType, cb){
+    socket.on('ADD_USERTOPROJECT', data => cb(null, data));
+    socket.emit('USER_ADD_USERTOPROJECT',projectID, userID, userType);
+}
+
+function getPriorities(cb){
+    socket.on('GET_PRIORITIES', data => cb(null, data));
+    socket.emit('USER_GET_PRIORITIES');
+}
+
+function getUserLevel(cb){
+    socket.on('GET_USERLEVEL', data => cb(null, data));
+    socket.emit('USER_GET_USERLEVEL');
+}
+
+function getprojectdetail(projectID, cb){
+    socket.on('GET_PROJECTDETAIL', data => cb(null, data));
+    socket.emit('USER_GET_PROJECTDETAIL',projectID);
+}
+
+
+export {addProject, getListOfProjects, showCategories, addCategory, getAddtoProject, getPriorities, getUserLevel, getprojectdetail};

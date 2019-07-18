@@ -34,7 +34,12 @@ module.exports = function (io) {
         client.on('USER_FRIENDS', async (user_id) => {
             const result = await userController.getListofUsers(user_id);
             client.emit('FRIENDS', result);
-        })
+        });
+
+        client.on('GET_AVAILABLEUSER', async(projectID, userID) => { 
+            const result = await userController.getListOfAvailableUser(projectID, userID);
+            client.emit('AVAILABLEUSER', result);
+         });
     })
 };
 
