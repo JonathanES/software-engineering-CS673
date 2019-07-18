@@ -336,3 +336,12 @@ hr {
     border-top: solid 5px tomato;
     border-radius: 3px;
 }
+
+#test{
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 10%;
+}
