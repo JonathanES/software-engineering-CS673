@@ -4,6 +4,8 @@ import store from './store';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import UpdatePassword from './components/passwordForgotten/UpdatePassword';
 import BasePage from './layouts/BasePage';
+import { withCookies } from 'react-cookie';
+
 
 
 const App = () => (
