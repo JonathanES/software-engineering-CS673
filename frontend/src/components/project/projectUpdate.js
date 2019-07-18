@@ -80,11 +80,15 @@ class ProjectUpdate extends React.Component {
 
   handleAddUser(event){
 
-    getAddtoProject(this.state.pID, this.state.newuserid, this.state.userType, (err,data) =>{
-      console.log(data);
+    console.log('ProjectID:', this.state.pID);
+    console.log('newUserID:',parseInt(this.state.newuserid));
+    console.log('User type will be:',parseInt(this.state.newusertype));
+     getAddtoProject(this.state.pID, parseInt(this.state.newuserid), parseInt(this.state.newusertype), (err,data) =>{
+       console.log(data);
+       this.componentDidMount();
       
-    } )
-
+    })
+    event.preventDefault();
   }
 
 
@@ -96,7 +100,7 @@ class ProjectUpdate extends React.Component {
   handleLevelChange(event) {
     console.log('User Type:',event.target.value);
     this.setState({newusertype: event.target.value}); 
-    
+    event.preventDefault();
   }
 
 
@@ -104,7 +108,7 @@ class ProjectUpdate extends React.Component {
 
     console.log('User ID:',event.target.value);
     this.setState({newuserid: event.target.value}); 
-
+    event.preventDefault();
   }
 
 
@@ -134,7 +138,7 @@ class ProjectUpdate extends React.Component {
                   <label htmlFor="adduser">Add User to Project:</label>
                   <select onChange = {this.handleNewUser}>
                     {this.state.listOfFriends.map(friend =>
-                      <option value={friend.userId}>{friend.username}</option>
+                      <option value={friend.UserID} id={friend.UserID}>{friend.username}</option>
 
                     )}
                   </select>

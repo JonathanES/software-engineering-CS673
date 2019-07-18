@@ -255,9 +255,10 @@ async function getprojectdetail(projectID){
 
 async function addusertoproject(projectID, userID,userType){
     return new Promise((resolve, reject) => {
-        console.log(projectID, userID);
+        console.log('projectID, userID, userType', projectID, userID, userType);
        client.query('INSERT INTO ProjectUsers(UserID, ProjectID, AccountTypeID) VALUES(?,?,?)', [userID, projectID, userType], function (error, results, fields) {
-        if(error) throw error;   
+        if(error) throw error;  
+        console.log('User is added:',results); 
             resolve(results);
        });
     })

@@ -72,7 +72,7 @@ class Project extends React.Component {
         // console.log("update button for project id:",event.currentTarget.id, " is pressed for user:", this.state.userId );
         let pID = parseInt(this.newMethod(event));
         // getuserprev(this.newMethod(event), this.state.userId, (err,data) => {
-        getuserprev(event.target.id, this.state.userId, (err,data) => {
+        getuserprev(pID, this.state.userId, (err,data) => {
             console.log(data[0].AccountTypeID);
 
             if(data[0].AccountTypeID == 1){
