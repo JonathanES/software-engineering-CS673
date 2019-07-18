@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import IssueCard from "./issuecard.jsx"
 
 const mapStateToProps = state => ({
   username: state.user.username,
@@ -17,10 +18,11 @@ class Issues extends React.Component {
   }
 
 
-  render() {
+ render() {
     return (
       <div>
-        <h2> I love Clement</h2> 
+          <h1>Test Header</h1>
+          <IssueCard/>
       </div>
     );
   }
