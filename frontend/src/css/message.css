@@ -1,6 +1,6 @@
-html, body, #root, #wrapper,.box {
+html, body, #root, #wrapper,.boxchat {
     margin: 0;
-    height: 100%;
+    height: auto;
     overflow: hidden;
 }
 li {
@@ -37,6 +37,7 @@ input {
     height: calc(100% - 30px);
     margin-top:30px;
     width: 100%;
+    height: 800px;
     transform: translateY(-10%);
     box-shadow: 0 0 0 1px gray;
     display: flex;
@@ -75,8 +76,8 @@ input {
 .personalname{
     display: flex;
     MARGIN-TOP:10px;
-    height:5px;
-    padding:1;
+    height:15px;
+    padding:1px;
     color: white;
     width:90%;
     margin-left:5%;
@@ -125,6 +126,8 @@ input {
     padding-left:5%;
     height:40px;
     line-height: 40px;
+    position: relative;
+    top:20px;
 }
 .searchbtn {
     height: 36px;
@@ -145,6 +148,21 @@ input {
 }
 .chatleft .center ul{
     padding-left: 10px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: absolute;
+    z-index: 999;
+    max-height: 360px;
+}
+.directul{
+  height: 300px;
+}
+.channelul{
+    height: 300px;
+}
+ul::-webkit-scrollbar{
+    width:3px;
+    height:9px;
 }
 .chatleft .center li{
     margin: 10px;
@@ -164,7 +182,6 @@ input {
 .chatright .center {
     background-color: white;
     height: 65%;
-    overflow-y: scroll;
 }
 .chatright .center ul {
     padding: 10px;
@@ -184,10 +201,11 @@ input {
     max-width: 60%;
 }
 
-.chatright .footer {
+.chatright .chatfooter {
     height: 8%;
     width: 100%;
     background-color: white;
+    padding-left:5%; 
 }
 .chatright .footer form{
     width: 100%;
@@ -209,7 +227,7 @@ input {
 
 #message-box {
     bottom: 0%;
-    width: 100%; 
+    width: 75%; 
     height: 30px;
     resize: none;
     border: solid 1px #383838;
@@ -311,7 +329,7 @@ input {
     white-space: normal !important;
 }
 .chaton{
-    height:75vh;
+    height:68vh;
     overflow-y: scroll;
     overflow-x: hidden;
     white-space: nowrap;
