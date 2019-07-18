@@ -6,7 +6,6 @@ const mapStateToProps = state => ({
     registerDemand: state.demand.registerDemand,
     connexionDemand: state.demand.connexionDemand,
     username: state.user.username,
-    //tasks: state.user.tasks,
 });
 
 const Menu = ({ dispatch, connexionDemand, registerDemand }) => (
