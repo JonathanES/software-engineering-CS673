@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
 import '../../css/main.css'
 import { login } from '../../socket/userSocket';
+import { instanceOf } from 'prop-types';
+import Cookies from 'universal-cookie';
+import moment from 'moment';
+
+const cookies = new Cookies();
 
 
 class Login extends Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -16,6 +25,16 @@ class Login extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handlePasswordForgotten = this.handlePasswordForgotten.bind(this);
+  }
+
+  componentDidMount() {
+
+    if (cookies) {
+      //cookies.remove('username');
+      //cookies.remove('userId')
+      if (cookies.get('username') && cookies.get('userId'))
+        this.props.dispatch({ type: 'USER_LOGIN', username: cookies.get('username'), userId: cookies.get('userId') });
+    }
   }
 
   handleClick(event) {
@@ -39,10 +58,14 @@ class Login extends Component {
     }
   }
 
+
+
   async handleSubmit(event) {
     event.preventDefault();
-    login(this.state.email, this.state.password, (err, data) => {
+    login(this.state.email, this.state.password, async (err, data) => {
       console.log(data);
+      cookies.set('username', data.username, { path: '/'/*, expires: new Date(Date.now()+30)*/});
+      cookies.set('userId', data.userId, { path: '/' /*, expires: new Date(Date.now()+30)*/});
       this.props.dispatch({ type: 'USER_LOGIN', username: data.username, userId: data.userId });
     });
   }
