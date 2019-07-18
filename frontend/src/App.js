@@ -12,11 +12,11 @@ const App = () => (
   <Provider store={store}>
     <Router>
       <div>
-        <Route exact path="/" render={() => (<BasePage cookies={this.props.cookies}/>)}/>
+        <Route exact path="/" component={BasePage} />
         <Route path="/password" component={UpdatePassword} />
       </div>
     </Router>
   </Provider>
 );
 
-export default withCookies(App);
+export default App;
