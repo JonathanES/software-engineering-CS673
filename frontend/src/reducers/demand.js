@@ -4,14 +4,20 @@ const defaultState = {
     projectDemand: false,
     messageDemand: false,
     issueDemand: false,
-    taskDemand: false
+    taskDemand: false,
+    projectTaskDemand: false,
+    projectFormDemand: false,
+    taskFromDemand: false,
+    categoryID: '',
+    passwordDemand: false
 };
 
 const user = (state = defaultState, action) => {
     switch (action.type) {
         case 'LOGIN_DEMAND': return {
             connexionDemand: typeof action.username !== "undefined" ? false : state.connexionDemand,
-            registerDemand: typeof action.username !== "undefined" ? false : state.registerDemand
+            registerDemand: typeof action.username !== "undefined" ? false : state.registerDemand,
+            passwordDemand: typeof action.username !== "undefined" ? false : state.passwordDemand
         }
         case 'REGISTER_DEMAND':
             return {
@@ -21,7 +27,11 @@ const user = (state = defaultState, action) => {
                 projectDemand: false,
                 messageDemand: false,
                 issueDemand: false,
-                taskDemand: false
+                taskDemand: false,
+                projectFormDemand: false,
+                projectTaskDemand: false,
+                taskFromDemand: false,
+                passwordDemand: false
             };
         case 'CONNEXION_DEMAND':
             return {
@@ -31,7 +41,25 @@ const user = (state = defaultState, action) => {
                 projectDemand: false,
                 messageDemand: false,
                 issueDemand: false,
-                taskDemand: false
+                taskDemand: false,
+                projectFormDemand: false,
+                projectTaskDemand: false,
+                taskFromDemand: false,
+                passwordDemand: false
+            };
+        case 'PASSWORD_DEMAND':
+            return {
+                ...state,
+                connexionDemand: false,
+                registerDemand: false,
+                projectDemand: false,
+                messageDemand: false,
+                issueDemand: false,
+                taskDemand: false,
+                projectFormDemand: false,
+                projectTaskDemand: false,
+                taskFromDemand: false,
+                passwordDemand: true
             };
         case 'DEMAND_LOGOUT':
             return {
@@ -41,7 +69,11 @@ const user = (state = defaultState, action) => {
                 projectDemand: false,
                 issueDemand: false,
                 taskDemand: false,
-                messageDemand: false
+                messageDemand: false,
+                projectFormDemand: false,
+                projectTaskDemand: false,
+                taskFromDemand: false,
+                passwordDemand: false
             }
         case 'MESSAGE_DEMAND':
             return {
@@ -51,7 +83,11 @@ const user = (state = defaultState, action) => {
                 registerDemand: false,
                 projectDemand: false,
                 issueDemand: false,
-                taskDemand: false
+                taskDemand: false,
+                projectFormDemand: false,
+                projectTaskDemand: false,
+                taskFromDemand: false,
+                passwordDemand: false
             };
         case 'PROJECT_DEMAND':
             return {
@@ -61,7 +97,11 @@ const user = (state = defaultState, action) => {
                 connexionDemand: false,
                 registerDemand: false,
                 issueDemand: false,
-                taskDemand: false
+                taskDemand: false,
+                projectFormDemand: false,
+                projectTaskDemand: false,
+                taskFromDemand: false,
+                passwordDemand: false
             };
         case 'ISSUE_DEMAND':
             return {
@@ -71,7 +111,11 @@ const user = (state = defaultState, action) => {
                 messageDemand: false,
                 connexionDemand: false,
                 registerDemand: false,
-                taskDemand: false
+                taskDemand: false,
+                projectFormDemand: false,
+                projectTaskDemand: false,
+                taskFromDemand: false,
+                passwordDemand: false
             };
         case 'TASK_DEMAND':
             return {
@@ -82,7 +126,56 @@ const user = (state = defaultState, action) => {
                 messageDemand: false,
                 connexionDemand: false,
                 registerDemand: false,
+                projectFormDemand: false,
+                projectTaskDemand: false,
+                taskFromDemand: false,
+                categoryID: action.categoryID,
+                passwordDemand: false
             };
+
+        // case 'PROJECTTASK_DEMAND':
+        //     return {
+        //         ...state,
+        //         projectTaskDemand: true,
+        //         projectFormDemand: false,
+        //         taskDemand: false,
+        //         issueDemand: false,
+        //         projectDemand: false,
+        //         messageDemand: false,
+        //         connexionDemand: false,
+        //         registerDemand: false,
+        //     }
+
+        case 'PROJECTFORM_DEMAND':
+            return {
+                ...state,
+                projectFormDemand: true,
+                taskDemand: false,
+                issueDemand: false,
+                projectDemand: false,
+                messageDemand: false,
+                connexionDemand: false,
+                registerDemand: false,
+                projectTaskDemand: false,
+                taskFromDemand: false,
+                passwordDemand: false
+            }
+
+        case 'ADD_TASKFORM_DEMAND':
+            return {
+                ...state,
+                taskFromDemand: true,
+                projectFormDemand: false,
+                taskDemand: false,
+                issueDemand: false,
+                projectDemand: false,
+                messageDemand: false,
+                connexionDemand: false,
+                registerDemand: false,
+                projectTaskDemand: false,
+                categoryID: action.categoryID,
+                passwordDemand: false
+            }
         default:
             return state;
     }

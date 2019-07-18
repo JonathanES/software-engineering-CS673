@@ -1,16 +1,22 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import store from './store';
-import MainPage from './layouts/MainPage'
-import { CookiesProvider } from 'react-cookie';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import UpdatePassword from './components/passwordForgotten/UpdatePassword';
+import BasePage from './layouts/BasePage';
+import { withCookies } from 'react-cookie';
+
 
 
 const App = () => (
-  <CookiesProvider>
-    <Provider store={store}>
-      <MainPage />
-    </Provider>
-  </CookiesProvider>
+  <Provider store={store}>
+    <Router>
+      <div>
+        <Route exact path="/" render={() => (<BasePage cookies={this.props.cookies}/>)}/>
+        <Route path="/password" component={UpdatePassword} />
+      </div>
+    </Router>
+  </Provider>
 );
 
-export default App;
+export default withCookies(App);

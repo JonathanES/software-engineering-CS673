@@ -6,7 +6,6 @@ const mapStateToProps = state => ({
     registerDemand: state.demand.registerDemand,
     connexionDemand: state.demand.connexionDemand,
     username: state.user.username,
-    tasks: state.user.tasks
 });
 
 const Menu = ({ dispatch, connexionDemand, registerDemand }) => (
@@ -25,7 +24,7 @@ const Menu = ({ dispatch, connexionDemand, registerDemand }) => (
                                 dispatch({ type: 'USER_VIEW_PROJECT' })
                             }
                             }>Projects</a></li>
-                            {<li><a onClick={(e) => dispatch({ type: 'USER_TASK_DEMAND' })} id="task"> Tasks</a></li>}
+                            {<li><a onClick={(e) => dispatch({ type: 'USER_TASK_DEMAND' })} id="task">Tasks</a></li>}
                             <li><a href="#" onClick={(e) => dispatch({ type: 'USER_ISSUE_DEMAND' })}>Issues</a></li>
                             <li><a href="#" onClick={(e) => dispatch({ type: 'USER_MESSAGE_DEMAND' })}>Messages</a></li>
                             {registerDemand && !connexionDemand && <li><a onClick={(e) => dispatch({ type: 'USER_CONNEXION_DEMAND' })} id="connect" >Login</a></li>}
