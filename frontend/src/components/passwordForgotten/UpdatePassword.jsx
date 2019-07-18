@@ -19,12 +19,8 @@ class UpdatePassword extends Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(event) {
-    this.props.dispatch({ type: 'USER_CONNEXION_DEMAND'})
-  }
   handleChange(event) {
     switch (event.target.id) {
       case "email":
@@ -44,8 +40,7 @@ class UpdatePassword extends Component {
   
   handleSubmit(event) {
     updatePassword(this.state.email, this.state.password, (err, data) => {
-      console.log(data);
-      this.props.dispatch({ type: 'USER_LOGIN', username: data.username});
+     window.location.pathname = "/";
     });
     event.preventDefault();
   }

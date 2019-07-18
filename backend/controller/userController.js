@@ -165,7 +165,8 @@ function updatePassword(email, password) {
         let salt = await saltCreatorFunction(password);
         client.query('UPDATE Users SET password = ?, salt = ? WHERE email = ?', [hashedPassword, salt, email], async (error, results, fields) => {
             if (error) throw error;
-            await getSingleUser(email, password);
+            let res = await getSingleUser(email, password);
+            resolve(res);
         });
     });
 }
