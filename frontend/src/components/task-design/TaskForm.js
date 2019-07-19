@@ -6,6 +6,7 @@ import '../../css/task_add.css'
 const mapStateToProps = state => ({
   userId: state.user.userId,
   catID: state.task.categoryID,
+  pID: state.demand.projectID
   //addTask: state.message.addTask
 });
 
@@ -17,6 +18,7 @@ class TaskForm extends Component {
       userId: props.userId,
       parentID: props.categoryID,
       categoryID: props.catID,
+      pID: props.pID,
       priorityID: '',
       taskName: '',
       taskInfo: '',
@@ -78,6 +80,8 @@ class TaskForm extends Component {
         console.log(data);
         //here we should call the mainpage, so they can see the project added to their screen, wonder how we will do it
         //this.props.dispatch({ type: 'USER_LOGIN', username: data.username});
+        console.log(this.state.pID);
+        this.props.dispatch({type:'USER_IS_PROJECT_DEMAND', projectID:this.props.pID});
       });
     }
     event.preventDefault();
