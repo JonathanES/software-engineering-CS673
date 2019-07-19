@@ -49,6 +49,10 @@ class TaskForm extends Component {
       case "expDur":
         this.setState({ expDuration: event.target.value });
         break;
+      case "dueDate":
+        this.setState({dueDate: event.target.value});
+        break;
+
       default:
         break;
     }
@@ -75,7 +79,7 @@ class TaskForm extends Component {
       console.log('Please check your input');
     }
     else {
-      addTask(this.state.categoryID, this.state.categoryID, this.state.userId, 1, this.state.priorityID, this.state.taskName, this.state.taskInfo, this.state.expDuration, 0, (err, data) => {
+      addTask(this.state.categoryID, this.state.categoryID, this.state.userId, 1, this.state.priorityID, this.state.taskName, this.state.taskInfo, this.dueDate, this.state.expDuration, 0, (err, data) => {
         // addProject(this.state.userId, this.state.projectName, this.state.dueDate, (err, data) => {
         console.log(data);
         //here we should call the mainpage, so they can see the project added to their screen, wonder how we will do it
@@ -108,6 +112,10 @@ class TaskForm extends Component {
                 <div className="taskform-field">
                   <label htmlFor="taskInfo">TaskInfo:</label>
                   <input id="taskInfo" type="text" value={this.state.taskInfo} onChange={this.handleChange} />
+                </div>
+                <div className="taskform-field">
+                  <label htmlFor="dueDate">Due Date:</label>
+                  <input id="dueDate" type="text" value={this.state.dueDate} onChange={this.handleChange} />
                 </div>
                 <div className="taskform-field">
                   <label htmlFor="expDur">Expected Time to Complete:</label>
