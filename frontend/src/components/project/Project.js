@@ -25,7 +25,7 @@ class Project extends React.Component {
             userId: props.userId,
             username: props.username,
             pID: '',
-            getListofProjects: [],
+            //getListofProjects : [],
             listOfProjects: [],
             projectcategories: [],
             projectName: "User Projects"
@@ -41,7 +41,7 @@ class Project extends React.Component {
     componentDidMount() {
 
 
-        getListOfProjects(this.state.userId, (err, data) => {
+        getListOfProjects(this.props.userId, (err, data) => {
             this.setState({ listOfProjects: data });
             //console.log('getlistofProjects for user:', this.state.userId);
             //console.log('getlistofProjects for projectID:', this.state.pID);
@@ -72,11 +72,11 @@ class Project extends React.Component {
         // console.log("update button for project id:",event.currentTarget.id, " is pressed for user:", this.state.userId );
         let pID = parseInt(this.newMethod(event));
         // getuserprev(this.newMethod(event), this.state.userId, (err,data) => {
-        getuserprev(pID, this.state.userId, (err, data) => {
-            console.log(data[0].AccountTypeID);
+        getuserprev(pID, this.state.userId, (err,data) => {
+            //console.log(data[0].AccountTypeID);
 
-            if (data[0].AccountTypeID == 1) {
-                console.log('Call the update page with id: ', pID);
+            if(data[0].AccountTypeID == 1){
+                //console.log('Call the update page with id: ', pID);
 
                 this.props.dispatch({ type: 'USER_PROJECTUPDATE_DEMAND', projectID: pID });
             }
@@ -93,22 +93,18 @@ class Project extends React.Component {
 
     handleClick(event) {
 
-        console.log('event id:', event.currentTarget.id);
-
+        //console.log('event id:', event.currentTarget.id);
+        
         switch (event.currentTarget.id) {
             case "add-project-button":
                 //console.log('Project ID:', this.project.projectID)
-                console.log('Add Task button pressed before call');
+                //'Add Task button pressed before call');
                 this.props.dispatch({ type: 'USER_PROJECTFORM_DEMAND' });
                 break;
-            // case "updatebtn" + event.currentTarget.id:
-            //     // this.setState({uID: this.state.userId});
-            //     console.log("update button for project id:",event.currentTarget.id, " is pressed for user:", this.state.userId );
-            //     // getuserprev()
             default:
-                console.log('src/component/project/project.js Project button is clicked:', event.currentTarget.id);
-                this.setState({ pID: event.currentTarget.id });
-                console.log('getlistofProjects for projectID:', this.props.pID);
+                //console.log('src/component/project/project.js Project button is clicked:', event.currentTarget.id);
+                this.setState({pID: event.currentTarget.id});
+                //console.log('getlistofProjects for projectID:', this.props.pID);
 
                 showCategories(event.currentTarget.id, (err, data) => {
                     this.setState({ projectName: data.length == 0 ? this.state.projectName : data[0].ProjectName })
@@ -141,16 +137,12 @@ class Project extends React.Component {
                     </ul>
                     {!this.props.isProjectSelected &&
                         <form onClick={this.handleClick}>
-                            {/* <input id="add-task-input" type="text" value={this.state.newtask} onChange={this.handleChange} /> */}
-                            {/* <button id="add-project-button" class="addprojectbtn" type="click" onClick={this.handleClick}>Add Project</button> */}
                             <button id="add-project-button" class="addprojectbtn" onClick={this.handleClick}>Add Project</button>
                         </form>
                     }
 
 
                 </div>
-
-                {/* <div class="add_task"> */}
 
             </div>
         );

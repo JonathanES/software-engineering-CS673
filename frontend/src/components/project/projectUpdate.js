@@ -59,21 +59,21 @@ class ProjectUpdate extends React.Component {
 
 
     getprojectdetail(this.state.pID, (err, data) => {
-      console.log('projectdetail:',data)
+      //console.log('projectdetail:',data)
       this.setState({pname:data[0].ProjectName})
     })
 
     getuserprev(this.state.pID, this.state.userId, (err,data) => {
-      console.log(data[0].AccountTypeID);
+      //console.log(data[0].AccountTypeID);
 
       if(data[0].AccountTypeID != 3 ){
           this.setState({userType:true})
           getUserLevel((err,data)=>{
             this.setState({userlevels:data})
-            console.log('User levels:',data);
+            //console.log('User levels:',data);
           })
-          console.log('Call the update page with id: ', this.state.pID);
-          console.log('User type is admin');
+          //console.log('Call the update page with id: ', this.state.pID);
+          //console.log('User type is admin');
       }
       else{
           this.setState({userType:false})
@@ -88,14 +88,14 @@ class ProjectUpdate extends React.Component {
 
   handleAddUser(event){
 
-    console.log('ProjectID:', this.props.pID);
-    console.log('newUserID:',parseInt(this.state.newuserid));
-    console.log('User type will be:',parseInt(this.state.newusertype));
+    // console.log('ProjectID:', this.props.pID);
+    // console.log('newUserID:',parseInt(this.state.newuserid));
+    // console.log('User type will be:',parseInt(this.state.newusertype));
      getAddtoProject(this.state.pID, parseInt(this.state.newuserid), parseInt(this.state.newusertype), (err,data) =>{
-       console.log(data);
+       //console.log(data);
        getAvailableUsers(this.state.pID, this.state.userId, (err, data) => {
         this.setState({ listOfFriends: data });
-        console.log('Available users:', data);
+        //console.log('Available users:', data);
       });
       
     })
@@ -109,7 +109,7 @@ class ProjectUpdate extends React.Component {
 
 
   handleLevelChange(event) {
-    console.log('User Type:',event.target.value);
+    //console.log('User Type:',event.target.value);
     this.setState({newusertype: event.target.value}); 
     event.preventDefault();
   }
@@ -117,7 +117,7 @@ class ProjectUpdate extends React.Component {
 
   handleNewUser(event){
 
-    console.log('User ID:',event.target.value);
+    //console.log('User ID:',event.target.value);
     this.setState({newuserid: event.target.value}); 
     event.preventDefault();
   }

@@ -130,14 +130,14 @@ class ProjectTask extends React.Component {
     render() {
 
         return (
-            <div style={{ overflowX: 'auto', overflowY: 'auto' }}>
+            <div style={{ overflowX: 'auto' }}>
                 {this.props.projectTaskList.map(category =>
                     <li class="cat-task_li" style={{ width: '300px', height: "auto", borderRadius: '5px', backgroundColor: "#e6e6e6", position: "relative" }} id={category.projectID} onClick={this.handleClickProject}>
                         <span class="categorytitle">{category.CategoryName}</span>
                         {category.listOfTasks.map(task =>
                             <li class="cat-task_li_li" onMouseOver={(e) => this.handleMouseOver(e)} onMouseLeave={(e) => this.handleMouseOut(e)} style={{ width: '94%', borderRadius: '5px', marginLeft: '3%', marginTop: '8px', marginBottom: '0', height: "auto", padding: "5px" }}>
                                 <div class="cat_tast_head">
-                                    <span class="state">Working On It</span>
+                                    <span class="state">{task.StatusName} </span>
 
                                     <img src={require("./../../images/edit.png")} style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} />
                                 </div>
