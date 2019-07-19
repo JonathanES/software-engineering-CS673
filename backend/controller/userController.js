@@ -74,10 +74,8 @@ function getSingleUser(email, password) {
 async function userinfo(userId) {
     return new Promise(async (resolve) => {
         client.query('SELECT username FROM Users where UserID =?', [userId], function (error, result, fields) {
-            console.log(result);
             let username = result[0].username;
             client.query('INSERT INTO UserLog(UserID, UserName) Values(?,?)', [userId, username], function (error, results, fields) {
-                console.log(results);
                 if (error) throw error;
                 resolve(results);
             });

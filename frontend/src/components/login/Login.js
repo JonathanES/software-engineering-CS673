@@ -58,10 +58,12 @@ class Login extends Component {
 
 
 
-  async handleSubmit(event) {
+  handleSubmit(event) {
     event.preventDefault();
-    login(this.state.email, this.state.password, async (err, data) => {
-      console.log(data);
+    login(this.state.email, this.state.password, (err, data) => {
+      console.log(`test ${data} \n`);
+
+      console.log(`test2 ${data} \n`);
       cookies.set('username', data.username, { path: '/'/*, expires: new Date(Date.now()+30)*/ });
       cookies.set('userId', data.userId, { path: '/' /*, expires: new Date(Date.now()+30)*/ });
       this.props.dispatch({ type: 'USER_LOGIN', username: data.username, userId: data.userId });
@@ -104,7 +106,7 @@ class Login extends Component {
                 <button type="button" class="btn btn-primary">Sign up with Google</button>
                 </div>
             </form>
-            <p className="account-help">Forgot your password ? <a onClick={this.handlePasswordForgotten} className="underline red" >Password forgotten</a></p>
+            <p className="account-help">Forgot your password ? <a onClick={() => {this.handlePasswordForgotten()}} className="underline red" >Password forgotten</a></p>
           </div>
         </div>
       </div>

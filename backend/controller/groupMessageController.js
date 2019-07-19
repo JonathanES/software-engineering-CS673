@@ -17,7 +17,8 @@ function createGroup(groupName, userId) {
             const listOfUsers = [user];
             group.setListOfUsers = listOfUsers;
             listOfGroups.push(group);
-            resolve({ groupId: results.insertId, groupName: groupName });
+            let res = await getUserGroups(userId);
+            resolve(res);
         });
     })
 }
