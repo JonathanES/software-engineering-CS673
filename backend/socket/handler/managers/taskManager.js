@@ -16,7 +16,7 @@ module.exports = function (io) {
 
         client.on('USER_GET_TASKLIST_USERID', async (userID) => {
             const result = await taskController.getListofTasksForUser(userID);
-            io.sockets.in(userID).emit('GET_TASKLIST_USERID', result);
+            client.emit('GET_TASKLIST_USERID', result);
         })
 
         client.on('USER_GET_TASKLIST_CATEGORYID', async (categoryID) => {
