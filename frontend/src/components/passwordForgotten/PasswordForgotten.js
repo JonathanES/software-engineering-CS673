@@ -37,23 +37,21 @@ class PasswordForgotten extends Component {
 
   render() {
     return (
-      <div>
-        <div className="window login">
-          <div className="window-header">
-            <h1 > Password forgotten? </h1>
-          </div>
-          <div className="window-contain">
-            <form onSubmit={this.handleSubmit}>
-              <div className="form-group">
-                <div className="form-field">
-                  <label htmlFor="email">Email :</label>
-                  <input id="email" type="text" value={this.state.email} onChange={this.handleChange} />
-                </div>
-                <button className="btn uppercase" type="submit">Submit</button>
+      <div className="window">
+        <div className="window-header">
+          <h1 > Password forgotten? </h1>
+        </div>
+        <div className="window-contain">
+          <form onSubmit={this.handleSubmit}>
+            <div className="form-group">
+              <div className="form-field">
+                <label htmlFor="email">Email :</label>
+                <input id="email" type="text" value={this.state.email} onChange={this.handleChange} />
               </div>
-              <p className="account-help">You do not have an account ? <a onClick={this.handleClick} className="underline red" >Register</a></p>
-            </form>
-          </div>
+              <button className="btn uppercase" type="submit">Submit</button>
+            </div>
+            <p className="account-help">You do not have an account ? <a onClick={this.handleClick} className="underline red" >Register</a></p>
+          </form>
         </div>
       </div>
     );

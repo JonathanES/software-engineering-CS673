@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import io from "socket.io-client";
 import { addProject, getListOfProjects, showCategories } from '../../socket/projectSocket';
-import {getuserprev} from '../../socket/taskSocket';
+import { getuserprev } from '../../socket/taskSocket';
 import ProjectTask from '../Task/projectTask.js';
 import ProjectForm from '../project/ProjectForm';
 //import {userId} from '../../socket/userSocket';
@@ -39,7 +39,7 @@ class Project extends React.Component {
     }
 
     componentDidMount() {
-        
+
 
         getListOfProjects(this.props.userId, (err, data) => {
             this.setState({ listOfProjects: data });
@@ -57,7 +57,7 @@ class Project extends React.Component {
     handleSubmit(event) {
         // console.log('Add Project button pressed before call');
         // this.props.dispatch({ type: 'USER_GET_PROJECTFORM' });
-        
+
         // addProject(this.state.username, this.state.newproject, (err, data) => {
         //     console.log('Add Project button pressed');
         //     this.setState({ newproject: data });
@@ -78,13 +78,13 @@ class Project extends React.Component {
             if(data[0].AccountTypeID == 1){
                 //console.log('Call the update page with id: ', pID);
 
-                this.props.dispatch({type:'USER_PROJECTUPDATE_DEMAND', projectID: pID});
+                this.props.dispatch({ type: 'USER_PROJECTUPDATE_DEMAND', projectID: pID });
             }
-            else{
-                console.log('Sorry you don\'t have the admin privilidges' );
+            else {
+                console.log('Sorry you don\'t have the admin privilidges');
             }
         })
-        
+
     }
 
     newMethod(event) {
@@ -106,15 +106,15 @@ class Project extends React.Component {
                 this.setState({pID: event.currentTarget.id});
                 //console.log('getlistofProjects for projectID:', this.props.pID);
 
-                showCategories(event.currentTarget.id, (err,data) => {
-                    this.setState({projectName: data.length == 0 ? this.state.projectName : data[0].ProjectName})
-                    this.props.dispatch({type:'USER_PROJECT_TASK_DEMAND', projectID:event.currentTarget.id, projectTaskList:data});
+                showCategories(event.currentTarget.id, (err, data) => {
+                    this.setState({ projectName: data.length == 0 ? this.state.projectName : data[0].ProjectName })
+                    this.props.dispatch({ type: 'USER_PROJECT_TASK_DEMAND', projectID: event.currentTarget.id, projectTaskList: data });
                 });
-        
-                this.props.dispatch({type:'USER_IS_PROJECT_DEMAND', projectID:event.currentTarget.id});
-                
-            }
-            event.preventDefault();
+
+                this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: event.currentTarget.id });
+
+        }
+        event.preventDefault();
     }
 
 
@@ -130,17 +130,15 @@ class Project extends React.Component {
                                 <div>
                                     <span id={project.projectID} onClick={this.handleClick} class="project-content">{project.projectName}</span>
                                 </div>
-                                {<a class="updatebtn" id ={project.projectID} onClick={this.handleUpdateClick}> </a>}
+                                {<a class="updatebtn" id={project.projectID} onClick={this.handleUpdateClick}> </a>}
                             </li>
                         )}
                         {this.props.isProjectSelected && <ProjectTask dispatch={this.props.dispatch} />}
                     </ul>
                     {!this.props.isProjectSelected &&
-                    <div>
                         <form onClick={this.handleClick}>
                             <button id="add-project-button" class="addprojectbtn" onClick={this.handleClick}>Add Project</button>
                         </form>
-                    </div>
                     }
 
 
