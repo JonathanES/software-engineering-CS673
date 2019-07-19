@@ -11,7 +11,7 @@ module.exports = function (io) {
 
         client.on('USER_GET_PROJECTLIST', async (userID) => {
             const result = await projectController.getListofProjects(userID);
-            client.emit('GET_PROJECTLIST', result);
+            io.sockets.in(userID).emit('GET_PROJECTLIST', result);
         })
 
         client.on('USER_GET_PROJECTID', async (projectName) => {
@@ -44,5 +44,36 @@ module.exports = function (io) {
             const result = await projectController.addCategory(pID, catName);
             client.emit('ADD_CATEGORY', result);
         })
+
+        client.on('USER_GET_USERPREV', async(projectID, userID) =>{
+            const result = await projectController.getuserprev(projectID, userID);
+            client.emit('GET_USERPREV', result);
+        })
+
+        client.on('USER_ADD_USERTOPROJECT', async(projectID, userID,  userType) =>{
+            const result = await projectController.addusertoproject(projectID, userID, userType);
+            client.emit('ADD_USERTOPROJECT', result);
+        })
+
+        client.on('USER_GET_PRIORITIES', async() =>{
+            const result = await projectController.getpriority();
+            client.emit('GET_PRIORITIES', result);
+        })
+
+        client.on('USER_GET_USERLEVEL', async() =>{
+            const result = await projectController.getlevel();
+            client.emit('GET_USERLEVEL', result);
+        })
+
+        client.on('USER_GET_PROJECTDETAIL', async(projectID) =>{
+            const result = await projectController.getprojectdetail(projectID);
+            client.emit('GET_PROJECTDETAIL', result);
+        })
+
+        client.on('GET_AVAILABLEUSER', async(projectID, userID) => { 
+            const result = await projectController.getListOfAvailableUser(projectID, userID);
+            client.emit('AVAILABLEUSER', result);
+         });
+
     })
 };
