@@ -38,7 +38,7 @@ const listofTaskUsers = [];
  */
 async function insertNewTask(parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, expectedDuration, actualTimeSpent) {
     return new Promise(async resolve => {
-        console.log('Came here with the category id:', categoryID);
+        //console.log('Came here with the category id:', categoryID);
         client.query('INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, Taskname, Taskinfo, CreatedDate, ExpectedDuration, ActualTimeSpent) VALUES(?,?,?,?,?,?,?,NOW(),?,?)', [parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo,  expectedDuration, actualTimeSpent], async function (error, results, fields) {
             if (error) throw error;
             const tasks = await getListofTasks(categoryID);
@@ -87,7 +87,7 @@ async function getSingleTask(taskID) {
  */
 async function getListofTasksForUser(userID){
     return new Promise((resolve, reject) => {
-        console.log(userID);
+        //console.log(userID);
        client.query('SELECT T.TaskID, T.ParentID, T.CategoryID, T.UserID, TS.StatusName, P.Priority, T.TaskName, T.TaskInfo, T.CreatedDate, T.ExpectedDuration, T.ActualTimeSpent, T.IsDeleted FROM Tasks T JOIN TaskStatus TS on TS.StatusID = T.StatusID JOIN Priority P ON T.PriorityID = P.PriorityID WHERE UserID = ?', [userID], function (error, results, fields) {
            results.forEach(result => {
                if (!listofTaskUsers.some(task => task.getTaskID == result.TaskID)){
@@ -125,7 +125,7 @@ async function getListofTasksForUser(userID){
  */
 async function getListofTasksForCategories(categoryID){
     return new Promise((resolve, reject) => {
-       client.query('SELECT * FROM Tasks  WHERE CategoryID = ?', [categoryID], function (error, results, fields) {
+       client.query('SELECT T.ParentID, T.CategoryID, T.UserID, TS.StatusName, P.Priority, T.TaskName, T.TaskInfo, T.CreatedDate, T.ExpectedDuration, T.ActualTimeSpent FROM Tasks T JOIN TaskStatus TS on TS.StatusID = T.StatusID JOIN Priority P on P.PriorityID = T.PriorityID WHERE CategoryID = ?', [categoryID], function (error, results, fields) {
            if (error) throw error;
            resolve(results);
        });
