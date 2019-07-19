@@ -36,10 +36,10 @@ const listofTaskUsers = [];
         socket.emit('USER_ADD_TASK', parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, taskInfo, expDuration, actTimeSpent);
     }
  */
-async function insertNewTask(parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, expectedDuration, actualTimeSpent) {
+async function insertNewTask(parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, dueDate, expectedDuration, actualTimeSpent) {
     return new Promise(async resolve => {
         //console.log('Came here with the category id:', categoryID);
-        client.query('INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, Taskname, Taskinfo, CreatedDate, ExpectedDuration, ActualTimeSpent) VALUES(?,?,?,?,?,?,?,NOW(),?,?)', [parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo,  expectedDuration, actualTimeSpent], async function (error, results, fields) {
+        client.query('INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, Taskname, Taskinfo, CreatedDate, DueDate, ExpectedDuration, ActualTimeSpent) VALUES(?,?,?,?,?,?,?,NOW(),?,?,?)', [parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, dueDate, expectedDuration, actualTimeSpent], async function (error, results, fields) {
             if (error) throw error;
             const tasks = await getListofTasks(categoryID);
             resolve(results);
@@ -88,10 +88,10 @@ async function getSingleTask(taskID) {
 async function getListofTasksForUser(userID){
     return new Promise((resolve, reject) => {
         //console.log(userID);
-       client.query('SELECT T.TaskID, T.ParentID, T.CategoryID, T.UserID, TS.StatusName, P.Priority, T.TaskName, T.TaskInfo, T.CreatedDate, T.ExpectedDuration, T.ActualTimeSpent, T.IsDeleted FROM Tasks T JOIN TaskStatus TS on TS.StatusID = T.StatusID JOIN Priority P ON T.PriorityID = P.PriorityID WHERE UserID = ?', [userID], function (error, results, fields) {
+       client.query('SELECT T.TaskID, T.ParentID, T.CategoryID, T.UserID, TS.StatusName, P.Priority, T.TaskName, T.TaskInfo, T.CreatedDate, T.DueDate, T.ExpectedDuration, T.ActualTimeSpent, T.IsDeleted FROM Tasks T JOIN TaskStatus TS on TS.StatusID = T.StatusID JOIN Priority P ON T.PriorityID = P.PriorityID WHERE UserID = ?', [userID], function (error, results, fields) {
            results.forEach(result => {
                if (!listofTaskUsers.some(task => task.getTaskID == result.TaskID)){
-                   const task = new TaskModel(result.TaskID, result.ParentID, result.CategoryID, result.UserID, result.StatusName, result.Priority, result.TaskName, result.TaskInfo, result.CreatedDate, result.ExpectedDuration, result.ActualTimeSpent, result.IsDeleted);
+                   const task = new TaskModel(result.TaskID, result.ParentID, result.CategoryID, result.UserID, result.StatusName, result.Priority, result.TaskName, result.TaskInfo, result.CreatedDate, result.DueDate,result.ExpectedDuration, result.ActualTimeSpent, result.IsDeleted);
                    listofTaskUsers.push(task);
                }
            })
@@ -125,7 +125,7 @@ async function getListofTasksForUser(userID){
  */
 async function getListofTasksForCategories(categoryID){
     return new Promise((resolve, reject) => {
-       client.query('SELECT T.ParentID, T.CategoryID, T.UserID, TS.StatusName, P.Priority, T.TaskName, T.TaskInfo, T.CreatedDate, T.ExpectedDuration, T.ActualTimeSpent FROM Tasks T JOIN TaskStatus TS on TS.StatusID = T.StatusID JOIN Priority P on P.PriorityID = T.PriorityID WHERE CategoryID = ?', [categoryID], function (error, results, fields) {
+       client.query('SELECT T.ParentID, T.CategoryID, T.UserID, TS.StatusName, P.Priority, T.TaskName, T.TaskInfo, T.CreatedDate, T.DueDate, T.ExpectedDuration, T.ActualTimeSpent FROM Tasks T JOIN TaskStatus TS on TS.StatusID = T.StatusID JOIN Priority P on P.PriorityID = T.PriorityID WHERE CategoryID = ?', [categoryID], function (error, results, fields) {
            if (error) throw error;
            resolve(results);
        });
@@ -145,7 +145,7 @@ function getListofTasks(categoryID){
            //console.log(results);
            results.forEach(result => {
                if (!listOfTasks.some(task => task.getTaskID == result.TaskID)){
-                   const task = new TaskModel(result.TaskID, result.ParentID, result.CategoryID, result.UserID, result.StatusID, result.PriorityID, result.TaskName, result.TaskInfo, result.CreatedDate, result.ExpectedDuration, result.ActualTimeSpent, result.IsDeleted);
+                   const task = new TaskModel(result.TaskID, result.ParentID, result.CategoryID, result.UserID, result.StatusID, result.PriorityID, result.TaskName, result.TaskInfo, result.CreatedDate, result.DueDate, result.ExpectedDuration, result.ActualTimeSpent, result.IsDeleted);
                    listOfTasks.push(task);
                }
            })
