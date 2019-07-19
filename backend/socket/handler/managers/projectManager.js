@@ -70,6 +70,10 @@ module.exports = function (io) {
             client.emit('GET_PROJECTDETAIL', result);
         })
 
+        client.on('GET_AVAILABLEUSER', async(projectID, userID) => { 
+            const result = await projectController.getListOfAvailableUser(projectID, userID);
+            client.emit('AVAILABLEUSER', result);
+         });
 
     })
 };

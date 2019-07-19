@@ -46,11 +46,18 @@ class ProjectUpdate extends React.Component {
   componentDidMount() {
 
     getAvailableUsers(this.state.pID, this.state.userId, (err, data) => {
-      this.setState({ listOfFriends: data });
+      // this.setState({ listOfFriends: data });
       console.log('Available users:', data);
+      this.setState({ listOfFriends: "" });
+      console.log(this.state.listOfFriends);
+      this.state.listOfFriends.push({Userid:0,username:'Please Select a User'});
+      console.log(this.state.listOfFriends);
+      this.state.listOfFriends.push(data);
+      // this.setState({ listOfFriends: data });
     });
 
-    getprojectdetail(this.state.pID, (err,data) =>{
+
+    getprojectdetail(this.state.pID, (err, data) => {
       console.log('projectdetail:',data)
       this.setState({pname:data[0].ProjectName})
     })
@@ -80,12 +87,15 @@ class ProjectUpdate extends React.Component {
 
   handleAddUser(event){
 
-    console.log('ProjectID:', this.state.pID);
+    console.log('ProjectID:', this.props.pID);
     console.log('newUserID:',parseInt(this.state.newuserid));
     console.log('User type will be:',parseInt(this.state.newusertype));
      getAddtoProject(this.state.pID, parseInt(this.state.newuserid), parseInt(this.state.newusertype), (err,data) =>{
        console.log(data);
-       this.componentDidMount();
+       getAvailableUsers(this.state.pID, this.state.userId, (err, data) => {
+        this.setState({ listOfFriends: data });
+        console.log('Available users:', data);
+      });
       
     })
     event.preventDefault();
@@ -128,11 +138,11 @@ class ProjectUpdate extends React.Component {
               <form onSubmit={this.handleSubmit}>
                 <div className="projectform-field">
                   <label htmlFor="projectName">Project Name :</label>
-                  <input id="projectName" type="text" value={this.state.projectName} onChange={this.handleChange} />
+                  <input id="projectName" type="text" value={this.state.projectName} onChange={() => this.handleChange} />
                 </div>
                 <div className="projectform-field">
                   <label htmlFor="dueDate">Due Date :</label>
-                  <input id="dueDate" type="text" value={this.state.dueDate} onChange={this.handleChange} />
+                  <input id="dueDate" type="text" value={this.state.dueDate} onChange={()=>this.handleChange} />
                 </div>
                 <div className="projectform-field">
                   <label htmlFor="adduser">Add User to Project:</label>
