@@ -33,8 +33,11 @@ input {
     margin-left: 35%;
 }
 .project{
+    position: fixed;
     width: 100%;
     overflow: hidden;
+    left:200px;
+    top: 50px;
 }
 .project ul{
     margin-top:20px;
