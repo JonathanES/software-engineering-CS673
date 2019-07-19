@@ -66,10 +66,16 @@ class Chat extends React.Component {
                     elt.position = "left";
             })
             this.setState({ chatHistory: history, message: "" });
-            sendMessage(this.state.userId, this.state.receiverId, this.state.message);
+            sendMessage(this.state.userId, this.state.receiverId, this.state.message, (err, data) => {
+                console.log(data);
+                this.setState({message: ""});             
+            });
         }
         else {
-            sendGroupMessage(this.state.userId, this.state.receiverId, this.state.message);
+            sendGroupMessage(this.state.userId, this.state.receiverId, this.state.message, (err, data) => {
+                console.log(data);
+                this.setState({message: ""});             
+            });
         }
         event.preventDefault();
     }
