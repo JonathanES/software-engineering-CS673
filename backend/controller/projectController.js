@@ -87,7 +87,7 @@ function getListOfProjects(userID) {
         console.log('Project for user:', userID)
         client.query('SELECT * FROM Projects P Join ProjectUsers PU on P.ProjectID = PU.ProjectID WHERE PU.UserID = ?', [userID], function (error, results, fields) {
             results.forEach(result => {
-                if (!listOfProjects.some(project => project.getProjectID == result.ProjectID)) {
+                if (!listOfProjects.some(project => project.getUserID == userID && project.getProjectID == result.ProjectID)) {
                     const project = new ProjectModel(result.ProjectID, result.ProjectName, result.UserID, result.DateCreated, result.DueDate);
                     listOfProjects.push(project);
                 }
@@ -232,7 +232,7 @@ async function updateProjectIsDeleted(projectID, isDeleted) {
 
 async function getuserprev(projectID, userID){
     return new Promise((resolve, reject) => {
-        console.log(projectID, userID);
+        //console.log(projectID, userID);
        client.query('SELECT AccountTypeID FROM ProjectUsers WHERE UserID = ? and ProjectID=?', [userID, projectID], function (error, results, fields) {
             if(error) throw error;   
             resolve(results);
@@ -244,7 +244,7 @@ async function getuserprev(projectID, userID){
 async function getprojectdetail(projectID){
     return new Promise((resolve, reject)=>{
         client.query('Select P.ProjectID, P.ProjectName, P.DateCreated, P.DueDate, P.IsDeleted, PU.UserID From Projects P JOIN ProjectUsers PU on PU.ProjectID = P.ProjectID where P.ProjectID = ?', [projectID], function (error, results, fields) {
-            console.log('Retrieveing information for ProjectID:', projectID);
+            //console.log('Retrieveing information for ProjectID:', projectID);
             if(error) throw error;
             resolve(results);
         } )
@@ -255,10 +255,10 @@ async function getprojectdetail(projectID){
 
 async function addusertoproject(projectID, userID,userType){
     return new Promise((resolve, reject) => {
-        console.log('projectID, userID, userType', projectID, userID, userType);
+        //console.log('projectID, userID, userType', projectID, userID, userType);
        client.query('INSERT INTO ProjectUsers(UserID, ProjectID, AccountTypeID) VALUES(?,?,?)', [userID, projectID, userType], function (error, results, fields) {
         if(error) throw error;  
-        console.log('User is added:',results); 
+        //console.log('User is added:',results); 
             resolve(results);
        });
     })
@@ -268,7 +268,7 @@ async function addusertoproject(projectID, userID,userType){
 
 async function getpriority(){
     return new Promise((resolve, reject)=>{
-        console.log('Getting priorities');
+        //console.log('Getting priorities');
         client.query('Select PriorityID, Priority From Priority', function(error,results, fields){
             if(error) throw error;
             resolve(results);
@@ -278,7 +278,7 @@ async function getpriority(){
 
 async function getlevel(){
     return new Promise((resolve, reject)=>{
-        console.log('Getting priorities');
+        //console.log('Getting levels');
         client.query('Select AccountTypeID, TypeName From AccountType', function(error,results, fields){
             if(error) throw error;
             resolve(results);
@@ -291,9 +291,9 @@ async function getListOfAvailableUser(projectID, userID){
         // client.query('SELECT U.userId, U.username FROM Users U LEFT JOIN ProjectUsers PU on PU.UserID = U.UserID where PU.userID != ? and PU.ProjectID = ?', [userID, projectID], function(error, result, fields){
         client.query('SELECT U.UserID, U.username FROM Users U WHERE U.UserID NOT IN (SELECT PU.UserID FROM ProjectUsers PU WHERE PU.ProjectID = ?)', [projectID], function(error, result, fields){    
         if(error) throw error;
-            console.log('Project ID:', projectID);
-            console.log('UserID:', userID);
-            console.log('result:', result);
+            //console.log('Project ID:', projectID);
+            //console.log('UserID:', userID);
+            //console.log('result:', result);
             resolve(result);
         })
     })

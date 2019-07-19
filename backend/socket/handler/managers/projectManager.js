@@ -11,7 +11,7 @@ module.exports = function (io) {
 
         client.on('USER_GET_PROJECTLIST', async (userID) => {
             const result = await projectController.getListofProjects(userID);
-            io.sockets.in(userID).emit('GET_PROJECTLIST', result);
+            client.emit('GET_PROJECTLIST', result);
         })
 
         client.on('USER_GET_PROJECTID', async (projectName) => {
