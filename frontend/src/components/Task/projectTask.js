@@ -138,7 +138,7 @@ class ProjectTask extends React.Component {
                             {category.listOfTasks.map(task =>
                                 <li class="cat-task_li_li" onMouseOver={(e)=>this.handleMouseOver(e)} onMouseLeave={(e)=>this.handleMouseOut(e)} style={{width:'94%',borderRadius:'5px',marginLeft:'3%',marginTop:'8px',marginBottom:'0',height:"auto",padding:"5px"}}>
                                     <div class="cat_tast_head">
-                                    <span class="state">Working On It</span>
+                                    <span class="state">{task.StatusName} </span>
                                     
                                     <img src={require("./../../images/edit.png")} style={{display:this.state.modalIsOpen,width:"15px",height:"15px"}}/>
                                     </div>
