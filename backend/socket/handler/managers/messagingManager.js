@@ -58,5 +58,11 @@
             const result = await groupMessagingController.getGroupMessages(groupID)
             client.emit('SEND_GROUP_MESSAGE', result);
         })
+
+        // get users that are not in group
+        client.on('USER_GET_USERS_NOT_IN_GROUP', async (groupID) => {
+            const result = await groupMessagingController.getUsersNotInGroup(groupID);
+            client.emit('GET_USERS_NOT_IN_GROUP', result);
+        })
      })
  };

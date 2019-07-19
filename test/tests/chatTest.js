@@ -165,6 +165,21 @@ describe('Messaging test', function () {
     });
   });
 
+  it('should get users that are not in a group', function (done) {
+    // Set up client1 connection
+    let client = io.connect(socketUrl, options);
+
+    client.on('connect', function () {
+
+      client.emit('USER_GET_USERS_NOT_IN_GROUP', groupId);
+      client.on('GET_USERS_NOT_IN_GROUP', data => {
+        expect(data.length).to.be.above(0);
+        client.disconnect();
+        done();
+      });
+    });
+  });
+
   it('should receive a list of message from a group', function (done) {
     // Set up client1 connection
     let client = io.connect(socketUrl, options);
