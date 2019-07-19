@@ -25,7 +25,7 @@ class Project extends React.Component {
             userId: props.userId,
             username: props.username,
             pID: '',
-            getListofProjects : [],
+            //getListofProjects : [],
             listOfProjects: [],
             projectcategories: [],
             projectName: "User Projects"
@@ -41,7 +41,7 @@ class Project extends React.Component {
     componentDidMount() {
         
 
-        getListOfProjects(this.state.userId, (err, data) => {
+        getListOfProjects(this.props.userId, (err, data) => {
             this.setState({ listOfProjects: data });
             //console.log('getlistofProjects for user:', this.state.userId);
             //console.log('getlistofProjects for projectID:', this.state.pID);
