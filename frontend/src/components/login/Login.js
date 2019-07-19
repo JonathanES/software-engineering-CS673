@@ -74,11 +74,15 @@ class Login extends Component {
       <div class="row">
         <div class="col" id="leftLog">
 
+        <div id="birdPic">
+          <img src={require("../../images/swellodesk_image.png")} class="rounded mx-auto d-block" alt="swello" id="axBP"></img></div>
+
         </div>
         <div class="col" id ="rightLog">
-          <form class="form-inline">
-                    <label class="sr-only" for="inlineFormInputUsername2">Username</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Username"></input>
+          <form onSubmit={this.handleSubmit} id="LoginFormCA" class="form-inline">
+
+                    <label class="sr-only" for="inlineFormInputUsername2">Email</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Email"></input>
 
                     <label class="sr-only" for="inlineFormInputGroupPassword2">Password</label>
                     <div class="input-group mb-2 mr-sm-2">
@@ -93,7 +97,12 @@ class Login extends Component {
                       </label>
                     </div>
 
-                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                    <button type="submit" class="btn btn-primary mb-2" id="SubmitCA">Submit</button>
+
+                  ``<div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-primary">Sign up</button>
+                        <button type="button" class="btn btn-primary">Sign up with Facebook</button>
+                        <button type="button" class="btn btn-primary">Sign up with Google</button></div>
           </form>
       </div>
       </div>
