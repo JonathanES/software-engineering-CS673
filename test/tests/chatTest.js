@@ -71,9 +71,8 @@ describe('Messaging test', function () {
 
       client.emit('USER_CREATE_GROUP', groupName, userId);
       client.on('CREATE_GROUP', data => {
-        expect(data.groupId).to.be.above(0);
-        expect(data.groupName).to.be.equal(groupName);
-        groupId = data.groupId;
+        expect(data[data.length - 1].GroupName).to.be.equal(groupName);
+        groupId = data[data.length - 1].GroupID;
         client.disconnect();
         done();
       });
@@ -87,7 +86,6 @@ describe('Messaging test', function () {
     client.on('connect', function () {
 
       // Emit event when all clients are connected.
-
       client.emit('USER_ADD_USER_GROUP', receiverId, groupId);
       client.on('ADD_USER_GROUP', data => {
         expect(data.length).to.be.above(0);
@@ -132,8 +130,8 @@ describe('Messaging test', function () {
 
       client.emit('USER_GET_USER_GROUPS', userId);
       client.on('GET_USER_GROUPS', data => {
-        expect(data[0].GroupID).to.be.equal(groupId);
-        expect(data[0].GroupName).to.be.equal(groupName);
+        expect(data[data.length - 1].GroupID).to.be.equal(groupId);
+        expect(data[data.length - 1].GroupName).to.be.equal(groupName);
         client.disconnect();
         done();
       });
