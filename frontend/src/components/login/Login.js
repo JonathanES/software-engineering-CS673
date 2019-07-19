@@ -62,8 +62,8 @@ class Login extends Component {
     event.preventDefault();
     login(this.state.email, this.state.password, async (err, data) => {
       console.log(data);
-      cookies.set('username', data.username, { path: '/'/*, expires: new Date(Date.now()+30)*/});
-      cookies.set('userId', data.userId, { path: '/' /*, expires: new Date(Date.now()+30)*/});
+      cookies.set('username', data.username, { path: '/'/*, expires: new Date(Date.now()+30)*/ });
+      cookies.set('userId', data.userId, { path: '/' /*, expires: new Date(Date.now()+30)*/ });
       this.props.dispatch({ type: 'USER_LOGIN', username: data.username, userId: data.userId });
     });
   }
@@ -71,41 +71,42 @@ class Login extends Component {
   render() {
     return (
       <div>
-      <div class="row">
-        <div class="col" id="leftLog">
+        <div class="row">
+          <div class="col" id="leftLog">
 
-        <div id="birdPic">
-          <img src={require("../../images/swellodesk_image.png")} class="rounded mx-auto d-block" alt="swello" id="axBP"></img></div>
+            <div id="birdPic">
+              <img src={require("../../images/swellodesk_image.png")} class="rounded mx-auto d-block" alt="swello" id="axBP"></img></div>
 
-        </div>
-        <div class="col" id ="rightLog">
-          <form onSubmit={this.handleSubmit} id="LoginFormCA" class="form-inline">
+          </div>
+          <div class="col" id="rightLog">
+            <form onSubmit={this.handleSubmit} id="LoginFormCA" class="form-inline">
 
-                    <label class="sr-only" for="inlineFormInputUsername2">Email</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Email"></input>
+              <label class="sr-only" for="inlineFormInputUsername2">Email</label>
+              <input  class="form-control mb-2 mr-sm-2" id="email" placeholder="Email" type="text" value={this.state.email} onChange={this.handleChange} />
 
-                    <label class="sr-only" for="inlineFormInputGroupPassword2">Password</label>
-                    <div class="input-group mb-2 mr-sm-2">
+              <label class="sr-only" for="inlineFormInputGroupPassword2">Password</label>
+              <div class="input-group mb-2 mr-sm-2">
+              <input id="password" type="password"  class="form-control" value={this.state.password} placeholder="..............................." onChange={this.handleChange} />
+              </div>
 
-                      <input type="password" class="form-control" id="inlineFormInputGroupUsername2" placeholder="..............................."></input>
-                    </div>
-
-                    <div class="form-check mb-2 mr-sm-2">
-                      <input class="form-check-input" type="checkbox" id="inlineFormCheck"></input>
-                      <label class="form-check-label" for="inlineFormCheck">
-                        Remember me
+              <div class="form-check mb-2 mr-sm-2">
+                <input class="form-check-input" type="checkbox" id="inlineFormCheck"></input>
+                <label class="form-check-label" for="inlineFormCheck">
+                  Remember me
                       </label>
-                    </div>
+              </div>
 
-                    <button type="submit" class="btn btn-primary mb-2" id="SubmitCA">Submit</button>
+              <button className="btn uppercase" type="submit">Sign in</button>
 
-                  ``<div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary">Sign up</button>
-                        <button type="button" class="btn btn-primary">Sign up with Facebook</button>
-                        <button type="button" class="btn btn-primary">Sign up with Google</button></div>
-          </form>
-      </div>
-      </div>
+              ``<div class="btn-group" role="group" aria-label="Basic example">
+                <button onClick={this.handleClick}  type="button" class="btn btn-primary">Sign up</button>
+                <button type="button" class="btn btn-primary">Sign up with Facebook</button>
+                <button type="button" class="btn btn-primary">Sign up with Google</button>
+                </div>
+            </form>
+            <p className="account-help">Forgot your password ? <a onClick={this.handlePasswordForgotten} className="underline red" >Password forgotten</a></p>
+          </div>
+        </div>
       </div>
       /*
       <div>
