@@ -60,8 +60,7 @@ nav {
 ul {
   display: none;
   list-style-type: none;
-  margin: 0;
-  /* padding: 0; */
+  padding: 0;
 }
 
 ul li a {
@@ -107,9 +106,19 @@ p {
   }
   aside {
     background: rgba(255, 255, 255, 0.35);
-    grid-template-columns: auto;
-    grid-template-rows: 20% auto;
+    position: absolute;
+    left: 0%;
+    width: 13%;
+    height: 100%;
+    /*grid-template-columns: auto;
+    grid-template-rows: 20% auto;*/
     padding: 0;
+  }
+  .main-page{
+    position: absolute;
+    right: 0px;
+    width: 87%;
+    height: 100%;
   }
 
   #main {

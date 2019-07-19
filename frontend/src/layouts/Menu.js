@@ -12,41 +12,33 @@ const mapStateToProps = state => ({
 const cookies = new Cookies();
 
 const Menu = ({ dispatch, connexionDemand, registerDemand, username }) => (
-    <div>
-        <aside>
-            {!connexionDemand && !registerDemand &&
-                <div>
-                    <nav>
-                        <figure>
-                            <div id="avatar"></div>
-                            <figcaption>{username}</figcaption>
-                        </figure>
-                        <ul>
-                            <li><a href="#" onClick={(e) => {
-                                dispatch({ type: 'USER_PROJECT_DEMAND' })
-                                dispatch({ type: 'USER_VIEW_PROJECT' })
-                            }
-                            }>Projects</a></li>
-                            {<li><a onClick={(e) => dispatch({ type: 'USER_TASK_DEMAND' })} id="task">Tasks</a></li>}
-                            <li><a href="#" onClick={(e) => dispatch({ type: 'USER_ISSUE_DEMAND' })}>Issues</a></li>
-                            <li><a href="#" onClick={(e) => dispatch({ type: 'USER_MESSAGE_DEMAND' })}>Messages</a></li>
-                            {registerDemand && !connexionDemand && <li><a onClick={(e) => dispatch({ type: 'USER_CONNEXION_DEMAND' })} id="connect" >Login</a></li>}
-                            {!registerDemand && !connexionDemand && <li><a className="red" onClick={(e) => {
-                                dispatch({ type: 'USER_LOGOUT' });
-                                if (cookies) {
-                                    cookies.remove('username');
-                                    cookies.remove('userId');
-                                }
-
-                            }} id="disconnect"> Logout</a></li>}
-                            {!registerDemand && connexionDemand && <li><a className="red" onClick={(e) => dispatch({ type: 'USER_REGISTER_DEMAND' })} id="register">Register</a></li>}
-
-                        </ul>
-                    </nav>
-                </div>
+    <aside>
+        <figure>
+            <div id="avatar"></div>
+            <figcaption>{username}</figcaption>
+        </figure>
+        <ul>
+            <li><a href="#" onClick={(e) => {
+                dispatch({ type: 'USER_PROJECT_DEMAND' })
+                dispatch({ type: 'USER_VIEW_PROJECT' })
             }
-        </aside>
-    </div>
+            }>Projects</a></li>
+            {<li><a onClick={(e) => dispatch({ type: 'USER_TASK_DEMAND' })} id="task">Tasks</a></li>}
+            <li><a href="#" onClick={(e) => dispatch({ type: 'USER_ISSUE_DEMAND' })}>Issues</a></li>
+            <li><a href="#" onClick={(e) => dispatch({ type: 'USER_MESSAGE_DEMAND' })}>Messages</a></li>
+            {registerDemand && !connexionDemand && <li><a onClick={(e) => dispatch({ type: 'USER_CONNEXION_DEMAND' })} id="connect" >Login</a></li>}
+            {!registerDemand && !connexionDemand && <li><a className="red" onClick={(e) => {
+                dispatch({ type: 'USER_LOGOUT' });
+                if (cookies) {
+                    cookies.remove('username');
+                    cookies.remove('userId');
+                }
+
+            }} id="disconnect"> Logout</a></li>}
+            {!registerDemand && connexionDemand && <li><a className="red" onClick={(e) => dispatch({ type: 'USER_REGISTER_DEMAND' })} id="register">Register</a></li>}
+
+        </ul>
+    </aside>
 );
 
 /*
