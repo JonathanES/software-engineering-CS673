@@ -162,10 +162,11 @@ class ProjectTask extends React.Component {
                         </li>
                     )}
                 </ul>
-                {/* <form onClick={this.handleClick} style={{position:"absolute",left:"0"}}>
+                
+                <form onClick={this.handleClick} style={{position:"absolute",left:"0"}}>
                     <input id="catName" type="text" value={this.state.catName} onChange={this.handleChange} />
                     <button class="add_category_button" id="add-cat-button" type="submit">Add Category</button>
-                </form> */}
+                </form>
                 </div>      
         );
     }
