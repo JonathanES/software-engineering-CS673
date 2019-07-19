@@ -71,6 +71,7 @@ CREATE TABLE IF NOT EXISTS Tasks (
     TaskName VARCHAR(256) NOT NULL,
     TaskInfo VARCHAR(2048) NOT NULL,
     CreatedDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    DueDate TIMESTAMP NOT NULL,
     ExpectedDuration INT,
     ActualTimeSpent INT,
     IsDeleted BOOLEAN DEFAULT FALSE,
