@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import io from "socket.io-client";
 import { sendMessage, getMessage } from '../../socket/messagingSocket'
-import { getUserGroups, createGroup, addUserGroup, getGroupMessage, sendGroupMessage } from '../../socket/GroupMessagingSocket'
+import { getUserGroups, getGroupMessage, sendGroupMessage } from '../../socket/GroupMessagingSocket'
 import AddGroup from './AddGroup';
 import { getFriends } from '../../socket/userSocket'
 import '../../css/message.css'
@@ -143,25 +143,11 @@ class Chat extends React.Component {
     render() {
         return (
             <div class="box">
-                {/* <div class="leftbar">
-                    <ul>
-                        <li><i class="fas fa-user"></i></li>
-                        <li><i class="fas fa-user-circle"></i></li>
-                        <li><i class="fas fa-wrench"></i></li>
-                        <li><i class="fas fa-folder-open"></i></li>
-                        <li><i class="fas fa-bell"></i></li>
-                        <li><i class="fas fa-envelope"></i></li>
-                        <li><i class="fas fa-power-off"></i></li>
-                    </ul>
-                </div> */}
                 <div class="container">
                     <div class="chatbox">
                         {this.props.addGroup && <AddGroup dispatch={this.props.dispatch} />}
                         <div class="chatleft">
                             <div class="top">
-                                {/* <i class="fas fa-bars" style={{"font-size": "1.4em"}}></i>
-                                <input type="text" class="search-chatleft" placeholder="search"/>
-                                <button class="searchbtn"><i class="fas fa-search"/></button> */}
                                 <div class="appname">
                                     SwelloDesk
                                 </div>
@@ -177,7 +163,7 @@ class Chat extends React.Component {
                                 <div class="channel">
                                     <div class="title">
                                         Channels
-                                    <input id="add-button" type="image" src={require("../../images/plus.svg")} onClick={() => this.props.dispatch({ type: 'USER_ADD_GROUP_DEMAND' })} />
+                                    <input id="add-button" type="image" src={require("../../images/plus.svg")} onClick={(e) => {this.props.dispatch({ type: 'USER_ADD_GROUP_DEMAND' }); e.preventDefault()}} />
                                     </div>
                                     <ul>
                                         {this.state.listOfGroups.map(group =>
