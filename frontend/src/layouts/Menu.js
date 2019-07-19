@@ -17,7 +17,7 @@ const Menu = ({ dispatch, connexionDemand, registerDemand, username }) => (
             <div id="avatar"></div>
             <figcaption>{username}</figcaption>
         </figure>
-        <ul>
+        <ul className="ul-menu">
             <li><a href="#" onClick={(e) => {
                 dispatch({ type: 'USER_PROJECT_DEMAND' })
                 dispatch({ type: 'USER_VIEW_PROJECT' })
