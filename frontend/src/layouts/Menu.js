@@ -11,17 +11,17 @@ const mapStateToProps = state => ({
 
 const cookies = new Cookies();
 
-const Menu = ({ dispatch, connexionDemand, registerDemand}) => (
+const Menu = ({ dispatch, connexionDemand, registerDemand, username }) => (
     <div>
         <aside>
             {!connexionDemand && !registerDemand &&
                 <div>
-                    <figure>
-                        <div id="avatar"></div>
-                        <figcaption>(profile name)</figcaption>
-                    </figure>
                     <nav>
-                        <ul>    
+                        <figure>
+                            <div id="avatar"></div>
+                            <figcaption>{username}</figcaption>
+                        </figure>
+                        <ul>
                             <li><a href="#" onClick={(e) => {
                                 dispatch({ type: 'USER_PROJECT_DEMAND' })
                                 dispatch({ type: 'USER_VIEW_PROJECT' })
@@ -33,7 +33,7 @@ const Menu = ({ dispatch, connexionDemand, registerDemand}) => (
                             {registerDemand && !connexionDemand && <li><a onClick={(e) => dispatch({ type: 'USER_CONNEXION_DEMAND' })} id="connect" >Login</a></li>}
                             {!registerDemand && !connexionDemand && <li><a className="red" onClick={(e) => {
                                 dispatch({ type: 'USER_LOGOUT' });
-                                if (cookies){
+                                if (cookies) {
                                     cookies.remove('username');
                                     cookies.remove('userId');
                                 }
