@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../../css/group-chat.css'
+import {createGroup} from '../../socket/GroupMessagingSocket';
 
 const mapStateToProps = state => ({
-    addGroup: state.message.addGroup
+    addGroup: state.message.addGroup,
+    userId: state.user.userId
 });
 
 class AddGroup extends Component {
     constructor(props) {
         super();
         this.state = {
-            playlistName: ''
+            groupName: ''
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,15 +20,19 @@ class AddGroup extends Component {
 
     handleChange(event) {
         switch (event.target.id) {
-            case "playlistName":
-                this.setState({ playlistName: event.target.value });
+            case "message-box":
+                this.setState({ groupName: event.target.value });
                 break;
             default:
                 break;
         }
     }
     handleSubmit(event) {
-        this.props.dispatch({ type: 'USER_ADD_GROUP_DEMAND' });
+        createGroup(this.state.groupName, this.props.userId, (err, data) => {
+            this.props.dispatch({ type: 'USER_ADD_GROUP_DEMAND' });
+            this.props.dispatch({ type: 'USER_GET_GROUPS_DEMAND', listOfGroups: data });
+        })
+
         event.preventDefault();
     }
     render() {
