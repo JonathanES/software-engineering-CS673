@@ -87,7 +87,7 @@ function getListOfProjects(userID) {
         console.log('Project for user:', userID)
         client.query('SELECT * FROM Projects P Join ProjectUsers PU on P.ProjectID = PU.ProjectID WHERE PU.UserID = ?', [userID], function (error, results, fields) {
             results.forEach(result => {
-                if (!listOfProjects.some(project => project.getProjectID == result.ProjectID)) {
+                if (!listOfProjects.some(project => project.getUserID == userID && project.getProjectID == result.ProjectID)) {
                     const project = new ProjectModel(result.ProjectID, result.ProjectName, result.UserID, result.DateCreated, result.DueDate);
                     listOfProjects.push(project);
                 }
