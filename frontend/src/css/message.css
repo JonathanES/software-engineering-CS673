@@ -346,3 +346,10 @@ ul::-webkit-scrollbar{
     margin-left: 1%;
     width: 7%;
 }
+
+#add-user-button {
+    margin-left: 1%;
+    position: absolute;
+    right: 0px;
+    width: 5%;
+}

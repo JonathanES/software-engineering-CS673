@@ -217,6 +217,7 @@ class Chat extends React.Component {
                             </div>
                             <div>
                                 <ul class="chaton">
+                                <input id="add-user-button" type="image" src={require("../../images/plus-black.svg")} onClick={(e) => { this.props.dispatch({ type: 'USER_ADD_USER_TO_GROUP' }); e.preventDefault() }} />
                                     {this.state.chatHistory.map(chat =>
                                         <div class="chat-position-right" align={chat.position}>
                                             <li className={chat.position == "right" ? "chatli chatli-right" : "chatli"}>
