@@ -1,7 +1,6 @@
 html, body, #root, #wrapper,.box {
-    margin: 0;
     height: 100%;
-    overflow-y:scroll;    
+    overflow-y:auto;    
 }
 /* li {
     list-style: none;
@@ -33,6 +32,7 @@ input {
     margin-left: 35%;
 }
 .project{
+    position: fixed;
     width: 100%;
     overflow: hidden;
 }
@@ -60,7 +60,7 @@ input {
     width: 163px;
 }
 
-.project ul li a.deletebtn {
+.project ul li a.updatebtn {
     border:inline;
     padding: 1px 0 20px 24px;
     background: url('../images/admin-tool.png') no-repeat right center;

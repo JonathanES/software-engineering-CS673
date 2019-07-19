@@ -59,11 +59,30 @@ function getSingleUser(email, password) {
                     const user = new UserModel(results[0].userId, results[0].username, results[0].email);
                     listOfUsers.push(user);
                 }
+                let logintest = userinfo(results[0].userId);
                 resolve(results[0]);
             });
+
+            
         }
         else
             resolve("wrong email or wrong password");
+    });
+}
+
+
+async function userinfo(userId) {
+    return new Promise(async (resolve) => {
+        client.query('SELECT username FROM Users where UserID =?', [userId], function (error, result, fields) {
+            console.log(result);
+            let username = result[0].username;
+            client.query('INSERT INTO UserLog(UserID, UserName) Values(?,?)', [userId, username], function (error, results, fields) {
+                console.log(results);
+                if (error) throw error;
+                resolve(results);
+            });
+            resolve(result);
+        })
     });
 }
 
@@ -150,6 +169,7 @@ function passwordForgotten(email) {
     });
 }
 
+
 async function sendMailUpdatePwd(email, username) {
     await mailer.sendMail({
         from: 'swelloteam7@gmail.com', // sender address
@@ -170,6 +190,7 @@ function updatePassword(email, password) {
         });
     });
 }
+
 // we export the function that we want to use in another file
 module.exports = {
     insertUser: insertUser,

@@ -6,6 +6,7 @@ import '../../css/task_add.css'
 const mapStateToProps = state => ({
   userId: state.user.userId,
   catID: state.task.categoryID,
+  pID: state.demand.projectID
   //addTask: state.message.addTask
 });
 
@@ -17,6 +18,7 @@ class TaskForm extends Component {
       userId: props.userId,
       parentID: props.categoryID,
       categoryID: props.catID,
+      pID: props.pID,
       priorityID: '',
       taskName: '',
       taskInfo: '',
@@ -55,19 +57,19 @@ class TaskForm extends Component {
 
   handleSubmit(event) {
 
-    console.log('After clicking add project button');
-    console.log('Handle Submit: userID', this.state.userId);
-    console.log('Category ID:', this.state.categoryID);
-    console.log('TaskName:', this.state.taskName);
-    console.log('ParentID:', this.state.categoryID);
-    console.log('CategoryID:', this.state.categoryID);
-    console.log('UserID:', this.state.userId);
-    console.log('Some Variable:', 0);
-    console.log('PriorityID:', this.state.priorityID);
-    console.log('TaskName:', this.state.taskName)
-    console.log('Task Info:', this.state.taskInfo);
-    console.log('Exp Duration:', this.state.expDuration);
-    console.log('Actual Time Spent:', 0);
+    // console.log('After clicking add project button');
+    // console.log('Handle Submit: userID', this.state.userId);
+    // console.log('Category ID:', this.state.categoryID);
+    // console.log('TaskName:', this.state.taskName);
+    // console.log('ParentID:', this.state.categoryID);
+    // console.log('CategoryID:', this.state.categoryID);
+    // console.log('UserID:', this.state.userId);
+    // console.log('Some Variable:', 0);
+    // console.log('PriorityID:', this.state.priorityID);
+    // console.log('TaskName:', this.state.taskName)
+    // console.log('Task Info:', this.state.taskInfo);
+    // console.log('Exp Duration:', this.state.expDuration);
+    // console.log('Actual Time Spent:', 0);
 
     if (this.state.taskName == '' || this.state.priorityID == '' || this.state.expDuration == '') {
       console.log('Please check your input');
@@ -78,6 +80,8 @@ class TaskForm extends Component {
         console.log(data);
         //here we should call the mainpage, so they can see the project added to their screen, wonder how we will do it
         //this.props.dispatch({ type: 'USER_LOGIN', username: data.username});
+        console.log(this.state.pID);
+        this.props.dispatch({type:'USER_IS_PROJECT_DEMAND', projectID:this.props.pID});
       });
     }
     event.preventDefault();

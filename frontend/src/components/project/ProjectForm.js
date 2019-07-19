@@ -8,9 +8,7 @@ import '../../css/project.css'
 const mapStateToProps = state => ({
   username: state.user.username,
   userId: state.user.userId,
-  //projectID: state.project.projectID,
-  //isProjectSelected: state.project.isProjectSelected
-  //taskname: state.Task.newtask
+  projectID: state.project.projectID,
 });
 
 
@@ -19,6 +17,7 @@ class ProjectForm extends React.Component {
     super(props);
     this.state = {
       userId: props.userId,
+      projectID : props.projectID,
       projectName:'',
       username: '',
       dueDate:''
@@ -55,17 +54,17 @@ class ProjectForm extends React.Component {
   
   handleSubmit(event) {
 
-    console.log('After clicking add project button');
-    console.log('Handle Submit: userID', this.state.userId, ' Project Name:', this.state.projectName, ' Due Date:', this.state.dueDate)
+    //console.log('After clicking add project button');
+    //console.log('Handle Submit: userID', this.state.userId, ' Project Name:', this.state.projectName, ' Due Date:', this.state.dueDate)
     if (this.state.projectName == "" || this.state.dueDate == '') {
       console.log('Check your inputs');
       
     }
     else {
       addProject(this.state.userId, this.state.projectName, this.state.dueDate, (err, data) => {
-        console.log(data);
+        //console.log(data);
         //here we should call the mainpage, so they can see the project added to their screen, wonder how we will do it
-        //this.props.dispatch({ type: 'USER_LOGIN', username: data.username});
+        this.props.dispatch({ type: 'USER_LOGIN', username: data.username});
       });
     }
     event.preventDefault();

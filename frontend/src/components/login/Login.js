@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../../css/main.css'
+import '../../css/main_login.css'
 import { login } from '../../socket/userSocket';
 import { instanceOf } from 'prop-types';
 import Cookies from 'universal-cookie';
@@ -62,62 +62,53 @@ class Login extends Component {
     event.preventDefault();
     login(this.state.email, this.state.password, async (err, data) => {
       console.log(data);
-      cookies.set('username', data.username, { path: '/'/*, expires: new Date(Date.now()+30)*/});
-      cookies.set('userId', data.userId, { path: '/' /*, expires: new Date(Date.now()+30)*/});
+      cookies.set('username', data.username, { path: '/'/*, expires: new Date(Date.now()+30)*/ });
+      cookies.set('userId', data.userId, { path: '/' /*, expires: new Date(Date.now()+30)*/ });
       this.props.dispatch({ type: 'USER_LOGIN', username: data.username, userId: data.userId });
     });
   }
 
   render() {
     return (
-      /*<div>
-        <div class="row no-gutters">
-          <div class="col no-gutters">
-            <div class="leftside">
+      <div>
+        <div class="row">
+          <div class="col" id="leftLog">
 
-              <div class="test">
-                <img src={require('../../images/swellodesk_image.png')} class="rounded mx-auto d-block" alt="swello"></img>
+            <div id="birdPic">
+              <img src={require("../../images/swellodesk_image.png")} class="rounded mx-auto d-block" alt="swello" id="axBP"></img></div>
 
-              </div>
-              <p class="text-center">Build your dream project.
-                Collaborate with your team.
-              Work at your own pace.</p>
-            </div>
           </div>
+          <div class="col" id="rightLog">
+            <form onSubmit={this.handleSubmit} id="LoginFormCA" class="form-inline">
 
-          <div class="col no-gutters">
-            <div class="rightside">
-              <form class="form-inline" onSubmit={this.handleSubmit}>
-                <label class="sr-only" for="inlineFormInputUsername2">Username</label>
-                <input id="email" class="form-control mb-2 mr-sm-2" placeholder="Email" type="text" value={this.state.email} onChange={this.handleChange} />
+              <label class="sr-only" for="inlineFormInputUsername2">Email</label>
+              <input  class="form-control mb-2 mr-sm-2" id="email" placeholder="Email" type="text" value={this.state.email} onChange={this.handleChange} />
 
-                <label class="sr-only" for="inlineFormInputGroupPassword2">Password</label>
-                <div class="input-group mb-2 mr-sm-2">
-                  <input id="password" type="password" class="form-control" placeholder="..............................." value={this.state.password} onChange={this.handleChange} />
-                </div>
-
-                <div class="form-check mb-2 mr-sm-2">
-                  <input class="form-check-input" type="checkbox" id="inlineFormCheck" />
-                  <label class="form-check-label" for="inlineFormCheck">
-                    Remember me
-                </label>
-                </div>
-                <button type="submit" class="btn btn-primary mb-2">Sign in</button>
-              </form>
-              <h1 class="text-center">Join SwelloDesk Today!</h1>
-              <div class="col-md-12 text-center">
-                <div class="mx-auto">
-                  <div class="btn-group" role="group" aria-label="Basic example">
-                    <p className="account-help">You do not have an account ? <a onClick={this.handleClick} className="underline red" >Register</a></p>
-                  </div>
-                  <p className="account-help">Forgot your password ? <a onClick={this.handlePasswordForgotten} className="underline red" >Password forgotten</a></p>
-
-                </div>
+              <label class="sr-only" for="inlineFormInputGroupPassword2">Password</label>
+              <div class="input-group mb-2 mr-sm-2">
+              <input id="password" type="password"  class="form-control" value={this.state.password} placeholder="..............................." onChange={this.handleChange} />
               </div>
-            </div>
+
+              <div class="form-check mb-2 mr-sm-2">
+                <input class="form-check-input" type="checkbox" id="inlineFormCheck"></input>
+                <label class="form-check-label" for="inlineFormCheck">
+                  Remember me
+                      </label>
+              </div>
+
+              <button className="btn uppercase" type="submit">Sign in</button>
+
+              ``<div class="btn-group" role="group" aria-label="Basic example">
+                <button onClick={this.handleClick}  type="button" class="btn btn-primary">Sign up</button>
+                <button type="button" class="btn btn-primary">Sign up with Facebook</button>
+                <button type="button" class="btn btn-primary">Sign up with Google</button>
+                </div>
+            </form>
+            <p className="account-help">Forgot your password ? <a onClick={this.handlePasswordForgotten} className="underline red" >Password forgotten</a></p>
           </div>
         </div>
-      </div>*/
+      </div>
+      /*
       <div>
         <aside></aside>
         <div className="window login">
@@ -141,8 +132,9 @@ class Login extends Component {
               <p className="account-help">Forgot your password ? <a onClick={this.handlePasswordForgotten} className="underline red" >Password forgotten</a></p>
             </form>
           </div>
+          </div>
         </div>
-      </div>
+*/
     );
   }
 }
