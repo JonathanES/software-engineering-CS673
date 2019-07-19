@@ -129,13 +129,6 @@ class Project extends React.Component {
                     <div class="title">{this.state.projectName}</div>
                     <ul >
                         {!this.props.isProjectSelected && this.state.listOfProjects.map(project =>
-                            // <li class="project_list">
-                            //     <div id={project.projectID} onClick={this.handleClick}>
-                            //         <div class="user-project" >
-                            //             <span class="span-project-mid">{project.projectName}</span>
-                            //         </div>
-                            //     </div>
-                            // </li>
                             <li>
                                 <a id={project.projectID} onClick={this.handleClick}></a>
                                 <div>

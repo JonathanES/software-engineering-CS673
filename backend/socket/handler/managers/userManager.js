@@ -34,7 +34,18 @@ module.exports = function (io) {
         client.on('USER_FRIENDS', async (user_id) => {
             const result = await userController.getListofUsers(user_id);
             client.emit('FRIENDS', result);
-        });
+
+        })
+
+        client.on('USER_PASSWORD_FORGOTTEN', async(email) => {
+            await userController.passwordForgotten(email);
+        })
+
+        client.on("USER_UPDATE_PASSWORD",async (email, password)=> {
+            const result = await userController.updatePassword(email, password);
+            client.emit("UPDATE_PASSWORD", result);
+        })
+
     })
 };
 
