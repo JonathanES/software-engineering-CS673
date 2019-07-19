@@ -15,7 +15,10 @@ function getListofTasksForCategories(categoryID, cb) {
   socket.emit('USER_GET_TASKLIST_CATEGORYID', categoryID);
 }
 
+function getuserprev(projectID, userID, cb){
+  socket.on('GET_USERPREV', data => cb(null,data));
+  socket.emit('USER_GET_USERPREV', projectID, userID);
+}
 
 
-
-export { addTask, getTasksUsers, getListofTasksForCategories };
+export { addTask, getTasksUsers, getListofTasksForCategories, getuserprev };
