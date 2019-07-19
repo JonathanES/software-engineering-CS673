@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../../css/main.css'
+import '../../css/main_login.css'
 import { login } from '../../socket/userSocket';
 import { instanceOf } from 'prop-types';
 import Cookies from 'universal-cookie';
@@ -70,54 +70,35 @@ class Login extends Component {
 
   render() {
     return (
-      /*<div>
-        <div class="row no-gutters">
-          <div class="col no-gutters">
-            <div class="leftside">
+      <div>
+      <div class="row">
+        <div class="col" id="leftLog">
 
-              <div class="test">
-                <img src={require('../../images/swellodesk_image.png')} class="rounded mx-auto d-block" alt="swello"></img>
-
-              </div>
-              <p class="text-center">Build your dream project.
-                Collaborate with your team.
-              Work at your own pace.</p>
-            </div>
-          </div>
-
-          <div class="col no-gutters">
-            <div class="rightside">
-              <form class="form-inline" onSubmit={this.handleSubmit}>
-                <label class="sr-only" for="inlineFormInputUsername2">Username</label>
-                <input id="email" class="form-control mb-2 mr-sm-2" placeholder="Email" type="text" value={this.state.email} onChange={this.handleChange} />
-
-                <label class="sr-only" for="inlineFormInputGroupPassword2">Password</label>
-                <div class="input-group mb-2 mr-sm-2">
-                  <input id="password" type="password" class="form-control" placeholder="..............................." value={this.state.password} onChange={this.handleChange} />
-                </div>
-
-                <div class="form-check mb-2 mr-sm-2">
-                  <input class="form-check-input" type="checkbox" id="inlineFormCheck" />
-                  <label class="form-check-label" for="inlineFormCheck">
-                    Remember me
-                </label>
-                </div>
-                <button type="submit" class="btn btn-primary mb-2">Sign in</button>
-              </form>
-              <h1 class="text-center">Join SwelloDesk Today!</h1>
-              <div class="col-md-12 text-center">
-                <div class="mx-auto">
-                  <div class="btn-group" role="group" aria-label="Basic example">
-                    <p className="account-help">You do not have an account ? <a onClick={this.handleClick} className="underline red" >Register</a></p>
-                  </div>
-                  <p className="account-help">Forgot your password ? <a onClick={this.handlePasswordForgotten} className="underline red" >Password forgotten</a></p>
-
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>*/
+        <div class="col" id ="rightLog">
+          <form class="form-inline">
+                    <label class="sr-only" for="inlineFormInputUsername2">Username</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Username"></input>
+
+                    <label class="sr-only" for="inlineFormInputGroupPassword2">Password</label>
+                    <div class="input-group mb-2 mr-sm-2">
+
+                      <input type="password" class="form-control" id="inlineFormInputGroupUsername2" placeholder="..............................."></input>
+                    </div>
+
+                    <div class="form-check mb-2 mr-sm-2">
+                      <input class="form-check-input" type="checkbox" id="inlineFormCheck"></input>
+                      <label class="form-check-label" for="inlineFormCheck">
+                        Remember me
+                      </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+          </form>
+      </div>
+      </div>
+      </div>
+      /*
       <div>
         <aside></aside>
         <div className="window login">
@@ -141,8 +122,9 @@ class Login extends Component {
               <p className="account-help">Forgot your password ? <a onClick={this.handlePasswordForgotten} className="underline red" >Password forgotten</a></p>
             </form>
           </div>
+          </div>
         </div>
-      </div>
+*/
     );
   }
 }
