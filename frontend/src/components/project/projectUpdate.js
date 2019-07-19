@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from 'react-redux';
 
-import { getAvailableUsers } from '../../socket/userSocket';
-import { getAddtoProject, getUserLevel, getprojectdetail} from '../../socket/projectSocket';
+
+import { getAddtoProject, getUserLevel, getprojectdetail,getAvailableUsers} from '../../socket/projectSocket';
 import {getuserprev} from '../../socket/taskSocket';
 
 import '../../css/projectUpdate.css'

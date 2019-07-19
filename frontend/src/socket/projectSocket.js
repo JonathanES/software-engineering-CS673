@@ -44,5 +44,9 @@ function getprojectdetail(projectID, cb){
     socket.emit('USER_GET_PROJECTDETAIL',projectID);
 }
 
+function getAvailableUsers(projectID, userID, cb){
+    socket.on('AVAILABLEUSER', data => cb(null, data));
+    socket.emit('GET_AVAILABLEUSER', projectID, userID);
+  }
 
-export {addProject, getListOfProjects, showCategories, addCategory, getAddtoProject, getPriorities, getUserLevel, getprojectdetail};
+export {addProject, getListOfProjects, showCategories, addCategory, getAddtoProject, getPriorities, getUserLevel, getprojectdetail,getAvailableUsers};
