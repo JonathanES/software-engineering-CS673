@@ -8,9 +8,7 @@ import '../../css/project.css'
 const mapStateToProps = state => ({
   username: state.user.username,
   userId: state.user.userId,
-  //projectID: state.project.projectID,
-  //isProjectSelected: state.project.isProjectSelected
-  //taskname: state.Task.newtask
+  projectID: state.project.projectID,
 });
 
 
@@ -19,6 +17,7 @@ class ProjectForm extends React.Component {
     super(props);
     this.state = {
       userId: props.userId,
+      projectID : props.projectID,
       projectName:'',
       username: '',
       dueDate:''

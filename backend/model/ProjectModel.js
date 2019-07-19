@@ -1,12 +1,16 @@
 class ProjectModel {
-  constructor(projectID, projectName, dateCreated, dueDate, isDeleted) {
+  constructor(projectID, projectName, userID, dateCreated, dueDate, isDeleted) {
     this.projectID = projectID;
     this.projectName = projectName;
     this.dateCreated = dateCreated;
     this.dueDate = dueDate;
     this.isDeleted = isDeleted;
+    this.userID = userID;
   }
 
+  get getUserID() {
+    return this.userID;
+  }
   get getProjectID() {
     return this.projectID;
   }

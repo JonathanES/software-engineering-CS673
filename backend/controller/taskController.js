@@ -95,11 +95,17 @@ async function getListofTasksForUser(userID){
                    listofTaskUsers.push(task);
                }
            })
+           let userTasks = listofTaskUsers.filter(task => {if (task.getUserID == userID) return task});
            if (error) throw error;
-           resolve(listofTaskUsers);
+           resolve(userTasks);
+
+        // resolve(results);
        });
     })
 }
+
+
+
 
 
 
@@ -342,5 +348,5 @@ module.exports = {
     updateExpectedDuration: updateExpectedDuration,
     updateActualTimeSpent: updateActualTimeSpent,
     updateIsDeleted: updateIsDeleted,
-    getListofTasksForCategories:getListofTasksForCategories
+    getListofTasksForCategories:getListofTasksForCategories,
 }

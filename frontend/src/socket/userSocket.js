@@ -18,6 +18,7 @@ function login(email, password, cb){
     socket.emit('USER_FRIENDS',userId);
   }
 
+
   function passwordForgotten(email){
     socket.emit('USER_PASSWORD_FORGOTTEN', email);
   }
@@ -28,3 +29,4 @@ function login(email, password, cb){
   }
 
   export {login, register, getFriends, passwordForgotten, updatePassword};
+
