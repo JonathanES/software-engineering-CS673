@@ -98,7 +98,7 @@ class Login extends Component {
 
               <button className="btn uppercase" type="submit">Sign in</button>
 
-              ``<div class="btn-group" role="group" aria-label="Basic example">
+              <div class="btn-group" role="group" aria-label="Basic example">
                 <button onClick={this.handleClick}  type="button" class="btn btn-primary">Sign up</button>
                 <button type="button" class="btn btn-primary">Sign up with Facebook</button>
                 <button type="button" class="btn btn-primary">Sign up with Google</button>

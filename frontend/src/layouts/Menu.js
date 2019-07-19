@@ -23,7 +23,7 @@ const Menu = ({ dispatch, connexionDemand, registerDemand, username }) => (
                 dispatch({ type: 'USER_VIEW_PROJECT' })
             }
             }>Projects</a></li>
-            {<li><a onClick={(e) => dispatch({ type: 'USER_TASK_DEMAND' })} id="task">Tasks</a></li>}
+            {<li><a href="#" onClick={(e) => dispatch({ type: 'USER_TASK_DEMAND' })}>Tasks</a></li>}
             <li><a href="#" onClick={(e) => dispatch({ type: 'USER_ISSUE_DEMAND' })}>Issues</a></li>
             <li><a href="#" onClick={(e) => dispatch({ type: 'USER_MESSAGE_DEMAND' })}>Messages</a></li>
             {registerDemand && !connexionDemand && <li><a onClick={(e) => dispatch({ type: 'USER_CONNEXION_DEMAND' })} id="connect" >Login</a></li>}
