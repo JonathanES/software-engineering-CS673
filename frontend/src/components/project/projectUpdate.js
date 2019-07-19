@@ -46,13 +46,14 @@ class ProjectUpdate extends React.Component {
   componentDidMount() {
 
     getAvailableUsers(this.state.pID, this.state.userId, (err, data) => {
-      // this.setState({ listOfFriends: data });
+      this.setState({ listOfFriends: data });
       console.log('Available users:', data);
-      this.setState({ listOfFriends: "" });
-      console.log(this.state.listOfFriends);
+      // this.state.listOfFriends.push(data);
+      // this.setState({ listOfFriends: "" });
+      // console.log(this.state.listOfFriends);
       this.state.listOfFriends.push({Userid:0,username:'Please Select a User'});
       console.log(this.state.listOfFriends);
-      this.state.listOfFriends.push(data);
+      
       // this.setState({ listOfFriends: data });
     });
 
