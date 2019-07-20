@@ -347,9 +347,33 @@ ul::-webkit-scrollbar{
     width: 7%;
 }
 
-#add-user-button {
+#add-user-in-group-button {
     margin-left: 1%;
     position: absolute;
     right: 0px;
     width: 5%;
 }
+
+#add-user-group{
+    float: left;
+    width: 50%;
+    padding: 10px;
+}
+
+#delete-user-group{
+    float: right;
+    width: 50%;
+    padding: 10px;
+}
+
+#delete-user-group #delete-user-button {
+    margin-left: 1%;
+    float: right;
+    width: 5%;
+}
+
+#add-user-group #add-user-button {
+    margin-left: 1%;
+    width: 5%;
+}
+

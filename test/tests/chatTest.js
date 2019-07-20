@@ -173,7 +173,8 @@ describe('Messaging test', function () {
 
       client.emit('USER_GET_USERS_NOT_IN_GROUP', groupId);
       client.on('GET_USERS_NOT_IN_GROUP', data => {
-        expect(data.length).to.be.above(0);
+        expect(data.inGroup.length).to.be.above(0);
+        expect(data.notInGroup.length).to.be.above(0);
         client.disconnect();
         done();
       });

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../../css/group-chat.css'
-import {createGroup} from '../../socket/GroupMessagingSocket';
+import { createGroup } from '../../socket/GroupMessagingSocket';
 
 const mapStateToProps = state => ({
     addGroup: state.message.addGroup,
@@ -48,12 +48,9 @@ class AddGroup extends Component {
                             </div>
                             <form onSubmit={this.handleSubmit}>
                                 <input id="message-box" type="text" value={this.state.message} onChange={this.handleChange} />
-                                <button class="submit" type="submit">Submit</button>
-                                <div class="modal-body">
-                                    <p>Some text</p>
-                                </div>
                                 <div class="modal-footer">
-                                    <button  type="submit" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button class="submit" type="submit">Submit</button>
+                                    <button type="submit" class="btn btn-default" data-dismiss="modal" onClick={() => { this.props.dispatch({ type: 'USER_ADD_GROUP_DEMAND' }); }}>Close</button>
                                 </div>
                             </form>
                         </div>
