@@ -4,3 +4,8 @@
 ul {
     list-style-type: none;
   }
+
+title{
+    padding-bottom: 10px;
+    margin-bottom: 10px;    
+}

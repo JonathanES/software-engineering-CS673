@@ -4,7 +4,7 @@ import {put, takeEvery} from 'redux-saga/effects'
 
 
  function* handleProjectTaskDemand(action){
-     yield put({type: "PROJECT_TASK_DEMAND", projectID:action.projectID, projectTaskList: action.projectTaskList});
+     yield put({type: "PROJECT_TASK_DEMAND", projectID:action.projectID, projectTaskList: action.projectTaskList, projectName:action.projectName});
  }
 
 function *handleAddTaskDemand(action){

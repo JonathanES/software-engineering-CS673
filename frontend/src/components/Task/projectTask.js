@@ -1,17 +1,22 @@
 import React from "react";
+// import {Moment} from "react-moment"
+import moment from 'moment'
 import { connect } from 'react-redux';
-import { addTask } from '../../socket/taskSocket';
-import { addCategory, showCategories } from '../../socket/projectSocket';
+import { addCategory } from '../../socket/projectSocket';
+import CategoryForm from '../project/categoryform';
 import '../../css/projectTask.css'
+import '../../css/group-chat.css'
+
 import { classDeclaration } from "@babel/types";
 
 
-
 const mapStateToProps = state => ({
-    projectID: state.project.projectID,
+    projectID: state.task.projectID,
     username: state.user.username,
     userId: state.user.userId,
-    projectTaskList: state.task.projectTaskList
+    projectTaskList: state.task.projectTaskList,
+    projectName: state.task.projectName,
+    addCategory: state.project.addCategory,
     //taskname: state.Task.newtask
 });
 
@@ -21,6 +26,7 @@ class ProjectTask extends React.Component {
 
         this.state = {
             pID: props.projectID,
+            projectName: props.projectName,
             userId: props.userId,
             username: props.username,
             listOfTasks: [],
@@ -35,35 +41,11 @@ class ProjectTask extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleMouseOver = this.handleMouseOver.bind(this);
         this.handleMouseOut = this.handleMouseOut.bind(this);
+        this.handleAddCategory = this.handleAddCategory.bind(this);
     }
 
     componentDidMount() {
 
-        //console.log("toto");
-        //getMessage();
-        // getTasksUsers(this.state.userId, (err, data) => {
-        //     console.log('inside getTaskUsers in ../src/components/Task/Task.js')
-        //     this.setState({ getListofTasksForUser: data });
-        //     console.log(this.state.getListofTasksForUser);
-        // });
-
-
-        console.log('Show Categories called for Project:', this.state.pID);
-        // showCategories(this.state.pID, (err, data) => {
-        //     this.setState({projectID : this.state.pID});
-        //     console.log(data);
-        //     console.log('Does it ever comes here!! Line 47 of projectTask')
-        //     console.log('ProjectID:',this.state.pID);
-        //     //this.setState({projectName:  data[0].ProjectName})
-        //     this.setState({ projectName: data.length == 0 ? this.state.projectName : data[0].ProjectName });
-        //     //console.log(data[0].ProjectName);
-        //     //console.log(data[0].ProjectID);
-        //     //console.log(data[0]);
-        //     //this.setState({ pID: this.state.ProjectID});
-        //     //this.props.dispatch()
-        //     this.props.dispatch({ type: 'USER_PROJECTTASK_DEMAND', projectTaskList: data });
-        //     //this.setState({projectTaskList: ''});
-        // });
     }
 
     handleChange(event) {
@@ -122,15 +104,24 @@ class ProjectTask extends React.Component {
                 break;
 
             default:
+                console.log('is this called');
                 break;
         }
-
     }
+
+    handleAddCategory() {
+        this.props.dispatch({ type: 'USER_ADD_CATEGORY_DEMAND' });
+    }
+
 
     render() {
 
         return (
             <div style={{ overflowX: 'auto' }}>
+                <h3> You are viewing Project : {this.props.projectName} </h3>
+                <input id="add-button" type="image" src={require("../../images/plus.svg")} onClick={(e) => {this.props.dispatch({ type: 'USER_ADD_CATEGORY_DEMAND' });e.preventDefault()}} />
+
+                {this.props.addCategory && <CategoryForm dispatch={this.props.dispatch} />}
                 {this.props.projectTaskList.map(category =>
                     <li class="cat-task_li" style={{ width: '300px', height: "auto", borderRadius: '5px', backgroundColor: "#e6e6e6", position: "relative" }} id={category.projectID} onClick={this.handleClickProject}>
                         <span class="categorytitle">{category.CategoryName}</span>
@@ -144,7 +135,8 @@ class ProjectTask extends React.Component {
                                 {/* done|||bstart not start*/}
                                 <span class="cat_task_span">{task.TaskName}</span>
                                 <div class="cat_tast_footer">
-                                    <span class="time">Jun 29</span>
+                                    <span class="time">{moment(task.DueDate).format('D MMM')}</span>
+                                    {/* {<Moment format = "D MMM" >{task.DueDate}</Moment>} */}
                                     <img src={require("./../../images/admin-tool.png")} class="photo" />
                                 </div>
                             </li>
@@ -161,10 +153,10 @@ class ProjectTask extends React.Component {
                     </li>
                 )}
 
-                <form onClick={this.handleClick} style={{ position: "absolute", left: "0" }}>
+                {/* <form onClick={this.handleClick} style={{ position: "absolute", left: "10" }}>
                     <input id="catName" type="text" value={this.state.catName} onChange={this.handleChange} />
                     <button class="add_category_button" id="add-cat-button" type="submit">Add Category</button>
-                </form>
+                </form> */}
             </div>
         );
     }

@@ -146,7 +146,7 @@ class ProjectUpdate extends React.Component {
                   <input id="dueDate" type="text" value={this.state.dueDate} onChange={()=>this.handleChange} />
                 </div>
                 <div className="projectform-field">
-                  <label htmlFor="adduser">Add User to Project:</label>
+                  <label htmlFor="adduser">Available Users:</label>
                   <select onChange = {this.handleNewUser}>
                     {this.state.listOfFriends.map(friend =>
                       <option value={friend.UserID} id={friend.UserID}>{friend.username}</option>
@@ -165,7 +165,7 @@ class ProjectUpdate extends React.Component {
                     </select>
                     </div>
                   }
-                  <button type="submit" className="addUserToProject" onClick={this.handleAddUser}>Add to Project</button>
+                  <button type="submit" className="addUserToProject" onClick={this.handleAddUser}>Add User to Project</button>
                 
                 <div><button type="submit" className="projectformbtn uppercase">Update Project</button></div>
 
