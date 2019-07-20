@@ -4,7 +4,7 @@
   "description": "The goal of this project is to create a state of the art of project management tool, SwelloDesk. ",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --exit",
+    "test": "mocha --timeout 500000 --exit",
     "backend": "nodemon server.js",
     "frontend": "cd ./frontend && npm start",
     "dev": "concurrently \"npm run backend\" \"npm run frontend\"",

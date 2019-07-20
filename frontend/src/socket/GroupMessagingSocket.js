@@ -35,4 +35,9 @@ function getGroupMessage(groupID, cb){
   socket.emit('USER_GET_GROUP_MESSAGE', groupID);
 }
 
-  export {createGroup, addUserGroup,getGroupUsers,getUserGroups,sendGroupMessage, getGroupMessage};
+function getUsersNotInGroup(groupID, cb){
+  socket.on('GET_USERS_NOT_IN_GROUP', data => cb(null, data) );
+  socket.emit('USER_GET_USERS_NOT_IN_GROUP', groupID);
+}
+
+  export {createGroup, addUserGroup,getGroupUsers,getUserGroups,sendGroupMessage, getGroupMessage, getUsersNotInGroup};

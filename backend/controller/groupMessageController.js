@@ -114,7 +114,12 @@ function getUsersNotInGroup(groupId){
     return new Promise((resolve, reject) => {
         client.query('SELECT UserID, username FROM Users WHERE UserID NOT IN (SELECT UserID FROM GroupUsers WHERE GroupUsers.GroupID = ?)', [groupId], async function (error, results, fields) {
             if (error) throw error;
-            resolve(results);
+            let inGroup = await getGroupUsers(groupId);
+            const res = {
+                inGroup: inGroup,
+                notInGroup: results
+            }
+            resolve(res);
         }); 
     })
 }
