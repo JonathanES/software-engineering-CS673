@@ -108,7 +108,7 @@ class Project extends React.Component {
 
                 showCategories(event.currentTarget.id, (err, data) => {
                     this.setState({ projectName: data.length == 0 ? this.state.projectName : data[0].ProjectName })
-                    this.props.dispatch({ type: 'USER_PROJECT_TASK_DEMAND', projectID: event.currentTarget.id, projectTaskList: data });
+                    this.props.dispatch({ type: 'USER_PROJECT_TASK_DEMAND', projectID: event.currentTarget.id, projectTaskList: data, projectName:data[0].ProjectName });
                 });
 
                 this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: event.currentTarget.id });
@@ -122,7 +122,7 @@ class Project extends React.Component {
         return (
             <div>
                 <div class="project">
-                    <div class="title">{this.state.projectName}</div>
+                    {/* <div class="title">You are working on Project : {this.state.projectName}</div> */}
                     <ul >
                         {!this.props.isProjectSelected && this.state.listOfProjects.map(project =>
                             <li>
