@@ -1,4 +1,6 @@
 import React from "react";
+// import {Moment} from "react-moment"
+import moment  from 'moment' 
 import { connect } from 'react-redux';
 import { addTask } from '../../socket/taskSocket';
 import { addCategory, showCategories } from '../../socket/projectSocket';
@@ -6,12 +8,12 @@ import '../../css/projectTask.css'
 import { classDeclaration } from "@babel/types";
 
 
-
 const mapStateToProps = state => ({
     projectID: state.project.projectID,
     username: state.user.username,
     userId: state.user.userId,
-    projectTaskList: state.task.projectTaskList
+    projectTaskList: state.task.projectTaskList,
+    projectName: state.task.projectName
     //taskname: state.Task.newtask
 });
 
@@ -21,6 +23,7 @@ class ProjectTask extends React.Component {
 
         this.state = {
             pID: props.projectID,
+            projectName: props.projectName,
             userId: props.userId,
             username: props.username,
             listOfTasks: [],
@@ -131,6 +134,8 @@ class ProjectTask extends React.Component {
 
         return (
             <div style={{ overflowX: 'auto' }}>
+                <h3>You are viewing Project : {this.props.projectName}{this.state.projectName}</h3>
+            {/* <div style={{ overflowX: 'auto' }} class="title">You are working on Project : {this.props.projectName}> */}
                 {this.props.projectTaskList.map(category =>
                     <li class="cat-task_li" style={{ width: '300px', height: "auto", borderRadius: '5px', backgroundColor: "#e6e6e6", position: "relative" }} id={category.projectID} onClick={this.handleClickProject}>
                         <span class="categorytitle">{category.CategoryName}</span>
@@ -144,7 +149,8 @@ class ProjectTask extends React.Component {
                                 {/* done|||bstart not start*/}
                                 <span class="cat_task_span">{task.TaskName}</span>
                                 <div class="cat_tast_footer">
-                                    <span class="time">Jun 29</span>
+                                    <span class="time">{moment(task.DueDate).format('D MMM')}</span>
+                                    {/* {<Moment format = "D MMM" >{task.DueDate}</Moment>} */}
                                     <img src={require("./../../images/admin-tool.png")} class="photo" />
                                 </div>
                             </li>

@@ -1,17 +1,19 @@
 const defaultState = {
   projectID: '',
+  projectName:'',
   projectTaskList: [],
   addTask: false,
   categoryID:'',
 };
 
-const project = (state = defaultState, action) => {
+const task = (state = defaultState, action) => {
   switch (action.type) {
     case 'PROJECT_TASK_DEMAND':
       return {
         ...state,
         projectID: action.projectID,
-        projectTaskList: action.projectTaskList
+        projectTaskList: action.projectTaskList,
+        projectName: action.projectName
 
       }
 
@@ -33,8 +35,9 @@ const project = (state = defaultState, action) => {
       return {
         ...state,
         projectID: action.ProjectID,
+        projectName: action.ProjectName
       };
   }
 };
 
-export default project;
+export default task;

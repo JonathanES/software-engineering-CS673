@@ -4,7 +4,7 @@ module.exports = function (io) {
     //connect to the socket so that we can link with the frontend
     io.on('connection', (client) => {
         client.on('USER_CREATE_PROJECT', async (userID, projectName, dueDate ) => {
-            console.log('Project Manager: UserID:',userID, 'Project Name:',projectName, 'Due Date:',dueDate);
+            //console.log('Project Manager: UserID:',userID, 'Project Name:',projectName, 'Due Date:',dueDate);
             const result = await projectController.insertNewProject(userID,projectName,dueDate);
             client.emit('CREATE_PROJECT', result);
            })
