@@ -15,6 +15,7 @@ class RegisterDesign extends Component {
     return (
       //put html for register
       <div>
+
         <div class="row no-gutters">
           <div class="col no-gutters">
             <div class="leftside">
@@ -39,19 +40,15 @@ class RegisterDesign extends Component {
                   <legend>Please complete to create your account</legend>
 
                   <div class="form-group col-md-12">
-                    <label for="first_name">First name</label>
-                    <input type="text" class="form-control" name="first_name" id="first_name" placeholder="First Name">
-                  </div>
-
-                  <div class="form-group col-md-12">
-                    <label for="last_name">Last name</label>
-                    <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Last Name">
-                  </div>
-
-                  <div class="form-group col-md-12">
                     <label for="email">Email</label>
                     <input type="email" class="form-control" name="email" id="email" placeholder="Email">
                   </div>
+
+                  <div class="form-group col-md-12">
+                    <label for="Username">First name</label>
+                    <input type="text" class="form-control" name="usernameRegister" id="usernameReg" placeholder="Username">
+                  </div>
+
 
                   <div class="form-group col-md-12">
                     <label for="password">Password</label>
