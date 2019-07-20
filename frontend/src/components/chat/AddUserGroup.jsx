@@ -19,7 +19,7 @@ class AddUserGroup extends Component {
             userListInGroup: []
         }
         this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleAddUser = this.handleAddUser.bind(this);
     }
 
     componentDidMount() {
@@ -37,17 +37,16 @@ class AddUserGroup extends Component {
                 break;
         }
     }
-    handleSubmit(event) {
-        addUserGroup(this.state.userId, this.state.groupId, (err, data) => {
+    handleAddUser = user => {
+        console.log(user);
+        addUserGroup(user, this.props.groupId, (err, data) => {
 
         })
-        event.preventDefault();
     }
     render() {
         return (
             <div id="myModal" class="modal-fade" role="dialog">
                 <div class="modal-dialog">
-
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" onClick={this.handleSubmit}>&times;</button>
@@ -59,7 +58,7 @@ class AddUserGroup extends Component {
                                     this.state.userListInGroup.map(user =>
                                         <div>
                                             {user.username}
-                                            <input id="delete-user-button" type="image" src={require("../../images/delete.svg")} />
+                                            <input id="delete-user-button" type="image" onClick={(e) => {}} src={require("../../images/delete.svg")}/>
                                         </div>
                                     )
                                 }
@@ -69,7 +68,7 @@ class AddUserGroup extends Component {
                                     this.state.userListNotInGroup.map(user =>
                                         <div>
                                             {user.username}
-                                            <input id="add-user-button" type="image" src={require("../../images/plus-black.svg")} onClick={(e) => { this.props.dispatch({ type: 'USER_ADD_GROUP_DEMAND' }); e.preventDefault() }} />
+                                            <input id="add-user-button" type="image" src={require("../../images/plus-black.svg")} onClick={(e) => {this.handleAddUser(user.UserID); e.preventDefault()}}/>
                                         </div>
                                     )
                                 }

@@ -49,7 +49,7 @@ class AddGroup extends Component {
                             <form onSubmit={this.handleSubmit}>
                                 <input id="message-box" type="text" value={this.state.message} onChange={this.handleChange} />
                                 <div class="modal-footer">
-                                    <button class="submit" type="submit">Submit</button>
+                                    <button class="subnmit" type="submit">Submit</button>
                                     <button type="submit" class="btn btn-default" data-dismiss="modal" onClick={() => { this.props.dispatch({ type: 'USER_ADD_GROUP_DEMAND' }); }}>Close</button>
                                 </div>
                             </form>
