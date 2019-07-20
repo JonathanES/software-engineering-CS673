@@ -2,7 +2,8 @@ const defaultState = {
     projectID: '',
     categories: [],
     isProjectSelected : false,
-    isProjectUpdateSelected: false
+    isProjectUpdateSelected: false,
+    addCategory: false,
   };
   
   const project = (state = defaultState, action) => {
@@ -38,6 +39,11 @@ const defaultState = {
             return{
               ...state,
               projectID: action.projectID
+            }
+
+            case 'ADD_CATEGORY_DEMAND': return {
+              addCategory: !state.addCategory,
+              isProjectSelected: true
             }
 
 

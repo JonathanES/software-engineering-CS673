@@ -28,7 +28,7 @@ const task = (state = defaultState, action) => {
       return {
         ...state,
         categoryID: action.categoryID,
-        //isProjectSelected: false,
+        isProjectSelected: false,
       }
 
     default:

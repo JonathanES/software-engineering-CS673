@@ -30,8 +30,10 @@ class ProjectForm extends React.Component {
   }
 
   handleClick(event) {
-    this.props.dispatch({ type: 'USER_CREATE_PROJECT_DEMAND'})
+    // this.props.dispatch({ type: 'USER_CREATE_PROJECT_DEMAND'})
   }
+
+
   handleChange(event) {
     switch (event.target.id) {
       case "projectName":
@@ -58,13 +60,15 @@ class ProjectForm extends React.Component {
     //console.log('Handle Submit: userID', this.state.userId, ' Project Name:', this.state.projectName, ' Due Date:', this.state.dueDate)
     if (this.state.projectName == "" || this.state.dueDate == '') {
       console.log('Check your inputs');
+    
+      this.props.dispatch({type:'USER_CREATE_PROJECT_DEMAND'});
       
     }
     else {
       addProject(this.state.userId, this.state.projectName, this.state.dueDate, (err, data) => {
         //console.log(data);
         //here we should call the mainpage, so they can see the project added to their screen, wonder how we will do it
-        this.props.dispatch({ type: 'USER_LOGIN', username: data.username});
+        this.props.dispatch({ type: 'USER_PROJECT_DEMAND'});
       });
     }
     event.preventDefault();
