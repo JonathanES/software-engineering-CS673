@@ -4,6 +4,8 @@ import { login } from '../../socket/userSocket';
 import { instanceOf } from 'prop-types';
 import Cookies from 'universal-cookie';
 import moment from 'moment';
+import { socket } from '../../socket/config'
+
 
 const cookies = new Cookies();
 
@@ -29,6 +31,11 @@ class Login extends Component {
 
   componentDidMount() {
 
+    socket.on('LOGIN', data => {
+      this.props.dispatch({ type: 'USER_LOGIN', username: data.username, userId: data.userId });
+      cookies.set('username', data.username, { path: '/'/*, expires: new Date(Date.now()+30)*/ });
+      cookies.set('userId', data.userId, { path: '/' /*, expires: new Date(Date.now()+30)*/ });
+    });
     if (cookies) {
       if (cookies.get('username') && cookies.get('userId'))
         this.props.dispatch({ type: 'USER_LOGIN', username: cookies.get('username'), userId: cookies.get('userId') });
@@ -58,14 +65,10 @@ class Login extends Component {
 
 
 
-  async handleSubmit(event) {
+  handleSubmit(event) {
     event.preventDefault();
-    login(this.state.email, this.state.password, async (err, data) => {
-      console.log(data);
-      cookies.set('username', data.username, { path: '/'/*, expires: new Date(Date.now()+30)*/ });
-      cookies.set('userId', data.userId, { path: '/' /*, expires: new Date(Date.now()+30)*/ });
-      this.props.dispatch({ type: 'USER_LOGIN', username: data.username, userId: data.userId });
-    });
+
+    login(this.state.email, this.state.password);
   }
 
   render() {
@@ -82,11 +85,11 @@ class Login extends Component {
             <form onSubmit={this.handleSubmit} id="LoginFormCA" class="form-inline">
 
               <label class="sr-only" for="inlineFormInputUsername2">Email</label>
-              <input  class="form-control mb-2 mr-sm-2" id="email" placeholder="Email" type="text" value={this.state.email} onChange={this.handleChange} />
+              <input class="form-control mb-2 mr-sm-2" id="email" placeholder="Email" type="text" value={this.state.email} onChange={this.handleChange} />
 
               <label class="sr-only" for="inlineFormInputGroupPassword2">Password</label>
               <div class="input-group mb-2 mr-sm-2">
-              <input id="password" type="password"  class="form-control" value={this.state.password} placeholder="..............................." onChange={this.handleChange} />
+                <input id="password" type="password" class="form-control" value={this.state.password} placeholder="..............................." onChange={this.handleChange} />
               </div>
 
               <div class="form-check mb-2 mr-sm-2">
@@ -99,12 +102,12 @@ class Login extends Component {
               <button className="btn uppercase" type="submit">Sign in</button>
 
               <div class="btn-group" role="group" aria-label="Basic example">
-                <button onClick={this.handleClick}  type="button" class="btn btn-primary">Sign up</button>
+                <button onClick={this.handleClick} type="button" class="btn btn-primary">Sign up</button>
                 <button type="button" class="btn btn-primary">Sign up with Facebook</button>
                 <button type="button" class="btn btn-primary">Sign up with Google</button>
-                </div>
+              </div>
             </form>
-            <p className="account-help">Forgot your password ? <a onClick={this.handlePasswordForgotten} className="underline red" >Password forgotten</a></p>
+            <p className="account-help">Forgot your password ? <a onClick={() => { this.handlePasswordForgotten() }} className="underline red" >Password forgotten</a></p>
           </div>
         </div>
       </div>

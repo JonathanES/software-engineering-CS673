@@ -17,7 +17,8 @@ function createGroup(groupName, userId) {
             const listOfUsers = [user];
             group.setListOfUsers = listOfUsers;
             listOfGroups.push(group);
-            resolve({ groupId: results.insertId, groupName: groupName });
+            let res = await getUserGroups(userId);
+            resolve(res);
         });
     })
 }
@@ -109,6 +110,15 @@ function getUserGroups(userID) {
     })
 }
 
+function getUsersNotInGroup(groupId){
+    return new Promise((resolve, reject) => {
+        client.query('SELECT UserID, username FROM Users WHERE UserID NOT IN (SELECT UserID FROM GroupUsers WHERE GroupUsers.GroupID = ?)', [groupId], async function (error, results, fields) {
+            if (error) throw error;
+            resolve(results);
+        }); 
+    })
+}
+
 module.exports = {
     insertGroupMessage: insertGroupMessage,
     getGroupMessages: getGroupMessages,
@@ -116,5 +126,6 @@ module.exports = {
     getGroupUsers: getGroupUsers,
     addUserToGroup: addUserToGroup,
     getGroupUsers: getGroupUsers,
-    getUserGroups: getUserGroups
+    getUserGroups: getUserGroups,
+    getUsersNotInGroup: getUsersNotInGroup
 }
