@@ -7,14 +7,13 @@ import CategoryForm from '../project/categoryform';
 import '../../css/projectTask.css'
 import '../../css/group-chat.css'
 
-import { classDeclaration } from "@babel/types";
-
 
 const mapStateToProps = state => ({
     projectID: state.project.projectID,
     projectTaskList: state.project.projectTaskList,
     projectName: state.project.projectName,
-    addCategory: state.project.addCategory,
+
+    addCategory: state.category.addCategory,
 
     username: state.user.username,
     userId: state.user.userId,
@@ -26,8 +25,6 @@ class ProjectTask extends React.Component {
         super(props);
 
         this.state = {
-            pID: props.projectID,
-            projectName: props.projectName,
             userId: props.userId,
             username: props.username,
             listOfTasks: [],
@@ -46,7 +43,7 @@ class ProjectTask extends React.Component {
     }
 
     componentDidMount() {
-
+        console.log(this.props.projectID);
     }
 
     handleChange(event) {
@@ -86,8 +83,8 @@ class ProjectTask extends React.Component {
                     //console.log('it came here')
                     break;
                 }
-                console.log('Project ID:', this.state.pID, ' Cat Name: ', this.state.catName);
-                addCategory(this.state.pID, this.state.catName, (err, data) => {
+                console.log('Project ID:', this.props.projectID, ' Cat Name: ', this.state.catName);
+                addCategory(this.props.projectID, this.state.catName, (err, data) => {
                     console.log('Add Project button pressed');
                     this.setState({ catName: '' });
                     console.log("inside handleSubmit");
@@ -96,7 +93,7 @@ class ProjectTask extends React.Component {
 
             case "add_task_button":
 
-                console.log('ProjectID:', this.state.pID);
+                console.log('ProjectID:', this.props.projectID);
                 console.log(this.props.projectTaskList[0].CategoryID);
                 console.log('catID:', event.target.id);
                 this.setState({ categoryID: event.target.id })
