@@ -6,6 +6,7 @@ import { getuserprev } from '../../socket/taskSocket';
 import ProjectTask from '../Task/projectTask.js';
 import ProjectForm from '../project/ProjectForm';
 //import {userId} from '../../socket/userSocket';
+import { socket } from '../../socket/config'
 import '../../css/project.css'
 
 const mapStateToProps = state => ({
@@ -13,7 +14,8 @@ const mapStateToProps = state => ({
     userId: state.user.userId,
     //projectID: state.project.projectID,
     isProjectSelected: state.project.isProjectSelected,
-    projectForm: state.project.projectForm
+    projectForm: state.project.projectForm,
+    project: {}
     //taskname: state.Task.newtask
 });
 
@@ -45,6 +47,9 @@ class Project extends React.Component {
             //console.log('getlistofProjects for user:', this.state.userId);
             //console.log('getlistofProjects for projectID:', this.state.pID);
         });
+        socket.on('GET_PROJECTCATEGORIES', data => {
+            this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: this.state.project.projectId, projectCategoryList: data.length > 0 ? data : [], projectName: this.state.project.projectName });
+        });
     }
 
     handleChange(event) {
@@ -53,10 +58,11 @@ class Project extends React.Component {
     }
     handlePictureClick(project) {
         console.log(project);
-        showCategories(project.projectId, (err, data) => {
+        this.setState({project: project})
+        showCategories(project.projectId)/*, (err, data) => {
             console.log(data);
             this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: project.projectId, projectCategoryList: data.length > 0 ? data : [], projectName: project.projectName });
-        });
+        });*/
     }
 
     handleUpdateClick(event) {
@@ -95,7 +101,7 @@ class Project extends React.Component {
                 <div class="project">
                     {/* <div class="title">You are working on Project : {this.state.projectName}</div> */}
                     <ul >
-                        {console.log("test ", this.props.isProjectSelected) || !this.props.isProjectSelected && this.state.listOfProjects.map(project =>
+                        {!this.props.isProjectSelected && this.state.listOfProjects.map(project =>
                             <li>
                                 <a id={project.projectID} onClick={(e) => {
                                     this.handlePictureClick(

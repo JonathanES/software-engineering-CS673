@@ -14,10 +14,13 @@ function getListOfProjects(userID, cb){
     socket.emit('USER_GET_PROJECTLIST',userID);
 }
 
-function showCategories(projectID, cb){
-    socket.on('GET_PROJECTCATEGORIES', data => cb(null, data) );
+function showCategories(projectID){
     socket.emit('USER_GET_PROJECTCATEGORIES',projectID);
 }
+/*function showCategories(projectID, cb){
+    socket.on('GET_PROJECTCATEGORIES', data => cb(null, data) );
+    socket.emit('USER_GET_PROJECTCATEGORIES',projectID);
+}*/
 
 function addCategory(projectID, projectName, cb){
     socket.on('ADD_CATEGORY', data => cb(null, data));
