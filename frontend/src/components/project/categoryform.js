@@ -27,6 +27,11 @@ class CategoryForm extends React.Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
+
+    componentDidMount(){
+        console.log(this.props.projectID);
+    }
+
     handleClick(event) {
         // this.props.dispatch({ type: 'USER_CREATE_PROJECT_DEMAND'})
     }
@@ -54,8 +59,8 @@ class CategoryForm extends React.Component {
                     //console.log('it came here')
                     break;
                 }
-                console.log('Project ID:', this.state.pID, ' Cat Name: ', this.state.categoryName);
-                addCategory(this.state.pID, this.state.categoryName, (err, data) => {
+                console.log('Project ID:', this.props.projectID, ' Cat Name: ', this.state.categoryName);
+                addCategory(this.props.projectID, this.state.categoryName, (err, data) => {
                     console.log('Add Project button pressed');
                     this.setState({ categoryName: '' });
                     console.log("inside handleSubmit");

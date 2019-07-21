@@ -55,7 +55,7 @@ class Project extends React.Component {
         console.log(project);
         showCategories(project.projectId, (err, data) => {
             console.log(data);
-            this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: project.projectId, projectTaskList: data.length > 0 ? data : [], projectName: project.projectName });
+            this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: project.projectId, projectCategoryList: data.length > 0 ? data : [], projectName: project.projectName });
         });
     }
 

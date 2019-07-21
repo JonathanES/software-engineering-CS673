@@ -10,7 +10,7 @@ import '../../css/group-chat.css'
 
 const mapStateToProps = state => ({
     projectID: state.project.projectID,
-    projectTaskList: state.project.projectTaskList,
+    projectCategoryList: state.project.projectCategoryList,
     projectName: state.project.projectName,
 
     addCategory: state.category.addCategory,
@@ -43,7 +43,6 @@ class ProjectTask extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props.projectID);
     }
 
     handleChange(event) {
@@ -120,7 +119,7 @@ class ProjectTask extends React.Component {
                 <input id="add-button" type="image" src={require("../../images/plus.svg")} onClick={(e) => {this.props.dispatch({ type: 'USER_ADD_CATEGORY_DEMAND' });e.preventDefault()}} />
 
                 {this.props.addCategory && <CategoryForm dispatch={this.props.dispatch} />}
-                {this.props.projectTaskList.map(category =>
+                {this.props.projectCategoryList.map(category =>
                     <li class="cat-task_li" style={{ width: '300px', height: "auto", borderRadius: '5px', backgroundColor: "#e6e6e6", position: "relative" }} id={category.projectID} onClick={this.handleClickProject}>
                         <span class="categorytitle">{category.CategoryName}</span>
                         {category.listOfTasks.map(task =>

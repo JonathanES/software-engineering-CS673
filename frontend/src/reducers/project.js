@@ -1,6 +1,6 @@
 const defaultState = {
   projectID: '',
-  projectTaskList: [],
+  projectCategoryList: [],
   projectName: '',
   categories: [],
   isProjectSelected: false,
@@ -13,7 +13,7 @@ const project = (state = defaultState, action) => {
       return {
         ...state,
         projectID: action.projectID,
-        projectTaskList: action.projectTaskList,
+        projectCategoryList: action.projectCategoryList,
         projectName: action.projectName,
         isProjectSelected: !state.isProjectSelected
       }
