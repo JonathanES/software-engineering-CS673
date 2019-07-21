@@ -1,4 +1,4 @@
-import {put, takeEvery, actionChannel} from 'redux-saga/effects'
+import {put, takeEvery } from 'redux-saga/effects'
 
 
 

@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import io from "socket.io-client";
-import { addTask, getTasksUsers } from '../../socket/taskSocket';
-import TaskForm from '../task-design/TaskForm';
+import { getTasksUsers } from '../../socket/taskSocket';
 //mport {userId} from '../../socket/userSocket';
 import '../../css/task.css'
 

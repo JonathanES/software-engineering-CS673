@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { instanceOf } from 'prop-types';
 import Cookies from 'universal-cookie';
 
 const mapStateToProps = state => ({

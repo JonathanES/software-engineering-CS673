@@ -1,10 +1,8 @@
 import React from "react";
 import { connect } from 'react-redux';
-import io from "socket.io-client";
-import { addProject, getListOfProjects, showCategories } from '../../socket/projectSocket';
+import { getListOfProjects, showCategories } from '../../socket/projectSocket';
 import { getuserprev } from '../../socket/taskSocket';
 import ProjectTask from '../Task/projectTask.js';
-import ProjectForm from '../project/ProjectForm';
 //import {userId} from '../../socket/userSocket';
 import { socket } from '../../socket/config'
 import '../../css/project.css'

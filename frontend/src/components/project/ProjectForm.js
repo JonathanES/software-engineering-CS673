@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { addProject, getListOfProjects, showCategories } from '../../socket/projectSocket';
-import ProjectTask from '../Task/projectTask.js';
+import { addProject} from '../../socket/projectSocket';
 //import {userId} from '../../socket/userSocket';
 import '../../css/project.css'
 

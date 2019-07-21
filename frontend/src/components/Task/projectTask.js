@@ -117,7 +117,7 @@ class ProjectTask extends React.Component {
             <div style={{ overflowX: 'auto' }}>
                 <h3> You are viewing Project : {this.props.projectName} </h3>
                 <input id="add-button" type="image" src={require("../../images/plus.svg")} onClick={(e) => {this.props.dispatch({ type: 'USER_ADD_CATEGORY_DEMAND' });e.preventDefault()}} />
-
+                
                 {this.props.addCategory && <CategoryForm dispatch={this.props.dispatch} />}
                 {this.props.projectCategoryList.map(category =>
                     <li class="cat-task_li" style={{ width: '300px', height: "auto", borderRadius: '5px', backgroundColor: "#e6e6e6", position: "relative" }} id={category.projectID} onClick={this.handleClickProject}>

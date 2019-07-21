@@ -27,7 +27,7 @@ const mapStateToProps = state => ({
 });
 
 const MainPage = ({ dispatch, messageDemand, projectDemand, issueDemand, taskDemand, projectFormDemand, projectTaskDemand, taskFormDemand, projectUpdateDemand }) => (
-    <div class="main-page">
+    <div className="main-page">
         {messageDemand && <Chat dispatch={dispatch} />}
         {projectDemand && <Project dispatch={dispatch} />}
         {issueDemand && <Issues dispath={dispatch} />}
