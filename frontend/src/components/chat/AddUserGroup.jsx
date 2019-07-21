@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../../css/group-chat.css'
-import { addUserGroup, getUsersNotInGroup } from '../../socket/GroupMessagingSocket';
+import { addUserGroup, getUsersNotInGroup, removeUserGroup } from '../../socket/GroupMessagingSocket';
 
 
 const mapStateToProps = state => ({
@@ -20,6 +20,7 @@ class AddUserGroup extends Component {
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleAddUser = this.handleAddUser.bind(this);
+        this.handleRemoveUser = this.handleRemoveUser.bind(this);
     }
 
     componentDidMount() {
@@ -37,10 +38,17 @@ class AddUserGroup extends Component {
                 break;
         }
     }
-    handleAddUser = user => {
-        console.log(user);
-        addUserGroup(user, this.props.groupId, (err, data) => {
+    handleAddUser = userId => {
+        console.log(userId);
+        addUserGroup(userId, this.props.groupId, (err, data) => {
+            this.setState({ userListInGroup: data.inGroup, userListNotInGroup: data.notInGroup });
+        })
+    }
 
+    handleRemoveUser = userId => {
+        console.log(userId);
+        removeUserGroup(userId, this.props.groupId, (err, data) => {
+            this.setState({ userListInGroup: data.inGroup, userListNotInGroup: data.notInGroup });
         })
     }
     render() {
@@ -50,25 +58,27 @@ class AddUserGroup extends Component {
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" onClick={this.handleSubmit}>&times;</button>
-                            <h4 class="modal-title">Add Group Channel</h4>
+                            <h4 class="modal-title">Users in the channel</h4>
                         </div>
                         <form onSubmit={this.handleSubmit}>
                             <div id="delete-user-group">
+                            <div id="delete-user-group-title">Users that are in the group</div>
                                 {
                                     this.state.userListInGroup.map(user =>
                                         <div>
                                             {user.username}
-                                            <input id="delete-user-button" type="image" onClick={(e) => {}} src={require("../../images/delete.svg")}/>
+                                            <input id="delete-user-button" type="image" onClick={(e) => { this.handleRemoveUser(user.userId); e.preventDefault() }} src={require("../../images/delete.svg")} />
                                         </div>
                                     )
                                 }
                             </div>
                             <div id="add-user-group">
+                            <div id="add-user-group-title">Users that are not in the group</div>
                                 {
                                     this.state.userListNotInGroup.map(user =>
                                         <div>
                                             {user.username}
-                                            <input id="add-user-button" type="image" src={require("../../images/plus-black.svg")} onClick={(e) => {this.handleAddUser(user.UserID); e.preventDefault()}}/>
+                                            <input id="add-user-button" type="image" src={require("../../images/plus-black.svg")} onClick={(e) => { this.handleAddUser(user.userId); e.preventDefault() }} />
                                         </div>
                                     )
                                 }
