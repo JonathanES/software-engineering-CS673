@@ -1,6 +1,8 @@
 const defaultState = {
   addGroup: false,
-  listOfGroups: []
+  listOfGroups: [],
+  groupId: '',
+  addUserToGroup : false
 };
 
 const message = (state = defaultState, action) => {
@@ -11,6 +13,11 @@ const message = (state = defaultState, action) => {
     case 'GET_GROUPS_DEMAND': return {
       listOfGroups: action.listOfGroups
     }
+    case 'ADD_USER_TO_GROUP_DEMAND':
+      return {
+        groupId: action.groupId,
+        addUserToGroup: !state.addUserToGroup
+      }
     default:
       return state;
   }
