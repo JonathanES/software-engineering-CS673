@@ -12,6 +12,11 @@ import {socket} from './config'
     socket.on('ADD_USER_GROUP', data => cb(null, data) );
     socket.emit('USER_ADD_USER_GROUP', userId, groupId);
   }
+
+  function removeUserGroup(userId, groupId, cb){
+    socket.on('REMOVE_USER_GROUP', data => cb(null, data) );
+    socket.emit('USER_REMOVE_USER_GROUP', userId, groupId);
+  }
     // get users of a group
     function getGroupUsers(groupId, cb){
     socket.on('GET_GROUP_USERS', data => cb(null, data) );
@@ -40,4 +45,4 @@ function getUsersNotInGroup(groupID, cb){
   socket.emit('USER_GET_USERS_NOT_IN_GROUP', groupID);
 }
 
-  export {createGroup, addUserGroup,getGroupUsers,getUserGroups,sendGroupMessage, getGroupMessage, getUsersNotInGroup};
+  export {createGroup, addUserGroup,getGroupUsers,getUserGroups,sendGroupMessage, getGroupMessage, getUsersNotInGroup, removeUserGroup};

@@ -377,3 +377,12 @@ ul::-webkit-scrollbar{
     width: 5%;
 }
 
+#delete-user-group-title{
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#add-user-group-title{
+    font-weight: bold;
+    text-decoration: underline;
+}

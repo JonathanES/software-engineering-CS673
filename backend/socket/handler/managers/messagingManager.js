@@ -34,6 +34,12 @@
              client.emit('ADD_USER_GROUP', result);
          })
 
+         //remove user in a group
+         client.on('USER_REMOVE_USER_GROUP', async(userId, groupId) => {
+            const result = await groupMessagingController.removeUserInGroup(userId, groupId);
+            client.emit('REMOVE_USER_GROUP', result);
+        })
+
          // get users of a group
          client.on('USER_GET_GROUP_USERS', async(groupId) => {
             const result = await groupMessagingController.getGroupUsers(groupId);
