@@ -42,7 +42,11 @@ const project = (state = defaultState, action) => {
         ...state,
         projectID: action.projectID
       }
-
+      case "UPDATE_CATEGORY_LIST":
+        return {
+          ...state,
+          projectCategoryList: action.projectCategoryList
+        }
     default:
       return {
         ...state

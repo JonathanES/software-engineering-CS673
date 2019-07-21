@@ -144,7 +144,8 @@ function addCategory(pID,categoryName) {
         if (error) throw error;
             //console.log(results);
             if (error) throw error;
-            resolve(results);
+            const res = await getCategories(pID);
+            resolve(res);
 
         });
     })

@@ -93,7 +93,7 @@ class ProjectTask extends React.Component {
             case "add_task_button":
 
                 console.log('ProjectID:', this.props.projectID);
-                console.log(this.props.projectTaskList[0].CategoryID);
+                console.log(this.props.projectCategoryList[0].CategoryID);
                 console.log('catID:', event.target.id);
                 this.setState({ categoryID: event.target.id })
                 console.log('categoryID', this.state.categoryID);

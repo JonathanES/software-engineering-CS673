@@ -6,7 +6,9 @@ import '../../css/task_add.css'
 const mapStateToProps = state => ({
   userId: state.user.userId,
   catID: state.task.categoryID,
-  pID: state.demand.projectID
+  projectID: state.project.projectID,
+  projectCategoryList: state.project.projectCategoryList,
+  projectName: state.project.projectName
   //addTask: state.message.addTask
 });
 
@@ -79,13 +81,12 @@ class TaskForm extends Component {
       console.log('Please check your input');
     }
     else {
-      addTask(this.state.categoryID, this.state.categoryID, this.state.userId, 1, this.state.priorityID, this.state.taskName, this.state.taskInfo, this.dueDate, this.state.expDuration, 0, (err, data) => {
+      addTask(this.state.categoryID, this.state.categoryID, this.state.userId, 1, this.state.priorityID, this.state.taskName, this.state.taskInfo, this.state.dueDate, this.state.expDuration, 0, (err, data) => {
         // addProject(this.state.userId, this.state.projectName, this.state.dueDate, (err, data) => {
         console.log(data);
         //here we should call the mainpage, so they can see the project added to their screen, wonder how we will do it
         //this.props.dispatch({ type: 'USER_LOGIN', username: data.username});
-        console.log(this.state.pID);
-        this.props.dispatch({type:'USER_IS_PROJECT_DEMAND', projectID:this.props.pID});
+        this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: this.props.projectID, projectCategoryList: this.props.projectCategoryList, projectName: this.props.projectName });
       });
     }
     event.preventDefault();

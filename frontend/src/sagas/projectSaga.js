@@ -28,6 +28,10 @@ function* handleProjectUpdateDemand(action){
     yield put({type: "PROJECTUPDATEFORM_DEMAND", projectID: action.projectID, projectName:action.projectName });
 }
 
+function* handleCategoryListDemand(action){
+    yield put({type: "UPDATE_CATEGORY_LIST",  projectCategoryList: action.projectCategoryList});
+}
+
 
  function *projectSaga(){
     yield takeEvery('USER_IS_PROJECT_DEMAND', handleProjectDemand);
@@ -35,6 +39,7 @@ function* handleProjectUpdateDemand(action){
     yield takeEvery('USER_PROJECTFORM_DEMAND', handleAddProjectDemand);
     yield takeEvery('USER_VIEW_PROJECTTASKS', handleViewProjectTasks);
     yield takeEvery('USER_PROJECTUPDATE_DEMAND', handleProjectUpdateDemand);
+    yield takeEvery('USER_UPDATE_CATEGORY_LIST', handleCategoryListDemand);
 }
 
 export default projectSaga;
