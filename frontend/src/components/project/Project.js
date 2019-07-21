@@ -40,37 +40,23 @@ class Project extends React.Component {
     }
 
     componentDidMount() {
-
-
         getListOfProjects(this.props.userId, (err, data) => {
             this.setState({ listOfProjects: data });
             //console.log('getlistofProjects for user:', this.state.userId);
             //console.log('getlistofProjects for projectID:', this.state.pID);
-
         });
-
     }
 
     handleChange(event) {
         // this.setState({ newproject: event.target.value });
         //console.log("inside handleChange:" + event.target.value);
     }
-    handlePictureClick(e) {
-        let pID = e.target.id;
-        // this.setState({ pID: e.target.id });
-        //console.log('getlistofProjects for projectID:', this.props.pID);
-        console.log(pID);
-        showCategories(pID, (err, data) => {
+    handlePictureClick(project) {
+        console.log(project);
+        showCategories(project.projectId, (err, data) => {
             console.log(data);
-            if(data.length >0){
-                this.setState({ projectName: data.length == 0 ? this.state.projectName : data[0].ProjectName })
-                this.props.dispatch({ type: 'USER_PROJECT_TASK_DEMAND', projectID: this.state.pID, projectTaskList: data, projectName: data[0].ProjectName });
-            }
-            this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: this.state.pID });
+            this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: project.projectId, projectTaskList: data.length > 0 ? data : [], projectName: project.projectName });
         });
-
-
-        e.preventDefault();
     }
 
     handleUpdateClick(event) {
@@ -78,10 +64,10 @@ class Project extends React.Component {
         // console.log("update button for project id:",event.currentTarget.id, " is pressed for user:", this.state.userId );
         let pID = parseInt(this.newMethod(event));
         // getuserprev(this.newMethod(event), this.state.userId, (err,data) => {
-        getuserprev(pID, this.state.userId, (err,data) => {
+        getuserprev(pID, this.state.userId, (err, data) => {
             //console.log(data[0].AccountTypeID);
 
-            if(data[0].AccountTypeID == 1){
+            if (data[0].AccountTypeID == 1) {
                 //console.log('Call the update page with id: ', pID);
 
                 this.props.dispatch({ type: 'USER_PROJECTUPDATE_DEMAND', projectID: pID });
@@ -97,10 +83,8 @@ class Project extends React.Component {
         return event.currentTarget.id;
     }
 
-    handleClick(e){
-    
+    handleClick(e) {
         this.props.dispatch({ type: 'USER_PROJECTFORM_DEMAND' });
-        
         e.preventDefault();
     }
 
@@ -111,11 +95,23 @@ class Project extends React.Component {
                 <div class="project">
                     {/* <div class="title">You are working on Project : {this.state.projectName}</div> */}
                     <ul >
-                        {console.log("test ",this.props.isProjectSelected) || !this.props.isProjectSelected && this.state.listOfProjects.map(project =>
+                        {console.log("test ", this.props.isProjectSelected) || !this.props.isProjectSelected && this.state.listOfProjects.map(project =>
                             <li>
-                                <a id={project.projectID} onClick={(e) => this.handlePictureClick(e)}></a>
+                                <a id={project.projectID} onClick={(e) => {
+                                    this.handlePictureClick(
+                                        {
+                                            projectId: project.projectID, projectName: project.projectName
+                                        }
+                                    ); e.preventDefault()
+                                }}></a>
                                 <div>
-                                    <span id={project.projectID}  onClick={(e) => this.handlePictureClick(e)} class="project-content">{project.projectName}</span>
+                                    <span id={project.projectID} onClick={(e) => {
+                                        this.handlePictureClick(
+                                            {
+                                                projectId: project.projectID, projectName: project.projectName
+                                            }
+                                        ); e.preventDefault()
+                                    }} class="project-content">{project.projectName}</span>
                                 </div>
                                 {<a class="updatebtn" id={project.projectID} onClick={this.handleUpdateClick}> </a>}
                             </li>
@@ -127,14 +123,10 @@ class Project extends React.Component {
                             <button id="add-project-button" class="addprojectbtn" onClick={(e) => this.handleClick(e)}>Add Project</button>
                         </form>
                     }
-
-
                 </div>
-
             </div>
         );
     }
 }
 
-//export default Project;
 export default connect(mapStateToProps)(Project);

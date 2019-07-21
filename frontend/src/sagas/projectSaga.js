@@ -4,7 +4,7 @@ import {put, takeEvery, actionChannel} from 'redux-saga/effects'
 
 
 function* handleProjectDemand(action){
-    yield put({type: "IS_PROJECT_DEMAND",projectID: action.projectID });
+    yield put({type: "IS_PROJECT_DEMAND",projectID:action.projectID, projectTaskList: action.projectTaskList, projectName:action.projectName});
 }
 
  function* handleViewProjectTasks(action){

@@ -11,12 +11,13 @@ import { classDeclaration } from "@babel/types";
 
 
 const mapStateToProps = state => ({
-    projectID: state.task.projectID,
+    projectID: state.project.projectID,
+    projectTaskList: state.project.projectTaskList,
+    projectName: state.project.projectName,
+    addCategory: state.project.addCategory,
+
     username: state.user.username,
     userId: state.user.userId,
-    projectTaskList: state.task.projectTaskList,
-    projectName: state.task.projectName,
-    addCategory: state.project.addCategory,
     //taskname: state.Task.newtask
 });
 
