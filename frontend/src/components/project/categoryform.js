@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import { addCategory } from '../../socket/projectSocket';
 
-import '../../css/group-chat.css'
+import '../../css/categoryForm.css'
 
 
 const mapStateToProps = state => ({

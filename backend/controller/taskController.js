@@ -98,7 +98,7 @@ async function getSingleTask(taskID) {
 async function getListofTasksForUser(userID){
     return new Promise((resolve, reject) => {
         //console.log(userID);
-       client.query('SELECT T.TaskID, T.ParentID, T.CategoryID, T.UserID, TS.StatusName, P.Priority, T.TaskName, T.TaskInfo, T.CreatedDate, T.DueDate, T.ExpectedDuration, T.ActualTimeSpent, T.IsDeleted FROM Tasks T JOIN TaskStatus TS on TS.StatusID = T.StatusID JOIN Priority P ON T.PriorityID = P.PriorityID WHERE UserID = ?', [userID], function (error, results, fields) {
+       client.query('SELECT T.TaskID, T.ParentID, T.CategoryID, T.UserID, TS.StatusName, P.Priority, T.TaskName, T.TaskInfo, T.CreatedDate, T.DueDate, T.ExpectedDuration, T.ActualTimeSpent, T.IsDeleted FROM Tasks T JOIN TaskStatus TS on TS.StatusID = T.StatusID JOIN Priority P ON T.PriorityID = P.PriorityID WHERE UserID = ? and T.IsDeleted = 0', [userID], function (error, results, fields) {
            results.forEach(result => {
                if (!listofTaskUsers.some(task => task.getTaskID == result.TaskID)){
                    const task = new TaskModel(result.TaskID, result.ParentID, result.CategoryID, result.UserID, result.StatusName, result.Priority, result.TaskName, result.TaskInfo, result.CreatedDate, result.DueDate,result.ExpectedDuration, result.ActualTimeSpent, result.IsDeleted);

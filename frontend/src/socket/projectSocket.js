@@ -14,13 +14,14 @@ function getListOfProjects(userID, cb){
     socket.emit('USER_GET_PROJECTLIST',userID);
 }
 
-function showCategories(projectID){
-    socket.emit('USER_GET_PROJECTCATEGORIES',projectID);
-}
-/*function showCategories(projectID, cb){
+// function showCategories(projectID){
+//     socket.emit('USER_GET_PROJECTCATEGORIES',projectID);
+// }
+
+function showCategories_old(projectID, cb){
     socket.on('GET_PROJECTCATEGORIES', data => cb(null, data) );
     socket.emit('USER_GET_PROJECTCATEGORIES',projectID);
-}*/
+}
 
 function addCategory(projectID, projectName, cb){
     socket.on('ADD_CATEGORY', data => cb(null, data));
@@ -52,4 +53,11 @@ function getAvailableUsers(projectID, userID, cb){
     socket.emit('GET_AVAILABLEUSER', projectID, userID);
   }
 
-export {addProject, getListOfProjects, showCategories, addCategory, getAddtoProject, getPriorities, getUserLevel, getprojectdetail,getAvailableUsers};
+
+  function deleteproject(projectID){
+      socket.on('UPDATE_PROJECT_ISDELETED');
+      socket.emit('USER_UPDATE_PROJECT_ISDELETED', projectID);
+  }
+
+
+export {addProject, getListOfProjects, addCategory, getAddtoProject, getPriorities, getUserLevel, getprojectdetail,getAvailableUsers, showCategories_old, deleteproject};

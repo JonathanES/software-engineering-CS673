@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addTask } from '../../socket/taskSocket'
-import { showCategories } from '../../socket/projectSocket';
-import '../../css/task_add.css'
+import { showCategories_old } from '../../socket/projectSocket';
+import '../../css/task.css'
 
 const mapStateToProps = state => ({
   userId: state.user.userId,
@@ -91,17 +91,22 @@ class TaskForm extends Component {
         console.log('projectCategoryList:',this.props.projectCategoryList);
         console.log('ProjectName:',this.props.projectName);
 
-        this.setState({ taskName: '' });  
+        this.setState({ taskName: '' });
         this.setState({ priorityID: '' });
         this.setState({ taskInfo: '' });
-        this.setState({ expDuration: ' '});
+        this.setState({ expDuration: ' ' });
         this.setState({ dueDate: '' });
-
-        //showCategories(this.props.projectCategoryList[0].ProjectID);
-        //this.props.dispatch({ type: 'USER_PROJECT_DEMAND' })
-        //this.props.dispatch({ type: 'USER_VIEW_PROJECT' })
-        //this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: this.props.projectCategoryList[0].ProjectID, projectCategoryList: this.props.projectCategoryList, projectName: this.props.projectName });
       });
+      console.log('this.props.projectCategoryList[0].ProjectID:', this.props.projectCategoryList[0].ProjectID)
+
+      showCategories_old(this.props.projectID, (err, data) => {
+        //console.log(data);
+        this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: this.props.projectID, projectCategoryList: data, projectName: this.props.projectName });
+      });
+
+      this.props.dispatch({ type: 'USER_PROJECT_DEMAND' })
+      this.props.dispatch({ type: 'USER_VIEW_PROJECT' })
+      this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: this.props.projectCategoryList[0].ProjectID, projectCategoryList: this.props.projectCategoryList, projectName: this.props.projectName });
     }
     event.preventDefault();
   }
