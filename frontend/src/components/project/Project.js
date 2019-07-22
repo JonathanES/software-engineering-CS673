@@ -10,11 +10,10 @@ import '../../css/project.css'
 const mapStateToProps = state => ({
     username: state.user.username,
     userId: state.user.userId,
-    //projectID: state.project.projectID,
     isProjectSelected: state.project.isProjectSelected,
     projectForm: state.project.projectForm,
     project: {}
-    //taskname: state.Task.newtask
+    
 });
 
 class Project extends React.Component {
@@ -25,7 +24,6 @@ class Project extends React.Component {
             userId: props.userId,
             username: props.username,
             pID: 0,
-            //getListofProjects : [],
             listOfProjects: [],
             projectcategories: [],
             projectName: "User Projects"
@@ -42,38 +40,33 @@ class Project extends React.Component {
     componentDidMount() {
         getListOfProjects(this.props.userId, (err, data) => {
             this.setState({ listOfProjects: data });
-            //console.log('getlistofProjects for user:', this.state.userId);
-            //console.log('getlistofProjects for projectID:', this.state.pID);
+
         });
         socket.on('GET_PROJECTCATEGORIES', data => {
-            this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: this.state.project.projectId, projectCategoryList: data.length > 0 ? data : [], projectName: this.state.project.projectName });
+            this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: this.state.project.projectID, projectCategoryList: data.length > 0 ? data : [], projectName: this.state.project.projectName });
         });
     }
 
     handleChange(event) {
-        // this.setState({ newproject: event.target.value });
-        //console.log("inside handleChange:" + event.target.value);
+    
     }
+
     handlePictureClick(project) {
         console.log(project);
         this.setState({project: project})
-        showCategories(project.projectId)/*, (err, data) => {
+        showCategories(project.projectID)/*, (err, data) => {
             console.log(data);
-            this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: project.projectId, projectCategoryList: data.length > 0 ? data : [], projectName: project.projectName });
+            this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: project.projectID, projectCategoryList: data.length > 0 ? data : [], projectName: project.projectName });
         });*/
     }
 
     handleUpdateClick(event) {
 
-        // console.log("update button for project id:",event.currentTarget.id, " is pressed for user:", this.state.userId );
         let pID = parseInt(this.newMethod(event));
-        // getuserprev(this.newMethod(event), this.state.userId, (err,data) => {
         getuserprev(pID, this.state.userId, (err, data) => {
-            //console.log(data[0].AccountTypeID);
-
+            
             if (data[0].AccountTypeID == 1) {
-                //console.log('Call the update page with id: ', pID);
-
+            
                 this.props.dispatch({ type: 'USER_PROJECTUPDATE_DEMAND', projectID: pID });
             }
             else {
@@ -104,7 +97,7 @@ class Project extends React.Component {
                                 <a id={project.projectID} onClick={(e) => {
                                     this.handlePictureClick(
                                         {
-                                            projectId: project.projectID, projectName: project.projectName
+                                            projectID: project.projectID, projectName: project.projectName
                                         }
                                     ); e.preventDefault()
                                 }}></a>
@@ -112,7 +105,7 @@ class Project extends React.Component {
                                     <span id={project.projectID} onClick={(e) => {
                                         this.handlePictureClick(
                                             {
-                                                projectId: project.projectID, projectName: project.projectName
+                                                projectID: project.projectID, projectName: project.projectName
                                             }
                                         ); e.preventDefault()
                                     }} class="project-content">{project.projectName}</span>
