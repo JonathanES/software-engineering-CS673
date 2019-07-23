@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Chat from '../components/chat/Chat';
 import Project from '../components/project/Project';
-import Task from '../components/task/Task';
+import Task from '../components/Task/Task';
 import TaskForm from '../components/task-design/TaskForm';
 import Issues from '../components/issue-design/issue';
 

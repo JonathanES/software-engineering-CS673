@@ -97,17 +97,16 @@ class Login extends Component {
                 <label className="form-check-label" htmlFor="inlineFormCheck">
                   Remember me
                       </label>
+                <button className="btn uppercase" type="submit">Sign in</button>
               </div>
-
-              <button className="btn uppercase" type="submit">Sign in</button>
-
-              <div className="btn-group" role="group" aria-label="Basic example">
-                <button onClick={this.handleClick} type="button" className="btn btn-primary">Sign up</button>
-                <button type="button" className="btn btn-primary">Sign up with Facebook</button>
-                <button type="button" className="btn btn-primary">Sign up with Google</button>
-              </div>
-            </form>
-            <p className="account-help">Forgot your password ? <a onClick={() => { this.handlePasswordForgotten() }} className="underline red" >Password forgotten</a></p>
+              </form>
+              <a class="underlineHover" onClick={this.handlePasswordForgotten} className="underline red" >Forgot your password?</a>
+<br></br>
+              <div class="btn-group" role="group" aria-label="Basic example">
+                <button onClick={this.handleClick}  type="button" class="btn btn-primary ">Register</button>
+                <button type="button" class="btn btn-primary">Sign up with Facebook</button>
+                <button type="button" class="btn btn-primary">Sign up with Google</button>
+                </div>
           </div>
         </div>
       </div>
@@ -143,3 +142,4 @@ class Login extends Component {
 }
 
 export default Login;
+
