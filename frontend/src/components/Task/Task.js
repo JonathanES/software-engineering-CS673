@@ -53,6 +53,7 @@ class Task extends React.Component {
         console.log('Add Task button pressed before call');
 
         this.props.dispatch({ type: 'USER_ADD_TASK_DEMAND' });
+        
         // dispatch: <TaskForm  dispatch={this.props.dispatch}/>;
 
         // addTask(this.state.userId, this.state.newtask, (err, data) => {
