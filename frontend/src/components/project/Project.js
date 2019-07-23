@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import { getListOfProjects, showCategories, showCategories_old } from '../../socket/projectSocket';
 import { getUserPrev } from '../../socket/taskSocket';
-import ProjectTask from '../task/projectTask.js';
+import ProjectTask from '../Task/projectTask.js';
 import ProjectUpdate from '../project/projectUpdate.js';
 import ProjectForm from './ProjectForm';
 //import {userId} from '../../socket/userSocket';
