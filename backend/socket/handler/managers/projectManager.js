@@ -4,14 +4,14 @@ module.exports = function (io) {
     //connect to the socket so that we can link with the frontend
     io.on('connection', (client) => {
         client.on('USER_CREATE_PROJECT', async (userID, projectName, dueDate ) => {
-            console.log('Project Manager: UserID:',userID, 'Project Name:',projectName, 'Due Date:',dueDate);
+            //console.log('Project Manager: UserID:',userID, 'Project Name:',projectName, 'Due Date:',dueDate);
             const result = await projectController.insertNewProject(userID,projectName,dueDate);
             client.emit('CREATE_PROJECT', result);
            })
 
         client.on('USER_GET_PROJECTLIST', async (userID) => {
             const result = await projectController.getListofProjects(userID);
-            io.sockets.in(userID).emit('GET_PROJECTLIST', result);
+            client.emit('GET_PROJECTLIST', result);
         })
 
         client.on('USER_GET_PROJECTID', async (projectName) => {
@@ -29,8 +29,8 @@ module.exports = function (io) {
             client.emit('UPDATE_PROJECT_DUEDATE', result);
         })
 
-        client.on('USER_UPDATE_PROJECT_ISDELETED', async (pID,pIsDeleted) => {
-            const result = await projectController.updateProjectIsDeleted(pID,pIsDeleted);
+        client.on('USER_UPDATE_PROJECT_ISDELETED', async (pID, isDeleted) => {
+            const result = await projectController.updateProjectIsDeleted(pID,isDeleted);
             client.emit('UPDATE_PROJECT_ISDELETED', result);
         })
 

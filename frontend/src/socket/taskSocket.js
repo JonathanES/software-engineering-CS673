@@ -1,8 +1,8 @@
 import { socket } from './config'
 
-function addTask(parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, expDuration, actTimeSpent, cb) {
+function addTask(parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, dueDate, expDuration, actTimeSpent, cb) {
   socket.on('ADD_TASK', data => cb(null, data));
-  socket.emit('USER_ADD_TASK', parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, expDuration, actTimeSpent);
+  socket.emit('USER_ADD_TASK', parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, dueDate, expDuration, actTimeSpent);
 }
 
 function getTasksUsers(userID, cb) {
@@ -15,10 +15,10 @@ function getListofTasksForCategories(categoryID, cb) {
   socket.emit('USER_GET_TASKLIST_CATEGORYID', categoryID);
 }
 
-function getuserprev(projectID, userID, cb){
+function getUserPrev(projectID, userID, cb){
   socket.on('GET_USERPREV', data => cb(null,data));
   socket.emit('USER_GET_USERPREV', projectID, userID);
 }
 
 
-export { addTask, getTasksUsers, getListofTasksForCategories, getuserprev };
+export { addTask, getTasksUsers, getListofTasksForCategories, getUserPrev };

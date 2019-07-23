@@ -1,8 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import io from "socket.io-client";
-import { addTask, getTasksUsers } from '../../socket/taskSocket';
-import TaskForm from '../task-design/TaskForm';
+import { getTasksUsers } from '../../socket/taskSocket';
 //mport {userId} from '../../socket/userSocket';
 import '../../css/task.css'
 
@@ -25,6 +23,7 @@ class Task extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
 
     }
 
@@ -39,6 +38,7 @@ class Task extends React.Component {
             //     elt.isadd = 'false'
             //     elt.color = "rgb(155, 121, 156)";
             // })
+            console.log(data);
             this.setState({ getListofTasksForUser: data });
         });
     }
@@ -62,6 +62,11 @@ class Task extends React.Component {
         event.preventDefault();
     }
 
+    handleClick(){
+        console.log('it works here');
+    }
+    
+
     render() {
         return (
             <div>
@@ -73,16 +78,16 @@ class Task extends React.Component {
                                 <div id={task.taskName} onClick={this.handleClick}>
                                 </div>
                                 <div class="user-task" >
-                                    <span class="span-user-left"> {task.taskName}</span>
+                                    <span class="span-user-left"  onClick={this.handleClick}> {task.taskName}</span>
                                     <ul>
                                         <li>
-                                            <span class="span-user-left"> Priority: {task.priorityID}</span>
+                                            <span class="span-user-left"  onClick={this.handleClick}> Priority: {task.priorityID}</span>
                                         </li>
                                         <li>
-                                            <span class="span-user-left"> Status: {task.statusID}</span>
+                                            <span class="span-user-left"  onClick={this.handleClick}> Status: {task.statusID}</span>
                                         </li>
                                         <li>
-                                            <span class="span-user-left"> Assigned To: {this.state.username}</span>
+                                            <span class="span-user-left"  onClick={this.handleClick}> Assigned To: {this.state.username}</span>
                                         </li>
                                     </ul>
                                 </div>

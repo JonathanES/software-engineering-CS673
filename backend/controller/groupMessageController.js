@@ -8,17 +8,19 @@ const listOfGroups = [];
 
 function createGroup(groupName, userId) {
     return new Promise(async (resolve, reject) => {
-        client.query('INSERT INTO MessageGroups(GroupName) VALUES(?)', [groupName], async (error, results) => {
-            if (error) throw error;
-            let groupId = results.insertId;
-            await addUserToGroup(userId, groupId);
-            const group = new GroupModel(groupId, groupName);
-            const user = UserController.listOfUsers.find(user => user.getUserId == userId);
-            const listOfUsers = [user];
-            group.setListOfUsers = listOfUsers;
-            listOfGroups.push(group);
-            resolve({ groupId: results.insertId, groupName: groupName });
-        });
+        if (groupName.length > 0)
+            client.query('INSERT INTO MessageGroups(GroupName) VALUES(?)', [groupName], async (error, results) => {
+                if (error) throw error;
+                let groupId = results.insertId;
+                await addUserToGroup(userId, groupId);
+                const group = new GroupModel(groupId, groupName);
+                const user = UserController.listOfUsers.find(user => user.getUserId == userId);
+                const listOfUsers = [user];
+                group.setListOfUsers = listOfUsers;
+                listOfGroups.push(group);
+                let res = await getUserGroups(userId);
+                resolve(res);
+            });
     })
 }
 
@@ -26,18 +28,28 @@ function addUserToGroup(userId, groupId) {
     return new Promise((resolve, reject) => {
         client.query('INSERT INTO GroupUsers(UserID, GroupID) VALUES(?,?)', [userId, groupId], async (error, results) => {
             if (error) throw error;
-            const userList = await getGroupUsers(groupId);
+            const userList = await getUsersNotInGroup(groupId);
             resolve(userList);
         })
     })
 }
 
-function getGroupUsers(groupId){
+function removeUserInGroup(userId, groupId) {
+    return new Promise((resolve, reject) => {
+        client.query('DELETE FROM GroupUsers WHERE UserID = ? AND GroupID = ?', [userId, groupId], async (error, results) => {
+            if (error) throw error;
+            const userList = await getUsersNotInGroup(groupId);
+            resolve(userList);
+        })
+    })
+}
+
+function getGroupUsers(groupId) {
     return new Promise((resolve, reject) => {
         client.query('SELECT username, Users.userId FROM GroupUsers INNER JOIN Users ON Users.UserID = GroupUsers.UserID WHERE GroupId = ?', [groupId], async function (error, results, fields) {
             if (error) throw error;
             resolve(results);
-        }); 
+        });
     })
 }
 /**
@@ -105,7 +117,21 @@ function getUserGroups(userID) {
                 listOfGroups.push(tmp);
             });
             resolve(results);
-        }); 
+        });
+    })
+}
+
+function getUsersNotInGroup(groupId) {
+    return new Promise((resolve, reject) => {
+        client.query('SELECT UserID as userId, username FROM Users WHERE UserID NOT IN (SELECT UserID FROM GroupUsers WHERE GroupUsers.GroupID = ?)', [groupId], async function (error, results, fields) {
+            if (error) throw error;
+            let inGroup = await getGroupUsers(groupId);
+            const res = {
+                inGroup: inGroup,
+                notInGroup: results
+            }
+            resolve(res);
+        });
     })
 }
 
@@ -115,6 +141,8 @@ module.exports = {
     createGroup: createGroup,
     getGroupUsers: getGroupUsers,
     addUserToGroup: addUserToGroup,
+    removeUserInGroup: removeUserInGroup,
     getGroupUsers: getGroupUsers,
-    getUserGroups: getUserGroups
+    getUserGroups: getUserGroups,
+    getUsersNotInGroup: getUsersNotInGroup
 }

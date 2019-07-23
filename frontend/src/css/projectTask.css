@@ -1,7 +1,11 @@
 #projectTask{
-    width: 90%;
+    width: 87%;
 }
-.category_ul{
-    width: 100%;
-    overflow-x: auto;
+ul {
+    list-style-type: none;
+  }
+
+title{
+    padding-bottom: 10px;
+    margin-bottom: 10px;    
 }

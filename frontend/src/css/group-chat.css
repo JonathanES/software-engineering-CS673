@@ -25,8 +25,10 @@ input {
     bottom: 0;
     left: 0;
     right: 0;
+    width: 100%;
+    height: 50;
     background: rgba(0,0,0,0.3);
-    z-index: 999;
+    z-index: 5;
     border: 1px solid #888;
 }
 .modal-content{
@@ -35,8 +37,6 @@ input {
   margin: auto;
   padding: 0;
   border: 1px solid #888;
-  width: 80%;
-  height:40%;
   /*box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);*/
   animation-name: animatetop;
   animation-duration: 0.4s
@@ -44,18 +44,20 @@ input {
 .btn-default {
     position: absolute; 
     height: 35px;
-    width: 80px;
+   width: 80px;
     border-radius: 10px;
     background-color:red;
     color: white;
     font-weight: bold;
     border:10;
     outline: 10;
-    left:88%;  
-    top:75%; 
+    float: right;
+    margin: 0;
+    right: 0px;
+    padding: 0px;
 }
 .modal-footer {
-    height: 8%;
+    height: 15%;
     width: 100%;
     background-color: white;
     display: flex;
@@ -73,9 +75,10 @@ input {
    font-weight: bold;
    border:10;
    outline: 10;
-   left:90%;  
-   top:110%;  
-   margin:-100px 0 0 -100px 
+   margin-right: 10%;
+   margin: 0;
+   right: 15%;
+   padding: 0px;
 }
 .close{
     position:absolute;

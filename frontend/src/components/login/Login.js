@@ -4,6 +4,8 @@ import { login } from '../../socket/userSocket';
 import { instanceOf } from 'prop-types';
 import Cookies from 'universal-cookie';
 import moment from 'moment';
+import { socket } from '../../socket/config'
+
 
 const cookies = new Cookies();
 
@@ -29,6 +31,11 @@ class Login extends Component {
 
   componentDidMount() {
 
+    socket.on('LOGIN', data => {
+      this.props.dispatch({ type: 'USER_LOGIN', username: data.username, userId: data.userId });
+      cookies.set('username', data.username, { path: '/'/*, expires: new Date(Date.now()+30)*/ });
+      cookies.set('userId', data.userId, { path: '/' /*, expires: new Date(Date.now()+30)*/ });
+    });
     if (cookies) {
       if (cookies.get('username') && cookies.get('userId'))
         this.props.dispatch({ type: 'USER_LOGIN', username: cookies.get('username'), userId: cookies.get('userId') });
@@ -58,40 +65,36 @@ class Login extends Component {
 
 
 
-  async handleSubmit(event) {
+  handleSubmit(event) {
     event.preventDefault();
-    login(this.state.email, this.state.password, async (err, data) => {
-      console.log(data);
-      cookies.set('username', data.username, { path: '/'/*, expires: new Date(Date.now()+30)*/ });
-      cookies.set('userId', data.userId, { path: '/' /*, expires: new Date(Date.now()+30)*/ });
-      this.props.dispatch({ type: 'USER_LOGIN', username: data.username, userId: data.userId });
-    });
+
+    login(this.state.email, this.state.password);
   }
 
   render() {
     return (
       <div>
-        <div class="row">
-          <div class="col" id="leftLog">
+        <div className="row">
+          <div className="col" id="leftLog">
 
             <div id="birdPic">
-              <img src={require("../../images/swellodesk_image.png")} class="rounded mx-auto d-block" alt="swello" id="axBP"></img></div>
+              <img src={require("../../images/swellodesk_image.png")} className="rounded mx-auto d-block" alt="swello" id="axBP"></img></div>
 
           </div>
-          <div class="col" id="rightLog">
-            <form onSubmit={this.handleSubmit} id="LoginFormCA" class="form-inline">
+          <div className="col" id="rightLog">
+            <form onSubmit={this.handleSubmit} id="LoginFormCA" className="form-inline">
 
-              <label class="sr-only" for="inlineFormInputUsername2">Email</label>
-              <input  class="form-control mb-2 mr-sm-2" id="email" placeholder="Email" type="text" value={this.state.email} onChange={this.handleChange} />
+              <label className="sr-only" htmlFor="inlineFormInputUsername2">Email</label>
+              <input className="form-control mb-2 mr-sm-2" id="email" placeholder="Email" type="text" value={this.state.email} onChange={this.handleChange} />
 
-              <label class="sr-only" for="inlineFormInputGroupPassword2">Password</label>
-              <div class="input-group mb-2 mr-sm-2">
-              <input id="password" type="password"  class="form-control" value={this.state.password} placeholder="..............................." onChange={this.handleChange} />
+              <label className="sr-only" htmlFor="inlineFormInputGroupPassword2">Password</label>
+              <div className="input-group mb-2 mr-sm-2">
+                <input id="password" type="password" className="form-control" value={this.state.password} placeholder="..............................." onChange={this.handleChange} />
               </div>
 
-              <div class="form-check mb-2 mr-sm-2">
-                <input class="form-check-input" type="checkbox" id="inlineFormCheck"></input>
-                <label class="form-check-label" for="inlineFormCheck">
+              <div className="form-check mb-2 mr-sm-2">
+                <input className="form-check-input" type="checkbox" id="inlineFormCheck"></input>
+                <label className="form-check-label" htmlFor="inlineFormCheck">
                   Remember me
                       </label>
                 <button className="btn uppercase" type="submit">Sign in</button>
@@ -118,11 +121,11 @@ class Login extends Component {
             <form onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <div className="form-field">
-                  <label htmlFor="email">Email :</label>
+                  <label htmlhtmlFor="email">Email :</label>
                   <input id="email" type="text" value={this.state.email} onChange={this.handleChange} />
                 </div>
                 <div className="form-field">
-                  <label htmlFor="password">Password :</label>
+                  <label htmlhtmlFor="password">Password :</label>
                   <input id="password" type="password" value={this.state.password} onChange={this.handleChange} />
                 </div>
                 <button className="btn uppercase" type="submit">Sign in</button>

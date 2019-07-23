@@ -3,8 +3,7 @@
  */
 import {socket} from './config'
 
-function login(email, password, cb){
-    socket.on('LOGIN', data => cb(null, data) );
+function login(email, password){
     socket.emit('USER_LOGIN', email, password);
   }
 

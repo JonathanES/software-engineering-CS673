@@ -1,7 +1,7 @@
 html, body, #root, #wrapper,.box {
-    margin: 0;
     height: 100%;
-    overflow-y:scroll;    
+    overflow-y:auto;   
+    display: 'inline-block';
 }
 /* li {
     list-style: none;
@@ -36,8 +36,6 @@ input {
     position: fixed;
     width: 100%;
     overflow: hidden;
-    left:200px;
-    top: 50px;
 }
 .project ul{
     margin-top:20px;

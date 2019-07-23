@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from 'react-redux';
-import io from "socket.io-client";
 import { sendMessage, getMessage } from '../../socket/messagingSocket'
-import { getUserGroups, createGroup, addUserGroup, getGroupMessage, sendGroupMessage } from '../../socket/GroupMessagingSocket'
+import { getUserGroups, getGroupMessage, sendGroupMessage } from '../../socket/GroupMessagingSocket'
 import AddGroup from './AddGroup';
+import AddUserGroup from './AddUserGroup';
 import { getFriends } from '../../socket/userSocket'
 import '../../css/message.css'
 
@@ -11,7 +11,9 @@ import '../../css/message.css'
 const mapStateToProps = state => ({
     username: state.user.username,
     userId: state.user.userId,
-    addGroup: state.message.addGroup
+    addGroup: state.message.addGroup,
+    listOfGroups: state.message.listOfGroups,
+    addUserToGroup: state.message.addUserToGroup
 });
 
 class Chat extends React.Component {
@@ -38,6 +40,12 @@ class Chat extends React.Component {
     }
 
 
+    componentDidUpdate() {
+        if (this.props.listOfGroups)
+            if (this.state.listOfGroups.length < this.props.listOfGroups.length)
+                this.setState({ listOfGroups: this.props.listOfGroups });
+    }
+
     componentDidMount() {
         getFriends(this.state.userId, (err, data) => {
             data.forEach(elt => {
@@ -49,6 +57,7 @@ class Chat extends React.Component {
 
         getUserGroups(this.state.userId, (err, data) => {
             this.setState({ listOfGroups: data });
+            this.props.dispatch({ type: 'USER_GET_GROUPS_DEMAND', listOfGroups: data });
         })
     }
 
@@ -66,10 +75,14 @@ class Chat extends React.Component {
                     elt.position = "left";
             })
             this.setState({ chatHistory: history, message: "" });
-            sendMessage(this.state.userId, this.state.receiverId, this.state.message);
+            sendMessage(this.state.userId, this.state.receiverId, this.state.message, (err, data) => {
+                this.setState({ message: "" });
+            });
         }
         else {
-            sendGroupMessage(this.state.userId, this.state.receiverId, this.state.message);
+            sendGroupMessage(this.state.userId, this.state.receiverId, this.state.message, (err, data) => {
+                this.setState({ message: "" });
+            });
         }
         event.preventDefault();
     }
@@ -137,25 +150,12 @@ class Chat extends React.Component {
     render() {
         return (
             <div class="box">
-                {/* <div class="leftbar">
-                    <ul>
-                        <li><i class="fas fa-user"></i></li>
-                        <li><i class="fas fa-user-circle"></i></li>
-                        <li><i class="fas fa-wrench"></i></li>
-                        <li><i class="fas fa-folder-open"></i></li>
-                        <li><i class="fas fa-bell"></i></li>
-                        <li><i class="fas fa-envelope"></i></li>
-                        <li><i class="fas fa-power-off"></i></li>
-                    </ul>
-                </div> */}
                 <div class="container">
                     <div class="chatbox">
                         {this.props.addGroup && <AddGroup dispatch={this.props.dispatch} />}
+                        {this.props.addUserToGroup && <AddUserGroup/>}
                         <div class="chatleft">
                             <div class="top">
-                                {/* <i class="fas fa-bars" style={{"font-size": "1.4em"}}></i>
-                                <input type="text" class="search-chatleft" placeholder="search"/>
-                                <button class="searchbtn"><i class="fas fa-search"/></button> */}
                                 <div class="appname">
                                     SwelloDesk
                                 </div>
@@ -171,7 +171,7 @@ class Chat extends React.Component {
                                 <div class="channel">
                                     <div class="title">
                                         Channels
-                                    <input id="add-button" type="image" src={require("../../images/plus.svg")} onClick={() => this.props.dispatch({ type: 'USER_ADD_GROUP_DEMAND' })} />
+                                    <input id="add-button" type="image" src={require("../../images/plus.svg")} onClick={(e) => { this.props.dispatch({ type: 'USER_ADD_GROUP_DEMAND' }); e.preventDefault() }} />
                                     </div>
                                     <ul>
                                         {this.state.listOfGroups.map(group =>
@@ -217,6 +217,7 @@ class Chat extends React.Component {
                             </div>
                             <div>
                                 <ul class="chaton">
+                                    {this.state.isGroupDiscussion && <input id="add-user-in-group-button" type="image" src={require("../../images/plus-black.svg")} onClick={(e) => { this.props.dispatch({ type: 'USER_ADD_USER_TO_GROUP_DEMAND', groupId: this.state.receiverId }); e.preventDefault() }} />}
                                     {this.state.chatHistory.map(chat =>
                                         <div class="chat-position-right" align={chat.position}>
                                             <li className={chat.position == "right" ? "chatli chatli-right" : "chatli"}>

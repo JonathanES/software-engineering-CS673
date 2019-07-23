@@ -12,6 +12,7 @@ const statusID = 1;
 const priorityID = 1;
 const taskName = 'Test Task';
 const taskInfo = 'Test Task Info';
+const dueDate = '2017-07-27';
 const expectedDuration = 1;
 const actualTimeSpent = 1;
 
@@ -39,7 +40,7 @@ describe('Testing communication with Tasks table', function () {
             // Emit event when all clients are connected.
 
             //Creating and deleting a new task
-            client.emit('USER_ADD_TASK', parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, expectedDuration, actualTimeSpent);
+            client.emit('USER_ADD_TASK', parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, dueDate, expectedDuration, actualTimeSpent);
             client.on('ADD_TASK', data => {
                 client.emit('USER_GET_SINGLETASK', data.insertId);
                 client.on('GET_SINGLETASK', taskData => {
