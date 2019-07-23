@@ -47,7 +47,7 @@ describe('Milestones test', function () {
         // Emit event when all clients are connected.
         client.emit('USER_UPDATE_MILESTONE_NAME', milestoneID, nmilestoneName);
         client.on('UPDATE_MILESTONE_NAME', data => {
-            console.log(data);
+            //console.log(data);
             expect(data).to.equal('New Test Milestone');
             client.disconnect();
             done();

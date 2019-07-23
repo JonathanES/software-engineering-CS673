@@ -36,7 +36,7 @@ button {
     position: absolute;
     width: 100%;
   }
-  
+
   .discussion-contain {
     background-color: #b6701e;
     position: absolute;
@@ -61,7 +61,7 @@ a:hover {
 /***** Header *****/
 .header {
     padding: 30px;
-    background-color: #383838; 
+    background-color: #383838;
     -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.4);
     -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.4);
     box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.4);
@@ -84,27 +84,27 @@ nav {
    color: white;
    display: block;
    margin-top: 10px;
-   
+
    transition: color 0.3s ease;
  }
- 
+
  #menuToggle a:hover
  {
    color: tomato;
  }
- 
+
  #menuToggle
  {
    display: none;
    position: relative;
    top: 10px;
-   
+
    z-index: 1;
-   
+
    -webkit-user-select: none;
    user-select: none;
  }
- 
+
  #menuToggle input
  {
    display: block;
@@ -113,12 +113,12 @@ nav {
    position: absolute;
    top: -7px;
    left: -5px;
-   
+
    cursor: pointer;
-   
+
    opacity: 0;
-   z-index: 2; 
-   
+   z-index: 2;
+
    -webkit-touch-callout: none;
  }
 
@@ -129,35 +129,35 @@ nav {
    height: 4px;
    margin-bottom: 5px;
    position: relative;
-   
+
    background: #cdcdcd;
    border-radius: 3px;
-   
+
    z-index: 1;
-   
+
    transform-origin: 4px 0px;
-   
+
    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
                background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
                opacity 0.55s ease;
  }
- 
+
  #menuToggle span:first-child
  {
    transform-origin: 0% 0%;
  }
- 
+
  #menuToggle span:nth-last-child(2)
  {
    transform-origin: 0% 100%;
  }
- 
+
  #menuToggle input:checked ~ span
  {
    opacity: 1;
    transform: rotate(45deg) translate(-2px, -1px);
  }
- 
+
  #menuToggle input:checked ~ span:nth-last-child(3)
  {
    opacity: 0;
@@ -175,24 +175,24 @@ nav {
    width: 200px;
    margin: -100px 0 0 -50px;
    padding: 125px 0 20px 50px;
-   
+
    background: #444444;
    list-style-type: none;
    -webkit-font-smoothing: antialiased;
    /* to stop flickering of text in safari */
-   
+
    transform-origin: 0% 0%;
    transform: translate(-100%, 0);
-   
+
    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
  }
- 
+
  #menu li
  {
    padding: 10px 0;
    font-size: 16px;
  }
- 
+
  #menuToggle input:checked ~ ul
  {
    transform: none;
@@ -202,7 +202,7 @@ nav {
     #menuToggle {
         display: block;
     }
-    
+
     .header .links {
         display: none;
     }
@@ -236,6 +236,8 @@ nav {
 .window .window-contain {
     padding: 30px 0;
     text-align: center;
+    position: relative;
+z-index: 1;
 }
 
 @media screen and (max-width: 950px) {
@@ -267,7 +269,7 @@ nav {
     padding: 15px 20px;
     margin: 20px 0;
     border: none;
-    background-color: red;
+    background-color: rgba(122, 188, 255, 1);
     border-radius: 5px;
     font-weight: 600;
     color: white;

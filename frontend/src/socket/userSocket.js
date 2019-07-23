@@ -3,8 +3,7 @@
  */
 import {socket} from './config'
 
-function login(email, password, cb){
-    socket.on('LOGIN', data => cb(null, data) );
+function login(email, password){
     socket.emit('USER_LOGIN', email, password);
   }
 
@@ -18,4 +17,15 @@ function login(email, password, cb){
     socket.emit('USER_FRIENDS',userId);
   }
 
-  export {login, register, getFriends};
+
+  function passwordForgotten(email){
+    socket.emit('USER_PASSWORD_FORGOTTEN', email);
+  }
+
+  function updatePassword(email, password, cb){
+    socket.on("UPDATE_PASSWORD", data => cb(null, data));
+    socket.emit("USER_UPDATE_PASSWORD", email, password);
+  }
+
+  export {login, register, getFriends, passwordForgotten, updatePassword};
+

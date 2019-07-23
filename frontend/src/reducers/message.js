@@ -1,15 +1,26 @@
 const defaultState = {
-  addGroup: false
-  };
-  
-  const message = (state = defaultState, action) => {
-    switch (action.type) {
-      case 'ADD_GROUP_DEMAND': return {
-        addGroup: !state.addGroup
+  addGroup: false,
+  listOfGroups: [],
+  groupId: '',
+  addUserToGroup : false
+};
+
+const message = (state = defaultState, action) => {
+  switch (action.type) {
+    case 'ADD_GROUP_DEMAND': return {
+      addGroup: !state.addGroup
     }
-      default:
-        return state;
+    case 'GET_GROUPS_DEMAND': return {
+      listOfGroups: action.listOfGroups
     }
-  };
-  
-  export default message;
+    case 'ADD_USER_TO_GROUP_DEMAND':
+      return {
+        groupId: action.groupId,
+        addUserToGroup: !state.addUserToGroup
+      }
+    default:
+      return state;
+  }
+};
+
+export default message;

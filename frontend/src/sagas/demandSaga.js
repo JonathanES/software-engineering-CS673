@@ -36,6 +36,10 @@ function* handleLogOut(){
     yield put({type: "DEMAND_LOGOUT"})
 }
 
+function *handlePasswordDemand(){
+    yield put({type: "PASSWORD_DEMAND"});
+}
+
 function *demandSaga(){
     yield takeEvery('USER_MESSAGE_DEMAND', handleMessageDemand);
     yield takeEvery('USER_PROJECT_DEMAND', handleProjectDemand);
@@ -45,6 +49,8 @@ function *demandSaga(){
     yield takeEvery('USER_ISSUE_DEMAND', handleIssueDemand);
     yield takeEvery('USER_TASK_DEMAND', handleTaskDemand);
     yield takeEvery('USER_ADD_TASK_DEMAND', handleAddTaskDemand);
+    yield takeEvery('USER_PASSWORD_DEMAND', handlePasswordDemand);
+
     //yield takeEvery('USER_PROJECTTASK_DEMAND', handleProjectTaskDemand);
 }
 

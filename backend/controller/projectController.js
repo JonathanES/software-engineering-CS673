@@ -84,16 +84,20 @@ async function findProjectID(projectName) {
  */
 function getListOfProjects(userID) {
     return new Promise((resolve, reject) => {
-        console.log('Project for user:', userID)
-        client.query('SELECT * FROM Projects P Join ProjectUsers PU on P.ProjectID = PU.ProjectID WHERE PU.UserID = ?', [userID], function (error, results, fields) {
+        //console.log('Project for user:', userID)
+        client.query('SELECT * FROM Projects P Join ProjectUsers PU on P.ProjectID = PU.ProjectID WHERE PU.UserID = ? and IsDeleted=0', [userID], function (error, results, fields) {
             results.forEach(result => {
-                if (!listOfProjects.some(project => project.getProjectID == result.ProjectID)) {
-                    const project = new ProjectModel(result.ProjectID, result.ProjectName, result.DateCreated, result.DueDate);
+                if (!listOfProjects.some(project => project.getUserID == userID && project.getProjectID == result.ProjectID)) {
+                    const project = new ProjectModel(result.ProjectID, result.ProjectName, result.UserID, result.DateCreated, result.DueDate, result.IsDeleted);
                     listOfProjects.push(project);
                 }
             })
+            let userProjects = listOfProjects.filter(project => {
+                if (project.getUserID == userID) return project
+            });
             if (error) throw error;
-            resolve(listOfProjects);
+            //console.log(listOfProjects);
+            resolve(userProjects);
 
         });
     })
@@ -116,10 +120,10 @@ function getListOfProjects(userID) {
  */
 function getCategories(pID) {
     return new Promise((resolve, reject) => {
-        console.log('Categories for Project:', pID)
+        //console.log('Categories for Project:', pID)
         client.query('SELECT * FROM Categories INNER JOIN Projects ON Projects.ProjectID = Categories.ProjectID  WHERE Categories.ProjectID = ?', [pID], async function (error, results, fields) {
             if (error) throw error;
-            console.log(results.length);
+            //console.log(results.length);
             for (category of results) {
                 const elt = await taskController.getListofTasksForCategories(category.CategoryID);
                 category["listOfTasks"] = elt;
@@ -141,7 +145,8 @@ function addCategory(pID,categoryName) {
         if (error) throw error;
             //console.log(results);
             if (error) throw error;
-            resolve(results);
+            const res = await getCategories(pID);
+            resolve(res);
 
         });
     })
@@ -190,7 +195,7 @@ async function updateProjectName(projectID, projectName) {
  */
 async function updateProjectDueDate(projectID, dueDate) {
     return new Promise(async resolve => {
-
+        //console.log('Backend PID:', projectID, ' duedate:',dueDate);
         client.query('UPDATE Projects SET DueDate = ?  WHERE ProjectID = ?; ', [dueDate, projectID], async function (error, results, fields) {
             if (error) throw error;
             //console.log("updateProjectDueDate function called");
@@ -217,16 +222,89 @@ async function updateProjectDueDate(projectID, dueDate) {
  */
 async function updateProjectIsDeleted(projectID, isDeleted) {
     return new Promise(async resolve => {
-
+        //console.log("ProjectID:", projectID);
+        //console.log('IsDeleted:',isDeleted);
         client.query('UPDATE Projects SET IsDeleted = ?  WHERE ProjectID = ?; ', [isDeleted, projectID], async function (error, results, fields) {
             if (error) throw error;
             //console.log("updateProjectIsDeleted function called");
             resolve(isDeleted);
+            //console.log(results);
         });
+        
     })
 }
 
 
+async function getuserprev(projectID, userID){
+    return new Promise((resolve, reject) => {
+        //console.log(projectID, userID);
+       client.query('SELECT AccountTypeID FROM ProjectUsers WHERE UserID = ? and ProjectID=?', [userID, projectID], function (error, results, fields) {
+            if(error) throw error;   
+            resolve(results);
+       });
+    })
+}
+
+
+async function getprojectdetail(projectID){
+    return new Promise((resolve, reject)=>{
+        client.query('Select P.ProjectID, P.ProjectName, P.DateCreated, P.DueDate, P.IsDeleted, PU.UserID From Projects P JOIN ProjectUsers PU on PU.ProjectID = P.ProjectID where P.ProjectID = ?', [projectID], function (error, results, fields) {
+            //console.log('Retrieveing information for ProjectID:', projectID);
+            if(error) throw error;
+            resolve(results);
+        } )
+    })
+}
+
+
+
+async function addusertoproject(projectID, userID,userType){
+    return new Promise((resolve, reject) => {
+        //console.log('projectID, userID, userType', projectID, userID, userType);
+       client.query('INSERT INTO ProjectUsers(UserID, ProjectID, AccountTypeID) VALUES(?,?,?)', [userID, projectID, userType], function (error, results, fields) {
+        if(error) throw error;  
+        //console.log('User is added:',results); 
+            resolve(results);
+       });
+    })
+}
+
+
+
+async function getpriority(){
+    return new Promise((resolve, reject)=>{
+        //console.log('Getting priorities');
+        client.query('Select PriorityID, Priority From Priority', function(error,results, fields){
+            if(error) throw error;
+            resolve(results);
+        })
+    })
+};
+
+async function getlevel(){
+    return new Promise((resolve, reject)=>{
+        //console.log('Getting levels');
+        client.query('Select AccountTypeID, TypeName From AccountType', function(error,results, fields){
+            if(error) throw error;
+            resolve(results);
+        })
+    })
+};
+
+async function getListOfAvailableUser(projectID, userID){
+    return new Promise(async (resolve, reject) => {
+        // client.query('SELECT U.userId, U.username FROM Users U LEFT JOIN ProjectUsers PU on PU.UserID = U.UserID where PU.userID != ? and PU.ProjectID = ?', [userID, projectID], function(error, result, fields){
+        client.query('SELECT U.UserID, U.username FROM Users U WHERE U.UserID NOT IN (SELECT PU.UserID FROM ProjectUsers PU WHERE PU.ProjectID = ?)', [projectID], function(error, result, fields){    
+        if(error) throw error;
+            //console.log('Project ID:', projectID);
+            //console.log('UserID:', userID);
+            //console.log('result:', result);
+            resolve(result);
+        })
+    })
+};
+
+            
 module.exports = {
     insertNewProject: insertNewProject,
     findProjectID: findProjectID,
@@ -235,5 +313,11 @@ module.exports = {
     updateProjectDueDate: updateProjectDueDate,
     updateProjectIsDeleted: updateProjectIsDeleted,
     getCategories: getCategories,
-    addCategory: addCategory
+    addCategory: addCategory,
+    getuserprev:getuserprev,
+    addusertoproject:addusertoproject,
+    getpriority:getpriority,
+    getlevel:getlevel,
+    getprojectdetail:getprojectdetail,
+    getListOfAvailableUser:getListOfAvailableUser
 }
