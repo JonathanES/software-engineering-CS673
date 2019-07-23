@@ -195,7 +195,7 @@ async function updateProjectName(projectID, projectName) {
  */
 async function updateProjectDueDate(projectID, dueDate) {
     return new Promise(async resolve => {
-
+        //console.log('Backend PID:', projectID, ' duedate:',dueDate);
         client.query('UPDATE Projects SET DueDate = ?  WHERE ProjectID = ?; ', [dueDate, projectID], async function (error, results, fields) {
             if (error) throw error;
             //console.log("updateProjectDueDate function called");
