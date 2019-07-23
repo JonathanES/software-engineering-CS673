@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import { getTasksUsers } from '../../socket/taskSocket';
 //mport {userId} from '../../socket/userSocket';
-import '../../css/task.css'
+import '../../css/projectTask.css'
 
 const mapStateToProps = state => ({
     username: state.user.username,
@@ -71,20 +71,26 @@ class Task extends React.Component {
         return (
             <div>
                 <div class="direct">
-                    <div class="title">User Tasks</div>
-                    <ul>
+                    <div class="title uppercase" style={{marginBottom:'10px'}}>{this.props.username}'s Tasks</div>
+                    <ul style={{display: 'block'}}>
                         {this.state.getListofTasksForUser.map(task =>
-                            <li>
+                            <li style={{ width: '300px', height: "auto", 
+                            paddingBlock:'10px', verticalAlign:'top', 
+                            margin:'2px 2px 2px 2px' , borderRadius: '5px', 
+                            backgroundColor: "#e6e6e6", position: "relative" , 
+                            display: 'inline-block'}}>
                                 <div id={task.taskName} onClick={this.handleClick}>
                                 </div>
-                                <div class="user-task" >
+                                <div class="user-task" style={{ width: '94%', height: '200px', 
+                                    borderRadius: '5px', marginLeft: '3%', display:'block', 
+                                    marginTop: '8px', marginBottom: '8px', height: "auto", padding: "5px" }}>
                                     <span class="span-user-left"  onClick={this.handleClick}> {task.taskName}</span>
-                                    <ul>
-                                        <li>
-                                            <span class="span-user-left"  onClick={this.handleClick}> Priority: {task.priorityID}</span>
+                                    <ul style={{verticalAlign:'top', padding:'10px'}}>
+                                        <li class="cat-task_li_li">
+                                            <span class="span-user-left" style={{backgroundColor: 'orange'}}  onClick={this.handleClick}> Priority: {task.priorityID}</span>
                                         </li>
-                                        <li>
-                                            <span class="span-user-left"  onClick={this.handleClick}> Status: {task.statusID}</span>
+                                        <li class="cat-task_li_li">
+                                            <span class="span-user-left"  style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} onClick={this.handleClick}> Status: {task.statusID}</span>
                                         </li>
                                         <li>
                                             <span class="span-user-left"  onClick={this.handleClick}> Assigned To: {this.state.username}</span>

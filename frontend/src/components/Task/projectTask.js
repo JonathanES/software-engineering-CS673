@@ -133,7 +133,7 @@ class ProjectTask extends React.Component {
                     <ul style={{verticalAlign:'top', padding:'10px'}}>
                     {this.props.projectCategoryList.map(category =>
                         <li class="cat-task_li" onClick={this.handleUpdate} 
-                            style={{ width: '300px', height: "auto", 
+                            style={{ width: '300px', height: "500px", 
                                      paddingBlock:'10px', verticalAlign:'top', 
                                      marginTop: '8px', borderRadius: '5px', 
                                      backgroundColor: "#e6e6e6", position: "relative" , 
