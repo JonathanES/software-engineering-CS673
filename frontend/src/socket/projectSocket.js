@@ -54,8 +54,8 @@ function getAvailableUsers(projectID, userID, cb){
   }
 
 
-  function deleteproject(projectID, isDeleted){
-      socket.on('UPDATE_PROJECT_ISDELETED');
+  function deleteproject(projectID, isDeleted, cb){
+      socket.on('UPDATE_PROJECT_ISDELETED', data=> cb(null,data));
       socket.emit('USER_UPDATE_PROJECT_ISDELETED', projectID, isDeleted);
   }
 
