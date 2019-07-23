@@ -80,3 +80,6 @@ workflows:
      - deployement:
          requires:
            - test
+         filters:
+            branches:
+              only: master  
