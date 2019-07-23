@@ -106,7 +106,7 @@ class Register extends Component {
                     <button type="submit" class="btn btn-primary">
                       Sign Up
                   </button>
-                    <a href="#">Already have an account? Sign In</a>
+                    <a href="#" onClick={this.handleClick}>Already have an account? Sign In</a>
                   </div>
                 </div>
 
