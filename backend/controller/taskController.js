@@ -38,19 +38,19 @@ const listofTaskUsers = [];
  */
 async function insertNewTask(parentID, categoryID, userID, statusID, priorityID, taskName, taskInfo, dueDate, expectedDuration, actualTimeSpent) {
     return new Promise(async resolve => {
-        console.log('Came here with the category id:', categoryID);
-        console.log('Came here with the userID:', userID);
-        console.log('Came here with the statusID:', statusID);
-        console.log('Came here with the priorityID:', priorityID);
-        console.log('Came here with the taskName:', taskName);
-        console.log('Came here with the taskInfo:', taskInfo);
-        console.log('Came here with the dueDate:', dueDate);
-        console.log('Came here with the expectedDuration:', expectedDuration);
-        console.log('Came here with the actualTimeSpent:', actualTimeSpent);
+        // console.log('Came here with the category id:', categoryID);
+        // console.log('Came here with the userID:', userID);
+        // console.log('Came here with the statusID:', statusID);
+        // console.log('Came here with the priorityID:', priorityID);
+        // console.log('Came here with the taskName:', taskName);
+        // console.log('Came here with the taskInfo:', taskInfo);
+        // console.log('Came here with the dueDate:', dueDate);
+        // console.log('Came here with the expectedDuration:', expectedDuration);
+        // console.log('Came here with the actualTimeSpent:', actualTimeSpent);
 
         client.query('INSERT INTO Tasks(ParentID, CategoryID, UserID, StatusID, PriorityID, Taskname, Taskinfo, CreatedDate, DueDate, ExpectedDuration, ActualTimeSpent) VALUES(?,?,?,?,?,?,?,NOW(),?,?,?)', [1, categoryID, userID, statusID, priorityID, taskName, taskInfo, dueDate, expectedDuration, actualTimeSpent], async function (error, results, fields) {
             if (error) throw error;
-            console.log(results);
+            //console.log(results);
             const tasks = await getListofTasks(categoryID);
             resolve(results);
         });

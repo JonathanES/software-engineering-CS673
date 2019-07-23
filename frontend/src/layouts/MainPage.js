@@ -2,12 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Chat from '../components/chat/Chat';
 import Project from '../components/project/Project';
-import ProjectForm from '../components/project/ProjectForm';
-import Task from '../components/Task/Task';
-import ProjectTask from '../components/Task/projectTask';
+import Task from '../components/task/Task';
 import TaskForm from '../components/task-design/TaskForm';
 import Issues from '../components/issue-design/issue';
-import ProjectUpdate from '../components/project/projectUpdate';
 
 const mapStateToProps = state => ({
     username: state.user.username,
@@ -32,9 +29,9 @@ const MainPage = ({ dispatch, messageDemand, projectDemand, issueDemand, taskDem
         {projectDemand && <Project dispatch={dispatch} />}
         {issueDemand && <Issues dispath={dispatch} />}
         {taskDemand && <Task dispatch={dispatch} />}
-        {projectTaskDemand && <ProjectTask dispatch={dispatch} />}
-        {projectFormDemand && <ProjectForm dispatch={dispatch} />}
-        {taskFormDemand && <TaskForm dispatch={dispatch} />}
+        {/* {projectTaskDemand && <ProjectTask dispatch={dispatch} />} */}
+        {/* {projectFormDemand && <ProjectForm dispatch={dispatch} />} */}
+        {/* {taskFormDemand && <TaskForm dispatch={dispatch} />} */}
         {/* {projectUpdateDemand && <ProjectUpdate dispatch={dispatch} />} */}
     </div>
 );

@@ -39,7 +39,7 @@ const ProjectMilestonesModel = require('../model/ProjectMilestonesModel');
  */
  function getMilestone(mileStoneID){
      return new Promise((resolve, reject)=>{
-         console.log('mileStoneID:', mileStoneID);
+         //console.log('mileStoneID:', mileStoneID);
          client.query('Select * FROM ProjectMileStones WHERE MilestonesID = ?', [mileStoneID], function(error,result,fields){
              if(error) throw error;
              resolve(result);
@@ -81,7 +81,7 @@ async function updateMilestoneName(milestoneID, milestoneName) {
     return new Promise(async resolve => {
         client.query('UPDATE ProjectMileStones SET  MilestoneName = ?  WHERE MilestonesID = ?; ', [milestoneName, milestoneID], async function (error, results, fields) {
             if (error) throw error;
-            console.log("updateMilestoneName function called");
+            //console.log("updateMilestoneName function called");
             resolve(milestoneName);
         });
     })
@@ -99,7 +99,7 @@ async function updateMilestoneName(milestoneID, milestoneName) {
      return new Promise(async resolve => {
          client.query('UPDATE ProjectMileStones SET  DueDate = ?  WHERE MilestonesID = ?; ', [dueDate,milestoneID], async function (error, results, fields) {
              if (error) throw error;
-             console.log("updateMilestoneDate function called");
+             //console.log("updateMilestoneDate function called");
              resolve(dueDate);
          });
      })
@@ -118,7 +118,7 @@ async function updateMilestoneName(milestoneID, milestoneName) {
    return new Promise(async resolve => {
      client.query('UPDATE ProjectMileStones SET  IsCompleted = ?  WHERE MilestonesID = ?; ', [isCompleted,milestoneID], async function (error, results, fields) {
        if (error) throw error;
-       console.log("updateIsCompleted function called");
+       //console.log("updateIsCompleted function called");
        resolve(isCompleted);
      });
    })

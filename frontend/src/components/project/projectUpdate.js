@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import moment from 'moment'
 
 import { getAddtoProject, getUserLevel, getprojectdetail,getAvailableUsers,deleteproject} from '../../socket/projectSocket';
+import {updateProjectName, updateProjectDueDate} from '../../socket/projectSocket';
 import {getUserPrev} from '../../socket/taskSocket';
 
 import '../../css/projectUpdate.css'
@@ -22,12 +23,12 @@ class ProjectUpdate extends React.Component {
     super(props);
     this.state = {
       userId: props.userId,
-      pID: props.projectID,
-      projectName: props.projectName,
+      pID: props.project.projectID,
+      projectName: props.project.projectName,
       listOfFriends: [],
       userlevels:[],
       username: '',
-      dueDate:'',
+      dueDate:props.project.dueDate,
       userType:false,
       pname:'',
       newuserid:'',
@@ -56,12 +57,12 @@ class ProjectUpdate extends React.Component {
 
       console.log('User levels:',this.state.userlevels);
     })
-    this.state.projectName = this.props.projectName;
-    this.handleNameChange(this.state.projectName)
-    this.state.dueDate = '2019-07-25';
+    //this.state.projectName = this.props.projectName;
+    //this.handleNameChange(this.state.projectName)
+    //this.state.dueDate = '2019-07-25';
     //this.setState({dueDate:'2019-07-25'});
-    console.log('ComponentDidMount:',this.state.dueDate);
-    this.handleDateChange(this.state.dueDate);
+    //console.log('ComponentDidMount:',this.state.dueDate);
+    //this.handleDateChange(this.state.dueDate);
 
 
     getAvailableUsers(this.state.pID, this.state.userId, (err, data) => {
@@ -71,33 +72,27 @@ class ProjectUpdate extends React.Component {
       // this.setState({ listOfFriends: "" });
       // console.log(this.state.listOfFriends);
       this.state.listOfFriends.push({UserID:0,username:'Please Select a User'});
-      console.log(this.state.listOfFriends);
+      console.log('Available Users:',this.state.listOfFriends);
       
-      // this.setState({ listOfFriends: data });
     });
 
-    //this.setState({newuserid:0})
-    //this.setState({username:'Please Select a User'});
-
     getprojectdetail(this.state.pID, (err, data) => {
-      //console.log('projectdetail:',data)
-      console.log('projectID:',this.props.project.projectName);
-      //this.setState({pname:data[0].ProjectName})
+      console.log('projectID:',this.props.project.projectID);
+      console.log('projectName:',this.props.project.projectName);
+
     })
 
-    // getUserPrev(this.state.pID, this.state.userId, (err,data) => {
-    //   //console.log(data[0].AccountTypeID);
+    getUserPrev(this.props.project.projectID, this.state.userId, (err,data) => {
+      console.log(data[0].AccountTypeID);
 
-    //   if(data[0].AccountTypeID != 3 ){
-    //       this.setState({userType:true})
-    //       //console.log('Call the update page with id: ', this.state.pID);
-    //       //console.log('User type is admin');
-    //   }
-    //   else{
-    //       this.setState({userType:false})
-    //       console.log('Sorry you don\'t have the admin privilidges' );
-    //   }
-    // })
+      if(data[0].AccountTypeID != 3 ){
+          this.setState({userType:true})
+      }
+      else{
+          this.setState({userType:false})
+          alert('Sorry you don\'t have the admin privilidges' );
+      }
+    })
 
     
 
@@ -106,16 +101,10 @@ class ProjectUpdate extends React.Component {
 
   handleAddUser(event){
 
-    // console.log('ProjectID:', this.props.pID);
-    // console.log('newUserID:',parseInt(this.state.newuserid));
-    // console.log('User type will be:',parseInt(this.state.newusertype));
-     getAddtoProject(this.state.pID, parseInt(this.state.newuserid), parseInt(this.state.newusertype), (err,data) =>{
-       //console.log(data);
-       getAvailableUsers(this.state.pID, this.state.userId, (err, data) => {
+     getAddtoProject(this.props.project.projectID, parseInt(this.state.newuserid), parseInt(this.state.newusertype), (err,data) =>{
+       getAvailableUsers(this.props.project.projectID, this.state.userId, (err, data) => {
         this.setState({ listOfFriends: data });
-        //console.log('Available users:', data);
-      });
-      
+      }); 
     })
     event.preventDefault();
   }
@@ -151,12 +140,26 @@ class ProjectUpdate extends React.Component {
 
   handleDeleteProject(e){
     console.log('ProjectID:', this.props.projectID)
-    deleteproject(this.props.projectID);
+    deleteproject(this.props.projectID,1);
   }
 
   handleUpdateProject(event) {
     console.log('New Name:',this.state.projectName);
+    console.log('old Name:',this.props.project.projectName);
     console.log('DueDate:', this.state.dueDate);
+
+
+    if(this.state.projectName != this.props.project.projectName && this.state.projectName != '' ){
+      updateProjectName(this.props.project.projectID, this.state.projectName, (err,data)=>{
+        console.log('Name change is:', data);
+      });
+    }
+
+    if(this.state.dueDate != this.props.project.dueDate && this.state.dueDate != ''){
+      updateProjectDueDate(this.props.project.projectID, this.state.dueDate, (err,data) =>{
+        console.log('New Due Date:', data);
+      });
+    }
   }
 
   render() {
@@ -171,7 +174,7 @@ class ProjectUpdate extends React.Component {
               <form onSubmit={this.handleSubmit}>
                 <div className="projectform-field">
                   <label htmlFor="projectName">Project Name :</label>
-                  <input id="projectName" type="text" value={this.props.project.projectName} onChange={(e) => this.handleNameChange(e.target.value)} />
+                  <input id="projectName" type="text" value={this.state.projectName} onChange={(e) => this.handleNameChange(e.target.value)} />
                 </div>
                 {/* <div className="projectform-field">
                   <label htmlFor="dueDate">Due Date :</label>
@@ -179,7 +182,7 @@ class ProjectUpdate extends React.Component {
                 </div> */}
                 <div>
                 <label for="dueDate">Due Date:</label>
-                  <input type="date" id="dueDate" name="trip-start" value={moment(this.props.project.dueDate).format('YYYY-MM-DD')} min="2019-06-01" max="2030-12-31" onChange={(e)=>this.handleDateChange(e.target.value)}/>
+                  <input type="date" id="dueDate" className="trip-start" value={moment(this.state.dueDate).format('YYYY-MM-DD')} min="2019-06-01" max="2030-12-31" onChange={(e)=>this.handleDateChange(e.target.value)}/>
                 </div>
                 <div className="projectform-field">
                   <label htmlFor="adduser">Available Users:</label>

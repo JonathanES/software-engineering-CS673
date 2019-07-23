@@ -29,8 +29,8 @@ module.exports = function (io) {
             client.emit('UPDATE_PROJECT_DUEDATE', result);
         })
 
-        client.on('USER_UPDATE_PROJECT_ISDELETED', async (pID) => {
-            const result = await projectController.updateProjectIsDeleted(pID,1);
+        client.on('USER_UPDATE_PROJECT_ISDELETED', async (pID, isDeleted) => {
+            const result = await projectController.updateProjectIsDeleted(pID,isDeleted);
             client.emit('UPDATE_PROJECT_ISDELETED', result);
         })
 

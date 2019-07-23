@@ -157,22 +157,22 @@ const user = (state = defaultState, action) => {
         //         registerDemand: false,
         //     }
 
-        case 'PROJECTFORM_DEMAND':
-            return {
-                ...state,
-                projectFormDemand: true,
-                taskDemand: false,
-                issueDemand: false,
-                projectDemand: false,
-                messageDemand: false,
-                connexionDemand: false,
-                registerDemand: false,
-                projectTaskDemand: false,
-                taskFormDemand: false,
-                projectUpdateDemand: false,
-                passwordDemand: false
+        // case 'PROJECTFORM_DEMAND':
+        //     return {
+        //         ...state,
+        //         projectFormDemand: true,
+        //         taskDemand: false,
+        //         issueDemand: false,
+        //         projectDemand: false,
+        //         messageDemand: false,
+        //         connexionDemand: false,
+        //         registerDemand: false,
+        //         projectTaskDemand: false,
+        //         taskFormDemand: false,
+        //         projectUpdateDemand: false,
+        //         passwordDemand: false
 
-            }
+        //     }
 
         case 'ADD_TASKFORM_DEMAND':
             return {

@@ -222,13 +222,13 @@ async function updateProjectDueDate(projectID, dueDate) {
  */
 async function updateProjectIsDeleted(projectID, isDeleted) {
     return new Promise(async resolve => {
-        console.log("ProjectID:", projectID);
-        console.log('IsDeleted:',isDeleted);
+        //console.log("ProjectID:", projectID);
+        //console.log('IsDeleted:',isDeleted);
         client.query('UPDATE Projects SET IsDeleted = ?  WHERE ProjectID = ?; ', [isDeleted, projectID], async function (error, results, fields) {
             if (error) throw error;
             //console.log("updateProjectIsDeleted function called");
             resolve(isDeleted);
-            console.log(results);
+            //console.log(results);
         });
         
     })

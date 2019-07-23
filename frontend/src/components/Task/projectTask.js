@@ -13,6 +13,7 @@ const mapStateToProps = state => ({
     projectCategoryList: state.project.projectCategoryList,
     projectName: state.project.projectName,
     iisProjectSelected: state.project.isProjectSelected,
+    isProjectTasksSelected: state.project.isProjectTasksSelected,
 
     addCategory: state.category.addCategory,
 
@@ -44,6 +45,10 @@ class ProjectTask extends React.Component {
     }
 
     componentDidMount() {
+
+        console.log('isProjectTasksSelected:',this.props.isProjectTasksSelected)
+
+
     }
 
     handleChange(event) {

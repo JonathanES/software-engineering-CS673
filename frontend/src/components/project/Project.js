@@ -2,8 +2,9 @@ import React from "react";
 import { connect } from 'react-redux';
 import { getListOfProjects, showCategories, showCategories_old } from '../../socket/projectSocket';
 import { getUserPrev } from '../../socket/taskSocket';
-import ProjectTask from '../Task/projectTask.js';
+import ProjectTask from '../task/projectTask.js';
 import ProjectUpdate from '../project/projectUpdate.js';
+import ProjectForm from './ProjectForm';
 //import {userId} from '../../socket/userSocket';
 import { socket } from '../../socket/config'
 import '../../css/project.css'
@@ -14,7 +15,10 @@ const mapStateToProps = state => ({
     userId: state.user.userId,
     isProjectSelected: state.project.isProjectSelected,
     isProjectUpdateSelected: state.project.isProjectUpdateSelected,
-    projectForm: state.project.projectForm,
+    isProjectTasksSelected: state.project.isProjectTasksSelected,
+    isProjectForm: state.project.isProjectForm,
+    //isProjectTaskDemand: state.project.isProjectTaskDemand,
+    //projectForm: state.project.projectForm,
     project: {}
     
 });
@@ -41,6 +45,10 @@ class Project extends React.Component {
     }
 
     componentDidMount() {
+
+        console.log('isProjectSelected:',this.props.isProjectSelected);
+        console.log('isProjectTasksSelected:',this.props.isProjectTasksSelected);
+
         getListOfProjects(this.props.userId, (err, data) => {
             this.setState({ listOfProjects: data });
 
@@ -101,7 +109,6 @@ class Project extends React.Component {
         return (
             <div>
                 {this.props.isProjectSelected && <div class="project">
-                    {/* <div class="title">You are working on Project : {this.state.projectName}</div> */}
                     <ul>
                         {this.state.listOfProjects.map(project =>
                             <li>
@@ -133,8 +140,10 @@ class Project extends React.Component {
                     }
                 </div>
                 }
-                {this.props.isProjectSelected && <ProjectTask dispatch={this.props.dispatch} />}
+                {/* {this.props.isProjectSelected && <ProjectTask dispatch={this.props.dispatch} />} */}
                 {this.props.isProjectUpdateSelected && <ProjectUpdate dispatch={this.props.dispatch} />}
+                {this.props.isProjectTasksSelected && <ProjectTask dispatch={this.props.dispatch} />}
+                {this.props.isProjectForm && <ProjectForm dispatch ={this.props.dispatch} />}
             </div>
         );
     }

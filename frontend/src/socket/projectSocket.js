@@ -54,10 +54,24 @@ function getAvailableUsers(projectID, userID, cb){
   }
 
 
-  function deleteproject(projectID){
+  function deleteproject(projectID, isDeleted){
       socket.on('UPDATE_PROJECT_ISDELETED');
-      socket.emit('USER_UPDATE_PROJECT_ISDELETED', projectID);
+      socket.emit('USER_UPDATE_PROJECT_ISDELETED', projectID, isDeleted);
   }
 
+  function updateProjectName(projectID, projectName,cb){
+      console.log('socket props projectID:', projectID, '  and new name:', projectName);
+      socket.on('UPDATE_PROJECT_NAME', data => cb(null,data));
+      socket.emit('USER_UPDATE_PROJECT_NAME', projectID, projectName);
+  }
 
-export {addProject, getListOfProjects, addCategory, getAddtoProject, getPriorities, getUserLevel, getprojectdetail,getAvailableUsers, showCategories_old, deleteproject};
+  function updateProjectDueDate(projectID, dueDate, cb){
+    socket.on('UPDATE_PROJECT_DUEDATE', data => cb(null,data));
+    socket.emit('USER_UPDATE_PROJECT_DUEDATE', projectID, dueDate);
+}
+
+
+export {addProject, getListOfProjects, addCategory, getAddtoProject, getPriorities, 
+    getUserLevel, getprojectdetail,getAvailableUsers, showCategories_old, deleteproject,
+    updateProjectName, updateProjectDueDate
+};

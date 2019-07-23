@@ -4,11 +4,13 @@ const defaultState = {
   projectCategoryList: [],
   projectName: '',
   categories: [],
+  listOfProjects: [],
   dueDate:'',
   isDeleted:'',
-  isProjectSelected: true,
+  isProjectSelected: false,
   isProjectUpdateSelected: false,
-  isProjectTasksSelected: false
+  isProjectTasksSelected: false,
+  isProjectForm: false,
   
 };
 
@@ -26,7 +28,8 @@ const project = (state = defaultState, action) => {
         isDelete:action.project.isDeleted,
         isProjectSelected: true,
         isProjectUpdateSelected: false,
-        isProjectTasksSelected: false
+        isProjectTasksSelected: false,
+        isProjectForm: false,
       }
 
       case 'PROJECTUPDATEFORM':
@@ -37,7 +40,7 @@ const project = (state = defaultState, action) => {
           isProjectUpdateSelected: true,
           isProjectSelected: false,
           isProjectTasksSelected: false,
-          
+          isProjectForm: false,
 
         }
 
@@ -46,7 +49,8 @@ const project = (state = defaultState, action) => {
           projectID: action.projectID,
           isProjectSelected: true,
           isProjectUpdateSelected: false,
-          isProjectTasksSelected: false
+          isProjectTasksSelected: false,
+          isProjectForm: false,
         }
 
         case 'IS_PROJECTTASK_DEMAND':
@@ -61,9 +65,20 @@ const project = (state = defaultState, action) => {
         isDelete:action.project.isDeleted,
         isProjectSelected: false,
         isProjectUpdateSelected: false,
-        isProjectTasksSelected: true
+        isProjectTasksSelected: true,
+        isProjectForm: false,
       }
 
+
+
+      case 'PROJECTFORM_DEMAND':
+      return {
+        ...state,
+        isProjectForm: true,
+        isProjectSelected: false,
+        isProjectUpdateSelected: false,
+        isProjectTasksSelected: false,
+      }
 
 
 
@@ -76,13 +91,7 @@ const project = (state = defaultState, action) => {
 
     
 
-    case 'PROJECTFORM_DEMAND':
-      return {
-        ...state,
-        projectID: action.projectID,
-        isProjectSelected: false,
-        projectForm: action.projectForm
-      }
+    
 
     case ' VIEW_PROJECTTASKS':
       return {
