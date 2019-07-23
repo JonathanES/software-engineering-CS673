@@ -9,10 +9,11 @@ const defaultState = {
     projectFormDemand: false,
     taskFormDemand: false,
     projectUpdateDemand: false,
-    projectID:'',
-    categoryID:'',
-    projectName:'',
-    passwordDemand: false
+    //projectID:'',
+    //categoryID:'',
+   // projectName:'',
+    passwordDemand: false,
+    project:{},
 };
 
 const user = (state = defaultState, action) => {
@@ -156,22 +157,22 @@ const user = (state = defaultState, action) => {
         //         registerDemand: false,
         //     }
 
-        case 'PROJECTFORM_DEMAND':
-            return {
-                ...state,
-                projectFormDemand: true,
-                taskDemand: false,
-                issueDemand: false,
-                projectDemand: false,
-                messageDemand: false,
-                connexionDemand: false,
-                registerDemand: false,
-                projectTaskDemand: false,
-                taskFormDemand: false,
-                projectUpdateDemand: false,
-                passwordDemand: false
+        // case 'PROJECTFORM_DEMAND':
+        //     return {
+        //         ...state,
+        //         projectFormDemand: true,
+        //         taskDemand: false,
+        //         issueDemand: false,
+        //         projectDemand: false,
+        //         messageDemand: false,
+        //         connexionDemand: false,
+        //         registerDemand: false,
+        //         projectTaskDemand: false,
+        //         taskFormDemand: false,
+        //         projectUpdateDemand: false,
+        //         passwordDemand: false
 
-            }
+        //     }
 
         case 'ADD_TASKFORM_DEMAND':
             return {
@@ -185,28 +186,27 @@ const user = (state = defaultState, action) => {
                 connexionDemand: false,
                 registerDemand: false,
                 projectTaskDemand: false,
-                categoryID: action.categoryID,
+                //categoryID: action.categoryID,
                 projectUpdateDemand: false,
             }
 
-    case 'PROJECTUPDATEFORM_DEMAND':
-            return {
-                ...state,
-                projectUpdateDemand: true,
-                projectID : action.projectID,
-                projectName: action.projectName,
-                projectFormDemand: false,
-                taskDemand: false,
-                issueDemand: false,
-                projectDemand: false,
-                messageDemand: false,
-                connexionDemand: false,
-                registerDemand: false,
-                projectTaskDemand: false,
-                taskFormDemand: false,
-                categoryID: action.categoryID,
-                passwordDemand: false
-            }
+    // case 'PROJECTUPDATEFORM_DEMAND':
+    //         return {
+    //             ...state,
+    //             projectUpdateDemand: true,
+    //             projectFormDemand: false,
+    //             taskDemand: false,
+    //             issueDemand: false,
+    //             projectDemand: false,
+    //             messageDemand: false,
+    //             connexionDemand: false,
+    //             registerDemand: false,
+    //             projectTaskDemand: false,
+    //             taskFormDemand: false,
+    //            // categoryID: action.categoryID,
+    //             passwordDemand: false,
+    //             project : action.project,
+    //         }
         default:
             return state;
     }

@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { instanceOf } from 'prop-types';
 import Cookies from 'universal-cookie';
 
 const mapStateToProps = state => ({
@@ -21,6 +20,7 @@ const Menu = ({ dispatch, connexionDemand, registerDemand, username }) => (
             <li><a href="#" onClick={(e) => {
                 dispatch({ type: 'USER_PROJECT_DEMAND' })
                 dispatch({ type: 'USER_VIEW_PROJECT' })
+                //dispatch({type:'USER_IS_PROJECT_DEMAND'})
             }
             }>Projects</a></li>
             {<li><a href="#" onClick={(e) => dispatch({ type: 'USER_TASK_DEMAND' })}>Tasks</a></li>}

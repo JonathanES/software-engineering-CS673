@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addTask } from '../../socket/taskSocket'
-import '../../css/task_add.css'
+import { showCategories_old } from '../../socket/projectSocket';
+import '../../css/task.css'
 
 const mapStateToProps = state => ({
   userId: state.user.userId,
   catID: state.task.categoryID,
-  pID: state.demand.projectID
+  projectID: state.project.projectID,
+  projectCategoryList: state.project.projectCategoryList,
+  projectName: state.project.projectName
   //addTask: state.message.addTask
 });
 
@@ -22,7 +25,7 @@ class TaskForm extends Component {
       priorityID: '',
       taskName: '',
       taskInfo: '',
-      expDuration: ''
+      expDuration: '',
 
     };
 
@@ -46,7 +49,7 @@ class TaskForm extends Component {
       case "taskInfo":
         this.setState({ taskInfo: event.target.value });
         break;
-      case "expDur":
+      case "expDuration":
         this.setState({ expDuration: event.target.value });
         break;
       case "dueDate":
@@ -79,14 +82,31 @@ class TaskForm extends Component {
       console.log('Please check your input');
     }
     else {
-      addTask(this.state.categoryID, this.state.categoryID, this.state.userId, 1, this.state.priorityID, this.state.taskName, this.state.taskInfo, this.dueDate, this.state.expDuration, 0, (err, data) => {
+      addTask(this.state.categoryID, this.state.categoryID, this.state.userId, 1, this.state.priorityID, this.state.taskName, this.state.taskInfo, this.state.dueDate, this.state.expDuration, 0, (err, data) => {
         // addProject(this.state.userId, this.state.projectName, this.state.dueDate, (err, data) => {
         console.log(data);
         //here we should call the mainpage, so they can see the project added to their screen, wonder how we will do it
         //this.props.dispatch({ type: 'USER_LOGIN', username: data.username});
-        console.log(this.state.pID);
-        this.props.dispatch({type:'USER_IS_PROJECT_DEMAND', projectID:this.props.pID});
+        console.log('Project ID:',this.props.projectCategoryList[0].ProjectID);
+        console.log('projectCategoryList:',this.props.projectCategoryList);
+        console.log('ProjectName:',this.props.projectName);
+
+        this.setState({ taskName: '' });
+        this.setState({ priorityID: '' });
+        this.setState({ taskInfo: '' });
+        this.setState({ expDuration: ' ' });
+        this.setState({ dueDate: '' });
       });
+      console.log('this.props.projectCategoryList[0].ProjectID:', this.props.projectCategoryList[0].ProjectID)
+
+      showCategories_old(this.props.projectID, (err, data) => {
+        //console.log(data);
+        this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: this.props.projectID, projectCategoryList: data, projectName: this.props.projectName });
+      });
+
+      this.props.dispatch({ type: 'USER_PROJECT_DEMAND' })
+      this.props.dispatch({ type: 'USER_VIEW_PROJECT' })
+      this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: this.props.projectCategoryList[0].ProjectID, projectCategoryList: this.props.projectCategoryList, projectName: this.props.projectName });
     }
     event.preventDefault();
   }
@@ -118,8 +138,8 @@ class TaskForm extends Component {
                   <input id="dueDate" type="text" value={this.state.dueDate} onChange={this.handleChange} />
                 </div>
                 <div className="taskform-field">
-                  <label htmlFor="expDur">Expected Time to Complete:</label>
-                  <input id="expDur" type="text" value={this.state.expDur} onChange={this.handleChange} />
+                  <label htmlFor="expDuration">Expected Time to Complete:</label>
+                  <input id="expDuration" type="text" value={this.state.expDuration} onChange={this.handleChange} />
                 </div>
 
                 <button type="submit" className="taskformbtn uppercase">Add Task</button>

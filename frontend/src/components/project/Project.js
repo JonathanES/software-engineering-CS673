@@ -1,20 +1,26 @@
 import React from "react";
 import { connect } from 'react-redux';
-import io from "socket.io-client";
-import { addProject, getListOfProjects, showCategories } from '../../socket/projectSocket';
-import { getuserprev } from '../../socket/taskSocket';
-import ProjectTask from '../Task/projectTask.js';
-import ProjectForm from '../project/ProjectForm';
+import { getListOfProjects, showCategories, showCategories_old } from '../../socket/projectSocket';
+import { getUserPrev } from '../../socket/taskSocket';
+import ProjectTask from '../task/projectTask.js';
+import ProjectUpdate from '../project/projectUpdate.js';
+import ProjectForm from './ProjectForm';
 //import {userId} from '../../socket/userSocket';
+import { socket } from '../../socket/config'
 import '../../css/project.css'
+
 
 const mapStateToProps = state => ({
     username: state.user.username,
     userId: state.user.userId,
-    //projectID: state.project.projectID,
     isProjectSelected: state.project.isProjectSelected,
-    projectForm: state.project.projectForm
-    //taskname: state.Task.newtask
+    isProjectUpdateSelected: state.project.isProjectUpdateSelected,
+    isProjectTasksSelected: state.project.isProjectTasksSelected,
+    isProjectForm: state.project.isProjectForm,
+    //isProjectTaskDemand: state.project.isProjectTaskDemand,
+    //projectForm: state.project.projectForm,
+    project: {}
+    
 });
 
 class Project extends React.Component {
@@ -22,10 +28,9 @@ class Project extends React.Component {
         super(props);
 
         this.state = {
-            userId: props.userId,
+            userID: props.userId,
             username: props.username,
-            pID: 0,
-            //getListofProjects : [],
+            projectID: '',
             listOfProjects: [],
             projectcategories: [],
             projectName: "User Projects"
@@ -41,50 +46,50 @@ class Project extends React.Component {
 
     componentDidMount() {
 
+        console.log('isProjectSelected:',this.props.isProjectSelected);
+        console.log('isProjectTasksSelected:',this.props.isProjectTasksSelected);
 
         getListOfProjects(this.props.userId, (err, data) => {
             this.setState({ listOfProjects: data });
-            //console.log('getlistofProjects for user:', this.state.userId);
-            //console.log('getlistofProjects for projectID:', this.state.pID);
 
         });
 
+        // socket.on('GET_PROJECTCATEGORIES', data => {
+        //     this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.state.project, 
+        //             projectCategoryList: data.length > 0 ? data : [] });
+        // });
     }
 
     handleChange(event) {
-        // this.setState({ newproject: event.target.value });
-        //console.log("inside handleChange:" + event.target.value);
+    
     }
-    handlePictureClick(e) {
-        let pID = e.target.id;
-        // this.setState({ pID: e.target.id });
-        //console.log('getlistofProjects for projectID:', this.props.pID);
-        console.log(pID);
-        showCategories(pID, (err, data) => {
+
+    handlePictureClick(project) {
+        console.log(project.projectID);
+        this.setState({project: project})
+        //showCategories(project.projectID)
+        /*, (err, data) => {
             console.log(data);
-            if(data.length >0){
-                this.setState({ projectName: data.length == 0 ? this.state.projectName : data[0].ProjectName })
-                this.props.dispatch({ type: 'USER_PROJECT_TASK_DEMAND', projectID: this.state.pID, projectTaskList: data, projectName: data[0].ProjectName });
-            }
-            this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: this.state.pID });
-        });
+            this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: project.projectID, projectCategoryList: data.length > 0 ? data : [], projectName: project.projectName });
+        });*/
 
-
-        e.preventDefault();
+        showCategories_old(project.projectID, (err,data) =>{
+            //this.props.dispatch({type: 'USER_IS_PROJECT_DEMAND',projectID: project.projectID, projectCategoryList: data.length > 0 ? data : [], projectName: project.projectName });
+            this.props.dispatch({type: 'USER_IS_PROJECTTASK_DEMAND',project: project, projectCategoryList: data.length > 0 ? data : []});
+            //this.props.dispatch({type: 'USER_IS_PROJECT_DEMAND',projectID: project.projectID, projectCategoryList: data.length > 0 ? data : [], projectName: project.projectName });
+        })
     }
 
-    handleUpdateClick(event) {
-
-        // console.log("update button for project id:",event.currentTarget.id, " is pressed for user:", this.state.userId );
-        let pID = parseInt(this.newMethod(event));
-        // getuserprev(this.newMethod(event), this.state.userId, (err,data) => {
-        getuserprev(pID, this.state.userId, (err,data) => {
-            //console.log(data[0].AccountTypeID);
-
-            if(data[0].AccountTypeID == 1){
-                //console.log('Call the update page with id: ', pID);
-
-                this.props.dispatch({ type: 'USER_PROJECTUPDATE_DEMAND', projectID: pID });
+    handleUpdateClick(project) {
+        console.log(project);
+        let projectID = parseInt(project.projectID);
+        console.log(projectID);
+        this.props.dispatch({ type: 'USER_PROJECTUPDATEFORM', project: project });
+        getUserPrev(projectID, this.state.userID, (err, data) => {
+            console.log(data);
+            if (data[0].AccountTypeID == 1) {
+                
+                this.props.dispatch({ type: 'USER_PROJECTUPDATEFORM', project: project });
             }
             else {
                 console.log('Sorry you don\'t have the admin privilidges');
@@ -93,14 +98,9 @@ class Project extends React.Component {
 
     }
 
-    newMethod(event) {
-        return event.currentTarget.id;
-    }
 
-    handleClick(e){
-    
+    handleClick(e) {
         this.props.dispatch({ type: 'USER_PROJECTFORM_DEMAND' });
-        
         e.preventDefault();
     }
 
@@ -108,33 +108,45 @@ class Project extends React.Component {
     render() {
         return (
             <div>
-                <div class="project">
-                    {/* <div class="title">You are working on Project : {this.state.projectName}</div> */}
-                    <ul >
-                        {console.log("test ",this.props.isProjectSelected) || !this.props.isProjectSelected && this.state.listOfProjects.map(project =>
+                {this.props.isProjectSelected && <div class="project">
+                    <ul>
+                        {this.state.listOfProjects.map(project =>
                             <li>
-                                <a id={project.projectID} onClick={(e) => this.handlePictureClick(e)}></a>
+                                <a id={project.projectID} onClick={(e) => {
+                                    this.handlePictureClick(project
+                                        // {
+                                        //     projectID: project.projectID, projectName: project.projectName
+                                        // }
+                                    ); e.preventDefault()
+                                }}></a>
                                 <div>
-                                    <span id={project.projectID}  onClick={(e) => this.handlePictureClick(e)} class="project-content">{project.projectName}</span>
+                                    <span id={project.projectID} onClick={(e) => {
+                                        this.handlePictureClick( project
+                                            // {
+                                            //     projectID: project.projectID, projectName: project.projectName
+                                            // }
+                                        ); e.preventDefault()
+                                    }} class="project-content">{project.projectName}</span>
                                 </div>
-                                {<a class="updatebtn" id={project.projectID} onClick={this.handleUpdateClick}> </a>}
+                                {<a class="updatebtn" id={project.projectID} onClick={(e) => this.handleUpdateClick(project)}> </a>}
                             </li>
                         )}
-                        {this.props.isProjectSelected && <ProjectTask dispatch={this.props.dispatch} />}
+                        
                     </ul>
-                    {!this.props.isProjectSelected &&
+                    {this.props.isProjectSelected &&
                         <form onClick={this.handleClick}>
                             <button id="add-project-button" class="addprojectbtn" onClick={(e) => this.handleClick(e)}>Add Project</button>
                         </form>
                     }
-
-
                 </div>
-
+                }
+                {/* {this.props.isProjectSelected && <ProjectTask dispatch={this.props.dispatch} />} */}
+                {this.props.isProjectUpdateSelected && <ProjectUpdate dispatch={this.props.dispatch} />}
+                {this.props.isProjectTasksSelected && <ProjectTask dispatch={this.props.dispatch} />}
+                {this.props.isProjectForm && <ProjectForm dispatch ={this.props.dispatch} />}
             </div>
         );
     }
 }
 
-//export default Project;
 export default connect(mapStateToProps)(Project);

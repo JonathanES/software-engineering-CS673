@@ -84,11 +84,11 @@ async function findProjectID(projectName) {
  */
 function getListOfProjects(userID) {
     return new Promise((resolve, reject) => {
-        console.log('Project for user:', userID)
-        client.query('SELECT * FROM Projects P Join ProjectUsers PU on P.ProjectID = PU.ProjectID WHERE PU.UserID = ?', [userID], function (error, results, fields) {
+        //console.log('Project for user:', userID)
+        client.query('SELECT * FROM Projects P Join ProjectUsers PU on P.ProjectID = PU.ProjectID WHERE PU.UserID = ? and IsDeleted=0', [userID], function (error, results, fields) {
             results.forEach(result => {
                 if (!listOfProjects.some(project => project.getUserID == userID && project.getProjectID == result.ProjectID)) {
-                    const project = new ProjectModel(result.ProjectID, result.ProjectName, result.UserID, result.DateCreated, result.DueDate);
+                    const project = new ProjectModel(result.ProjectID, result.ProjectName, result.UserID, result.DateCreated, result.DueDate, result.IsDeleted);
                     listOfProjects.push(project);
                 }
             })
@@ -96,6 +96,7 @@ function getListOfProjects(userID) {
                 if (project.getUserID == userID) return project
             });
             if (error) throw error;
+            //console.log(listOfProjects);
             resolve(userProjects);
 
         });
@@ -144,7 +145,8 @@ function addCategory(pID,categoryName) {
         if (error) throw error;
             //console.log(results);
             if (error) throw error;
-            resolve(results);
+            const res = await getCategories(pID);
+            resolve(res);
 
         });
     })
@@ -193,7 +195,7 @@ async function updateProjectName(projectID, projectName) {
  */
 async function updateProjectDueDate(projectID, dueDate) {
     return new Promise(async resolve => {
-
+        //console.log('Backend PID:', projectID, ' duedate:',dueDate);
         client.query('UPDATE Projects SET DueDate = ?  WHERE ProjectID = ?; ', [dueDate, projectID], async function (error, results, fields) {
             if (error) throw error;
             //console.log("updateProjectDueDate function called");
@@ -220,12 +222,15 @@ async function updateProjectDueDate(projectID, dueDate) {
  */
 async function updateProjectIsDeleted(projectID, isDeleted) {
     return new Promise(async resolve => {
-
+        //console.log("ProjectID:", projectID);
+        //console.log('IsDeleted:',isDeleted);
         client.query('UPDATE Projects SET IsDeleted = ?  WHERE ProjectID = ?; ', [isDeleted, projectID], async function (error, results, fields) {
             if (error) throw error;
             //console.log("updateProjectIsDeleted function called");
             resolve(isDeleted);
+            //console.log(results);
         });
+        
     })
 }
 
