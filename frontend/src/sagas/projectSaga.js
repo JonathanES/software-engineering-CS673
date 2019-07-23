@@ -43,6 +43,10 @@ function* handleDeleteProjectDemand(action){
     yield put({type: "UPDATE_PROJECT_ISDELETED",  projectID: action.projectID, isDeleted: action.isDeleted});
 }
 
+function *handleAddTaskDemand(action){
+    yield put({type: 'ADD_TASKFORM_DEMAND', category: action.category});
+}
+
 
  function *projectSaga(){
     yield takeEvery('USER_IS_PROJECT_DEMAND', handleProjectDemand);
@@ -53,6 +57,7 @@ function* handleDeleteProjectDemand(action){
     yield takeEvery('USER_PROJECTUPDATEFORM', handleProjectUpdate);
     yield takeEvery('USER_UPDATE_CATEGORY_LIST', handleCategoryListDemand);
     yield takeEvery('USER_UPDATE_PROJECT_ISDELETED', handleDeleteProjectDemand);
+    yield takeEvery('USER_ADD_TASKFORM_DEMAND', handleAddTaskDemand);
 }
 
 export default projectSaga;

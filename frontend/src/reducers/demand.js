@@ -174,21 +174,21 @@ const user = (state = defaultState, action) => {
 
         //     }
 
-        case 'ADD_TASKFORM_DEMAND':
-            return {
-                ...state,
-                taskFormDemand: true,
-                projectFormDemand: false,
-                taskDemand: false,
-                issueDemand: false,
-                projectDemand: false,
-                messageDemand: false,
-                connexionDemand: false,
-                registerDemand: false,
-                projectTaskDemand: false,
-                //categoryID: action.categoryID,
-                projectUpdateDemand: false,
-            }
+        // case 'ADD_TASKFORM_DEMAND':
+        //     return {
+        //         ...state,
+        //         taskFormDemand: true,
+        //         projectFormDemand: false,
+        //         taskDemand: false,
+        //         issueDemand: false,
+        //         projectDemand: false,
+        //         messageDemand: false,
+        //         connexionDemand: false,
+        //         registerDemand: false,
+        //         projectTaskDemand: false,
+        //         //categoryID: action.categoryID,
+        //         projectUpdateDemand: false,
+        //     }
 
     // case 'PROJECTUPDATEFORM_DEMAND':
     //         return {

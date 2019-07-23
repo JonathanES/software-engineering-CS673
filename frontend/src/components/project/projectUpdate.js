@@ -139,8 +139,14 @@ class ProjectUpdate extends React.Component {
   }
 
   handleDeleteProject(e){
-    console.log('ProjectID:', this.props.projectID)
-    deleteproject(this.props.projectID,1);
+    console.log('ProjectID:', this.props.project.projectID)
+    deleteproject(this.props.project.projectID,1, (err,data)=>{
+      console.log('Deleted:',data);
+    });
+
+    this.props.dispatch({ type: 'USER_PROJECT_DEMAND' })
+    this.props.dispatch({ type: 'USER_VIEW_PROJECT' })
+
   }
 
   handleUpdateProject(event) {
@@ -160,6 +166,10 @@ class ProjectUpdate extends React.Component {
         console.log('New Due Date:', data);
       });
     }
+
+    this.props.dispatch({ type: 'USER_PROJECT_DEMAND' })
+    this.props.dispatch({ type: 'USER_VIEW_PROJECT' })
+
   }
 
   render() {
