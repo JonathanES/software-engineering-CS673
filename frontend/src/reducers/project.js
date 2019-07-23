@@ -1,6 +1,7 @@
 const defaultState = {
   project:{},
   projectID: '',
+  category:{},
   projectCategoryList: [],
   projectName: '',
   categories: [],
@@ -11,6 +12,7 @@ const defaultState = {
   isProjectUpdateSelected: false,
   isProjectTasksSelected: false,
   isProjectForm: false,
+  isAddTaskForm:false,
   
 };
 
@@ -30,6 +32,7 @@ const project = (state = defaultState, action) => {
         isProjectUpdateSelected: false,
         isProjectTasksSelected: false,
         isProjectForm: false,
+        isAddTaskForm:false,
       }
 
       case 'PROJECTUPDATEFORM':
@@ -41,6 +44,7 @@ const project = (state = defaultState, action) => {
           isProjectSelected: false,
           isProjectTasksSelected: false,
           isProjectForm: false,
+          isAddTaskForm:false,
 
         }
 
@@ -51,6 +55,7 @@ const project = (state = defaultState, action) => {
           isProjectUpdateSelected: false,
           isProjectTasksSelected: false,
           isProjectForm: false,
+          isAddTaskForm:false,
         }
 
         case 'IS_PROJECTTASK_DEMAND':
@@ -67,6 +72,7 @@ const project = (state = defaultState, action) => {
         isProjectUpdateSelected: false,
         isProjectTasksSelected: true,
         isProjectForm: false,
+        isAddTaskForm:false,
       }
 
 
@@ -78,17 +84,21 @@ const project = (state = defaultState, action) => {
         isProjectSelected: false,
         isProjectUpdateSelected: false,
         isProjectTasksSelected: false,
+        isAddTaskForm:false,
       }
 
 
-
-
-    case 'PROJECTUPDATE_DEMAND':
+      case 'ADD_TASKFORM_DEMAND':
+        console.log(action.category);
       return {
         ...state,
-        projectID: action.projectID
+        category: action.category,
+        isProjectForm: false,
+        isProjectSelected: false,
+        isProjectUpdateSelected: false,
+        isProjectTasksSelected: false,
+        isAddTaskForm:true,
       }
-
     
 
     

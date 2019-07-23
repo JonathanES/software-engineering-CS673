@@ -30,7 +30,7 @@ class ProjectTask extends React.Component {
             userId: props.userId,
             username: props.username,
             listOfTasks: [],
-            categoryID: '',
+            category: {},
             getListofTasksForUser: [],
             newtask: '',
             catName: '',
@@ -74,7 +74,7 @@ class ProjectTask extends React.Component {
             }
         }
     }
-    handleClick(event) {
+    handleClick(event,catinfo) {
         event.preventDefault();
 
         //console.log(event);
@@ -98,12 +98,13 @@ class ProjectTask extends React.Component {
 
             case "add_task_button":
 
-                console.log('ProjectID:', this.props.projectID);
-                console.log(this.props.projectCategoryList[0].CategoryID);
-                console.log('catID:', event.target.id);
-                this.setState({ categoryID: event.target.id })
-                console.log('categoryID', this.state.categoryID);
-                this.props.dispatch({ type: 'USER_ADD_TASKFORM_DEMAND', categoryID: event.target.id });
+                //console.log('ProjectID:', this.props.projectID);
+                //console.log(this.props.projectCategoryList[0].CategoryID);
+                //console.log(catinfo)
+                //console.log('catID:', event.target.id);
+                this.setState({ category: catinfo })
+                //console.log('categoryID', this.state.categoryID);
+                this.props.dispatch({ type: 'USER_ADD_TASKFORM_DEMAND', category: catinfo });
                 break;
 
             default:
@@ -121,22 +122,38 @@ class ProjectTask extends React.Component {
 
         return (
             <div style={{ overflowX: 'auto' }}>
-                {this.props.isProjectTasksSelected && <div class="title" style={{padding:"10%"}}> You are viewing Project : {this.props.projectName}
-                    <input id="add-button" type="image" style={{height:"50px"}} src={require("../../images/plus.svg")} onClick={(e) => { this.props.dispatch({ type: 'USER_ADD_CATEGORY_DEMAND' }); e.preventDefault() }} />
+                {this.props.isProjectTasksSelected && <div class="title" 
+                    style={{padding:"10%"}}> You are viewing Project : {this.props.projectName}
+                    <input id="add-button" type="image" style={{height:"50px"}} 
+                        src={require("../../images/plus.svg")} onClick={(e) => { this.props.dispatch({ type: 'USER_ADD_CATEGORY_DEMAND' }); 
+                            e.preventDefault() }} />
                 </div>}
                 <div>
                     {this.props.addCategory && <CategoryForm dispatch={this.props.dispatch} />}
                     <ul style={{verticalAlign:'top', padding:'10px'}}>
                     {this.props.projectCategoryList.map(category =>
-                        <li class="cat-task_li" style={{ width: '300px', height: "auto", paddingBlock:'10px', verticalAlign:'top', marginTop: '8px', borderRadius: '5px', backgroundColor: "#e6e6e6", position: "relative" , display: 'inline-block'}} id={category.projectID} onClick={this.handleClickProject}>
+                        <li class="cat-task_li" onClick={this.handleUpdate} 
+                            style={{ width: '300px', height: "auto", 
+                                     paddingBlock:'10px', verticalAlign:'top', 
+                                     marginTop: '8px', borderRadius: '5px', 
+                                     backgroundColor: "#e6e6e6", position: "relative" , 
+                                     display: 'inline-block'}} 
+                                     id={category.projectID} onClick={this.handleClickProject}>
+                            
                             <span class="categorytitle">{category.CategoryName}</span>
                             {category.listOfTasks.map(task =>
-                                <li class="cat-task_li_li" onMouseOver={(e) => this.handleMouseOver(e)} onMouseLeave={(e) => this.handleMouseOut(e)} style={{ width: '94%', height: '200px', borderRadius: '5px', marginLeft: '3%', marginTop: '8px', marginBottom: '0', height: "auto", padding: "5px" }}>
+                                <li class="cat-task_li_li" onClick={this.handleUpdate} onMouseOver={(e) => this.handleMouseOver(e)} 
+                                    onMouseLeave={(e) => this.handleMouseOut(e)} 
+                                    style={{ width: '94%', height: '200px', 
+                                    borderRadius: '5px', marginLeft: '3%', 
+                                    marginTop: '8px', marginBottom: '0', height: "auto", padding: "5px" }}>
+                                    
                                     <div class="cat_tast_head">
                                         <span class="state">{task.StatusName} </span>
-
-                                        <img src={require("./../../images/edit.png")} style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} />
+                                        <img src={require("./../../images/edit.png")} 
+                                            style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} />
                                     </div>
+
                                     {/* done|||bstart not start*/}
                                     <span class="cat_task_span">{task.TaskName}</span>
                                     <div class="cat_tast_footer">
@@ -147,7 +164,7 @@ class ProjectTask extends React.Component {
                                 </li>
                             )}
                             <span class="footer">
-                                <form onClick={this.handleClick} class="footerform">
+                                <form onClick={(e)=>this.handleClick(e,category)} class="footerform">
                                     {/* <input id="add-task-input" type="text" value={this.state.newtask} onChange={this.handleChange} /> */}
                                     {/* <button id="add-task-button" type="submit">Add Task</button> */}
                                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAIAAAC0D9CtAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAc5JREFUeNqEU72uAVEQvnus/4uIv0QoNIotvYRKrZAIwjt4AA2JKFUSGvEGvIFQC4lCoZBQIPG3Wdy93z2zOZvY4k6xmTkz3zcz39kj6br+ZbHH4/F6vWRZdrvd1qxkxbzf70ajARhjrF6v+/3+jwImvM1mMxgMQH8+nzVN++G23+9BOplM5vP5Z5/1et3v99EBrACoqopzSZIwns/nAwvCfD6fyWTMPqvVCgAkLpcLAHSIEG2PxyP50+kUNSYml8vF43EQU1v6IqQvQo/HUygUbDYbTmTCqNzId7lctVotkUhcr9der7fb7YDRuBn7nE6ndrtNMRFXKpV0Ok1pwFqtFrJC3mq1ymgNU0fGksmkCL1ebyQSMeg5IxY2tQaS9MWpOHw+n9CANNS52e12icS53+/dbhdzog7EGC8YDAIwGo0WiwVqsH2pVMIIEONPA1zCNzdQgu9wODSbTeRAJAQMBAKpVMrhcJhaz2az7XYrBoDdbjdyaA1cK3oShYEJh8OUwwyQgdYjgAhjsZhxY0K05XI5Ho/L5TJk6HQ6WAYVuEdFUYbDYTQazWazhJGFRAo3OMA4nU4Ig4pQKIRti8XiP29BvB84+EGt2V8BBgD1nkAsc+cNegAAAABJRU5ErkJggg==" class="photos" />
