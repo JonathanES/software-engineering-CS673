@@ -44,8 +44,8 @@ class TaskForm extends Component {
     getPriorities((err, data) => {
       this.setState({ taskPriorities: data })
       console.log(data)
-      //this.state.taskPriorities.push({PriorityID:0,Priority:'Please Select One'});
-
+      this.state.taskPriorities.push({PriorityID:4,Priority:'Please Select One'});
+      console.log(this.state.taskPriorities)
       //console.log('User levels:',this.state.userlevels);
     })
 
@@ -164,14 +164,14 @@ class TaskForm extends Component {
             <div className="taskform-group">
               <form onSubmit={this.handleSubmit}>
                 <div className="taskform-field">
-                  <label htmlFor="taskName">Task Name :</label>
+                  <label htmlFor="taskName"style={{borderBottom:'solid'}}>Task Name :</label>
                   <input id="taskName" type="text" value={this.state.taskName} onChange={this.handleChange} />
                 </div>
                 <div className="taskform-field">
                   <label htmlFor="prioritylevelSelection">Priority of the Task:</label>
                   <select onChange={(e) => this.handlePriorityChange(e)}>
                     {this.state.taskPriorities.map(tp =>
-                      <option selected={tp.Priority} value={tp.PriorityID}> {tp.Priority} </option>
+                      <option selected={tp.PriorityID} value={tp.PriorityID}> {tp.Priority} </option>
                     )}
                   </select>
                 </div>

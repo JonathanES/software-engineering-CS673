@@ -293,12 +293,20 @@ async function getlevel(){
 
 async function getListOfAvailableUser(projectID, userID){
     return new Promise(async (resolve, reject) => {
-        // client.query('SELECT U.userId, U.username FROM Users U LEFT JOIN ProjectUsers PU on PU.UserID = U.UserID where PU.userID != ? and PU.ProjectID = ?', [userID, projectID], function(error, result, fields){
         client.query('SELECT U.UserID, U.username FROM Users U WHERE U.UserID NOT IN (SELECT PU.UserID FROM ProjectUsers PU WHERE PU.ProjectID = ?)', [projectID], function(error, result, fields){    
         if(error) throw error;
             //console.log('Project ID:', projectID);
             //console.log('UserID:', userID);
             //console.log('result:', result);
+            resolve(result);
+        })
+    })
+};
+
+async function gettaskstatus(){
+    return new Promise(async (resolve, reject) => {
+        client.query('SELECT * FROM TaskStatus', function(error, result, fields){    
+        if(error) throw error;
             resolve(result);
         })
     })
@@ -319,5 +327,6 @@ module.exports = {
     getpriority:getpriority,
     getlevel:getlevel,
     getprojectdetail:getprojectdetail,
-    getListOfAvailableUser:getListOfAvailableUser
+    getListOfAvailableUser:getListOfAvailableUser,
+    gettaskstatus:gettaskstatus
 }
