@@ -19,7 +19,7 @@ class Register extends Component {
   }
 
   handleClick(event) {
-    this.props.dispatch({ type: 'USER_CONNEXION_DEMAND'})
+    this.props.dispatch({ type: 'USER_CONNEXION_DEMAND' })
   }
   handleChange(event) {
     switch (event.target.id) {
@@ -44,7 +44,7 @@ class Register extends Component {
   handleSubmit(event) {
     register(this.state.username, this.state.email, this.state.password, (err, data) => {
       console.log(data);
-      this.props.dispatch({ type: 'USER_LOGIN', username: data.username});
+      this.props.dispatch({ type: 'USER_LOGIN', username: data.username });
     });
     event.preventDefault();
   }
@@ -52,69 +52,68 @@ class Register extends Component {
   render() {
     return (
       <div>
-      <div>
-        <div class="row">
-          <div class="col" id="leftLog">
+        <div>
+          <div class="row">
+            <div class="col" id="leftLog">
 
-            <div id="birdPic">
-              <img src={require("../../images/swellodesk_image.png")} class="rounded mx-auto d-block" alt="swello" id="axBP"></img></div>
+              <div id="birdPic">
+                <img src={require("../../images/swellodesk_image.png")} class="rounded mx-auto d-block" alt="swello" id="axBP"></img></div>
 
-          </div>
-          <div class="col" id="rightLog">
-            <form role="form" method="POST" action="#">
+            </div>
+            <div class="col" id="rightLog">
+              <form onSubmit={this.handleSubmit}>
+                <legend class="text-center">SwelloDesk</legend>
 
-              <legend class="text-center">SwelloDesk</legend>
+                <fieldset>
+                  <legend class="text-center">Please complete to create your account</legend>
 
-              <fieldset>
-                <legend class="text-center">Please complete to create your account</legend>
+                  <div class="form-group col-md-12">
+                    <label htmlFor="email">Email :</label>
+                    <input type="email" class="form-control" id="email" type="text" value={this.state.email} onChange={this.handleChange} />
+                  </div>
 
-                <div class="form-group col-md-12">
-                  <label for="email">Email</label>
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Email"/>
-                </div>
-
-                <div class="form-group col-md-12">
-                  <label for="Username">First name</label>
-                  <input type="text" class="form-control" name="usernameRegister" id="usernameReg" placeholder="Username"/>
-                </div>
+                  <div class="form-group col-md-12">
+                    <label htmlFor="username">Username :</label>
+                    <input type="text" class="form-control" id="username" type="text" value={this.state.username} onChange={this.handleChange} />
+                  </div>
 
 
-                <div class="form-group col-md-12">
-                  <label for="password">Password</label>
-                  <input type="password" class="form-control" name="pw" id="password" placeholder="Password"/>
-                </div>
+                  <div class="form-group col-md-12">
+                    <label htmlFor="password">Password :</label>
+                    <input id="password" type="password" class="form-control" value={this.state.password} onChange={this.handleChange} />
+                  </div>
 
-                <div class="form-group col-md-12">
-                  <label for="confirm_password">Confirm Password</label>
-                  <input type="password" class="form-control" name="cpw" id="confirm_password" placeholder="Confirm Password"/>
-                </div>
+                  <div class="form-group col-md-12">
+                    <label for="confirm_password">Confirm Password</label>
+                    <input id="password-confirmation" type="password" class="form-control" value={this.state.passwordConfirmation} onChange={this.handleChange} />
+                  </div>
 
-              </fieldset>
+                </fieldset>
 
-              <div class="form-group">
-                <div class="col-md-12">
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value="" id="cbox"/>
-                      I accept the <a href="#">terms and conditions</a>.
+                <div class="form-group">
+                  <div class="col-md-12">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" value="" id="cbox" />
+                        I accept the <a href="#">terms and conditions</a>.
                     </label>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="form-group">
-                <div class="col-md-12">
-                  <button type="submit" class="btn btn-primary">
-                    Sign Up
+                <div class="form-group">
+                  <div class="col-md-12">
+                    <button type="submit" class="btn btn-primary">
+                      Sign Up
                   </button>
-                  <a href="#">Already have an account? Sign In</a>
+                    <a href="#">Already have an account? Sign In</a>
+                  </div>
                 </div>
-              </div>
 
-            </form>
+              </form>
             </div>
-        </div>
-      </div>,
+          </div>
+        </div>,
       {/*  <div className="window login">
           <div className="window-header">
             <h1 className="uppercase"> Register </h1>
