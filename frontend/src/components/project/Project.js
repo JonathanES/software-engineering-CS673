@@ -46,6 +46,17 @@ class Project extends React.Component {
 
     }
 
+    componentDidUpdate(prevProps){
+        // if (prevProps.task.taskName != this.props.task.taskName){
+        //     const getListofTasksForUser = this.state.getListofTasksForUser;
+        //     getListofTasksForUser.forEach(task => {
+        //         if (task.taskID == this.props.task.taskID)
+        //             task = this.props.task;
+        //     })
+        //     this.setState({getListofTasksForUser: getListofTasksForUser});
+        // }
+    }
+
     componentDidMount() {
 
         console.log('isProjectSelected:',this.props.isProjectSelected);

@@ -4,8 +4,9 @@ import Chat from '../components/chat/Chat';
 import Project from '../components/project/Project';
 import Task from '../components/Task/Task';
 import TaskForm from '../components/task-design/TaskForm';
-import Issues from '../components/issue-design/issue';
 import Calendar from '../components/calendar/Calendar';
+import Issues from '../components/issue-design/issues';
+
 
 const mapStateToProps = state => ({
     username: state.user.username,
@@ -26,6 +27,7 @@ const mapStateToProps = state => ({
 });
 
 const MainPage = ({ dispatch, messageDemand, projectDemand, issueDemand, taskDemand, calendarDemand, projectFormDemand, projectTaskDemand, taskFormDemand}) => ( //, projectUpdateDemand }) => (
+
     <div className="main-page">
         {messageDemand && <Chat dispatch={dispatch} />}
         {projectDemand && <Project dispatch={dispatch} />}

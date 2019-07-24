@@ -144,7 +144,7 @@ class ProjectTask extends React.Component {
                                      display: 'inline-block'}} 
                                      id={category.projectID} onClick={this.handleClickProject}>
                             
-                            <span class="categorytitle" style={{borderBottom:'solid', borderColor:'red', width:'90%'}}>{category.CategoryName}</span>
+                            <span class="categorytitle">{category.CategoryName}</span>
                             {category.listOfTasks.map(task =>
                                 <li class="cat-task_li_li" onClick={this.handleUpdate} onMouseOver={(e) => this.handleMouseOver(e)} 
                                     onMouseLeave={(e) => this.handleMouseOut(e)} 
@@ -160,7 +160,7 @@ class ProjectTask extends React.Component {
 
                                     {/* done|||bstart not start*/}
                                     <span class="cat_task_span">{task.TaskName}</span>
-                                    <div class="cat_tast_footer" style={{borderBottom:'dashed'}}>
+                                    <div class="cat_tast_footer">
                                         <span class="time">{moment(task.DueDate).format('D MMM')}</span>
                                         {/* {<Moment format = "D MMM" >{task.DueDate}</Moment>} */}
                                         <img src={require("./../../images/admin-tool.png")} class="photo" />

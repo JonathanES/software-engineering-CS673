@@ -1,14 +1,15 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { getTasksUsers } from '../../socket/taskSocket';
-//mport {userId} from '../../socket/userSocket';
+//import {userId} from '../../socket/userSocket';
 import TaskUpdate from './taskUpdate';
 import '../../css/projectTask.css'
 
 const mapStateToProps = state => ({
     username: state.user.username,
     userId: state.user.userId,
-    updateTask: state.task.updateTask
+    updateTask: state.task.updateTask,
+    task: state.task.task
     //taskname: state.Task.newtask
 });
 
@@ -27,6 +28,53 @@ class Task extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
 
+    }
+
+    componentDidUpdate(prevProps){
+        if (prevProps.task.taskName != this.props.task.taskName){
+            const getListofTasksForUser = this.state.getListofTasksForUser;
+            getListofTasksForUser.forEach(task => {
+                if (task.taskID == this.props.task.taskID)
+                    task = this.props.task;
+            })
+            this.setState({getListofTasksForUser: getListofTasksForUser});
+        }
+
+        if (prevProps.task.dueDate != this.props.task.dueDate){
+            const getListofTasksForUser = this.state.getListofTasksForUser;
+            getListofTasksForUser.forEach(task => {
+                if (task.taskID == this.props.task.taskID)
+                    task = this.props.task;
+            })
+            this.setState({getListofTasksForUser: getListofTasksForUser});
+        }
+
+        if (prevProps.task.taskInfo != this.props.task.taskInfo){
+            const getListofTasksForUser = this.state.getListofTasksForUser;
+            getListofTasksForUser.forEach(task => {
+                if (task.taskID == this.props.task.taskID)
+                    task = this.props.task;
+            })
+            this.setState({getListofTasksForUser: getListofTasksForUser});
+        }
+
+        if (prevProps.task.statusID != this.props.task.statusID){
+            const getListofTasksForUser = this.state.getListofTasksForUser;
+            getListofTasksForUser.forEach(task => {
+                if (task.taskID == this.props.task.taskID)
+                    task = this.props.task;
+            })
+            this.setState({getListofTasksForUser: getListofTasksForUser});
+        }
+
+        if (prevProps.task.actualTimeSpent != this.props.task.actualTimeSpent){
+            const getListofTasksForUser = this.state.getListofTasksForUser;
+            getListofTasksForUser.forEach(task => {
+                if (task.taskID == this.props.task.taskID)
+                    task = this.props.task;
+            })
+            this.setState({getListofTasksForUser: getListofTasksForUser});
+        }
     }
 
     componentDidMount() {
@@ -92,10 +140,10 @@ class Task extends React.Component {
                                     <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> {task.taskName}</span>
                                     <ul style={{verticalAlign:'top', padding:'10px'}}>
                                         <li class="cat-task_li_li">
-                                            <span class="span-user-left" style={{backgroundColor: 'orange'}}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priorityID}</span>
+                                            <span class="span-user-left" style={{backgroundColor: 'orange'}}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priority}</span>
                                         </li>
                                         <li class="cat-task_li_li">
-                                            <span class="span-user-left"  style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} onClick={(e) =>this.handleClick(e,task)}> Status: {task.statusID}</span>
+                                            <span class="span-user-left"  style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} onClick={(e) =>this.handleClick(e,task)}> Status: {task.status}</span>
                                         </li>
                                         <li>
                                             <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> Assigned To: {this.state.username}</span>
