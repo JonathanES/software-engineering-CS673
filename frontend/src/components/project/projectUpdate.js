@@ -176,7 +176,7 @@ class ProjectUpdate extends React.Component {
     //       project.projectName = data;
     //       this.props.dispatch({type:'USER_IS_PROJECT_DEMAND', project: project});
     //   });
-  }
+  //}
 
     this.props.dispatch({ type: 'USER_PROJECT_DEMAND' })
     this.props.dispatch({ type: 'USER_VIEW_PROJECT' })
