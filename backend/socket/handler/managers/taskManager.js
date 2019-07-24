@@ -44,6 +44,11 @@ module.exports = function (io) {
             client.emit('UPDATE_TASK_NAME', result);
         })
 
+        client.on('USER_UPDATE_DUE_DATE', async (taskID, dueDate) => {
+            const result = await taskController.updateDueDate(taskID, dueDate);
+            client.emit('UPDATE_DUE_DATE', result);
+        })
+
         client.on('USER_UPDATE_TASK_INFO', async (taskID, taskInfo) => {
             const result = await taskController.updateTaskInfo(taskID, taskInfo);
             client.emit('UPDATE_TASK_INFO', result);

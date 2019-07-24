@@ -92,10 +92,10 @@ class Task extends React.Component {
                                     <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> {task.taskName}</span>
                                     <ul style={{verticalAlign:'top', padding:'10px'}}>
                                         <li class="cat-task_li_li">
-                                            <span class="span-user-left" style={{backgroundColor: 'orange'}}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priorityID}</span>
+                                            <span class="span-user-left" style={{backgroundColor: 'orange'}}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priority}</span>
                                         </li>
                                         <li class="cat-task_li_li">
-                                            <span class="span-user-left"  style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} onClick={(e) =>this.handleClick(e,task)}> Status: {task.statusID}</span>
+                                            <span class="span-user-left"  style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} onClick={(e) =>this.handleClick(e,task)}> Status: {task.status}</span>
                                         </li>
                                         <li>
                                             <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> Assigned To: {this.state.username}</span>

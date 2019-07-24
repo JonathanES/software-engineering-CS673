@@ -221,6 +221,17 @@ async function updateTaskName(taskID, taskName) {
     })
 }
 
+async function updateDueDate(taskID, dueDate) {
+    return new Promise(async resolve => {
+
+        client.query('UPDATE Tasks SET  DueDate = ?  WHERE TaskID = ?; ', [dueDate,taskID], async function (error, results, fields) {
+            if (error) throw error;
+            //console.log("updatedueDate function called");
+            resolve(dueDate);
+        }); 
+    })
+}
+
 
 //Function to update the priority of the task
 /**
@@ -354,6 +365,7 @@ module.exports = {
     updateStatus: updateStatus,
     updatePriority: updatePriority,
     updateTaskName: updateTaskName,
+    updateDueDate: updateDueDate,
     updateTaskInfo: updateTaskInfo,
     updateExpectedDuration: updateExpectedDuration,
     updateActualTimeSpent: updateActualTimeSpent,
