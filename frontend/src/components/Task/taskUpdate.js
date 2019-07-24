@@ -83,8 +83,17 @@ class TaskUpdate extends React.Component {
     }
 
     handlePriorityChange(e) {
-        console.log('Priority Change:', e.target.value);
-        this.setState({ priorityID: e.target.value });
+        let selval = parseInt(e.target.value);
+        console.log(selval);
+        console.log(this.state.taskPriorities);
+        console.log(this.state.taskPriorities[selval-1].priority)
+        
+        console.log('Priority Change:', selval);
+        
+        // if(selval!=''){
+        //     this.setState({ priorityID: selval });
+        //     this.setState({ status: this.state.taskPriorities[selval-1].priority});
+        // }
     }
 
     handleStatusChange(event) {
@@ -92,10 +101,10 @@ class TaskUpdate extends React.Component {
         console.log(selval)
         console.log('Status Change:', selval);
         console.log(this.state.taskStatus);
-        console.log(this.state.taskStatus[selval].StatusName)
+        console.log(this.state.taskStatus[selval-1].StatusName)
         if(selval!=''){
             this.setState({ statusID: selval});
-            this.setState({ status:this.state.taskStatus[selval].StatusName});
+            this.setState({ priority:this.state.taskStatus[selval-1].StatusName});
         }
         event.preventDefault();
     }
@@ -183,7 +192,7 @@ class TaskUpdate extends React.Component {
                 console.log('New Task Info:', data);
                 const task = this.props.task;  
                 task.statusID = data;
-                //task.status = this.state.status;
+                task.status = this.state.status;
                 this.props.dispatch({type:'USER_UPDATE_TASK_DEMAND', task: task});
             });
         }
