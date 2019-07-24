@@ -83,3 +83,5 @@ backend/config/database.js
 
 docs/**
 docs/index.html
+
+package-lock.json

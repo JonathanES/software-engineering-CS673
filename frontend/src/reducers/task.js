@@ -1,5 +1,6 @@
 const defaultState = {
   addTask: false,
+  task:{},
   categoryID:'',
 };
 
@@ -11,6 +12,13 @@ const task = (state = defaultState, action) => {
     //     addTask: !state.addTask,
     //     categoryID: action.categoryID
     //   }
+
+    case 'UPDATE_TASK_DEMAND':
+      return{
+        ...state,
+        updateTask: !state.updateTask,
+        task: action.task
+      }
 
     
 

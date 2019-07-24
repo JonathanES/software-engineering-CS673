@@ -4,7 +4,8 @@ import Chat from '../components/chat/Chat';
 import Project from '../components/project/Project';
 import Task from '../components/Task/Task';
 import TaskForm from '../components/task-design/TaskForm';
-import Issues from '../components/issue-design/issue';
+import Issues from '../components/issue-design/issues';
+
 
 const mapStateToProps = state => ({
     username: state.user.username,
@@ -22,6 +23,7 @@ const mapStateToProps = state => ({
     //projectUpdateDemand: state.demand.projectUpdateDemand,
     categoryID: state.demand.categoryID,
 });
+
 
 const MainPage = ({ dispatch, messageDemand, projectDemand, issueDemand, taskDemand, projectFormDemand, projectTaskDemand, taskFormDemand}) => ( //, projectUpdateDemand }) => (
     <div className="main-page">

@@ -122,18 +122,22 @@ class ProjectTask extends React.Component {
 
         return (
             <div style={{ overflowX: 'auto' }}>
-                {this.props.isProjectTasksSelected && <div class="title" 
-                    style={{padding:"10%"}}> You are viewing Project : {this.props.projectName}
-                    <input id="add-button" type="image" style={{height:"50px"}} 
-                        src={require("../../images/plus.svg")} onClick={(e) => { this.props.dispatch({ type: 'USER_ADD_CATEGORY_DEMAND' }); 
-                            e.preventDefault() }} />
+                {this.props.isProjectTasksSelected && <div class="title"
+                    style={{ padding: "5%", alignItems: 'top' }}> You are viewing Project : {this.props.projectName}
+                    <a href=" " title="Add Category" style={{ backgroundcolor: '#FFFFFF', color: '#000000', textdecoration: 'none' }}>
+                        <input id="add-button" type="image" style={{ height: "20px", width: '20px' }}
+                            src={require("../../images/plus.svg")} onClick={(e) => {
+                                this.props.dispatch({ type: 'USER_ADD_CATEGORY_DEMAND' });
+                                e.preventDefault()
+                            }} />
+                    </a>
                 </div>}
                 <div>
                     {this.props.addCategory && <CategoryForm dispatch={this.props.dispatch} />}
-                    <ul style={{verticalAlign:'top', padding:'10px'}}>
-                    {this.props.projectCategoryList.map(category =>
+                    <ul style={{ verticalAlign: 'top', padding: '10px' }}>
+                        {this.props.projectCategoryList.map(category =>
                         <li class="cat-task_li" onClick={this.handleUpdate} 
-                            style={{ width: '300px', height: "auto", 
+                            style={{ width: '300px', height: "500px", 
                                      paddingBlock:'10px', verticalAlign:'top', 
                                      marginTop: '8px', borderRadius: '5px', 
                                      backgroundColor: "#e6e6e6", position: "relative" , 
