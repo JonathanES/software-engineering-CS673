@@ -167,6 +167,17 @@ class ProjectUpdate extends React.Component {
       });
     }
 
+    // if (this.state.projectName != this.props.project.projectName && this.state.projectName != '') {
+    //   console.log(this.props.task.taskID);
+    //   console.log(this.state.projectName);
+    //   updateProjectName(this.props.project.projectID, this.state.projectName, (err, data) => {
+    //       console.log('New Project Name:', data);
+    //       const project = this.props.project;  
+    //       project.projectName = data;
+    //       this.props.dispatch({type:'USER_IS_PROJECT_DEMAND', project: project});
+    //   });
+  }
+
     this.props.dispatch({ type: 'USER_PROJECT_DEMAND' })
     this.props.dispatch({ type: 'USER_VIEW_PROJECT' })
 
