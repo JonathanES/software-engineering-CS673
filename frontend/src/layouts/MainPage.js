@@ -8,7 +8,7 @@ import ProjectForm from '../components/project/ProjectForm';
 import Task from '../components/Task/Task';
 import ProjectTask from '../components/Task/projectTask';
 import TaskForm from '../components/task-design/TaskForm';
-import Issues from '../components/issue-design/issue';
+import Issues from '../components/issue-design/issues';
 import Menu from './Menu';
 
 const mapStateToProps = state => ({
@@ -34,7 +34,7 @@ const MainPage = ({ dispatch, connexionDemand, registerDemand, messageDemand, pr
             {registerDemand && !connexionDemand && <Inscription dispatch={dispatch} />}
             {connexionDemand && !registerDemand && <Login dispatch={dispatch} />}
             {messageDemand && <Chat dispatch={dispatch} />}
-            {projectDemand && <Project dispatch={dispatch} />}    
+            {projectDemand && <Project dispatch={dispatch} />}
             {issueDemand && <Issues dispath={dispatch} />}
             {taskDemand && <Task dispatch={dispatch} />}
             {projectTaskDemand && <ProjectTask dispatch={dispatch} />}
