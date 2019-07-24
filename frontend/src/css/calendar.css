@@ -22,7 +22,7 @@
 
 /* GRID */
 
-.row {
+.calendar .row {
   margin: 0;
   padding: 0;
   display: flex;
@@ -32,27 +32,27 @@
   border: 1px black;
 }
 
-.row-middle {
+.calendar .row-middle {
   align-items: center;
 }
 
-.col {
+.calendar .col {
   flex-grow: 1;
   flex-basis: 0;
   max-width: 100%;
 }
 
-.col-start {
+.calendar .col-start {
   justify-content: flex-start;
   text-align: left;
 }
 
-.col-center {
+.calendar .col-center {
   justify-content: center;
   text-align: center;
 }
 
-.col-end {
+.calendar .col-end {
   justify-content: flex-end;
   text-align: right;
 }
