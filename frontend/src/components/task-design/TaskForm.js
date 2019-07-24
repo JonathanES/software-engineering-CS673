@@ -164,7 +164,7 @@ class TaskForm extends Component {
             <div className="taskform-group">
               <form onSubmit={this.handleSubmit}>
                 <div className="taskform-field">
-                  <label htmlFor="taskName"style={{borderBottom:'solid'}}>Task Name :</label>
+                  <label htmlFor="taskName">Task Name :</label>
                   <input id="taskName" type="text" value={this.state.taskName} onChange={this.handleChange} />
                 </div>
                 <div className="taskform-field">
@@ -183,7 +183,7 @@ class TaskForm extends Component {
                   <label for="dueDate">Due Date:</label>
                   <input type="date" id="dueDate" className="trip-start" value={moment(this.state.dueDate).format('YYYY-MM-DD')} min="2019-06-01" max="2030-12-31" onChange={this.handleChange} />
                 </div>
-                <div className="taskform-field">
+                <div className="taskform-field" style={{marginBottom:'43px'}}> 
                   <label htmlFor="expDuration">Expected Time to Complete:</label>
                   <input id="expDuration" type="number" value={this.state.expDuration} onChange={this.handleChange} />
                   <span> hours</span>
