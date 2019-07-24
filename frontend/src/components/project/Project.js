@@ -1,19 +1,28 @@
 import React from "react";
 import { connect } from 'react-redux';
-import io from "socket.io-client";
-import { addProject, getListOfProjects, showCategories } from '../../socket/projectSocket';
+import { getListOfProjects, showCategories, showCategories_old } from '../../socket/projectSocket';
+import { getUserPrev } from '../../socket/taskSocket';
 import ProjectTask from '../Task/projectTask.js';
-import ProjectForm from '../project/ProjectForm';
+import ProjectUpdate from '../project/projectUpdate.js';
+import ProjectForm from './ProjectForm';
+import TaskForm from '../task-design/TaskForm';
 //import {userId} from '../../socket/userSocket';
+import { socket } from '../../socket/config'
 import '../../css/project.css'
+
 
 const mapStateToProps = state => ({
     username: state.user.username,
     userId: state.user.userId,
-    //projectID: state.project.projectID,
     isProjectSelected: state.project.isProjectSelected,
-    projectForm: state.project.projectForm
-    //taskname: state.Task.newtask
+    isProjectUpdateSelected: state.project.isProjectUpdateSelected,
+    isProjectTasksSelected: state.project.isProjectTasksSelected,
+    isProjectForm: state.project.isProjectForm,
+    isAddTaskForm: state.project.isAddTaskForm,
+    //isProjectTaskDemand: state.project.isProjectTaskDemand,
+    //projectForm: state.project.projectForm,
+    project: {}
+    
 });
 
 class Project extends React.Component {
@@ -21,171 +30,126 @@ class Project extends React.Component {
         super(props);
 
         this.state = {
-            userId: props.userId,
+            userID: props.userId,
             username: props.username,
-            pID: '',
-            getListofProjects : [],
+            projectID: '',
             listOfProjects: [],
             projectcategories: [],
-            projectName: "User Projetcs"
+            projectName: "User Projects"
+
         };
 
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handlePictureClick = this.handlePictureClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
-        this.handleDeleteClick = this.handleDeleteClick.bind(this);
+        this.handleUpdateClick = this.handleUpdateClick.bind(this);
 
     }
 
     componentDidMount() {
-        
 
-        getListOfProjects(this.state.userId, (err, data) => {
+        console.log('isProjectSelected:',this.props.isProjectSelected);
+        console.log('isProjectTasksSelected:',this.props.isProjectTasksSelected);
+
+        getListOfProjects(this.props.userId, (err, data) => {
             this.setState({ listOfProjects: data });
-            //console.log('getlistofProjects for user:', this.state.userId);
-            //console.log('getlistofProjects for projectID:', this.state.pID);
 
         });
+
+        // socket.on('GET_PROJECTCATEGORIES', data => {
+        //     this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.state.project, 
+        //             projectCategoryList: data.length > 0 ? data : [] });
+        // });
     }
 
     handleChange(event) {
-        // this.setState({ newproject: event.target.value });
-        //console.log("inside handleChange:" + event.target.value);
-    }
-    handleSubmit(event) {
-        // console.log('Add Project button pressed before call');
-        // this.props.dispatch({ type: 'USER_GET_PROJECTFORM' });
-        
-        // addProject(this.state.username, this.state.newproject, (err, data) => {
-        //     console.log('Add Project button pressed');
-        //     this.setState({ newproject: data });
-        //     console.log("inside handleSubmit");
-
-        // })
-        // event.preventDefault();
+    
     }
 
-    handleDeleteClick(event) {
+    handlePictureClick(project) {
+        console.log(project.projectID);
+        this.setState({project: project})
+        //showCategories(project.projectID)
+        /*, (err, data) => {
+            console.log(data);
+            this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: project.projectID, projectCategoryList: data.length > 0 ? data : [], projectName: project.projectName });
+        });*/
 
-        // console.log('Add Task button pressed before call');
+        showCategories_old(project.projectID, (err,data) =>{
+            //this.props.dispatch({type: 'USER_IS_PROJECT_DEMAND',projectID: project.projectID, projectCategoryList: data.length > 0 ? data : [], projectName: project.projectName });
+            this.props.dispatch({type: 'USER_IS_PROJECTTASK_DEMAND',project: project, projectCategoryList: data.length > 0 ? data : []});
+            //this.props.dispatch({type: 'USER_IS_PROJECT_DEMAND',projectID: project.projectID, projectCategoryList: data.length > 0 ? data : [], projectName: project.projectName });
+        })
+    }
 
-        // showCategories(this.state.projectID, (err, data) => {
-        //     console.log('Add Project button pressed');
-        //     this.setState({ projectcategories: data });
-        //     console.log("inside handleSubmit");
-
-        // })
-        // event.preventDefault();
-        //event.preventDefault();
-
-        console.log('Delete Button for ProjectID:', event.currentTarget.id, ' is pressed');
-
-        
+    handleUpdateClick(project) {
+        console.log(project);
+        let projectID = parseInt(project.projectID);
+        console.log(projectID);
+        this.props.dispatch({ type: 'USER_PROJECTUPDATEFORM', project: project });
+        getUserPrev(projectID, this.state.userID, (err, data) => {
+            console.log(data);
+            if (data[0].AccountTypeID == 1) {
                 
-     
-    }
-
-    handleClick(event) {
-
-        // console.log('Add Task button pressed before call');
-
-        // showCategories(this.state.projectID, (err, data) => {
-        //     console.log('Add Project button pressed');
-        //     this.setState({ projectcategories: data });
-        //     console.log("inside handleSubmit");
-
-        // })
-        // event.preventDefault();
-        //event.preventDefault();
-
-        console.log('event id:', event.currentTarget.id);
-
-        switch (event.currentTarget.id) {
-            case "add-project-button":
-                //console.log('Project ID:', this.project.projectID)
-                console.log('Add Task button pressed before call');
-                this.props.dispatch({ type: 'USER_PROJECTFORM_DEMAND' });
-                break;
-            case "deletebtn" + event.currentTarget.id:
-                console.log("delete button for project id:",event.currentTarget.id, " is pressed" )
-            default:
-                console.log('src/component/project/project.js Project button is clicked:', event.currentTarget.id);
-                //this.setState({ listOfProjects: data });
-                this.setState({pID: event.currentTarget.id});
-                console.log('getlistofProjects for projectID:', this.props.pID);
-                //console.log('projectID assigned:',event.currentTarget.id);
-                //this.props.dispatch({ type: 'ProjectTask dispatch={dispatch} />
-                // this.props.dispatch({ type: 'USER_VIEW_PROJECTTASKS', projectID: event.currentTarget.id });
-                // this.props.dispatch({ type: 'USER_PROJECTTASK_DEMAND'});
-                // showCategories(event.currentTarget.id, (err, data) => {
-                //     console.log('function return:', data);
-                //     console.log('Add Project button pressed for project id:', event.currentTarget.id );
-                //     this.setState({ projectcategories: data });
-                //     this.props.dispatch({ type: 'USER_PROJECTTASK_DEMAND', projectTaskList: data });
-                //     // this.props.dispatch({ type: 'USER_PROJECTTASK_DEMAND', projectcategories: data });
-                //     //console.log("inside handleSubmit");
-
-                // })
-
-                showCategories(event.currentTarget.id, (err,data) => {
-                    console.log('Call number 2');
-                    //console.log(data);
-                    //console.log(event);
-                    //this.setState({projectName:  data[0].ProjectName})
-                    this.setState({projectName: data.length == 0 ? this.state.projectName : data[0].ProjectName})
-                    this.props.dispatch({type:'USER_PROJECT_TASK_DEMAND', projectID:event.currentTarget.id, projectTaskList:data});
-                });
-        
-                this.props.dispatch({type:'USER_IS_PROJECT_DEMAND', projectID:event.currentTarget.id});
-                
+                this.props.dispatch({ type: 'USER_PROJECTUPDATEFORM', project: project });
             }
-            event.preventDefault();
+            else {
+                console.log('Sorry you don\'t have the admin privilidges');
+            }
+        })
+
+    }
+
+
+    handleClick(e) {
+        this.props.dispatch({ type: 'USER_PROJECTFORM_DEMAND' });
+        e.preventDefault();
     }
 
 
     render() {
         return (
             <div>
-                <div class="project">
-                    <div class="title">{this.state.projectName}</div>
-                    <ul >
-                        {!this.props.isProjectSelected && this.state.listOfProjects.map(project =>
-                            // <li class="project_list">
-                            //     <div id={project.projectID} onClick={this.handleClick}>
-                            //         <div class="user-project" >
-                            //             <span class="span-project-mid">{project.projectName}</span>
-                            //         </div>
-                            //     </div>
-                            // </li>
+                {this.props.isProjectSelected && <div class="project">
+                    <ul>
+                        {this.state.listOfProjects.map(project =>
                             <li>
-                                <a id={project.projectID} onClick={this.handleClick}></a>
+                                <a id={project.projectID} onClick={(e) => {
+                                    this.handlePictureClick(project
+                                        // {
+                                        //     projectID: project.projectID, projectName: project.projectName
+                                        // }
+                                    ); e.preventDefault()
+                                }}></a>
                                 <div>
-                                    <span id={project.projectID} onClick={this.handleClick} class="project-content">{project.projectName}</span>
+                                    <span id={project.projectID} onClick={(e) => {
+                                        this.handlePictureClick( project
+                                            // {
+                                            //     projectID: project.projectID, projectName: project.projectName
+                                            // }
+                                        ); e.preventDefault()
+                                    }} class="project-content">{project.projectName}</span>
                                 </div>
-                                <a class="deletebtn" id ={project.projectID} onClick={this.handleDeleteClick}> </a>
+                                {<a class="updatebtn" id={project.projectID} onClick={(e) => this.handleUpdateClick(project)}> </a>}
                             </li>
                         )}
-                        {this.props.isProjectSelected && <ProjectTask dispatch={this.props.dispatch} />}
+                        
                     </ul>
-                    {!this.props.isProjectSelected &&
-                    <div>
+                    {this.props.isProjectSelected &&
                         <form onClick={this.handleClick}>
-                            {/* <input id="add-task-input" type="text" value={this.state.newtask} onChange={this.handleChange} /> */}
-                            {/* <button id="add-project-button" class="addprojectbtn" type="click" onClick={this.handleClick}>Add Project</button> */}
-                            <button id="add-project-button" class="addprojectbtn" onClick={this.handleClick}>Add Project</button>
+                            <button id="add-project-button" class="addprojectbtn" onClick={(e) => this.handleClick(e)}>Add Project</button>
                         </form>
-                    </div>
                     }
-
-
                 </div>
-
-                {/* <div class="add_task"> */}
-
+                }
+                {/* {this.props.isProjectSelected && <ProjectTask dispatch={this.props.dispatch} />} */}
+                {this.props.isProjectUpdateSelected && <ProjectUpdate dispatch={this.props.dispatch} />}
+                {this.props.isProjectTasksSelected && <ProjectTask dispatch={this.props.dispatch} />}
+                {this.props.isProjectForm && <ProjectForm dispatch ={this.props.dispatch} />}
+                {this.props.isAddTaskForm && <TaskForm dispatch={this.props.dispatch}/>}
             </div>
         );
     }
 }
 
-//export default Project;
 export default connect(mapStateToProps)(Project);

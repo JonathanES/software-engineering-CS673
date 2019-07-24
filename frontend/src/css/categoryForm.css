@@ -1,7 +1,7 @@
 html, body, #root, #wrapper,.box {
     margin: 0;
-    height: 100%;
-    overflow: hidden;
+    /*height: 10%;*/
+    /*overflow: hidden;*/
 }
 li {
     list-style: none;
@@ -26,7 +26,7 @@ input {
     left: 0;
     right: 0;
     width: 100%;
-    height: 50;
+    height: 5%;
     background: rgba(0,0,0,0.3);
     z-index: 5;
     border: 1px solid #888;
@@ -44,7 +44,7 @@ input {
 .btn-default {
     position: absolute; 
     height: 35px;
-   width: 80px;
+    width: 80px;
     border-radius: 10px;
     background-color:red;
     color: white;
@@ -81,8 +81,8 @@ input {
    padding: 0px;
 }
 .close{
-    color:silver;
     position:absolute;
+    color: silver;
     left:95%;  
     top:5%;  
 

@@ -12,12 +12,12 @@ const userID = 1;
 const pID = 1; 
 const projectName = 'Test';
 const dueDate = '2010-01-01T05:00:00.000Z';
-const isDeleted = 'False';
+const isDeleted = 0;
 
 const uIDChange = 2;
 const pNameChange = 'New Test Name';
 const dDateChange = '2011-01-01T05:00:00.000Z';
-const uisDeleted = 'True';
+const uisDeleted = 1;
 
 
 const options = {
@@ -133,7 +133,7 @@ describe('Testing communication with Projects table', function () {
             // Emit event when all clients are connected.
             client.emit('USER_UPDATE_PROJECT_ISDELETED', pID, uisDeleted);
             client.on('UPDATE_PROJECT_ISDELETED', data => {
-                expect(data).to.equal('True');
+                expect(data).to.equal(1);
                 client.disconnect();
                 done();
             });
@@ -149,7 +149,7 @@ describe('Testing communication with Projects table', function () {
             // Emit event when all clients are connected.
             client.emit('USER_UPDATE_PROJECT_ISDELETED', pID, isDeleted);
             client.on('UPDATE_PROJECT_ISDELETED', data => {
-                expect(data).to.equal('False');
+                expect(data).to.equal(0);
                 client.disconnect();
                 done();
             });

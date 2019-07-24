@@ -3,22 +3,37 @@ const client = require('../config/database');
 // package used to hash the information needed with the sha256 algorithm
 const crypto = require('crypto');
 const UserModel = require('../model/UserModel.js');
+const nodemailer = require("nodemailer");
+
+const mailer = nodemailer.createTransport({
+    service: 'gmail',
+    secure: false,
+    port: 25,
+    auth: {
+        user: 'swelloteam7@gmail.com',
+        pass: 'DjQgS3yG09@7'
+    },
+    tls: {
+        rejectUnauthorized: false
+    }
+});
+
 
 const listOfUsers = [];
 
-function getListofUsers(userId){
- return new Promise((resolve, reject) => {
-    client.query('SELECT userId, username, email FROM Users WHERE userId != ?', [userId], function (error, results, fields) {
-        results.forEach(result => {
-            if (!listOfUsers.some(user => user.getUserId == result.userId)){
-                const user = new UserModel(result.userId, result.username, result.email);
-                listOfUsers.push(user);
-            }
-        })
-        if (error) throw error;
-        resolve(results);
-    });
- })
+function getListofUsers(userId) {
+    return new Promise((resolve, reject) => {
+        client.query('SELECT userId, username, email FROM Users WHERE userId != ?', [userId], function (error, results, fields) {
+            results.forEach(result => {
+                if (!listOfUsers.some(user => user.getUserId == result.userId)) {
+                    const user = new UserModel(result.userId, result.username, result.email);
+                    listOfUsers.push(user);
+                }
+            })
+            if (error) throw error;
+            resolve(results);
+        });
+    })
 }
 
 /**
@@ -40,15 +55,32 @@ function getSingleUser(email, password) {
         if (check === 1) {
             client.query('SELECT userId, username, email FROM Users WHERE email = ? AND password = ?', [email, password], function (error, results, fields) {
                 if (error) throw error;
-                if (!listOfUsers.some(user => user.getUserId == results[0].userId)){
+                if (!listOfUsers.some(user => user.getUserId == results[0].userId)) {
                     const user = new UserModel(results[0].userId, results[0].username, results[0].email);
                     listOfUsers.push(user);
                 }
+                let logintest = userinfo(results[0].userId);
                 resolve(results[0]);
             });
+
+            
         }
         else
             resolve("wrong email or wrong password");
+    });
+}
+
+
+async function userinfo(userId) {
+    return new Promise(async (resolve) => {
+        client.query('SELECT username FROM Users where UserID =?', [userId], function (error, result, fields) {
+            let username = result[0].username;
+            client.query('INSERT INTO UserLog(UserID, UserName) Values(?,?)', [userId, username], function (error, results, fields) {
+                if (error) throw error;
+                resolve(results);
+            });
+            resolve(result);
+        })
     });
 }
 
@@ -99,7 +131,7 @@ async function insertUser(email, username, password) {
             client.query('INSERT INTO Users(AccountStatusID,email,password,username, salt) VALUES(1,?,?,?,?)', [email, password, username, salt], function (error, results, fields) {
                 if (error) throw error;
                 const result = { email: email, username: username, userId: results.insertId }
-                const user = new UserModel(results.insertId, username, email,1);
+                const user = new UserModel(results.insertId, username, email, 1);
                 listOfUsers.push(user);
                 resolve(result);
             });
@@ -129,8 +161,32 @@ async function checkUserExistance(email, password, salt) {
 }
 
 
-function updatePassword(userID, password){
-    
+function passwordForgotten(email) {
+    client.query('SELECT userId, username, email FROM Users WHERE email = ?', [email], async (error, results, fields) => {
+        await sendMailUpdatePwd(email, results[0].username);
+    });
+}
+
+
+async function sendMailUpdatePwd(email, username) {
+    await mailer.sendMail({
+        from: 'swelloteam7@gmail.com', // sender address
+        to: email, // list of receivers
+        subject: "Hello ✔", // Subject line
+        text: `Hello ${username}, please click on this link to update your password http://localhost:3000/password` // plain text body
+    });
+}
+
+function updatePassword(email, password) {
+    return new Promise(async (resolve, reject) => {
+        const hashedPassword = crypto.createHash('sha256').update(password).digest('base64');
+        let salt = await saltCreatorFunction(password);
+        client.query('UPDATE Users SET password = ?, salt = ? WHERE email = ?', [hashedPassword, salt, email], async (error, results, fields) => {
+            if (error) throw error;
+            let res = await getSingleUser(email, password);
+            resolve(res);
+        });
+    });
 }
 
 // we export the function that we want to use in another file
@@ -138,5 +194,7 @@ module.exports = {
     insertUser: insertUser,
     getSingleUser: getSingleUser,
     getListofUsers: getListofUsers,
-    listOfUsers: listOfUsers
+    listOfUsers: listOfUsers,
+    passwordForgotten: passwordForgotten,
+    updatePassword: updatePassword
 }

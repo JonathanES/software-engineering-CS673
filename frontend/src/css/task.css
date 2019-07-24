@@ -9,13 +9,17 @@ html, body, #root, #wrapper,.box {
 input {
     border-radius: 5px;
 }
-
+.direct{
+    padding: 20px;
+    margin: 5px;
+    
+}
 .user-task{
     display: block;
     background-color: lightgrey;
     width: 300px;
     border: 15px solid silver;
-    /* padding: 20px;*/
+    padding: 120px;
     margin: 20px; 
 }
 

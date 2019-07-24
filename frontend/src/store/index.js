@@ -7,6 +7,7 @@ import messageSaga from '../sagas/messageSaga';
 import projectSaga from '../sagas/projectSaga';
 import demandSaga from '../sagas/demandSaga';
 import taskSaga from '../sagas/taskSaga';
+import categorySaga from '../sagas/categorySaga';
 
 
 const sagaMiddleware = createSagaMiddleware();
@@ -26,6 +27,6 @@ const enhancer = compose(
 export const store = createStore(reducers, enhancer);
 
 // FIXME: load sagas based on router context
-[userSaga, messageSaga, projectSaga,taskSaga, demandSaga].map(saga => sagaMiddleware.run(saga));
+[userSaga, messageSaga, projectSaga,taskSaga, demandSaga, categorySaga].map(saga => sagaMiddleware.run(saga));
 
 export default store;
