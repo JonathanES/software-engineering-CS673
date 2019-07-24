@@ -137,6 +137,9 @@ class TaskUpdate extends React.Component {
             console.log(this.state.taskName);
             updateTaskName(this.props.task.taskID, this.state.taskName, (err, data) => {
                 console.log('New Task Name:', data);
+                const task = this.props.task;
+                task.taskName = data;
+                this.props.dispatch({type:'USER_UPDATE_TASK_DEMAND', task: task});
             });
         }
 

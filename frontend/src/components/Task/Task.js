@@ -8,7 +8,8 @@ import '../../css/projectTask.css'
 const mapStateToProps = state => ({
     username: state.user.username,
     userId: state.user.userId,
-    updateTask: state.task.updateTask
+    updateTask: state.task.updateTask,
+    task: state.task.task
     //taskname: state.Task.newtask
 });
 
@@ -27,6 +28,17 @@ class Task extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
 
+    }
+
+    componentDidUpdate(prevProps){
+        if (prevProps.task.taskName != this.props.task.taskName){
+            const getListofTasksForUser = this.state.getListofTasksForUser;
+            getListofTasksForUser.forEach(task => {
+                if (task.taskID == this.props.task.taskID)
+                    task = this.props.task;
+            })
+            this.setState({getListofTasksForUser: getListofTasksForUser});
+        }
     }
 
     componentDidMount() {
