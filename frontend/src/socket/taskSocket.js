@@ -35,6 +35,23 @@ function updatePriorityID(taskID, priorityID,cb){
   socket.emit('USER_UPDATE_TASK_PRIORITY', taskID, priorityID);
 }
 
+function updateTaskInfo(taskID, taskInfo,cb){
+  socket.on('UPDATE_TASK_INFO', data => cb(null,data));
+  socket.emit('USER_UPDATE_TASK_INFO', taskID, taskInfo);
+}
 
 
-export { addTask, getTasksUsers, getListofTasksForCategories, getUserPrev, updateTaskName,updateDueDate, updatePriorityID };
+function updateStatusID(taskID, statusID,cb){
+  socket.on('UPDATE_TASK_STATUS', data => cb(null,data));
+  socket.emit('USER_UPDATE_TASK_STATUS', taskID, statusID);
+}
+
+function updateActTime(taskID, actTime,cb){
+  socket.on('UPDATE_TASK_ACTTIME', data => cb(null,data));
+  socket.emit('USER_UPDATE_TASK_ACTTIME', taskID, actTime);
+}
+
+
+
+export { addTask, getTasksUsers, getListofTasksForCategories, getUserPrev, 
+    updateTaskName,updateDueDate, updatePriorityID , updateTaskInfo, updateStatusID, updateActTime};

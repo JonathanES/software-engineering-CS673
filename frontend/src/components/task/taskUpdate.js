@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import moment from 'moment'
 
 import { getPriorities, getStatus } from '../../socket/projectSocket';
-import { updateTaskName, updateDueDate,updatePriorityID} from '../../socket/taskSocket';
+import {updateTaskName, updateDueDate, updatePriorityID, updateTaskInfo,updateStatusID, updateActTime} from '../../socket/taskSocket';
 import { getUserPrev } from '../../socket/taskSocket';
 
 //import '../../css/projectUpdate.css'
@@ -87,28 +87,31 @@ class TaskUpdate extends React.Component {
         this.setState({ priorityID: e.target.value });
     }
 
-    handleStatusChange(e) {
-        console.log('Status Change:', e.target.value);
-        this.setState({ statusID: e.target.value });
+    handleStatusChange(event) {
+        let selval = parseInt(event.target.value);
+        console.log(selval)
+        console.log('Status Change:', selval);
+        console.log(this.state.taskStatus);
+        console.log(this.state.taskStatus[selval].StatusName)
+        if(selval!=''){
+            this.setState({ statusID: selval});
+            this.setState({ status:this.state.taskStatus[selval].StatusName});
+        }
+        event.preventDefault();
     }
 
     handleInfoChange(newInfo) {
         this.setState({ taskInfo: newInfo });
-
     }
 
     handleActTimeChange(newTime) {
         this.setState({ actTime: newTime });
-
     }
 
     handleClick(event) {
-
     }
 
     handleChangeUser(event) {
-
-
     }
 
 
@@ -137,7 +140,7 @@ class TaskUpdate extends React.Component {
             console.log(this.state.taskName);
             updateTaskName(this.props.task.taskID, this.state.taskName, (err, data) => {
                 console.log('New Task Name:', data);
-                const task = this.props.task;
+                const task = this.props.task;  
                 task.taskName = data;
                 this.props.dispatch({type:'USER_UPDATE_TASK_DEMAND', task: task});
             });
@@ -148,14 +151,50 @@ class TaskUpdate extends React.Component {
             console.log(this.state.dueDate);
             updateDueDate(this.props.task.taskID, this.state.dueDate, (err, data) => {
                 console.log('New Due Date:', data);
+                const task = this.props.task;  
+                task.dueDate = data;
+                this.props.dispatch({type:'USER_UPDATE_TASK_DEMAND', task: task});
             });
         }
 
         if (this.state.priorityID != this.props.task.priorityID && this.state.priorityID != '') {
-            console.log(this.props.task.taskID);
             console.log(this.state.priorityID);
             updatePriorityID(this.props.task.taskID, this.state.priorityID, (err, data) => {
-                console.log('New PriorityID:', data);
+                console.log('New Priority:', data);
+                const task = this.props.task;  
+                task.priorityID = data;
+                this.props.dispatch({type:'USER_UPDATE_TASK_DEMAND', task: task});
+            });
+        }
+
+        if (this.state.taskInfo != this.props.task.taskInfo && this.state.taskInfo != '') {
+            console.log(this.state.taskInfo);
+            updateTaskInfo(this.props.task.taskID, this.state.taskInfo, (err, data) => {
+                console.log('New Task Info:', data);
+                const task = this.props.task;  
+                task.taskInfo = data;
+                this.props.dispatch({type:'USER_UPDATE_TASK_DEMAND', task: task});
+            });
+        }
+
+        if (this.state.statusID != this.props.task.statusID && this.state.statusID != '') {
+            console.log(this.state.statusID);
+            updateStatusID(this.props.task.taskID, this.state.statusID, (err, data) => {
+                console.log('New Task Info:', data);
+                const task = this.props.task;  
+                task.statusID = data;
+                //task.status = this.state.status;
+                this.props.dispatch({type:'USER_UPDATE_TASK_DEMAND', task: task});
+            });
+        }
+
+        if (this.state.actTime != this.props.task.actualTimeSpent && this.state.actTime != '') {
+            console.log(this.state.actTime);
+            updateActTime(this.props.task.taskID, this.state.actTime, (err, data) => {
+                console.log('New Task Info:', data);
+                const task = this.props.task;  
+                task.actualTimeSpent = data;
+                this.props.dispatch({type:'USER_UPDATE_TASK_DEMAND', task: task});
             });
         }
 
@@ -192,22 +231,19 @@ class TaskUpdate extends React.Component {
                     <div className="taskform-field">
                         <label htmlFor="prioritylevelSelection">Priority of the Task:</label>
                         <select onChange={(e) => this.handlePriorityChange(e)}>
-                            {this.state.taskPriorities.map(tp =>
-                                <option selected={tp.PriorityID} value={tp.PriorityID} style={{ textAlign: 'center' }}> {tp.Priority} </option>
-                            )}
+                            {this.state.taskPriorities.map(tp => <option selected={tp.PriorityID} value={tp.PriorityID} style={{ textAlign: 'center' }}> {tp.Priority} </option>)}
                         </select>
                     </div>
                     <div className="taskform-field">
-                        <label htmlFor="prioritylevelSelection">Status of the Task:</label>
-                        <select onChange={(e) => this.handleStatusChange(e)}>
-                            {this.state.taskStatus.map(ts =>
-                                <option selected={this.state.statusID} value={this.state.statusID} style={{ textAlign: 'center' }}> {ts.StatusName} </option>
-                            )}
+                        <label htmlFor="statuslevelSelection">Status of the Task:</label>
+                        <select onChange = {(e) => this.handleStatusChange(e)}>
+                            {this.state.taskStatus.map(ts => 
+                            <option selected={ts.StatusName} value={ts.StatusID} className={ts.StatusName} style={{textAlign:'center'}}> {ts.StatusName} </option> )}
                         </select>
                     </div>
                     <div>
                         <label for="taskInfoName">Task Info:</label>
-                        <input type="string" id="taskInfo" style={{ textAlign: 'center' }} value={this.state.taskInfo} onChange={(e) => this.handleInfoChange(e.target.value)} />
+                        <input type="string" id="taskInfo"  style={{ textAlign: 'center' }} value={this.state.taskInfo} onChange={(e) => this.handleInfoChange(e.target.value)} />
                     </div>
                     <div>
                         <label for="taskExpDur">Expected Time to Finish:</label>
@@ -224,19 +260,15 @@ class TaskUpdate extends React.Component {
                             <button class="btn btn-default" style={{ left: '0', width: '140px' }} id="add-cat-button" type="Click"
                                 onClick={(e) => this.handleUpdateTask(e)} >Update Task</button>
                             <button type="submit" class="btn btn-default" data-dismiss="modal" style={{ left: '160px', width: '140px' }}
-                                onClick={(e) => this.handleDeleteTask} >Delete Task</button>
+                                onClick={() => this.handleDeleteTask} >Delete Task</button>
 
                             <button type="submit" class="btn btn-default" data-dismiss="modal" style={{ left: '160px', width: '140px' }}
-                                onClick={(e) => {
-                                    this.props.dispatch({ type: 'USER_UPDATE_TASK_DEMAND', task: this.props.task });
-                                    e.preventDefault()
-                                }}>Close</button>
+                                onClick={(e) => {this.props.dispatch({ type: 'USER_UPDATE_TASK_DEMAND', task: this.props.task }); e.preventDefault() }}>Close</button>
                         </div>
                     </form>
 
                 </div>
             </div>
-            // </div>
         );
     }
 }

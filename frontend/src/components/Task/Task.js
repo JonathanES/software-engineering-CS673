@@ -39,6 +39,42 @@ class Task extends React.Component {
             })
             this.setState({getListofTasksForUser: getListofTasksForUser});
         }
+
+        if (prevProps.task.dueDate != this.props.task.dueDate){
+            const getListofTasksForUser = this.state.getListofTasksForUser;
+            getListofTasksForUser.forEach(task => {
+                if (task.taskID == this.props.task.taskID)
+                    task = this.props.task;
+            })
+            this.setState({getListofTasksForUser: getListofTasksForUser});
+        }
+
+        if (prevProps.task.taskInfo != this.props.task.taskInfo){
+            const getListofTasksForUser = this.state.getListofTasksForUser;
+            getListofTasksForUser.forEach(task => {
+                if (task.taskID == this.props.task.taskID)
+                    task = this.props.task;
+            })
+            this.setState({getListofTasksForUser: getListofTasksForUser});
+        }
+
+        if (prevProps.task.statusID != this.props.task.statusID){
+            const getListofTasksForUser = this.state.getListofTasksForUser;
+            getListofTasksForUser.forEach(task => {
+                if (task.taskID == this.props.task.taskID)
+                    task = this.props.task;
+            })
+            this.setState({getListofTasksForUser: getListofTasksForUser});
+        }
+
+        if (prevProps.task.actualTimeSpent != this.props.task.actualTimeSpent){
+            const getListofTasksForUser = this.state.getListofTasksForUser;
+            getListofTasksForUser.forEach(task => {
+                if (task.taskID == this.props.task.taskID)
+                    task = this.props.task;
+            })
+            this.setState({getListofTasksForUser: getListofTasksForUser});
+        }
     }
 
     componentDidMount() {
