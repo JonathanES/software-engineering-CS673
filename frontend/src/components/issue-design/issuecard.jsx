@@ -3,10 +3,10 @@ import { Card, CardImg, CardHeader, CardText, CardBody,
     CardTitle, CardSubtitle, Button, CardFooter } from 'reactstrap';
 
 
-const blueCard = (header, title, text, buttonText, assignedTo, assignee, lastUpdate) => {
+const whiteCard = (header, title, text, buttonText, assignedTo, assignee, lastUpdate) => {
     return(
-        <Card body inverse color="primary">
-            <CardHeader className="text-center">{header}</CardHeader>
+        <Card body>
+            <CardHeader className="text-center" style={{backgroundColor: "#157ffb"}}>{header}</CardHeader>
             <CardBody className="text-center">
                 <CardTitle>{title}</CardTitle>
                 <CardText>{text}</CardText>
@@ -22,8 +22,8 @@ const blueCard = (header, title, text, buttonText, assignedTo, assignee, lastUpd
 
 const yellowCard = (header, title, text, buttonText, assignedTo, assignee, lastUpdate) => {
     return(
-        <Card body inverse color="warning">
-            <CardHeader className="text-center">{header}</CardHeader>
+        <Card body>
+            <CardHeader className="text-center" style={{backgroundColor: "#fdc02f"}}>{header}</CardHeader>
             <CardBody className="text-center">
                 <CardTitle>{title}</CardTitle>
                 <CardText>{text}</CardText>
@@ -39,8 +39,8 @@ const yellowCard = (header, title, text, buttonText, assignedTo, assignee, lastU
 
 const redCard = (header, title, text, buttonText, assignedTo, assignee, lastUpdate) => {
     return(
-        <Card body inverse color="danger">
-            <CardHeader className="text-center">{header}</CardHeader>
+        <Card body>
+            <CardHeader className="text-center" style={{backgroundColor: "#d63648"}}>{header}</CardHeader>
             <CardBody className="text-center">
                 <CardTitle>{title}</CardTitle>
                 <CardText>{text}</CardText>
@@ -56,18 +56,19 @@ const redCard = (header, title, text, buttonText, assignedTo, assignee, lastUpda
 
 
 // ProjectID, IssueStatusID, AssigneeID, AssignedToID, PriorityID, IssueName, Summary, DateCreated, LastUpdate, DateResolved, IsResolved
-const IssueCard = (issueRowObject) => { // Consts are like classes but faster?
+const IssueCard = (issueRowObject) => {
+    console.log(issueRowObject)// Consts are like classes but faster?
     // Unpack object in the order it is in the database row
-    const {issueID, projectID, issueStatusID, assigneeID, assignedToID, priorityID, issueName, summary, dateCreated, lastUpdate, dateResolved, isResolved, isDeleted} = issueRowObject;
+    const {IssueID, ProjectID, IssueStatusID, AssigneeID, AssignedToID, PriorityID, IssueName, Summary, DateCreated, LastUpdate, DateResolved, IsResolved, IsDeleted} = issueRowObject;
 
-    if (priorityID == 1){
-        return(blueCard(issueName, priorityID, summary, "Test Button", assignedToID, assigneeID, lastUpdate));
+    if (issueRowObject.PriorityID == 1){
+        return(whiteCard(IssueName, PriorityID, Summary, "Test Button", AssignedToID, AssigneeID, LastUpdate));
 
-    }else if(priorityID == 2){
-        return(yellowCard(issueName, priorityID, summary, "Test Button", assignedToID, assigneeID, lastUpdate));
+    }else if(issueRowObject.PriorityID == 2){
+        return(yellowCard(IssueName, PriorityID, Summary, "Test Button", AssignedToID, AssigneeID, LastUpdate));
 
-    }else if(priorityID == 3){
-        return(redCard(issueName, priorityID, summary, "Test Button", assignedToID, assigneeID, lastUpdate));
+    }else if(issueRowObject.PriorityID == 3){
+        return(redCard(IssueName, PriorityID, Summary, "Test Button", AssignedToID, AssigneeID, LastUpdate));
     }
 };
 

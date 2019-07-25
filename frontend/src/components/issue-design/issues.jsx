@@ -27,12 +27,12 @@ class Issues extends React.Component {
         // Test Here
         // IssueID, ProjectID, IssueStatusID, AssigneeID, AssignedToID, PriorityID, IssueName, Summary, DateCreated, LastUpdate, DateResolved, IsResolved, IsDeleted
         this.rowObjects = [
-                            [1, 1, 1, 1, 1, 1, "Test 1", "Summary 1", "Today", "Today", "Never", 0, 0],
-                            [2, 1, 1, 1, 1, 2, "Test 2", "Summary 2", "Today", "Today", "Never", 0, 0],
-                            [3, 1, 1, 1, 1, 2, "Test 3", "Summary 3", "Today", "Today", "Never", 0, 0],
-                            [4, 1, 1, 1, 1, 1, "Test 4", "Summary 4", "Today", "Today", "Never", 0, 0],
-                            [5, 1, 1, 1, 1, 1, "Test 5", "Summary 5", "Today", "Today", "Never", 0, 0],
-                            [6, 1, 1, 1, 1, 3, "Test 6", "Summary 6", "Today", "Today", "Never", 0, 0]
+                            {"IssueID": 1, "ProjectID":1, "IssueStatusID":1, "AssigneeID":1, "AssignedToID":1, "PriorityID":1, "IssueName": "Test 1", "Summary":"Summary 1", "DateCreated":"Today", "LastUpdate":"Today", "DateResolved":"Never", "IsResolved":0, "IsDeleted":0},
+                            {"IssueID": 2, "ProjectID":1, "IssueStatusID":1, "AssigneeID":1, "AssignedToID":1, "PriorityID":1, "IssueName": "Test 2", "Summary":"Summary 2", "DateCreated":"Today", "LastUpdate":"Today", "DateResolved":"Never", "IsResolved":0, "IsDeleted":0},
+                            {"IssueID": 3, "ProjectID":1, "IssueStatusID":1, "AssigneeID":1, "AssignedToID":1, "PriorityID":2, "IssueName": "Test 3", "Summary":"Summary 3", "DateCreated":"Today", "LastUpdate":"Today", "DateResolved":"Never", "IsResolved":0, "IsDeleted":0},
+                            {"IssueID": 4, "ProjectID":1, "IssueStatusID":1, "AssigneeID":1, "AssignedToID":1, "PriorityID":2, "IssueName": "Test 4", "Summary":"Summary 4", "DateCreated":"Today", "LastUpdate":"Today", "DateResolved":"Never", "IsResolved":0, "IsDeleted":0},
+                            {"IssueID": 5, "ProjectID":1, "IssueStatusID":1, "AssigneeID":1, "AssignedToID":1, "PriorityID":1, "IssueName": "Test 5", "Summary":"Summary 5", "DateCreated":"Today", "LastUpdate":"Today", "DateResolved":"Never", "IsResolved":0, "IsDeleted":0},
+                            {"IssueID": 6, "ProjectID":1, "IssueStatusID":1, "AssigneeID":1, "AssignedToID":1, "PriorityID":3, "IssueName": "Test 6", "Summary":"Summary 6", "DateCreated":"Today", "LastUpdate":"Today", "DateResolved":"Never", "IsResolved":0, "IsDeleted":0}
         ];
         this.icg = new IssueCardGrid(props, 6, this.rowObjects);
     }
@@ -43,7 +43,7 @@ class Issues extends React.Component {
 
     render() {
         return (
-            IssueCardGrid.getGrid()
+            this.icg.getGrid()
 
             // <div>
             // <Row className="mx-md-3">
