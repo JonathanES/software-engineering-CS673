@@ -13,6 +13,12 @@ const mapStateToProps = state => ({
 class AddUserGroup extends Component {
     constructor(props) {
         super();
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick(task){
+        console.log('Calling Task Update');
+        this.props.dispatch({type:'USER_UPDATE_TASK_DEMAND', task:task});
     }
 
     render() {
@@ -22,16 +28,31 @@ class AddUserGroup extends Component {
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" onClick={this.handleSubmit}>&times;</button>
-                            <h4 class="modal-title">{moment(this.props.task[0].dueDate).format('DD-MM-YY')}</h4>
+                            <h4 class="modal-title">{moment(this.props.taskOfDay[0].dueDate).format('DD-MM-YY')}</h4>
                         </div>
                         <form onSubmit={this.handleSubmit}>
-                            <div id="delete-user-group">
-                            <div id="delete-user-group-title">Users that are in the group</div>
+                            <div id="view-task">
                                 {
                                     this.props.taskOfDay.map(task =>
-                                        <div>
-                                            {task.taskName}
+                                        <div id="task" onClick={(e) => {{this.handleClick(task); e.preventDefault()}}}>
+                                            <div id="task-title">
+                                                {task.taskName}
+                                            </div>
+                                            <div id="container">
+                                                <div id="left">
+                                                    {task.status}
+                                                </div>
+                                                <div id="center">
+                                                    {
+                                                        moment(task.dueDate).diff(moment(new Date()), 'days') < 0 ? `You are over the date by ${- moment(task.dueDate).diff(moment(new Date()), 'days')} days`: `You have ${ moment(task.dueDate).diff(moment(new Date()), 'days')} days left` 
+                                                    } 
+                                                </div>
+                                                <div id="right" className={(task.priorityID == 1) ? "yellow" : (task.priorityID == 2 ? "orange" : "red")}>
+                                                    {task.priority}
+                                                </div>
+                                            </div>
                                         </div>
+
                                     )
                                 }
                             </div>

@@ -175,3 +175,34 @@
   flex-basis: calc(100%/7);
   width: calc(100%/7);
 }
+
+
+.calendar #view-task{
+  width: 100%;
+}
+
+.calendar #task-title{
+  font-weight: bold;
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+
+
+.calendar #container{width:100%}
+.calendar #left{float: left; width: 25%; text-align: center;}
+.calendar #right{float: right; width: 25%; text-align: center}
+.calendar #center{
+  margin:0 auto !important; 
+ display:inline-block;
+ width: 50%;
+ text-align:center}
+ .calendar #right.orange{
+  background-color: darkorange;
+}
+ .calendar #right.yellow{
+  background-color: darkkhaki;
+}
+ .calendar #right.red{
+   background-color: red;
+ }
+
