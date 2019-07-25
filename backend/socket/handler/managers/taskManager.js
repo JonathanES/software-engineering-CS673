@@ -64,8 +64,8 @@ module.exports = function (io) {
             client.emit('UPDATE_TASK_ACTTIME', result);
         })
 
-        client.on('USER_UPDATE_TASK_ISDELETE', async (taskID, isdelete) => {
-            const result = await taskController.updateIsDeleted(taskID, isdelete);
+        client.on('USER_UPDATE_TASK_ISDELETE', async (taskID, isDeleted) => {
+            const result = await taskController.updateIsDeleted(taskID, isDeleted);
             client.emit('UPDATE_TASK_ISDELETE', result);
         })
 

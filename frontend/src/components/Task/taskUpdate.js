@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import moment from 'moment'
 
 import { getPriorities, getStatus } from '../../socket/projectSocket';
-import {updateTaskName, updateDueDate, updatePriorityID, updateTaskInfo,updateStatusID, updateActTime} from '../../socket/taskSocket';
+import {updateTaskName, updateDueDate, updatePriorityID, updateTaskInfo,updateStatusID, updateActTime,deleteTask} from '../../socket/taskSocket';
 import { getUserPrev } from '../../socket/taskSocket';
 
 //import '../../css/projectUpdate.css'
@@ -38,7 +38,8 @@ class TaskUpdate extends React.Component {
             statusID: props.task.statusID,
             assignedTo: props.task.userID,
             expDuration: props.task.expectedDuration,
-            actTime: props.task.actualTimeSpent
+            actTime: props.task.actualTimeSpent,
+            comments:[],
 
         };
 
@@ -84,27 +85,28 @@ class TaskUpdate extends React.Component {
 
     handlePriorityChange(e) {
         let selval = parseInt(e.target.value);
-        console.log(selval);
-        console.log(this.state.taskPriorities);
-        console.log(this.state.taskPriorities[selval-1].priority)
-        
+        console.log('Priority Selected:',selval);
+        //console.log(this.state.taskPriorities);
         console.log('Priority Change:', selval);
+        console.log('Priority Name:',this.state.taskPriorities[selval-1].Priority)
         
-        // if(selval!=''){
-        //     this.setState({ priorityID: selval });
-        //     this.setState({ status: this.state.taskPriorities[selval-1].priority});
-        // }
+        
+        
+        if(selval!=''){
+            this.setState({ priorityID: selval });
+            this.setState({ priority: this.state.taskPriorities[selval-1].Priority});
+        }
     }
 
     handleStatusChange(event) {
         let selval = parseInt(event.target.value);
-        console.log(selval)
+        console.log('Status Selected:',selval)
         console.log('Status Change:', selval);
-        console.log(this.state.taskStatus);
-        console.log(this.state.taskStatus[selval-1].StatusName)
+        //console.log(this.state.taskStatus);
+        console.log('Status Name:',this.state.taskStatus[selval-1].StatusName)
         if(selval!=''){
             this.setState({ statusID: selval});
-            this.setState({ priority:this.state.taskStatus[selval-1].StatusName});
+            this.setState({ status:this.state.taskStatus[selval-1].StatusName});
         }
         event.preventDefault();
     }
@@ -134,19 +136,19 @@ class TaskUpdate extends React.Component {
 
     handleUpdateTask(e) {
 
-        console.log('taskName:', this.state.taskName);
-        console.log('dueDate:', this.state.dueDate);
-        console.log('priority:', this.state.priorityID);
-        console.log('taskInfo:', this.state.taskInfo);
-        console.log('statusID:', this.state.statusID);
-        console.log('assignedTo:', this.state.assignedTo)
-        console.log('expDuration:', this.state.expDuration);
-        console.log('actTime:', this.state.actTime);
+        // console.log('taskName:', this.state.taskName);
+        // console.log('dueDate:', this.state.dueDate);
+        // console.log('priority:', this.state.priorityID);
+        // console.log('taskInfo:', this.state.taskInfo);
+        // console.log('statusID:', this.state.statusID);
+        // console.log('assignedTo:', this.state.assignedTo)
+        // console.log('expDuration:', this.state.expDuration);
+        // console.log('actTime:', this.state.actTime);
         e.preventDefault();
 
         if (this.state.taskName != this.props.task.taskName && this.state.taskName != '') {
-            console.log(this.props.task.taskID);
-            console.log(this.state.taskName);
+            // console.log(this.props.task.taskID);
+            // console.log(this.state.taskName);
             updateTaskName(this.props.task.taskID, this.state.taskName, (err, data) => {
                 console.log('New Task Name:', data);
                 const task = this.props.task;  
@@ -156,8 +158,8 @@ class TaskUpdate extends React.Component {
         }
 
         if (this.state.dueDate != this.props.task.dueDate && this.state.dueDate != '') {
-            console.log(this.props.task.taskID);
-            console.log(this.state.dueDate);
+            // console.log(this.props.task.taskID);
+            // console.log(this.state.dueDate);
             updateDueDate(this.props.task.taskID, this.state.dueDate, (err, data) => {
                 console.log('New Due Date:', data);
                 const task = this.props.task;  
@@ -167,17 +169,18 @@ class TaskUpdate extends React.Component {
         }
 
         if (this.state.priorityID != this.props.task.priorityID && this.state.priorityID != '') {
-            console.log(this.state.priorityID);
+            // console.log(this.state.priorityID);
             updatePriorityID(this.props.task.taskID, this.state.priorityID, (err, data) => {
                 console.log('New Priority:', data);
                 const task = this.props.task;  
                 task.priorityID = data;
+                task.priority = this.state.priority
                 this.props.dispatch({type:'USER_UPDATE_TASK_DEMAND', task: task});
             });
         }
 
         if (this.state.taskInfo != this.props.task.taskInfo && this.state.taskInfo != '') {
-            console.log(this.state.taskInfo);
+            // console.log(this.state.taskInfo);
             updateTaskInfo(this.props.task.taskID, this.state.taskInfo, (err, data) => {
                 console.log('New Task Info:', data);
                 const task = this.props.task;  
@@ -187,9 +190,9 @@ class TaskUpdate extends React.Component {
         }
 
         if (this.state.statusID != this.props.task.statusID && this.state.statusID != '') {
-            console.log(this.state.statusID);
+            // console.log(this.state.statusID);
             updateStatusID(this.props.task.taskID, this.state.statusID, (err, data) => {
-                console.log('New Task Info:', data);
+                // console.log('New Task Info:', data);
                 const task = this.props.task;  
                 task.statusID = data;
                 task.status = this.state.status;
@@ -200,20 +203,24 @@ class TaskUpdate extends React.Component {
         if (this.state.actTime != this.props.task.actualTimeSpent && this.state.actTime != '') {
             console.log(this.state.actTime);
             updateActTime(this.props.task.taskID, this.state.actTime, (err, data) => {
-                console.log('New Task Info:', data);
+                // console.log('New Task Info:', data);
                 const task = this.props.task;  
                 task.actualTimeSpent = data;
                 this.props.dispatch({type:'USER_UPDATE_TASK_DEMAND', task: task});
             });
         }
 
-        // this.props.dispatch({ type: 'USER_PROJECT_DEMAND' })
-        // this.props.dispatch({ type: 'USER_VIEW_PROJECT' })
-
     }
 
     handleDeleteTask(e) {
 
+        deleteTask(this.props.task.taskID, 1, (err, data) => {
+            console.log('Deleted:', data);
+            const task = this.props.task;
+            task.isDeleted = 1;
+            this.props.dispatch({type:'USER_UPDATE_TASK_DEMAND', task: task});
+            //this.props.dispatch({type:'USER_TASK_DEMAND'});
+        });
     }
 
 
@@ -269,9 +276,9 @@ class TaskUpdate extends React.Component {
                             <button class="btn btn-default" style={{ left: '0', width: '140px' }} id="add-cat-button" type="Click"
                                 onClick={(e) => this.handleUpdateTask(e)} >Update Task</button>
                             <button type="submit" class="btn btn-default" data-dismiss="modal" style={{ left: '160px', width: '140px' }}
-                                onClick={() => this.handleDeleteTask} >Delete Task</button>
+                               onClick={(e) => { if (window.confirm('Are you sure you wish to delete this Task?')) this.handleDeleteTask(e) }} >Delete Task</button>
 
-                            <button type="submit" class="btn btn-default" data-dismiss="modal" style={{ left: '160px', width: '140px' }}
+                            <button type="submit" class="btn btn-default" data-dismiss="modal" style={{ left: '320px', width: '140px' }}
                                 onClick={(e) => {this.props.dispatch({ type: 'USER_UPDATE_TASK_DEMAND', task: this.props.task }); e.preventDefault() }}>Close</button>
                         </div>
                     </form>
