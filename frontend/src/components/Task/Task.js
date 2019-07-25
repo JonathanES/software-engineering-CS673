@@ -77,10 +77,10 @@ class Task extends React.Component {
             this.setState({getListofTasksForUser: getListofTasksForUser});
         }
 
-        if (prevProps.task.isDeleted != 0 ){
+        if (prevProps.task.isDeleted != this.props.task.isDeleted ){
             
             let listOfTask = this.state.getListofTasksForUser;
-            listOfTask = listOfTask.filter(task => task.isDeleted != 1)
+            listOfTask = listOfTask.filter(task => task.taskID != this.props.task.taskID);
             this.setState({getListofTasksForUser: listOfTask})
 
         }
