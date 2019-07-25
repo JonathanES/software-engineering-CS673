@@ -188,7 +188,7 @@ class ProjectUpdate extends React.Component {
       <div>
         <div className="projectform">
           <div className="projectform-header">
-            <h2> Update Project Information for Project {this.state.pname} </h2>
+            <h4> Update Project Information for Project {this.state.pname} </h4>
           </div>
           <div className="projectform-contain">
             <div className="projectform-group">
@@ -201,7 +201,7 @@ class ProjectUpdate extends React.Component {
                   <label htmlFor="dueDate">Due Date :</label>
                   <input type="date" id="dueDate" type="text" value={this.state.dueDate} onChange={()=>this.handleChange} />
                 </div> */}
-                <div>
+                <div className="projectform-field">
                 <label for="dueDate">Due Date:</label>
                   <input type="date" id="dueDate" className="trip-start" value={moment(this.state.dueDate).format('YYYY-MM-DD')} min="2019-06-01" max="2030-12-31" onChange={(e)=>this.handleDateChange(e.target.value)}/>
                 </div>
@@ -215,22 +215,23 @@ class ProjectUpdate extends React.Component {
                   </select>
                   </div>
                   {this.state.userType && 
-                  <div>
+                  <div className="projectform-field">
                     <label htmlFor="UserlevelSelection">Select the Type for user privileges:</label>
                     <select onChange ={this.handleLevelChange}>
                       {this.state.userlevels.map(level =>
                         <option selected={level.TypeName} value={level.AccountTypeID}> {level.TypeName} </option>
-
                       )}
                     </select>
                     </div>
                   }
-                  <button type="submit" className="addUserToProject" onClick={this.handleAddUser}>Add User to Project</button>
+                  
                 
-                <div><button type="submit" className="projectformbtn uppercase" onClick={(e) => this.handleUpdateProject(e)}>Update Project</button></div>
-                {/* <div><button className="projectformbtn uppercase" onClick={this.handleDeleteProject} >Delete Project</button></div> */}
-                <div><button  className='delete-button' onClick={(e) => { if (window.confirm('Are you sure you wish to delete this Project?')) this.handleDeleteProject(e) } }>Delete Project </button></div>
-
+                <div className="btn-field">
+                <button type="submit" className="btns" onClick={this.handleAddUser}>Add User to Project</button>
+                  <button type="submit" className="btns" onClick={(e) => this.handleUpdateProject(e)}>Update Project</button>
+                  <button  className='btns' onClick={(e) => { if (window.confirm('Are you sure you wish to delete this Project?')) this.handleDeleteProject(e) } }>         
+                    Delete Project </button>
+                    </div>
               </form>
             </div>
             {/* <p className="account-help">You already have an account ? <a onClick={this.handleClick} className="underline red" >Login</a></p> */}

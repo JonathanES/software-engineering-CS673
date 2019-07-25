@@ -127,26 +127,26 @@ class Task extends React.Component {
                     <div class="title uppercase" style={{marginBottom:'10px'}}>{this.props.username}'s Tasks</div>
                     <ul style={{display: 'block'}}>
                         {this.state.getListofTasksForUser.map(task =>
-                            <li style={{ width: '300px', height: "auto", 
+                            <li style={{ width: '300px', minHeight: "250px", 
                             paddingBlock:'10px', verticalAlign:'top', 
                             margin:'2px 2px 2px 2px' , borderRadius: '5px', 
-                            backgroundColor: "#e6e6e6", position: "relative" , 
+                            position: "relative" , 
                             display: 'inline-block'}}>
                                 <div id={task.taskName} onClick={(e) =>this.handleClick(e,task)}>
                                 </div>
-                                <div class="user-task" style={{ width: '94%', height: '200px', 
+                                <div class="user-task" style={{ width: '94%', minHeight: '250px', 
                                     borderRadius: '5px', marginLeft: '3%', display:'block', 
-                                    marginTop: '8px', marginBottom: '8px', height: "auto", padding: "5px" }}>
-                                    <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> {task.taskName}</span>
-                                    <ul style={{verticalAlign:'top', padding:'10px'}}>
+                                    marginTop: '8px', marginBottom: '8px', height: "auto", padding: "5px",border:'0px' }}>
+                                    <span class="span-user-left" style={{color:'3b3b3b',textOverflow:'eclipse',whiteSpace:'nowrap',fontWeight:'bold'}}   onClick={(e) =>this.handleClick(e,task)}> {task.taskName}</span>
+                                    <ul style={{verticalAlign:'top', padding:'10px',background:'white',width:'94%',minHeight:'100px',display:'block',marginLeft:'3%',borderRadius:'4px',marginTop:'10px'}}>
                                         <li class="cat-task_li_li">
-                                            <span class="span-user-left" style={{backgroundColor: 'orange'}}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priority}</span>
+                                            <span class="span-user-left" style={{backgroundColor: 'gold',color:'#fff',width:'120px',height:'30px',borderRadius:'5px',display:'block',textAlign:'center',lineHeight:'30px'}}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priority}</span>
                                         </li>
                                         <li class="cat-task_li_li">
-                                            <span class="span-user-left"  style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} onClick={(e) =>this.handleClick(e,task)}> Status: {task.status}</span>
+                                            <span class="span-user-left"  style={{ display: this.state.modalIsOpen, minWidth: "50px", height: "20px",display:'block',color:'black',marginTop:'20px' }} onClick={(e) =>this.handleClick(e,task)}> <span style={{backgroundColor: 'LightCoral',color:'#fff',width:'80px',height:'30px',borderRadius:'5px',display:'block',textAlign:'center',lineHeight:'30px',float:'left',marginRight:'10px'}}>Status:</span> {task.status}</span>
                                         </li>
                                         <li>
-                                            <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> Assigned To: {this.state.username}</span>
+                                            <span class="span-user-left" style={{display:'block',color:'black',height:'20px',marginTop:'20px',marginBottom:'20px'}}  onClick={(e) =>this.handleClick(e,task)}> <span style={{backgroundColor: 'MediumPurple',color:'#fff',width:'120px',height:'30px',borderRadius:'5px',display:'block',textAlign:'center',lineHeight:'30px',float:'left',marginRight:'10px'}}>Assigned To:</span> {this.state.username}</span>
                                         </li>
                                     </ul>
                                 </div>

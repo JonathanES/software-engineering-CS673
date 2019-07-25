@@ -212,19 +212,19 @@ class TaskUpdate extends React.Component {
     render() {
         return (
             // <div sytle={{backgroundColor:'black'}}>
-            <div sytle={{ backgroundColor: 'black', padding: '20px' }}>
-                <div sytle={{ backgroundColor: 'black' }}>
-                    <div sytle={{ backgroundColor: 'black' }}></div>
+            <div>
+                <div>
+                    <div></div>
 
-                    <div sytle={{ backgroundColor: 'black', padding: '20px' }}>
+                    <div className="taskform-header">
                         <button type="button" class="close" onClick={(e) => { this.props.dispatch({ type: 'USER_UPDATE_TASK_DEMAND', task: this.props.task }); e.preventDefault() }}></button>
-                        <h4 sytle={{ backgroundColor: 'black', padding: '20px' }} >Update Task Information</h4>
+                        <h4 style={{fontSize:'30px'}}>Update Task Information</h4>
                     </div>
-                    <div>
+                    <div className="taskform-field">
                         <label for="taskName">Task Name:</label>
                         <input type="string" id="taskName" style={{ textAlign: 'center' }} value={this.state.taskName} onChange={(e) => this.handleNameChange(e.target.value)} />
                     </div>
-                    <div>
+                    <div className="taskform-field">
                         <label for="dueDate">Due Date:</label>
                         <input type="date" id="dueDate" style={{ textAlign: 'center' }} className="trip-start" value={moment(this.state.dueDate).format('YYYY-MM-DD')} min="2019-06-01" max="2030-12-31" onChange={(e) => this.handleDateChange(e.target.value)} />
                     </div>
@@ -241,30 +241,28 @@ class TaskUpdate extends React.Component {
                             <option selected={ts.StatusName} value={ts.StatusID} className={ts.StatusName} style={{textAlign:'center'}}> {ts.StatusName} </option> )}
                         </select>
                     </div>
-                    <div>
+                    <div className="taskform-field">
                         <label for="taskInfoName">Task Info:</label>
                         <input type="string" id="taskInfo"  style={{ textAlign: 'center' }} value={this.state.taskInfo} onChange={(e) => this.handleInfoChange(e.target.value)} />
                     </div>
-                    <div>
+                    <div className="taskform-field">
                         <label for="taskExpDur">Expected Time to Finish:</label>
                         <span type="numer" id="expDur" style={{ textAlign: 'center' }}> {this.state.expDuration} hours</span>
                     </div>
-                    <div>
+                    <div className="taskform-field">
                         <label for="taskActTime">Actual Time Spent on the Task:</label>
                         <input type="numer" id="actTime" style={{ textAlign: 'center' }} value={this.state.actTime} onChange={(e) => this.handleActTimeChange(e.target.value)} />
                     </div>
 
 
-                    <form style={{ position: "absolute", padding: '30px' }}>
-                        <div class="modal-footer" style={{ marginBottom: '10px' }}>
-                            <button class="btn btn-default" style={{ left: '0', width: '140px' }} id="add-cat-button" type="Click"
+                    <form style={{ position: "absolute", padding: '30px',display:'flex',flexFlow:'row nowrap',justifyContent:'space-around',alignItems:'center',width:'87%',marginTop:'100px' }}>
+                            <button class="btns" id="add-cat-button" type="Click"
                                 onClick={(e) => this.handleUpdateTask(e)} >Update Task</button>
-                            <button type="submit" class="btn btn-default" data-dismiss="modal" style={{ left: '160px', width: '140px' }}
+                            <button type="submit" class="btns" data-dismiss="modal" 
                                 onClick={() => this.handleDeleteTask} >Delete Task</button>
 
-                            <button type="submit" class="btn btn-default" data-dismiss="modal" style={{ left: '160px', width: '140px' }}
+                            <button type="submit" class="btns" data-dismiss="modal" 
                                 onClick={(e) => {this.props.dispatch({ type: 'USER_UPDATE_TASK_DEMAND', task: this.props.task }); e.preventDefault() }}>Close</button>
-                        </div>
                     </form>
 
                 </div>
