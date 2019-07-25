@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import moment from 'moment'
 
-import { getAddtoProject, getUserLevel, getprojectdetail,getAvailableUsers,deleteproject} from '../../socket/projectSocket';
+import { getAddtoProject, getUserLevel, getprojectdetail,getAvailableUsers,deleteproject,updateDeleteProjectDependencies} from '../../socket/projectSocket';
 import {updateProjectName, updateProjectDueDate} from '../../socket/projectSocket';
 import {getUserPrev} from '../../socket/taskSocket';
 
@@ -140,9 +140,15 @@ class ProjectUpdate extends React.Component {
 
   handleDeleteProject(e){
     console.log('ProjectID:', this.props.project.projectID)
-    deleteproject(this.props.project.projectID,1, (err,data)=>{
+    // deleteproject(this.props.project.projectID,1, (err,data)=>{
+    //   console.log('Deleted:',data);
+    // });
+
+    updateDeleteProjectDependencies(this.props.project.projectID,1, (err,data)=>{
       console.log('Deleted:',data);
     });
+
+
 
     this.props.dispatch({ type: 'USER_PROJECT_DEMAND' })
     this.props.dispatch({ type: 'USER_VIEW_PROJECT' })

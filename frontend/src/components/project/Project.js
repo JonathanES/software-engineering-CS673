@@ -59,8 +59,8 @@ class Project extends React.Component {
 
     componentDidMount() {
 
-        console.log('isProjectSelected:',this.props.isProjectSelected);
-        console.log('isProjectTasksSelected:',this.props.isProjectTasksSelected);
+        //console.log('isProjectSelected:',this.props.isProjectSelected);
+        //console.log('isProjectTasksSelected:',this.props.isProjectTasksSelected);
 
         getListOfProjects(this.props.userId, (err, data) => {
             this.setState({ listOfProjects: data });

@@ -46,7 +46,7 @@ class ProjectTask extends React.Component {
 
     componentDidMount() {
 
-        console.log('isProjectTasksSelected:',this.props.isProjectTasksSelected)
+        //console.log('isProjectTasksSelected:',this.props.isProjectTasksSelected)
 
 
     }
