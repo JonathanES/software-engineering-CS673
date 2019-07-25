@@ -55,8 +55,11 @@ const redCard = (header, title, text, buttonText, assignedTo, assignee, lastUpda
 }
 
 
-// ProjectID, IssueStatusID, AssigneeID, AssignedToID, PriorityID, IssueName, Summary, DateCreated, LastUpdate, DateResolved, IsResolved)
-const IssueCard = (props, projectID, issueStatusID, assigneeID, assignedToID, priorityID, issueName, summary, dateCreated, lastUpdate, dateResolved, isResolved) => { // Consts are like classes but faster?
+// ProjectID, IssueStatusID, AssigneeID, AssignedToID, PriorityID, IssueName, Summary, DateCreated, LastUpdate, DateResolved, IsResolved
+const IssueCard = (issueRowObject) => { // Consts are like classes but faster?
+    // Unpack object in the order it is in the database row
+    const {issueID, projectID, issueStatusID, assigneeID, assignedToID, priorityID, issueName, summary, dateCreated, lastUpdate, dateResolved, isResolved, isDeleted} = issueRowObject;
+
     if (priorityID == 1){
         return(blueCard(issueName, priorityID, summary, "Test Button", assignedToID, assigneeID, lastUpdate));
 
