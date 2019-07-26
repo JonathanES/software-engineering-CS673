@@ -15,13 +15,16 @@ class IssueCardGrid {
 
     generateColumns(issuesInRow, rowCount){
         var colCount;
+        var currentIssueCard;
         let row = [];
         console.log("Test mee");
         console.log(issuesInRow);
+
         for (colCount = 0; colCount < issuesInRow.length; colCount++){
-            // Pass the RowObject from the DB to thee the Issue card to return the appropriately coloured card and push it into our row
+            currentIssueCard = new IssueCard(issuesInRow[colCount]); // Generate a new card instance
+            // Get the card from the instance and push it onto the row array
             row.push(<Col className={"my-md-" + this.cardSize} key={"Issue " + (rowCount*4) + colCount}>
-                        {IssueCard(issuesInRow[colCount])}
+                        {currentIssueCard.getCard()}
                     </Col>
                     );
         };
@@ -39,7 +42,6 @@ class IssueCardGrid {
                     </Row>
                 );
         };
-
         this.grid = rows;
         return rows;
     }

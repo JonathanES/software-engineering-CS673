@@ -1,5 +1,5 @@
-import { socket } from './config'
-import {createIssueCallback, updateIssueStatusCallback, getIssuesCallback, getIssueWithIDCallback, createNewIssueStatusCallback} from "../../components/issue-design/issuesHandler"
+import { socket } from './config';
+import {createIssueCallback, updateIssueStatusCallback, getIssuesCallback, getIssueWithIDCallback, createNewIssueStatusCallback} from "../components/issue-design/issuesHandler.js";
 
 // Each method here has their callback as a default argument, and can be overwritten later but otherwise will not need an argument passed for the callback if using default found in issuesHandler
 function createIssue(issueName, issueSummary, projectID, issueStatusID, userID, responsibleUserID, priorityID, cb=createIssueCallback) {
