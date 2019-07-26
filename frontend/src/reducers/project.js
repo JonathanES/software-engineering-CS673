@@ -96,6 +96,17 @@ const project = (state = defaultState, action) => {
         isAddTaskForm: true,
       }
 
+      case 'UPDATE_RETURN':
+      return {
+        ...state,
+        project: action.project,
+        isProjectSelected: true,
+        isProjectUpdateSelected: false,
+        isProjectTasksSelected: false,
+        isProjectForm: false,
+        isAddTaskForm: false,
+      }
+
 
 
 

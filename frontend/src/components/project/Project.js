@@ -46,15 +46,24 @@ class Project extends React.Component {
 
     }
 
-    componentDidUpdate(prevProps){
-        // if (prevProps.task.taskName != this.props.task.taskName){
-        //     const getListofTasksForUser = this.state.getListofTasksForUser;
-        //     getListofTasksForUser.forEach(task => {
-        //         if (task.taskID == this.props.task.taskID)
-        //             task = this.props.task;
-        //     })
-        //     this.setState({getListofTasksForUser: getListofTasksForUser});
-        // }
+    componentDidUpdate(prevProps) {
+
+        if (typeof this.props.listOfProjects != "undefined") {
+            console.log('inside componentDidUpdate');
+            console.log(this.listOfProjects.length);
+            for (let i = 0; i < this.listOfProjects.length; i++) {
+                console.log('i:',i);
+                console.log('prevProps.project[i].isDeleted:',prevProps.project[i].isDeleted)
+                console.log('this.props.project[i].isDeleted:',this.props.project[i].isDeleted)
+                if (prevProps.project[i].isDeleted != this.props.project[i].isDeleted) {
+
+                    let listOfp = this.state.listOfProjects;
+                    listOfp = listOfp.filter(project => project[i].isDeleted != this.props.project[i].isDeleted);
+                    this.setState({ listOfProjects: listOfp })
+
+                }
+            }
+        }
     }
 
     componentDidMount() {
