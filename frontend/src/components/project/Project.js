@@ -124,7 +124,8 @@ class Project extends React.Component {
                 {this.props.isProjectSelected && <div class="project">
                     <ul>
                         {this.state.listOfProjects.map(project =>
-                            <li>
+                            <li style={{display:"inline block",backgroundColor:'white',
+                            borderRadius:"50"}}>
                                 <a id={project.projectID} onClick={(e) => {
                                     this.handlePictureClick(project
                                         // {
