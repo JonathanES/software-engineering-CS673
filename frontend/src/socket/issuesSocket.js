@@ -1,5 +1,21 @@
 import { socket } from './config';
-import {createIssueCallback, updateIssueStatusCallback, getIssuesCallback, getIssueWithIDCallback, createNewIssueStatusCallback} from "../components/issue-design/issuesHandler.js";
+import {createIssueCallback,
+        deleteIssueCallback,
+        getIssuesCallback,
+        getCommentsForIssueCallback,
+        getIssueWithIDCallback,
+        createNewIssueStatusCallback,
+        updateProjectIDCallback,
+        updateIssueStatusCallback,
+        updateAssigneeIDCallback,
+        updateAssignedToIDCallback,
+        updatePriorityIDCallback,
+        updateIssueNameCallback,
+        updateIssueSummaryCallback,
+        updateLastUpdateCallback,
+        updateDateResolvedCallback,
+        updateIsResolvedCallback
+        } from "../components/issue-design/issuesHandler.js";
 // ProjectID, IssueStatusID, AssigneeID, AssignedToID, PriorityID, IssueName, Summary, DateCreated, LastUpdate, DateResolved, IsResolved, IsDeleted
 
 /// GENERAL FUNCTIONS (For use within mostly issueCardGrid)
@@ -48,7 +64,7 @@ function updateAssigneeID(issueID, assigneeID, cb=updateAssigneeIDCallback){
 
 }
 
-function updateAssignedToID(issueID assignedToID, cb=updateAssignedToIDCallback){
+function updateAssignedToID(issueID, assignedToID, cb=updateAssignedToIDCallback){
 
 }
 
