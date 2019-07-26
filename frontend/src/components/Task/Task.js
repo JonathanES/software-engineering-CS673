@@ -139,7 +139,7 @@ class Task extends React.Component {
                                     borderRadius: '5px', marginLeft: '3%', display:'block', 
                                     marginTop: '8px', marginBottom: '8px', padding: "5px" }}>
                                     <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> {task.taskName}</span>
-                                    <ul style={{verticalAlign:'top', padding:'10px'}}>
+                                    <ul key={"task"+task.taskID} style={{verticalAlign:'top', padding:'10px'}}>
                                         <li class="cat-task_li_li">
                                             <span class="span-user-left" style={{backgroundColor: 'orange'}}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priority}</span>
                                         </li>
