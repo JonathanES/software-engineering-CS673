@@ -3,13 +3,15 @@ import { Card, CardImg, CardHeader, CardText, CardBody,
     CardTitle, CardSubtitle, Button, CardFooter } from 'reactstrap';
 
 
+const image1 = {src:"../images/projectbackground.png"}
+
 const whiteCard = (header, title, buttonText) => {
     return(
-        <Card body>
+        <Card>
+            <CardImg top width="20%" src="https://project-management.com/wp-content/uploads/2018/10/what-is-project-management-300x231.jpg" alt="Card image cap" /> 
             <CardBody className="text-center">
                 <CardTitle>{title}</CardTitle>
-                <CardImg top width="100%" src="../../images/projectbackground.png" alt="Card image cap"  /> 
-                <Button color="secondary">{buttonText}</Button>
+                <Button color="warning">{buttonText}</Button>
             </CardBody>
         </Card>
     );

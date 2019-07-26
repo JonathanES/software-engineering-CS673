@@ -49,6 +49,7 @@ class ProjectCardGrid {
 
     updateGrid(projects){
         this.projects = projects;
+        this.numberOfCards = projects.length;
         console.log("toto" + this.projects)
         return this.getGrid();
     }
