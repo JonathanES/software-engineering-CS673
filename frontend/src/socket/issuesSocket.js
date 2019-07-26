@@ -54,53 +54,53 @@ function createNewIssueStatus(status, cb=createNewIssueStatusCallback) {
 //// UPDATE FUNCTIONS (For use in issueCard) ///
 // ProjectID, IssueStatusID, AssigneeID, AssignedToID, PriorityID, IssueName, Summary, DateCreated, LastUpdate, DateResolved, IsResolved, IsDeleted
 function updateProjectID(issueID, projectID, cb=updateProjectIDCallback){
-    socket.emit('UPDATE_PROJECTID_ON_ISSUE_WITH_ID', issueID);
+    socket.emit('UPDATE_PROJECTID_ON_ISSUE_WITH_ID', issueID, projectID);
     socket.on('UPDATED_PROJECTID_ON_ISSUE_WITH_ID', data => cb(data));
 }
 
-// TODO: Change this event in the backend too
+
 function updateIssueStatus(issueID, newStatusID, cb=updateIssueStatusCallback) {
     socket.emit('UPDATE_ISSUE_STATUS_ON_ISSUE_WITH_ID', issueID, newStatusID);
     socket.on('UPDATED_ISSUE_STATUS_ON_ISSUE_WITH_ID', data => cb(data));
 }
 
 function updateAssigneeID(issueID, assigneeID, cb=updateAssigneeIDCallback){
-    socket.emit('UPDATE_ASSIGNEEID_ON_ISSUE_WITH_ID', issueID);
+    socket.emit('UPDATE_ASSIGNEEID_ON_ISSUE_WITH_ID', issueID, assigneeID);
     socket.on('UPDATED_ASSIGNEEID_ON_ISSUE_WITH_ID', data => cb(data));
 }
 
 function updateAssignedToID(issueID, assignedToID, cb=updateAssignedToIDCallback){
-    socket.emit('UPDATE_ASSIGNEDTOID_ON_ISSUE_WITH_ID', issueID);
+    socket.emit('UPDATE_ASSIGNEDTOID_ON_ISSUE_WITH_ID', issueID, assignedToID);
     socket.on('UPDATED_ASSIGNEDTOID_ON_ISSUE_WITH_ID', data => cb(data));
 }
 
-function updatePriorityID(issueID, PriorityID, cb=updatePriorityIDCallback){
-    socket.emit('UPDATE_PRIORITYID_ON_ISSUE_WITH_ID', issueID);
+function updatePriorityID(issueID, priorityID, cb=updatePriorityIDCallback){
+    socket.emit('UPDATE_PRIORITYID_ON_ISSUE_WITH_ID', issueID, priorityID);
     socket.on('UPDATED_PRIORITYID_ON_ISSUE_WITH_ID', data => cb(data));
 }
 
 function updateIssueName(issueID, issueName, cb=updateIssueNameCallback){
-    socket.emit('UPDATE_ISSUENAME_ON_ISSUE_WITH_ID', issueID);
+    socket.emit('UPDATE_ISSUENAME_ON_ISSUE_WITH_ID', issueID, issueName);
     socket.on('UPDATED_ISSUENAME_ON_ISSUE_WITH_ID', data => cb(data));
 }
 
 function updateIssueSummary(issueID, summary, cb=updateIssueSummaryCallback){
-    socket.emit('UPDATE_ISSUESUMMARY_ON_ISSUE_WITH_ID', issueID);
+    socket.emit('UPDATE_ISSUESUMMARY_ON_ISSUE_WITH_ID', issueID, summary);
     socket.on('UPDATED_ISSUESUMMARY_ON_ISSUE_WITH_ID', data => cb(data));
 }
 
 function updateLastUpdate(issueID, lastUpdate, cb=updateLastUpdateCallback){
-    socket.emit('UPDATE_LASTUPDATE_ON_ISSUE_WITH_ID', issueID);
+    socket.emit('UPDATE_LASTUPDATE_ON_ISSUE_WITH_ID', issueID, lastUpdate);
     socket.on('UPDATED_LASTUPDATE_ON_ISSUE_WITH_ID', data => cb(data));
 }
 
 function updateDateResolved(issueID, dateResolved, cb=updateDateResolvedCallback){
-    socket.emit('UPDATE_DATERESOLVED_ON_ISSUE_WITH_ID', issueID);
+    socket.emit('UPDATE_DATERESOLVED_ON_ISSUE_WITH_ID', issueID, dateResolved);
     socket.on('UPDATED_DATERESOLVED_ON_ISSUE_WITH_ID', data => cb(data));
 }
 
 function updateIsResolved(issueID, isResolved, cb=updateIsResolvedCallback){
-    socket.emit('UPDATE_ISRESOLVED_ON_ISSUE_WITH_ID', issueID);
+    socket.emit('UPDATE_ISRESOLVED_ON_ISSUE_WITH_ID', issueID, isResolved);
     socket.on('UPDATED_ISRESOLVED_ON_ISSUE_WITH_ID', data => cb(data));
 }
 
