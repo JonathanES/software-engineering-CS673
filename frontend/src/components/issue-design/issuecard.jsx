@@ -21,7 +21,7 @@ class IssueCard {
         this.IsDeleted =     issueRowObject.IsDeleted;
     }
 
-    whiteCard(header, title, text, buttonText, assignedTo, assignee, lastUpdate){
+    blueCard(header, title, text, buttonText, assignedTo, assignee, lastUpdate){
         return(
             <Card body>
                 <CardHeader className="text-center" style={{backgroundColor: "#157ffb"}}>{header}</CardHeader>
@@ -74,7 +74,7 @@ class IssueCard {
 
     getCard(){
         if (this.priorityID == 1){
-            return(this.whiteCard(this.issueName, this.priorityID, this.summary, "Test Button", this.assignedToID, this.assigneeID, this.lastUpdate));
+            return(this.blueCard(this.issueName, this.priorityID, this.summary, "Test Button", this.assignedToID, this.assigneeID, this.lastUpdate));
 
         }else if(this.priorityID == 2){
             return(this.yellowCard(this.issueName, this.priorityID, this.summary, "Test Button", this.assignedToID, this.assigneeID, this.lastUpdate));
