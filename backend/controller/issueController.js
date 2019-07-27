@@ -197,7 +197,7 @@ async function updateIssueName(issueID, issueName){
 
 async function updateIssueSummary(issueID, issueSummary){
     return new Promise(async (resolve, reject) => {
-        client.query("UPDATE Issues SET IssueSummary = ? WHERE IssueID = ?", [issueSummary, issueID],
+        client.query("UPDATE Issues SET Summary = ? WHERE IssueID = ?", [issueSummary, issueID],
                     async (error, results, fields) => {
                         if (error) throw error;
                         resolve(results.changedRows);

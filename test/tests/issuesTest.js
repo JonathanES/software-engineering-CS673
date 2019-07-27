@@ -441,7 +441,7 @@ describe("Testing the IssueController with socket conenction", () => {
         let issueID = 2; // Will get overwritten which is what we want
 
         const issueName = "Update IssueName Test";
-        const updatedIsueName = "YOLO";
+        const updatedIssueName = "YOLO";
 
         const issueSummary = "Starts with Update IssueName Test goes to YOLO";
         const projectID = 1;
@@ -460,7 +460,7 @@ describe("Testing the IssueController with socket conenction", () => {
                 issueID = data;
 
                 // Emit here so it doesn't emit before we get the data back
-                client.emit("UPDATE_ISSUENAME_ON_ISSUE_WITH_ID", issueID, updatedIsueName);
+                client.emit("UPDATE_ISSUENAME_ON_ISSUE_WITH_ID", issueID, updatedIssueName);
             });
 
             client.on("UPDATED_ISSUENAME_ON_ISSUE_WITH_ID", (data) => {
@@ -470,14 +470,53 @@ describe("Testing the IssueController with socket conenction", () => {
             });
 
             client.on("GOT_ISSUE_WITH_ID", (data) => {
-                assert.equal(data.IssueName, updatedIsueName, "IssueName does not match the updated IssueName");
+                assert.equal(data.IssueName, updatedIssueName, "IssueName does not match the updated IssueName");
                 done();
             });
         });
     });
 
     // Test 12
-    it("Should create a new issue and then update the issue summary");
+    it("Should create a new issue and then update the issue summary", (done) => {
+        // Setup client connection to backend
+        let client = io.connect(socketUrl, options);
+        let issueID = 2; // Will get overwritten which is what we want
+        const issueName = "Update IssueSummary Test";
+
+        const issueSummary = "Should say this: YEET, on completion!";
+        const updatedIssueSummary = "YOLO";
+
+        const projectID = 1;
+        const issueStatusID = 1;
+        const assigneeID = 1;
+        const assignedToID = 1;
+        const priorityID = 1;
+
+        // Wait for connection to backend
+        client.on("connect", async () => {
+            client.emit("CREATE_NEW_ISSUE", issueName, issueSummary, projectID, issueStatusID, assigneeID, assignedToID, priorityID);
+
+            // Await response from server from CREATE_NEW_ISSUE Command
+            client.on("CREATED_NEW_ISSUE", (data) => {
+                assert.notEqual(data, 0, "Returned RowID was 0!");
+                issueID = data;
+
+                // Emit here so it doesn't emit before we get the data back
+                client.emit("UPDATE_ISSUESUMMARY_ON_ISSUE_WITH_ID", issueID, updatedIssueSummary);
+            });
+
+            client.on("UPDATED_ISSUESUMMARY_ON_ISSUE_WITH_ID", (data) => {
+                assert.equal(data, 1, "We changed either more or less than 1 row"); // Check to make sure we affected only one row and therefore one projectID
+
+                client.emit("GET_ISSUE_WITH_ID", issueID);
+            });
+
+            client.on("GOT_ISSUE_WITH_ID", (data) => {
+                assert.equal(data.Summary, updatedIssueSummary, "Summary does not match the updated Summary");
+                done();
+            });
+        });
+    });
 
     // Test 13
     it("Should create a new issue and then update the last update field");
