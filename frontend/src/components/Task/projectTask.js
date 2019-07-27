@@ -178,7 +178,7 @@ class ProjectTask extends React.Component {
                                     </div>
 
                                     {/* done|||bstart not start*/}
-                                    <span class="state">{task.StatusName} </span>
+                                    <span class="state" style={{background: task.StatusName == 'Done'?'green': '#f4d03c' }}>{task.StatusName} </span>
                                     {/* <span class="cat_task_span">{task.TaskName}</span> */}
                                     <div class="cat_tast_footer">
                                         <span class="time">{moment(task.DueDate).format('D MMM')}</span>
