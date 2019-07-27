@@ -1,6 +1,6 @@
 html, body, #root, #wrapper,.box {
     height: 100%;
-    overflow-y:auto;   
+    overflow-y:auto;
     display: 'inline-block';
 }
 /* li {
@@ -23,19 +23,22 @@ input {
     border:1px solid #ff0000;
     align-content: center;
     align-items: center;
-    
+
 }
 .cat-task_li_li{
     width: 94%;
-    
+
 }
 .span-project-mid{
     margin-left: 35%;
 }
 .project{
-    position: fixed;
+    position: relative;
     width: 100%;
     overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    text-align:center;
 }
 .project ul{
     margin-top:20px;
@@ -102,14 +105,16 @@ input {
     text-align: center;
     font-weight: bold;
     border-radius: 4px;
-    margin: 2em 0;
+    /*margin: 2em 0;*/
+    margin:2em auto;
+    
   }
   .footer{
     margin-top:25px;
     margin-left:15px;
     margin-bottom:25px;
     height: 20px;
-    
+
   }
   .footerform{
     display: flex;
@@ -146,7 +151,7 @@ input {
   }
   .done{
     background: #65ba55;
-    
+
   }
   .bstart{
       background: #eb584d;
@@ -184,3 +189,42 @@ input {
     align-items: center;
     height: 30px;
   }
+
+  .projectform-contain{
+    width: 400px;
+    clear: both;
+    padding-left: 5px;
+
+  }
+  .projectform-contain input{
+    width: 100%;
+    clear: both;
+  }
+  #addNProjT{
+    padding-left: 5px;
+  }
+  #copyButtonColor{
+    display: block;
+    color: #fff;
+    background: #0e7fff;
+    text-decoration: none;
+    padding: 8px 50px;
+    font-size: 1.2em;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 4px;
+    margin: 2em 0;
+  }
+::placeholder{
+  color: black;
+}
+
+#dueDate{
+  width: 100%;
+}
+#projectMainContainer{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
