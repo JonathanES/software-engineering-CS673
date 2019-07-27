@@ -26,10 +26,7 @@ const mapStateToProps = state => ({
     categoryID: state.demand.categoryID
 });
 
-const MainPage = ({ dispatch, messageDemand, projectDemand, issueDemand, taskDemand, calendarDemand, projectFormDemand, projectTaskDemand, taskFormDemand}) => ( //, projectUpdateDemand }) => (
-
-
-const MainPage = ({ dispatch, messageDemand, projectDemand, issueDemand, taskDemand, projectFormDemand, projectTaskDemand, taskFormDemand}) => ( //, projectUpdateDemand }) => (
+const MainPage = ({ dispatch, messageDemand, projectDemand, issueDemand, taskDemand, projectFormDemand, projectTaskDemand, taskFormDemand, calendarDemand}) => ( //, projectUpdateDemand }) => (
     <div className="main-page">
         {messageDemand && <Chat dispatch={dispatch} />}
         {projectDemand && <Project dispatch={dispatch} />}

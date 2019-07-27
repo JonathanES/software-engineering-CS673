@@ -138,7 +138,7 @@ class ProjectTask extends React.Component {
                                 this.props.dispatch({ type: 'USER_ADD_CATEGORY_DEMAND' });
                                 e.preventDefault()
                             }} />
-                    {/* </a> */}
+                    </a>
                 </div>}
                 <div>
                     {this.props.addCategory && <CategoryForm dispatch={this.props.dispatch} />}
