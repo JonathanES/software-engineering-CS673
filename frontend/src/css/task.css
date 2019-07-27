@@ -33,7 +33,18 @@ input {
     background: silver !important;
     width: 30% !important
 }
-
+#add-task-button{
+    background: #0084ff;
+     color:white;
+     text-align: center;
+     width: 150px;
+     height:40px;
+     border: 0;
+     position: relative;
+     left:50%;
+     margin-left:-75px;
+     margin-top:50px;
+}
 .cat_task{
     display: block;
     padding: 10px;
@@ -47,8 +58,6 @@ input {
   border: 13px solid #ebf1f5;
 
 }
-
-
 ul li{
     display: inline;
     /* margin-top: 2em; */
@@ -60,7 +69,36 @@ ul li{
     /* padding: 20px;
     margin: 10px; */
 }
-
 .span-project-mid{
     display: block;
+}
+.taskform-header h4{
+    display: block;
+    text-align: center;
+    color: white;
+}
+.taskform-group{
+  margin-top:50px;
+}
+.taskform-field{
+    margin-top:20px;
+    text-align: center;
+}
+span{
+    color:white;
+}
+.project-content{
+    color:black;
+}
+.taskformbtn{
+    background: #0084ff;
+     color:white;
+     text-align: center;
+     width: 150px;
+     height:40px;
+     border: 0;
+     position: relative;
+     left:50%;
+     margin-left:-75px;
+     margin-top:40px;
 }
