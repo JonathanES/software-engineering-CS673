@@ -21,6 +21,12 @@ input {
     border: 15px solid silver;
     padding: 120px;
     margin: 20px;
+
+    
+    border-radius: 8px 14px 14px 54px;
+  -moz-border-radius: 8px 14px 14px 54px;
+  -webkit-border-radius: 8px 14px 14px 54px;
+  border: 13px solid #ebf1f5;
 }
 
 .category{
