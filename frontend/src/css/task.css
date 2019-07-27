@@ -12,7 +12,7 @@ input {
 .direct{
     padding: 20px;
     margin: 5px;
-    
+
 }
 .user-task{
     display: block;
@@ -20,7 +20,7 @@ input {
     width: 300px;
     border: 15px solid silver;
     padding: 120px;
-    margin: 20px; 
+    margin: 20px;
 }
 
 .category{
@@ -39,7 +39,12 @@ input {
     padding: 10px;
     background: rgb(240, 234, 234) !important;
     margin: 10px;
-    width: 20% !important
+    width: 20% !important;
+    padding: 30px;
+    border-radius: 8px 14px 14px 54px;
+  -moz-border-radius: 8px 14px 14px 54px;
+  -webkit-border-radius: 8px 14px 14px 54px;
+  border: 13px solid #ebf1f5;
 
 }
 
@@ -47,7 +52,7 @@ input {
 ul li{
     display: inline;
     /* margin-top: 2em; */
-    
+
     /* position: relative !important;
     background: none !important;
     width: 100% !important;
