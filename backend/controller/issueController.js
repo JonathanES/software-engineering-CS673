@@ -238,7 +238,9 @@ async function updateIsResolved(issueID, isResolved){
 module.exports = {
   createNewIssue: createNewIssue,
   deleteIssue: deleteIssue,
+  hardDeleteIssue: hardDeleteIssue,
   getIssues: getIssues,
+  createCommentForIssue: createCommentForIssue,
   getCommentsForIssue: getCommentsForIssue,
   getIssueWithID: getIssueWithID,
   createNewIssueStatus: createNewIssueStatus,

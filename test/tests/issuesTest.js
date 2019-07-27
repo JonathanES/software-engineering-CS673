@@ -7,10 +7,23 @@ const socketUrl = "http://localhost:8000"
 const db = require("../../backend/config/database")
 const moment = require("moment")
 
+const dbclient = require("../../backend/config/database");
+
 const options = {
     transports: ['websocket'],
     'force new connection': true
 };
+
+async function getCommentWithID(commentID){
+    return new Promise(async (resolve, reject) => {
+        dbclient.query("SELECT * FROM Comments WHERE CommentID = ?",
+                        [commentID],
+                        async (error, results, fields) => {
+                            if (error) throw error;
+                            resolve(results[0]);
+                        });
+    });
+}
 
 describe("Testing the IssueController with socket conenction", () => {
     // Test 1
@@ -131,14 +144,33 @@ describe("Testing the IssueController with socket conenction", () => {
     // Test 4
     it("Should attach a comment and then retrieve the comment for the issue", (done) => {
         // Setup client connection to backend
-        // let client = io.connect(socketUrl, options);
-        // const issueID = 1; // Use the test / blank ID
-        // const creatorID = 1;
-        // const commentText = "Heyy find singles in your area!";
-        //
-        // client.on("connect", async () => {
-        //
-        // });
+        let client = io.connect(socketUrl, options);
+        let commentID = 1; // Will be overwritten
+        const issueID = 1; // Use the test / blank ID
+        const taskID = 1; // This shall be always 1 for our comments
+        const creatorID = 1;
+        const commentText = "Heyy find singles in your area!";
+        const isDeleted = 0;
+
+        client.on("connect", async () => {
+            // Once connected send command to server
+            client.emit("CREATE_COMMENT_FOR_ISSUE_WITH_ID", issueID, creatorID, commentText);
+
+            client.on("CREATED_COMMENT_FOR_ISSUE_WITH_ID", async (data) => { // Have to add the async since we are calling an async function and then need to await the data to then assert the values
+                assert.notEqual(data, null, "Returned commentID was null!");
+                commentID = data;
+
+                const insertedCommentData = await getCommentWithID(commentID);
+                assert.equal(insertedCommentData.CommentID, commentID, "CommentIDs are not equal");
+                assert.equal(insertedCommentData.IssueID, issueID, "IssueIDs are not equal");
+                assert.equal(insertedCommentData.TaskID, taskID, "TaskID is not 1");
+                assert.equal(insertedCommentData.CreatedBy, creatorID, "CreatedBy field is not equal to creatorID");
+                assert.notEqual(insertedCommentData.DateCreated, null, "DateCreated is null");
+                assert.equal(insertedCommentData.Message, commentText, "Message does not equal commentText");
+                assert.equal(insertedCommentData.IsDeleted, isDeleted, "IsDeleted is set to 1 and not 0");
+                done();
+            });
+        });
     });
 
     // Test 5
