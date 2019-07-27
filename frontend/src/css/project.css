@@ -33,9 +33,12 @@ input {
     margin-left: 35%;
 }
 .project{
-    position: fixed;
+    position: relative;
     width: 100%;
     overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    text-align:center;
 }
 .project ul{
     margin-top:20px;
@@ -102,7 +105,9 @@ input {
     text-align: center;
     font-weight: bold;
     border-radius: 4px;
-    margin: 2em 0;
+    /*margin: 2em 0;*/
+    margin:2em auto;
+    
   }
   .footer{
     margin-top:25px;
@@ -212,4 +217,14 @@ input {
   }
 ::placeholder{
   color: black;
+}
+
+#dueDate{
+  width: 100%;
+}
+#projectMainContainer{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
