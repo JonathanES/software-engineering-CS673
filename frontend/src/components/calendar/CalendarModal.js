@@ -16,9 +16,9 @@ class AddUserGroup extends Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick(task){
+    handleClick(task) {
         console.log('Calling Task Update');
-        this.props.dispatch({type:'USER_UPDATE_TASK_DEMAND', task:task});
+        this.props.dispatch({ type: 'USER_UPDATE_TASK_DEMAND', task: task });
     }
 
     render() {
@@ -27,14 +27,14 @@ class AddUserGroup extends Component {
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" onClick={this.handleSubmit}>&times;</button>
+                            <button type="button" class="close" data-dismiss="modal" onClick={() => { this.props.dispatch({ type: 'USER_DEMAND_TASK_OF_DAY', taskOfDay: this.props.taskOfDay }); }}>&times;</button>
                             <h4 class="modal-title">{moment(this.props.taskOfDay[0].dueDate).format('DD-MM-YY')}</h4>
                         </div>
                         <form onSubmit={this.handleSubmit}>
                             <div id="view-task">
                                 {
                                     this.props.taskOfDay.map(task =>
-                                        <div id="task" onClick={(e) => {{this.handleClick(task); e.preventDefault()}}}>
+                                        <div id="task" onClick={(e) => { { this.handleClick(task); e.preventDefault() } }}>
                                             <div id="task-title">
                                                 {task.taskName}
                                             </div>
@@ -44,8 +44,8 @@ class AddUserGroup extends Component {
                                                 </div>
                                                 <div id="center">
                                                     {
-                                                        moment(task.dueDate).diff(moment(new Date()), 'days') < 0 ? `You are over the date by ${- moment(task.dueDate).diff(moment(new Date()), 'days')} days`: `You have ${ moment(task.dueDate).diff(moment(new Date()), 'days')} days left` 
-                                                    } 
+                                                        moment.duration(moment(task.dueDate, "YYYY-MM-DD").diff(moment().startOf('day'))).asDays() < 0 ? `You are over the date by ${- moment.duration(moment(task.dueDate, "YYYY-MM-DD").diff(moment().startOf('day'))).asDays()} days` : `You have ${moment.duration(moment(task.dueDate, "YYYY-MM-DD").diff(moment().startOf('day'))).asDays()} days left`
+                                                    }
                                                 </div>
                                                 <div id="right" className={(task.priorityID == 1) ? "yellow" : (task.priorityID == 2 ? "orange" : "red")}>
                                                     {task.priority}

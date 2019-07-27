@@ -20,7 +20,8 @@ class CalendarComponent extends Component {
     state = {
         currentMonth: new Date(),
         selectedDate: [],
-        tasks: []
+        tasks: [],
+        currentDate: new Date()
     }
 
     setDate(date) {
@@ -130,9 +131,9 @@ class CalendarComponent extends Component {
                         className={`col cell ${
                             !dateFns.isSameMonth(day, monthStart)
                                 ? "disabled"
-                                : (selectedDate.find(elt => dateFns.isSameDay(day, elt)) &&  dateFns.isSameDay(day, this.state.currentMonth)) ? "currentDaySelected " 
-                                :(selectedDate.find(elt => dateFns.isSameDay(day, elt))) ? "selected"
-                                : (dateFns.isSameDay(day, this.state.currentMonth)) ? "currentDay" : ""
+                                : (selectedDate.find(elt => dateFns.isSameDay(day, elt)) &&  dateFns.isSameDay(day, this.state.currentDate)) ? "currentDaySelected " 
+                                : (selectedDate.find(elt => dateFns.isSameDay(day, elt))) ? "selected"
+                                : (dateFns.isSameDay(day, this.state.currentDate)) ? "currentDay" : ""
                             }`}
                         key={day}
                         onClick={() => this.onDateClick(dateFns.parse(cloneDay))}
