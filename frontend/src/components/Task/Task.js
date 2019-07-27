@@ -31,6 +31,7 @@ class Task extends React.Component {
     }
 
     componentDidUpdate(prevProps){
+
         if (prevProps.task.taskName != this.props.task.taskName){
             const getListofTasksForUser = this.state.getListofTasksForUser;
             getListofTasksForUser.forEach(task => {
@@ -75,20 +76,20 @@ class Task extends React.Component {
             })
             this.setState({getListofTasksForUser: getListofTasksForUser});
         }
+
+        if (prevProps.task.isDeleted != this.props.task.isDeleted ){
+            
+            let listOfTask = this.state.getListofTasksForUser;
+            listOfTask = listOfTask.filter(task => task.taskID != this.props.task.taskID);
+            this.setState({getListofTasksForUser: listOfTask})
+
+        }
+
     }
 
     componentDidMount() {
-        //getMessage();
-        console.log(this.state.userId);
+       
         getTasksUsers(this.state.userId, (err, data) => {
-            //console.log('inside getTaskUsers in ../src/components/Task/Task.js')
-            //console.log(data);
-
-            // data.forEach(elt => {
-            //     elt.isadd = 'false'
-            //     elt.color = "rgb(155, 121, 156)";
-            // })
-            console.log(data);
             this.setState({ getListofTasksForUser: data });
         });
     }
@@ -136,9 +137,9 @@ class Task extends React.Component {
                                 </div>
                                 <div class="user-task" style={{ width: '94%', height: '200px', 
                                     borderRadius: '5px', marginLeft: '3%', display:'block', 
-                                    marginTop: '8px', marginBottom: '8px', height: "auto", padding: "5px" }}>
+                                    marginTop: '8px', marginBottom: '8px', padding: "5px" }}>
                                     <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> {task.taskName}</span>
-                                    <ul style={{verticalAlign:'top', padding:'10px'}}>
+                                    {/* <ul style={{verticalAlign:'top', padding:'10px'}}>
                                         <li class="cat-task_li_li">
                                             <span class="span-user-left" style={{backgroundColor: 'orange'}}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priority}</span>
                                         </li>
@@ -148,7 +149,19 @@ class Task extends React.Component {
                                         <li>
                                             <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> Assigned To: {this.state.username}</span>
                                         </li>
-                                    </ul>
+                                    </ul> */}
+                                    <div class="cat-task_li_li" style={{verticalAlign:'top', padding:'10px'}}>
+                                        <div class="cat-task_li_li">
+                                            <span class="span-user-left" style={{backgroundColor: 'orange'}}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priority}</span>
+                                        </div>
+                                        <div class="cat-task_li_li">
+                                            <span class="span-user-left"  style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} onClick={(e) =>this.handleClick(e,task)}> Status: {task.status}</span>
+                                        </div>
+                                        <div class="cat-task_li_li">
+                                            <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> Assigned To: {this.state.username}</span>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </li>
                         )}
@@ -157,12 +170,11 @@ class Task extends React.Component {
                 }
 
                 {/* <div class="add_task"> */}
-                {!this.props.updateTask &&<div>
+                {/* {!this.props.updateTask &&<div>
                     <form onSubmit={this.handleSubmit}>
-                        {/* <input id="add-task-input" type="text" value={this.state.newtask} onChange={this.handleChange} /> */}
                         <button id="add-task-button" type="submit">Add Task</button>
                     </form>
-                </div>}
+                </div>} */}
             </div>
         );
     }

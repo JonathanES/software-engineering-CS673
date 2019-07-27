@@ -51,7 +51,17 @@ function updateActTime(taskID, actTime,cb){
   socket.emit('USER_UPDATE_TASK_ACTTIME', taskID, actTime);
 }
 
+function deleteTask(taskID, isDelete,cb){
+  socket.on('UPDATE_TASK_ISDELETE', data => cb(null,data));
+  socket.emit('USER_UPDATE_TASK_ISDELETE', taskID, isDelete);
+}
+
+function getTask(taskID, cb){
+  socket.on('GET_SINGLETASK', data => cb(null, data));
+  socket.emit('USER_GET_SINGLETASK', taskID);
+}
+
 
 
 export { addTask, getTasksUsers, getListofTasksForCategories, getUserPrev, 
-    updateTaskName,updateDueDate, updatePriorityID , updateTaskInfo, updateStatusID, updateActTime};
+    updateTaskName,updateDueDate, updatePriorityID , updateTaskInfo, updateStatusID, updateActTime,deleteTask, getTask};

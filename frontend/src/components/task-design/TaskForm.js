@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment'
-import { addTask } from '../../socket/taskSocket'
+import { addTask, getTask } from '../../socket/taskSocket'
 import { showCategories_old, getPriorities } from '../../socket/projectSocket';
 import '../../css/task.css'
 
@@ -9,6 +9,7 @@ const mapStateToProps = state => ({
   userId: state.user.userId,
   category: state.project.category,
   projectID: state.project.projectID,
+  project:state.project.project,
   projectCategoryList: state.project.projectCategoryList,
   projectName: state.project.projectName
   //addTask: state.message.addTask
@@ -30,6 +31,7 @@ class TaskForm extends Component {
       taskInfo: '',
       expDuration: '',
       taskPriorities: [],
+      newTask:{}
 
     };
 
@@ -79,13 +81,13 @@ class TaskForm extends Component {
         this.setState({ taskInfo: event.target.value });
         break;
       case "expDuration":
-        console.log(typeof (parseInt(event.target.value)));
+        //console.log(typeof (parseInt(event.target.value)));
         if (typeof (parseInt(event.target.value)) == 'number') {
           this.setState({ expDuration: event.target.value });
         }
         break;
       case "dueDate":
-        console.log('New date:', event.target.value);
+        //console.log('New date:', event.target.value);
         this.setState({ dueDate: event.target.value });
         break;
 
@@ -122,7 +124,8 @@ class TaskForm extends Component {
     }
     else {
 
-      addTask(1, this.state.categoryID, this.state.userId, 1, this.state.priorityID, this.state.taskName, this.state.taskInfo, this.state.dueDate, this.state.expDuration, 0, (err, data) => {
+  
+      addTask(1, this.state.categoryID, this.state.userId, 1, this.state.priorityID, this.state.taskName, this.state.taskInfo, this.state.dueDate, this.state.expDuration, 0, async (err, data) => {
         // addProject(this.state.userId, this.state.projectName, this.state.dueDate, (err, data) => {
         console.log(data);
         //here we should call the mainpage, so they can see the project added to their screen, wonder how we will do it
@@ -130,7 +133,18 @@ class TaskForm extends Component {
         // console.log('Project ID:',this.props.projectCategoryList[0].ProjectID);
         // console.log('projectCategoryList:',this.props.projectCategoryList);
         // console.log('ProjectName:',this.props.projectName);
+        const listofT = this.props.projectCategoryList;
 
+        await getTask(data.insertId, async(err,data)=>{
+          console.log(data[0]); 
+          
+          this.setState({newTask: data[0]});
+          console.log(this.state.newTask);
+        })
+
+        //const newTask = await getTask(data.insertId);
+
+        
         this.setState({ taskName: '' });
         this.setState({ priorityID: '' });
         this.setState({ taskInfo: '' });
@@ -139,15 +153,29 @@ class TaskForm extends Component {
       });
 
 
-      console.log('this.props.projectCategoryList[0].ProjectID:', this.props.projectCategoryList[0].ProjectID)
+    //   if (this.state.priorityID != this.props.task.priorityID && this.state.priorityID != '') {
+    //     // console.log(this.state.priorityID);
+    //     updatePriorityID(this.props.task.taskID, this.state.priorityID, (err, data) => {
+    //         console.log('New Priority:', data);
+    //         const task = this.props.task;  
+    //         task.priorityID = data;
+    //         task.priority = this.state.priority
+    //         this.props.dispatch({type:'USER_UPDATE_TASK_DEMAND', task: task});
+    //     });
+    // }
+      //console.log('this.props.projectCategoryList[0].ProjectID:', this.props.projectCategoryList[0].ProjectID)
 
       // showCategories_old(this.props.projectID, (err, data) => {
       //   //console.log(data);
       //   this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: this.props.projectID, projectCategoryList: data, projectName: this.props.projectName });
       // });
 
-      this.props.dispatch({ type: 'USER_PROJECT_DEMAND' })
-      this.props.dispatch({ type: 'USER_VIEW_PROJECT' })
+      //console.log('project:',this.props.project);
+
+      this.props.dispatch({type: 'USER_IS_PROJECTTASK_DEMAND',project: this.props.project, projectCategoryList: this.props.projectCategoryList});
+
+      //this.props.dispatch({ type: 'USER_PROJECT_DEMAND' })
+      //this.props.dispatch({ type: 'USER_VIEW_PROJECT' })
       // this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: this.props.projectCategoryList[0].ProjectID, projectCategoryList: this.props.projectCategoryList, projectName: this.props.projectName });
     }
     event.preventDefault();
