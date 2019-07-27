@@ -154,7 +154,6 @@ p {
     padding: 5%;
     background: url("./bg2.jpg") no-repeat;
     background-size: 100% 100%;
-    z-index: -1;
     overflow: hidden;
   }
 
