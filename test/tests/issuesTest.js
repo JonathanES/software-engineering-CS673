@@ -17,7 +17,7 @@ describe("Testing the IssueController with socket conenction", () => {
     it("Should create a new issue and retrieve new Issue from ID", (done) => {
         // Setup client connection to backend
         let client = io.connect(socketUrl, options);
-        let issueID = 1;
+        let issueID = 2; // Will get overwritten which is what we want
         const issueName = "I GOT 99 PROBLEMS BUT AN ISSUE IN SWELLODESK AINT ONE";
         const issueSummary = "Jay-Z";
         const projectID = 1;
@@ -57,7 +57,39 @@ describe("Testing the IssueController with socket conenction", () => {
     });
 
     // Test 2
-    it("Should create a new issue and then delete the issue");
+    it("Should create a new issue and then delete the issue", (done) => {
+        let client = io.connect(socketUrl, options);
+        let issueID = 2 // Will get overwritten
+
+        const issueName = "Delete me Seymour!";
+        const issueSummary = "Litle Shop of Horrors";
+        const projectID = 1;
+        const issueStatusID = 1;
+        const userID = 1;
+        const responsibleUserID = 1;
+        const priorityID = 1;
+
+        // Wait for connection to backend
+        client.on("connect", async () => {
+            // Send command to server
+            // In order: issueName, issueSummary, projectID, issueStatusID, userID, responsibleUserID, priorityID
+            client.emit("CREATE_NEW_ISSUE", issueName, issueSummary, projectID, issueStatusID, userID, responsibleUserID, priorityID);
+
+            // Await response from server from CREATE_NEW_ISSUE Command
+            client.on("CREATED_NEW_ISSUE", (data) => {
+                assert.notEqual(data, 0, "Returned RowID was 0!");
+                issueID = data;
+
+                // Emit delete issue here so it happens after we know the issue has been created
+                client.emit("DELETE_ISSUE_WITH_ID", issueID);
+            });
+
+            client.on("DELETED_ISSUE_WITH_ID", data => {
+                assert.equal(data, 1, "We deleted more or less than 1 row!"); // The data is the number of changes rows
+                done();
+            });
+        });
+    });
 
     // Test 3
     it("Should get all the issues in the database", (done) => {

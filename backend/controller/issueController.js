@@ -46,6 +46,17 @@ async function deleteIssue(issueID){
     });
 };
 
+async function hardDeleteIssue(issueID){
+    return new Promise(async (resolve, reject) => {
+        client.query("DELETE FROM Issues WHERE IssueID = ?",
+        [issueID],
+        async (error, results, fields) => {
+            if (error) throw error;
+            resolve(results.changedRows);
+        });
+    })
+}
+
 // Empty & Populate Issues Array and return Issues from MySQL database
 /**
  * This function returns all the Issues in the DB in an array
