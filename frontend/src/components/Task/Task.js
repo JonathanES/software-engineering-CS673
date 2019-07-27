@@ -15,6 +15,21 @@ const mapStateToProps = state => ({
     //taskname: state.Task.newtask
 });
 
+Card.propTypes = {
+    // Pass in a Component to override default element
+    tag: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    inverse: PropTypes.bool,
+    color: PropTypes.string,
+    body: PropTypes.bool,
+    className: PropTypes.string
+  };
+  
+CardText.propTypes = {
+    // Pass in a Component to override default element
+    tag: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+    className: PropTypes.string
+  };
+
 class Task extends React.Component {
     constructor(props) {
         super(props);
@@ -120,6 +135,8 @@ class Task extends React.Component {
         console.log('Calling Task Update');
         this.props.dispatch({type:'USER_UPDATE_TASK_DEMAND', task:task});
     }
+
+    
     
 
     render() {
@@ -154,7 +171,7 @@ class Task extends React.Component {
                             //         </ul>
                             //     </div>
 
-
+                                <Col col-sm-auto offset-sm-1> 
                                 <Card body inverse color="white" sm="6">
                                     <CardHeader className="text-center">{task.StatusName}</CardHeader>
                                     <CardBody className="text-center">
@@ -167,7 +184,7 @@ class Task extends React.Component {
                                     </CardBody>
                                     <CardFooter className="text-center">Assigned to: {this.state.username} </CardFooter>
                                 </Card>
-
+                                </Col>
 
 
 
