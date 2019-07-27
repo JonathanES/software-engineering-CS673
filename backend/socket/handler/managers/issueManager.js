@@ -24,7 +24,7 @@ module.exports = (io) => {
             client.emit("CREATED_NEW_ISSUE", result); // Send back confirmation
         });
 
-        client.on("DELETE_ISSUE_WITH_ID", async (issueID)) => {
+        client.on("DELETE_ISSUE_WITH_ID", async (issueID) => {
             const result = await issueController.deleteIssue(issueID);
             client.emit("DELETED_ISSUE_WITH_ID", result);
         });
