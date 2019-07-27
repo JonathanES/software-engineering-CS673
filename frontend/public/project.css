@@ -14,12 +14,15 @@ body {
     rgba(122, 188, 255, 1) 0%,
     rgba(96, 171, 248, 1) 44%,
     rgba(64, 150, 238, 1) 100%
+
+   
   ); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(
     45deg,
     rgba(122, 188, 255, 1) 0%,
     rgba(96, 171, 248, 1) 44%,
     rgba(64, 150, 238, 1) 100%
+
   ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
@@ -29,6 +32,7 @@ html {
   height: calc(100% - 2em);
   margin: 0;
   font-family: "source sans pro", "sans-serif";
+  overflow: hidden;
 }
 
 
@@ -72,7 +76,10 @@ ul li a {
   background-color: rgba(255, 255, 255, 0.35);
   color: #000;
 }
-
+ul li a:hover{
+  text-decoration: none;
+  color: white;
+}
 #main {
   background: #fff;
   padding: 1em 1.4em;
@@ -105,7 +112,7 @@ p {
     display: none;
   }
   aside {
-    background: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.8);
     position: absolute;
     left: 0%;
     width: 13%;
@@ -114,11 +121,18 @@ p {
     grid-template-rows: 20% auto;*/
     padding: 0;
   }
+  aside ul li:hover{
+    transition: .5s;
+    background: #0e7fff;
+    color:white;
+  }
   .main-page{
     position: absolute;
     right: 0px;
     width: 87%;
     height: 100%;
+    padding: 5%;
+    background: url("../images/bg.jpg") no-repeat;
   }
 
   #main {
@@ -136,18 +150,21 @@ p {
   }
   figcaption {
     text-align: center;
-    color: #fff;
+    color: #000;
   }
 
   ul {
     display: block;
     margin-top: 2em;
     position: relative !important;
-    background: none !important;
-    width: 100% !important;
+    background: none;
+    width: 100%;
   }
 
   nav {
     background: none;
+  }
+  .ul-menu li{
+    display: block;
   }
 }

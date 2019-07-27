@@ -16,6 +16,29 @@ body {
     background-attachment: fixed;
     background-position: bottom right;
 }
+.bg{
+    width: 100%;
+    height:100vh;
+    background: rgb(122, 188, 255);
+    background: -webkit-linear-gradient(
+    45deg,
+    rgba(122, 188, 255, 1) 0%,
+    rgba(96, 171, 248, 1) 44%,
+    rgba(64, 150, 238, 1) 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+    z-index: -1;
+    position: absolute;
+    overflow: hidden;
+}
+.bg::before{
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: url("../images/bg.jpg") no-repeat;
+    background-size: 100% 100%;
+    filter: blur(10px);
+}
 .red {
     color: red !important;
 }
@@ -24,6 +47,10 @@ body {
 }
 .uppercase {
     text-transform: uppercase;
+    color:white;
+    font-style: normal;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
 }
 button {
     cursor: pointer;
