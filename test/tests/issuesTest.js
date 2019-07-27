@@ -129,7 +129,17 @@ describe("Testing the IssueController with socket conenction", () => {
     });
 
     // Test 4
-    it("Should attach a comment and then retrieve the comment for the issue");
+    it("Should attach a comment and then retrieve the comment for the issue", (done) => {
+        // Setup client connection to backend
+        // let client = io.connect(socketUrl, options);
+        // const issueID = 1; // Use the test / blank ID
+        // const creatorID = 1;
+        // const commentText = "Heyy find singles in your area!";
+        //
+        // client.on("connect", async () => {
+        //
+        // });
+    });
 
     // Test 5
     it("Should get the first blank issue (#1) in the database");
