@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment'
 import { addTask, getTask } from '../../socket/taskSocket'
-import { showCategories_old, getPriorities } from '../../socket/projectSocket';
+import { showCategories_old, getPriorities, getAvailableUsers } from '../../socket/projectSocket';
 import '../../css/task.css'
 
 const mapStateToProps = state => ({
@@ -31,7 +31,8 @@ class TaskForm extends Component {
       taskInfo: '',
       expDuration: '',
       taskPriorities: [],
-      newTask:{}
+      newTask:{},
+      listOfFriends:[],
 
     };
 
@@ -39,6 +40,7 @@ class TaskForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handlePriorityChange = this.handlePriorityChange.bind(this);
+    this.handleNewUser = this.handleNewUser.bind(this);
   }
 
   componentDidMount() {
@@ -51,10 +53,24 @@ class TaskForm extends Component {
       //console.log('User levels:',this.state.userlevels);
     })
 
+    getAvailableUsers(this.state.pID, this.state.userId, (err, data) => {
+      this.setState({ listOfFriends: data });
+      this.state.listOfFriends.push({UserID:0,username:'Please Select a User'});      
+    });
+
   }
   handleClick(event) {
 
   }
+
+  handleNewUser(event){
+
+    //console.log('User ID:',event.target.value);
+    this.setState({newuserid: event.target.value}); 
+    //event.preventDefault();
+  }
+
+  
 
   handlePriorityChange(event) {
     console.log('User Type:', event.target.value);
@@ -152,26 +168,6 @@ class TaskForm extends Component {
         this.setState({ dueDate: '' });
       });
 
-
-    //   if (this.state.priorityID != this.props.task.priorityID && this.state.priorityID != '') {
-    //     // console.log(this.state.priorityID);
-    //     updatePriorityID(this.props.task.taskID, this.state.priorityID, (err, data) => {
-    //         console.log('New Priority:', data);
-    //         const task = this.props.task;  
-    //         task.priorityID = data;
-    //         task.priority = this.state.priority
-    //         this.props.dispatch({type:'USER_UPDATE_TASK_DEMAND', task: task});
-    //     });
-    // }
-      //console.log('this.props.projectCategoryList[0].ProjectID:', this.props.projectCategoryList[0].ProjectID)
-
-      // showCategories_old(this.props.projectID, (err, data) => {
-      //   //console.log(data);
-      //   this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: this.props.projectID, projectCategoryList: data, projectName: this.props.projectName });
-      // });
-
-      //console.log('project:',this.props.project);
-
       this.props.dispatch({type: 'USER_IS_PROJECTTASK_DEMAND',project: this.props.project, projectCategoryList: this.props.projectCategoryList});
 
       //this.props.dispatch({ type: 'USER_PROJECT_DEMAND' })
@@ -216,6 +212,14 @@ class TaskForm extends Component {
                   <input id="expDuration" type="number" value={this.state.expDuration} onChange={this.handleChange} />
                   <span> hours</span>
                 </div>
+                <div className="taskform-field">
+                  <label htmlFor="assignuser">Assign to user:</label>
+                  <select onChange = {this.handleNewUser}>
+                    {this.state.listOfFriends.map(friend =>
+                      <option selected={friend.username} value={friend.UserID} id={friend.UserID}>{friend.username}</option>
+                    )}
+                  </select>
+                  </div>
                 <button type="submit" className="taskformbtn uppercase">Add Task</button>
               </form>
             </div>
