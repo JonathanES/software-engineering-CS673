@@ -13,7 +13,7 @@ const options = {
 };
 
 describe("Testing the IssueController with socket conenction", () => {
-    // Module Test 1
+    // Test 1
     it("Should create a new issue and retrieve new Issue from ID", (done) => {
         // Setup client connection to backend
         let client = io.connect(socketUrl, options);
@@ -56,7 +56,56 @@ describe("Testing the IssueController with socket conenction", () => {
         });
     });
 
-    // Module Test 2
+    // Test 2
+    it("Should create a new issue and then delete the issue");
+
+    // Test 3
+    it("Should get all the issues in the database", (done) => {
+        // Setup client connection to backend
+        let client = io.connect(socketUrl, options);
+        let issueID = 1; // Temp value ofc, it get's updated later
+        const issueName = "Get Issues Test";
+        const issueSummary = "We gonna have at least one in hereeeeeeee boiiiiiii";
+        const projectID = 1;
+        const issueStatusID = 1;
+        const newIssueStatusID = 1;
+        const userID = 1;
+        const responsibleUserID = 1;
+        const priorityID = 1;
+
+        // Wait for connection to backend
+        client.on("connect", async () => {
+            // Send creation command to server
+            // In order: issueName, issueSummary, projectID, issueStatusID, userID, responsibleUserID, priorityID
+            client.emit("CREATE_NEW_ISSUE", issueName, issueSummary, projectID, issueStatusID, userID, responsibleUserID, priorityID);
+
+            // Await response from server from CREATE_NEW_ISSUE Command so we at least have on in the database
+            client.on("CREATED_NEW_ISSUE", (data) => {
+                assert.notEqual(data, 0, "Returned RowID was 0!");
+                issueID = data;
+
+                // Emit here so it doesn't emit before we get the data back
+                client.emit("GET_ISSUES");
+            });
+
+            // Once we get the issues back from the server
+            client.on("GOT_ISSUES", (data) => {
+                assert.isAtLeast(data.length, 1, "Issues returned is less than 1! There should be at least 1!")
+                done();
+            });
+        });
+    });
+
+    // Test 4
+    it("Should attach a comment and then retrieve the comment for the issue");
+
+    // Test 5
+    it("Should get the first blank issue (#1) in the database");
+
+    // Test 6
+    it("Should create a new issue and update the project ID");
+
+    // Test 7
     it("Should create a new issue and then update the issue's status", (done) => {
         // Setup client connection to backend
         let client = io.connect(socketUrl, options);
@@ -108,40 +157,27 @@ describe("Testing the IssueController with socket conenction", () => {
         });
     });
 
-    // Module Test 3
-    it("Should get all the issues in the database", (done) => {
-        // Setup client connection to backend
-        let client = io.connect(socketUrl, options);
-        let issueID = 1; // Temp value ofc, it get's updated later
-        const issueName = "Get Issues Test";
-        const issueSummary = "We gonna have at least one in hereeeeeeee boiiiiiii";
-        const projectID = 1;
-        const issueStatusID = 1;
-        const newIssueStatusID = 1;
-        const userID = 1;
-        const responsibleUserID = 1;
-        const priorityID = 1;
+    // Test 8
+    it("Should create a new issue and then update the assignee ID");
 
-        // Wait for connection to backend
-        client.on("connect", async () => {
-            // Send creation command to server
-            // In order: issueName, issueSummary, projectID, issueStatusID, userID, responsibleUserID, priorityID
-            client.emit("CREATE_NEW_ISSUE", issueName, issueSummary, projectID, issueStatusID, userID, responsibleUserID, priorityID);
+    // Test 9
+    it("Should create a new issue and then update the assignedTo ID");
 
-            // Await response from server from CREATE_NEW_ISSUE Command so we at least have on in the database
-            client.on("CREATED_NEW_ISSUE", (data) => {
-                assert.notEqual(data, 0, "Returned RowID was 0!");
-                issueID = data;
+    // Test 10
+    it("Should create a new issue and then update the priority ID");
 
-                // Emit here so it doesn't emit before we get the data back
-                client.emit("GET_ISSUES");
-            });
+    // Test 11
+    it("Should create a new issue and then update the issue name");
 
-            // Once we get the issues back from the server
-            client.on("GOT_ISSUES", (data) => {
-                assert.isAtLeast(data.length, 1, "Issues returned is less than 1! There should be at least 1!")
-                done();
-            });
-        });
-    });
+    // Test 12
+    it("Should create a new issue and then update the issue summary");
+
+    // Test 13
+    it("Should create a new issue and then update the last update field");
+
+    // Test 14
+    it("Should create a new issue and then update the date resolved field");
+
+    // Test 15
+    it("Should create a new issue and then up the is resolved field");
 });

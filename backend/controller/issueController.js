@@ -64,6 +64,19 @@ async function getIssues(){
   });
 };
 
+async function createCommentForIssue(issueID, creatorID, commentText){
+    return new Promise(async (resolve, reject) => {
+        const dateCreated = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+        client.query("INSERT INTO Comments(IssueID, TaskID, CreatedBy, DateCreated, Message, IsDeleted) VALUES(?,?,?,?,?,?)",
+                    [issueID, 1, creatorID, dateCreated, commentText, 0],
+                    async (error, results, fields) => {
+                        if (error) throw error;
+                        resolve(results.insertId); // Return the ID of the inserted comment for reference
+                    }
+    );
+    });
+};
+
 async function getCommentsForIssue(issueID){
     return new Promise(async (resolve, reject) => {
         client.query("SELECT * FROM Comments WHERE IssueID = ?", [issueID],

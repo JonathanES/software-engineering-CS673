@@ -40,6 +40,11 @@ module.exports = (io) => {
             client.emit("GOT_ISSUES", result);
         });
 
+        client.on("CREATE_COMMENT_FOR_ISSUE_WITH_ID", async (issueID, creatorID, commentText) => {
+            const result = await issueController.createCommentForIssue(issueID, creatorID, commentText);
+            client.emit("CREATED_COMMENT_FOR_ISSUE_WITH_ID", result);
+        });
+
         client.on("GET_COMMENTS_FOR_ISSUE_WITH_ID", async (issueID) => {
             const result = await issueController.getCommentsForIssue(issueID);
             client.emit("GOT_COMMENTS_FOR_ISSUE_WITH_ID", result);
