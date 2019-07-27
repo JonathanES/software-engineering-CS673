@@ -108,7 +108,7 @@ module.exports = (io) => {
         });
 
         client.on("UPDATE_ISSUENAME_ON_ISSUE_WITH_ID", async (issueID, issueName) => {
-            const result = await issueController.updateIssueName(issue, issueName);
+            const result = await issueController.updateIssueName(issueID, issueName);
             client.emit("UPDATED_ISSUENAME_ON_ISSUE_WITH_ID", result);
         });
 
