@@ -353,7 +353,7 @@ describe("Testing the IssueController with socket conenction", () => {
     });
 
     // Test 9
-    it("Should create a new issue and then update the assignedTo ID", (done) =>{
+    it("Should create a new issue and then update the assignedTo ID", (done) => {
         // Setup client connection to backend
         let client = io.connect(socketUrl, options);
         let issueID = 2; // Will get overwritten which is what we want
@@ -394,7 +394,45 @@ describe("Testing the IssueController with socket conenction", () => {
     });
 
     // Test 10
-    it("Should create a new issue and then update the priority ID");
+    it("Should create a new issue and then update the priority ID", (done) => {
+        // Setup client connection to backend
+        let client = io.connect(socketUrl, options);
+        let issueID = 2; // Will get overwritten which is what we want
+        const issueName = "Update PriorityID Test";
+        const issueSummary = "Starts at 1 goes to 2";
+        const projectID = 1;
+        const issueStatusID = 1;
+        const assigneeID = 1;
+        const assignedToID = 1;
+
+        const priorityID = 1;
+        const updatedPriorityID = 2;
+
+        // Wait for connection to backend
+        client.on("connect", async () => {
+            client.emit("CREATE_NEW_ISSUE", issueName, issueSummary, projectID, issueStatusID, assigneeID, assignedToID, priorityID);
+
+            // Await response from server from CREATE_NEW_ISSUE Command
+            client.on("CREATED_NEW_ISSUE", (data) => {
+                assert.notEqual(data, 0, "Returned RowID was 0!");
+                issueID = data;
+
+                // Emit here so it doesn't emit before we get the data back
+                client.emit("UPDATE_PRIORITYID_ON_ISSUE_WITH_ID", issueID, updatedPriorityID);
+            });
+
+            client.on("UPDATED_PRIORITYID_ON_ISSUE_WITH_ID", (data) => {
+                assert.equal(data, 1, "We changed either more or less than 1 row"); // Check to make sure we affected only one row and therefore one projectID
+
+                client.emit("GET_ISSUE_WITH_ID", issueID);
+            });
+
+            client.on("GOT_ISSUE_WITH_ID", (data) => {
+                assert.equal(data.PriorityID, updatedPriorityID, "PriorityID does not match the udpated PriorityID");
+                done();
+            });
+        });
+    });
 
     // Test 11
     it("Should create a new issue and then update the issue name");
