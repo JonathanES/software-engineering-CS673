@@ -87,14 +87,13 @@ class ProjectForm extends React.Component {
 
   render() {
     return (
-      <div>
         <div className="projectform">
           <div className="projectform-header">
             <h1 id = "addNProjT" className="uppercase"> Add a new Project </h1>
           </div>
           <div className="projectform-contain">
             <div className="projectform-group">
-              <form onSubmit={this.handleSubmit}>
+              <form onSubmit={this.handleSubmit} id="createProjectForm">
                 <div className="projectform-field">
                   <label htmlFor="projectName">Project Name :</label>
                   <input id="projectName" type="text" value={this.state.projectName} onChange={this.handleChange}  placeholder="Enter Project Name"/>
@@ -108,7 +107,6 @@ class ProjectForm extends React.Component {
             </div>
           </div>
         </div>
-      </div>
     );
   }
 }
