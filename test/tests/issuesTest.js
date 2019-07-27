@@ -560,7 +560,46 @@ describe("Testing the IssueController with socket conenction", () => {
     });
 
     // Test 14
-    it("Should create a new issue and then update the date resolved field");
+    it("Should create a new issue and then update the date resolved field", (done) => {
+        // Setup client connection to backend
+        let client = io.connect(socketUrl, options);
+        let issueID = 2; // Will get overwritten which is what we want
+        const issueName = "Update date resolved Test";
+        const issueSummary = "Should go from null to a date";
+        const projectID = 1;
+        const issueStatusID = 1;
+        const assigneeID = 1;
+        const assignedToID = 1;
+        const priorityID = 1;
+
+        const dateResolved = null;
+        const updatedDateResolved = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+
+        // Wait for connection to backend
+        client.on("connect", async () => {
+            client.emit("CREATE_NEW_ISSUE", issueName, issueSummary, projectID, issueStatusID, assigneeID, assignedToID, priorityID);
+
+            // Await response from server from CREATE_NEW_ISSUE Command
+            client.on("CREATED_NEW_ISSUE", (data) => {
+                assert.notEqual(data, 0, "Returned RowID was 0!");
+                issueID = data;
+
+                // Emit here so it doesn't emit before we get the data back
+                client.emit("UPDATE_DATERESOLVED_ON_ISSUE_WITH_ID", issueID, updatedDateResolved);
+            });
+
+            client.on("UPDATED_DATERESOLVED_ON_ISSUE_WITH_ID", (data) => {
+                assert.equal(data, 1, "We changed either more or less than 1 row"); // Check to make sure we affected only one row and therefore one projectID
+
+                client.emit("GET_ISSUE_WITH_ID", issueID);
+            });
+
+            client.on("GOT_ISSUE_WITH_ID", (data) => {
+                assert.equal(moment(data.DateResolved).format('YYYY-MM-DD HH:mm:ss'), updatedDateResolved, "DateResolved does not match the updated DateResolved");
+                done();
+            });
+        });
+    });
 
     // Test 15
     it("Should create a new issue and then up the is resolved field");
