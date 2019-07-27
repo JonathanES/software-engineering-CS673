@@ -13,6 +13,7 @@ const defaultState = {
   isProjectTasksSelected: false,
   isProjectForm: false,
   isAddTaskForm: false,
+  isUpdateTaskForm: false,
 
 };
 
@@ -32,6 +33,7 @@ const project = (state = defaultState, action) => {
         isProjectTasksSelected: false,
         isProjectForm: false,
         isAddTaskForm: false,
+        isUpdateTaskForm: false,
       }
 
     case 'PROJECTUPDATEFORM':
@@ -43,6 +45,7 @@ const project = (state = defaultState, action) => {
         isProjectTasksSelected: false,
         isProjectForm: false,
         isAddTaskForm: false,
+        isUpdateTaskForm: false,
 
       }
 
@@ -54,6 +57,7 @@ const project = (state = defaultState, action) => {
       isProjectTasksSelected: false,
       isProjectForm: false,
       isAddTaskForm: false,
+      isUpdateTaskForm: false,
     }
 
     case 'IS_PROJECTTASK_DEMAND':
@@ -70,6 +74,7 @@ const project = (state = defaultState, action) => {
         isProjectTasksSelected: true,
         isProjectForm: false,
         isAddTaskForm: false,
+        isUpdateTaskForm: false,
       }
 
 
@@ -82,6 +87,7 @@ const project = (state = defaultState, action) => {
         isProjectUpdateSelected: false,
         isProjectTasksSelected: false,
         isAddTaskForm: false,
+        isUpdateTaskForm: false,
       }
 
 
@@ -94,7 +100,33 @@ const project = (state = defaultState, action) => {
         isProjectUpdateSelected: false,
         isProjectTasksSelected: false,
         isAddTaskForm: true,
+        isUpdateTaskForm: false,
       }
+
+      case 'UPDATE_RETURN':
+      return {
+        ...state,
+        project: action.project,
+        isProjectSelected: true,
+        isProjectUpdateSelected: false,
+        isProjectTasksSelected: false,
+        isProjectForm: false,
+        isAddTaskForm: false,
+        isUpdateTaskForm: false,
+      }
+
+      case 'PROJECT_TASK_UPDATE':
+        return{
+          ...state,
+          isUpdateTaskForm:true,
+          task:action.task,
+          isProjectForm: false,
+          isProjectSelected: false,
+          isProjectUpdateSelected: false,
+          isProjectTasksSelected: false,
+          isAddTaskForm: false,
+
+        }
 
 
 

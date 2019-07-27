@@ -139,7 +139,7 @@ class Task extends React.Component {
                                     borderRadius: '5px', marginLeft: '3%', display:'block', 
                                     marginTop: '8px', marginBottom: '8px', padding: "5px" }}>
                                     <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> {task.taskName}</span>
-                                    <ul style={{verticalAlign:'top', padding:'10px'}}>
+                                    {/* <ul style={{verticalAlign:'top', padding:'10px'}}>
                                         <li class="cat-task_li_li">
                                             <span class="span-user-left" style={{backgroundColor: 'orange'}}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priority}</span>
                                         </li>
@@ -149,7 +149,19 @@ class Task extends React.Component {
                                         <li>
                                             <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> Assigned To: {this.state.username}</span>
                                         </li>
-                                    </ul>
+                                    </ul> */}
+                                    <div class="cat-task_li_li" style={{verticalAlign:'top', padding:'10px'}}>
+                                        <div class="cat-task_li_li">
+                                            <span class="span-user-left" style={{backgroundColor: 'orange'}}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priority}</span>
+                                        </div>
+                                        <div class="cat-task_li_li">
+                                            <span class="span-user-left"  style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} onClick={(e) =>this.handleClick(e,task)}> Status: {task.status}</span>
+                                        </div>
+                                        <div class="cat-task_li_li">
+                                            <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> Assigned To: {this.state.username}</span>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </li>
                         )}
@@ -158,12 +170,11 @@ class Task extends React.Component {
                 }
 
                 {/* <div class="add_task"> */}
-                {!this.props.updateTask &&<div>
+                {/* {!this.props.updateTask &&<div>
                     <form onSubmit={this.handleSubmit}>
-                        {/* <input id="add-task-input" type="text" value={this.state.newtask} onChange={this.handleChange} /> */}
                         <button id="add-task-button" type="submit">Add Task</button>
                     </form>
-                </div>}
+                </div>} */}
             </div>
         );
     }

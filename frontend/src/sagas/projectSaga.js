@@ -47,6 +47,16 @@ function *handleAddTaskDemand(action){
     yield put({type: 'ADD_TASKFORM_DEMAND', category: action.category});
 }
 
+function *handleUpdateReturn(){
+    yield put({type: 'UPDATE_RETURN'});
+}
+
+function *handleProjectTaskUpdateDemand(action){
+    yield put({type:'PROJECT_TASK_UPDATE', task:action.task});
+}
+
+
+
 
  function *projectSaga(){
     yield takeEvery('USER_IS_PROJECT_DEMAND', handleProjectDemand);
@@ -58,6 +68,8 @@ function *handleAddTaskDemand(action){
     yield takeEvery('USER_UPDATE_CATEGORY_LIST', handleCategoryListDemand);
     yield takeEvery('USER_UPDATE_PROJECT_ISDELETED', handleDeleteProjectDemand);
     yield takeEvery('USER_ADD_TASKFORM_DEMAND', handleAddTaskDemand);
+    yield takeEvery('USER_UPDATE_RETURN', handleUpdateReturn);
+    yield takeEvery('USER_PROJECT_TASK_UPDATE', handleProjectTaskUpdateDemand);
 }
 
 export default projectSaga;
