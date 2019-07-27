@@ -4,6 +4,8 @@ import { getTasksUsers } from '../../socket/taskSocket';
 //import {userId} from '../../socket/userSocket';
 import TaskUpdate from './taskUpdate';
 import '../../css/projectTask.css'
+import {Card, Button, CardTitle, CardText, CardHeader, header, CardBody,CardFooter, Row, Col, Container} from 'reactstrap';
+
 
 const mapStateToProps = state => ({
     username: state.user.username,
@@ -128,43 +130,51 @@ class Task extends React.Component {
                     <div class="title uppercase" style={{marginBottom:'10px'}}>{this.props.username}'s Tasks</div>
                     <ul style={{display: 'block'}}>
                         {this.state.getListofTasksForUser.map(task =>
-                            <li style={{ width: '300px', minHeight: "250px", 
-                            paddingBlock:'10px', verticalAlign:'top', 
-                            margin:'2px 2px 2px 2px' , borderRadius: '5px', 
-                            position: "relative" , 
-                            display: 'inline-block'}}>
-                                <div id={task.taskName} onClick={(e) =>this.handleClick(e,task)}>
-                                </div>
-                                <div class="user-task" style={{ width: '94%', minHeight: '250px', 
-                                    borderRadius: '5px', marginLeft: '3%', display:'block', 
 
-                                    marginTop: '8px', marginBottom: '8px', padding: "5px" }}>
-                                    <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> {task.taskName}</span>
-                                    {/* <ul style={{verticalAlign:'top', padding:'10px'}}>
-                                        <li class="cat-task_li_li">
-                                            <span class="span-user-left" style={{backgroundColor: 'gold',color:'#fff',width:'120px',height:'30px',borderRadius:'5px',display:'block',textAlign:'center',lineHeight:'30px'}}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priority}</span>
-                                        </li>
-                                        <li class="cat-task_li_li">
-                                            <span class="span-user-left"  style={{ display: this.state.modalIsOpen, minWidth: "50px", height: "20px",display:'block',color:'black',marginTop:'20px' }} onClick={(e) =>this.handleClick(e,task)}> <span style={{backgroundColor: 'LightCoral',color:'#fff',width:'80px',height:'30px',borderRadius:'5px',display:'block',textAlign:'center',lineHeight:'30px',float:'left',marginRight:'10px'}}>Status:</span> {task.status}</span>
-                                        </li>
-                                        <li>
-                                            <span class="span-user-left" style={{display:'block',color:'black',height:'20px',marginTop:'20px',marginBottom:'20px'}}  onClick={(e) =>this.handleClick(e,task)}> <span style={{backgroundColor: 'MediumPurple',color:'#fff',width:'120px',height:'30px',borderRadius:'5px',display:'block',textAlign:'center',lineHeight:'30px',float:'left',marginRight:'10px'}}>Assigned To:</span> {this.state.username}</span>
-                                        </li>
-                                    </ul> */}
-                                    <div class="cat-task_li_li" style={{verticalAlign:'top', padding:'10px'}}>
-                                        <div class="cat-task_li_li">
-                                            <span class="span-user-left" style={{backgroundColor: 'orange'}}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priority}</span>
-                                        </div>
-                                        <div class="cat-task_li_li">
-                                            <span class="span-user-left"  style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} onClick={(e) =>this.handleClick(e,task)}> Status: {task.status}</span>
-                                        </div>
-                                        <div class="cat-task_li_li">
-                                            <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> Assigned To: {this.state.username}</span>
-                                        </div>
-                                    </div>
+                            // <li style={{ width: '300px', height: "auto", 
+                            // paddingBlock:'10px', verticalAlign:'top', 
+                            // margin:'2px 2px 2px 2px' , borderRadius: '5px', 
+                            // backgroundColor: "#e6e6e6", position: "relative" , 
+                            // display: 'inline-block'}}>
+                            //     <div id={task.taskName} onClick={(e) =>this.handleClick(e,task)}>
+                            //     </div>
+                            //     <div class="user-task" style={{ width: '94%', height: '200px', 
+                            //         borderRadius: '5px', marginLeft: '3%', display:'block', 
+                            //         marginTop: '8px', marginBottom: '8px', padding: "5px" }}>
+                            //         <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> {task.taskName}</span>
+                            //         <ul key={"task"+task.taskID} style={{verticalAlign:'top', padding:'10px'}}>
+                            //             <li class="cat-task_li_li">
+                            //                 <span class="span-user-left" style={{backgroundColor: 'orange'}}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priority}</span>
+                            //             </li>
+                            //             <li class="cat-task_li_li">
+                            //                 <span class="span-user-left"  style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} onClick={(e) =>this.handleClick(e,task)}> Status: {task.status}</span>
+                            //             </li>
+                            //             <li>
+                            //                 <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> Assigned To: {this.state.username}</span>
+                            //             </li>
+                            //         </ul>
+                            //     </div>
 
-                                </div>
-                            </li>
+
+                                <Card body inverse color="white" sm="6">
+                                    <CardHeader className="text-center">{task.StatusName}</CardHeader>
+                                    <CardBody className="text-center">
+                                        <CardTitle>{task.taskName}</CardTitle>
+                                        <CardText>{task.taskInfo}</CardText>
+                                        <CardText>
+                                            <small className="text-muted">Priority {task.priority}</small>
+                                        </CardText>
+                                        <Button color="secondary">Update</Button>
+                                    </CardBody>
+                                    <CardFooter className="text-center">Assigned to: {this.state.username} </CardFooter>
+                                </Card>
+
+
+
+
+
+                            // </li>
+
                         )}
                     </ul>
                 </div>
