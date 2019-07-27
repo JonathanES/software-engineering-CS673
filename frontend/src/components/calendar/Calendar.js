@@ -130,13 +130,14 @@ class CalendarComponent extends Component {
                         className={`col cell ${
                             !dateFns.isSameMonth(day, monthStart)
                                 ? "disabled"
-                                : (selectedDate.find(elt => dateFns.isSameDay(day, elt))) ? "selected" : ""
+                                : (selectedDate.find(elt => dateFns.isSameDay(day, elt)) &&  dateFns.isSameDay(day, this.state.currentMonth)) ? "currentDaySelected " 
+                                :(selectedDate.find(elt => dateFns.isSameDay(day, elt))) ? "selected"
+                                : (dateFns.isSameDay(day, this.state.currentMonth)) ? "currentDay" : ""
                             }`}
                         key={day}
                         onClick={() => this.onDateClick(dateFns.parse(cloneDay))}
                     >
                         <span className="number">{formattedDate}</span>
-                        <span className="bg">{formattedDate}</span>
                     </div>
                 );
                 day = dateFns.addDays(day, 1);
@@ -184,31 +185,6 @@ class CalendarComponent extends Component {
             </div>
         );
     }
-    // onClickDay = date => {
-    //     const listOfDates = this.state.date;
-    //     listOfDates.forEach(elt => {
-    //         if (moment(elt).format('DD/MM/YY') == moment(date).format('DD/MM/YY'))
-    //             alert(date);
-    //     })
-    //     this.setState({ date: [new Date('08/08/2019'), new Date(),new Date('08/09/2019')] })
-    // }
-
-    // render() {
-    //     return (
-    //         <div class="center">
-    //             <Calendar
-    //                 value={this.state.date}
-    //                 onClickDay={this.onClickDay}
-    //             />
-    //             {/* <Calendar
-    //                 localizer={localizer}
-    //                 events={this.state.date}
-    //                 startAccessor="start"
-    //                 endAccessor="end"
-    //             /> */}
-    //         </div>
-    //     );
-    // }
 }
 
 
