@@ -49,6 +49,18 @@ const project = (state = defaultState, action) => {
 
       }
 
+    case 'LIST_OF_PROJECT_DEMAND':
+      return{
+        ...state,
+        listOfProjects: action.listOfProjects,
+        isProjectSelected: true,
+        isProjectUpdateSelected: false,
+        isProjectTasksSelected: false,
+        isProjectForm: false,
+        isAddTaskForm: false,
+        isUpdateTaskForm: false,
+      }
+
     case 'VIEW_PROJECT': return {
       ...state,
       projectID: action.projectID,
