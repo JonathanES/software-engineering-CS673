@@ -42,6 +42,7 @@ class ProjectTask extends React.Component {
         this.handleMouseOver = this.handleMouseOver.bind(this);
         this.handleMouseOut = this.handleMouseOut.bind(this);
         this.handleAddCategory = this.handleAddCategory.bind(this);
+        this.handleUpdate = this.handleUpdate.bind(this);
     }
 
     componentDidMount() {
@@ -117,13 +118,19 @@ class ProjectTask extends React.Component {
         this.props.dispatch({ type: 'USER_ADD_CATEGORY_DEMAND' });
     }
 
+    handleUpdate(task){
+        console.log('why here');
+        console.log(task);
+        this.props.dispatch({type:'USER_PROJECT_TASK_UPDATE', task:task});
+    }
+
 
     render() {
 
         return (
             <div style={{ overflowX: 'auto' }}>
                 {this.props.isProjectTasksSelected && <div class="title"
-                    style={{ padding: "5%", alignItems: 'top' }}> You are viewing Project : {this.props.projectName}
+                    style={{ padding: "5%", alignItems: 'top', fontSize:"26px", color:'black' }}> You are viewing Project : {this.props.projectName}
                     <a href=" " title="Add Category" style={{ backgroundcolor: '#FFFFFF', color: '#000000', textdecoration: 'none' }}>
                         <input id="add-button" type="image" style={{ height: "20px", width: '20px' }}
                             src={require("../../images/plus.svg")} onClick={(e) => {
@@ -146,34 +153,31 @@ class ProjectTask extends React.Component {
                             
                             <span class="categorytitle">{category.CategoryName}</span>
                             {category.listOfTasks.map(task =>
-                                <li class="cat-task_li_li" onClick={this.handleUpdate} onMouseOver={(e) => this.handleMouseOver(e)} 
+                                <li class="cat-task_li_li" onClick={() => this.handleUpdate(task)} onMouseOver={(e) => this.handleMouseOver(e)} 
                                     onMouseLeave={(e) => this.handleMouseOut(e)} 
                                     style={{ width: '94%', height: '200px', 
                                     borderRadius: '5px', marginLeft: '3%', 
                                     marginTop: '8px', marginBottom: '0', height: "auto", padding: "5px" }}>
-                                    
                                     <div class="cat_tast_head">
-                                        <span class="state">{task.StatusName} </span>
+                                        <span class="cat_task_span">{task.TaskName}</span>
+                                        
                                         <img src={require("./../../images/edit.png")} 
                                             style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} />
                                     </div>
 
                                     {/* done|||bstart not start*/}
-                                    <span class="cat_task_span">{task.TaskName}</span>
+                                    <span class="state">{task.StatusName} </span>
+                                    {/* <span class="cat_task_span">{task.TaskName}</span> */}
                                     <div class="cat_tast_footer">
                                         <span class="time">{moment(task.DueDate).format('D MMM')}</span>
-                                        {/* {<Moment format = "D MMM" >{task.DueDate}</Moment>} */}
-                                        <img src={require("./../../images/admin-tool.png")} class="photo" />
+                                        {/* <img src={require("./../../images/admin-tool.png")} class="photo" /> */}
                                     </div>
                                 </li>
                             )}
                             <span class="footer">
                                 <form onClick={(e)=>this.handleClick(e,category)} class="footerform">
-                                    {/* <input id="add-task-input" type="text" value={this.state.newtask} onChange={this.handleChange} /> */}
-                                    {/* <button id="add-task-button" type="submit">Add Task</button> */}
-                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAARCAIAAAC0D9CtAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAc5JREFUeNqEU72uAVEQvnus/4uIv0QoNIotvYRKrZAIwjt4AA2JKFUSGvEGvIFQC4lCoZBQIPG3Wdy93z2zOZvY4k6xmTkz3zcz39kj6br+ZbHH4/F6vWRZdrvd1qxkxbzf70ajARhjrF6v+/3+jwImvM1mMxgMQH8+nzVN++G23+9BOplM5vP5Z5/1et3v99EBrACoqopzSZIwns/nAwvCfD6fyWTMPqvVCgAkLpcLAHSIEG2PxyP50+kUNSYml8vF43EQU1v6IqQvQo/HUygUbDYbTmTCqNzId7lctVotkUhcr9der7fb7YDRuBn7nE6ndrtNMRFXKpV0Ok1pwFqtFrJC3mq1ymgNU0fGksmkCL1ebyQSMeg5IxY2tQaS9MWpOHw+n9CANNS52e12icS53+/dbhdzog7EGC8YDAIwGo0WiwVqsH2pVMIIEONPA1zCNzdQgu9wODSbTeRAJAQMBAKpVMrhcJhaz2az7XYrBoDdbjdyaA1cK3oShYEJh8OUwwyQgdYjgAhjsZhxY0K05XI5Ho/L5TJk6HQ6WAYVuEdFUYbDYTQazWazhJGFRAo3OMA4nU4Ig4pQKIRti8XiP29BvB84+EGt2V8BBgD1nkAsc+cNegAAAABJRU5ErkJggg==" class="photos" />
+                                    <img src={require("../../images/add_button_2.png")} class="photos" />
                                     <button class="add_task_button" id={category.CategoryID} type="submit">Add New Task</button>
-                                    {/* <button id={"add-task-button"} type="submit">Add Task</button> */}
                                 </form>
                             </span>
                         </li>

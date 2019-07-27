@@ -51,6 +51,10 @@ function *handleUpdateReturn(){
     yield put({type: 'UPDATE_RETURN'});
 }
 
+function *handleProjectTaskUpdateDemand(action){
+    yield put({type:'PROJECT_TASK_UPDATE', task:action.task});
+}
+
 
 
 
@@ -65,6 +69,7 @@ function *handleUpdateReturn(){
     yield takeEvery('USER_UPDATE_PROJECT_ISDELETED', handleDeleteProjectDemand);
     yield takeEvery('USER_ADD_TASKFORM_DEMAND', handleAddTaskDemand);
     yield takeEvery('USER_UPDATE_RETURN', handleUpdateReturn);
+    yield takeEvery('USER_PROJECT_TASK_UPDATE', handleProjectTaskUpdateDemand);
 }
 
 export default projectSaga;
