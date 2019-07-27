@@ -1,11 +1,10 @@
+
 import React from "react";
 import { connect } from 'react-redux';
 import { getTasksUsers } from '../../socket/taskSocket';
 //import {userId} from '../../socket/userSocket';
 import TaskUpdate from './taskUpdate';
 import '../../css/projectTask.css'
-import {Card, Button, CardTitle, CardText, CardHeader, header, CardBody,CardFooter, Row, Col, Container} from 'reactstrap';
-
 
 const mapStateToProps = state => ({
     username: state.user.username,
@@ -14,7 +13,6 @@ const mapStateToProps = state => ({
     task: state.task.task
     //taskname: state.Task.newtask
 });
-
 
 class Task extends React.Component {
     constructor(props) {
@@ -121,8 +119,6 @@ class Task extends React.Component {
         console.log('Calling Task Update');
         this.props.dispatch({type:'USER_UPDATE_TASK_DEMAND', task:task});
     }
-
-    
     
 
     render() {
@@ -133,62 +129,51 @@ class Task extends React.Component {
                     <div class="title uppercase" style={{marginBottom:'10px'}}>{this.props.username}'s Tasks</div>
                     <ul style={{display: 'block'}}>
                         {this.state.getListofTasksForUser.map(task =>
-                            // <li style={{ width: '300px', height: "auto", 
-                            // paddingBlock:'10px', verticalAlign:'top', 
-                            // margin:'2px 2px 2px 2px' , borderRadius: '5px', 
-                            // backgroundColor: "#e6e6e6", position: "relative" , 
-                            // display: 'inline-block'}}>
-                            //     <div id={task.taskName} onClick={(e) =>this.handleClick(e,task)}>
-                            //     </div>
-                            //     <div class="user-task" style={{ width: '94%', height: '200px', 
-                            //         borderRadius: '5px', marginLeft: '3%', display:'block', 
-                            //         marginTop: '8px', marginBottom: '8px', padding: "5px" }}>
-                            //         <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> {task.taskName}</span>
-                            //         <ul key={"task"+task.taskID} style={{verticalAlign:'top', padding:'10px'}}>
-                            //             <li class="cat-task_li_li">
-                            //                 <span class="span-user-left" style={{backgroundColor: 'orange'}}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priority}</span>
-                            //             </li>
-                            //             <li class="cat-task_li_li">
-                            //                 <span class="span-user-left"  style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} onClick={(e) =>this.handleClick(e,task)}> Status: {task.status}</span>
-                            //             </li>
-                            //             <li>
-                            //                 <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> Assigned To: {this.state.username}</span>
-                            //             </li>
-                            //         </ul>
-                            //     </div>
-
-                                <Col xs="6" sm="4"> 
-                                <Card body inverse color="white">
-                                    <CardHeader className="text-center"><small className="text-muted">{task.StatusName}</small></CardHeader>
-                                    <CardBody className="text-center">
-                                        <CardTitle><capital className="text-muted">{task.taskName}</capital></CardTitle>
-                                        <CardText>
-                                        <capital className="text-muted">{task.taskInfo}</capital> </CardText>
-                                        <CardText>
-                                            <small className="text-muted">Priority {task.priority}</small>
-                                        </CardText>
-                                        <Button color="secondary">Update</Button>
-                                    </CardBody>
-                                    <CardFooter className="text-center">Assigned to: {this.state.username} </CardFooter>
-                                </Card>
-                                </Col>
-
-
-
-
-                            // </li>
+                            <li style={{ width: '300px', height: "auto", 
+                            paddingBlock:'10px', verticalAlign:'top', 
+                            margin:'2px 2px 2px 2px' , borderRadius: '5px', 
+                            backgroundColor: "#e6e6e6", position: "relative" , 
+                            display: 'inline-block'}}>
+                                <div id={task.taskName} onClick={(e) =>this.handleClick(e,task)}>
+                                </div>
+                                <div class="user-task" style={{ width: '94%', height: '200px', 
+                                    borderRadius: '5px', marginLeft: '3%', display:'block', 
+                                    marginTop: '8px', marginBottom: '8px', padding: "5px" }}>
+                                    <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> {task.taskName}</span>
+                                    {/* <ul style={{verticalAlign:'top', padding:'10px'}}>
+                                        <li class="cat-task_li_li">
+                                            <span class="span-user-left" style={{backgroundColor: 'orange'}}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priority}</span>
+                                        </li>
+                                        <li class="cat-task_li_li">
+                                            <span class="span-user-left"  style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} onClick={(e) =>this.handleClick(e,task)}> Status: {task.status}</span>
+                                        </li>
+                                        <li>
+                                            <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> Assigned To: {this.state.username}</span>
+                                        </li>
+                                    </ul> */}
+                                    <div class="cat-task_li_li" style={{verticalAlign:'top', padding:'10px'}}>
+                                        <div class="cat-task_li_li">
+                                            <span class="span-user-left" style={{backgroundColor: 'orange'}}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priority}</span>
+                                        </div>
+                                        <div class="cat-task_li_li">
+                                            <span class="span-user-left"  style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} onClick={(e) =>this.handleClick(e,task)}> Status: {task.status}</span>
+                                        </div>
+                                        <div class="cat-task_li_li">
+                                            <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> Assigned To: {this.state.username}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
                         )}
                     </ul>
                 </div>
                 }
-
                 {/* <div class="add_task"> */}
-                {!this.props.updateTask &&<div>
+                {/* {!this.props.updateTask &&<div>
                     <form onSubmit={this.handleSubmit}>
-                        {/* <input id="add-task-input" type="text" value={this.state.newtask} onChange={this.handleChange} /> */}
                         <button id="add-task-button" type="submit">Add Task</button>
                     </form>
-                </div>}
+                </div>} */}
             </div>
         );
     }

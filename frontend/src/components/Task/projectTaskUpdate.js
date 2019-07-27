@@ -19,7 +19,7 @@ const mapStateToProps = state => ({
 });
 
 
-class TaskUpdate extends React.Component {
+class ProjectTaskUpdate extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -227,6 +227,7 @@ class TaskUpdate extends React.Component {
 
     render() {
         return (
+            // <div></div>
             // <div sytle={{backgroundColor:'black'}}>
             <div sytle={{ backgroundColor: 'black', padding: '20px' }}>
                 <div sytle={{ backgroundColor: 'black' }}>
@@ -288,4 +289,4 @@ class TaskUpdate extends React.Component {
         );
     }
 }
-export default connect(mapStateToProps)(TaskUpdate);
+export default connect(mapStateToProps)(ProjectTaskUpdate);

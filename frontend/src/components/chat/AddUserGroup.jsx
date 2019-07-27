@@ -57,7 +57,7 @@ class AddUserGroup extends Component {
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" onClick={this.handleSubmit}>&times;</button>
+                            <button type="button" class="close" data-dismiss="modal" onClick={() => { this.props.dispatch({ type: 'USER_ADD_USER_TO_GROUP_DEMAND', groupId: this.state.receiverId }); }}>&times;</button>
                             <h4 class="modal-title">Users in the channel</h4>
                         </div>
                         <form onSubmit={this.handleSubmit}>

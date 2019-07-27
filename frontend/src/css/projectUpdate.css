@@ -1,0 +1,21 @@
+.projectform-header h4{
+    display: block;
+    text-align: center;
+    color: white;
+}
+.btn-field{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+  margin-top:100px;
+}
+.btns{
+    background: #0084ff;
+    color:white;
+    text-align: center;
+    min-width: 150px;
+    height:40px;
+    border: 0;
+    position: relative;
+}

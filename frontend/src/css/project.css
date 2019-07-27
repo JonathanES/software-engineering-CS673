@@ -1,13 +1,19 @@
-html, body, #root, #wrapper,.box {
+html, body, #root, #wrapper {
     height: 100%;
-    overflow-y:auto;   
+    overflow-y:auto;
     display: 'inline-block';
 }
 /* li {
     list-style: none;
 } */
-input {
+input,select {
     border-radius: 5px;
+    width: 250px;
+    height: 35px;
+    padding:0px 10px;
+    border: 0;
+    outline: 0;
+    line-height: 35px;
 }
 
 .user-project{
@@ -23,19 +29,29 @@ input {
     border:1px solid #ff0000;
     align-content: center;
     align-items: center;
-    
+
 }
 .cat-task_li_li{
     width: 94%;
-    
+
 }
 .span-project-mid{
     margin-left: 35%;
 }
 .project{
-    position: fixed;
-    width: 100%;
+    position: relative;
+    width: 40%;
     overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    text-align:center;
+
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px 14px 14px 54px;
+  -moz-border-radius: 8px 14px 14px 54px;
+  -webkit-border-radius: 8px 14px 14px 54px;
+  border: 13px solid #ebf1f5;
 }
 .project ul{
     margin-top:20px;
@@ -50,6 +66,11 @@ input {
     background-color: #fff;
     margin-right: 20px;
     flex-shrink: 0;
+
+    border-radius: 8px 14px 14px 54px;
+  -moz-border-radius: 8px 14px 14px 54px;
+  -webkit-border-radius: 8px 14px 14px 54px;
+  border: 13px solid #ebf1f5;
 }
 .project ul li{
     border: 1px solid #ccc;
@@ -70,7 +91,7 @@ input {
 .project ul li a{
     /* display: inline-block; */
   vertical-align: top;
-  padding: 108px 0 12px 24px;
+  padding: 99px 0 12px 24px;
     background: url('../images/projectbackground.png') no-repeat left center;
 }
 .category_ul{
@@ -92,6 +113,7 @@ input {
 .project-list{
     background: url('../images/projectbackground.png');
 }
+
 .addprojectbtn {
     display: block;
     color: #fff;
@@ -102,14 +124,17 @@ input {
     text-align: center;
     font-weight: bold;
     border-radius: 4px;
-    margin: 2em 0;
+    /*margin: 2em 0;*/
+    margin:2em auto;
+
   }
+
   .footer{
     margin-top:25px;
     margin-left:15px;
     margin-bottom:25px;
     height: 20px;
-    
+
   }
   .footerform{
     display: flex;
@@ -132,7 +157,7 @@ input {
       margin-top:5px;
       margin-bottom: 5px;
       /* margin-left:5px; */
-      background: #f4d03c;
+      /* background: #f4d03c; */
       color: white;
       font-size:0.9em;
       border-radius: 5px;
@@ -146,7 +171,7 @@ input {
   }
   .done{
     background: #65ba55;
-    
+
   }
   .bstart{
       background: #eb584d;
@@ -184,3 +209,93 @@ input {
     align-items: center;
     height: 30px;
   }
+/*
+  .projectform-field{
+      text-align: center;
+      margin-top:50px;
+  }
+  .projectform{
+      border:1px solid #f2f2f2;
+      background: rgba(200, 200, 200, 1);
+      width: 60%;
+      margin-left: 20%;
+      min-height: 350px;
+  }
+  label{
+    margin-right: 30px;
+    color:white;
+    font-size:18px;
+  }
+  .projectformbtn{
+     background: #0084ff;
+     color:white;
+     text-align: center;
+     width: 150px;
+     height:40px;
+     border: 0;
+     position: relative;
+     left:50%;
+     margin-left:-75px;
+     margin-top:50px;
+  }
+  #add-project-button{
+    background: #0084ff;
+    color:white;
+    text-align: center;
+    width: 150px;
+    height:40px;
+    border: 0;
+    position: relative;
+    left:35%;
+    margin-left:-75px;
+    margin-top:50px;
+  }
+  */
+
+  .projectform-contain{
+    width: 400px;
+    clear: both;
+    padding-left: 5px;
+
+  }
+  .projectform-contain input{
+    width: 100%;
+    clear: both;
+  }
+  #addNProjT{
+    padding-left: 5px;
+  }
+  #copyButtonColor{
+    display: block;
+    color: #fff;
+    background: #0e7fff;
+    text-decoration: none;
+    padding: 8px 50px;
+    font-size: 1.2em;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 4px;
+    margin: 2em 0;
+  }
+::placeholder{
+  color: black;
+}
+
+#dueDate{
+  width: 100%;
+}
+#projectMainContainer{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+div.projectform{
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px 14px 14px 54px;
+-moz-border-radius: 8px 14px 14px 54px;
+-webkit-border-radius: 8px 14px 14px 54px;
+border: 13px solid #ebf1f5;
+
+}
