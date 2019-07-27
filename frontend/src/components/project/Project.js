@@ -1,14 +1,5 @@
 import React from "react";
 import { connect } from 'react-redux';
-
-import {Card, Button, CardTitle, CardText, Row, Col, Container, CardImg, CardHeader, CardBody,
-    CardSubtitle, CardFooter } from 'reactstrap';
-
-
-import ProjectCard from "./projectCard.jsx";
-import ProjectCardGrid from "./projectCardGrid.jsx";
-
-
 import { getListOfProjects, showCategories, showCategories_old } from '../../socket/projectSocket';
 import { getUserPrev } from '../../socket/taskSocket';
 import ProjectTask from '../Task/projectTask.js';
@@ -50,60 +41,49 @@ class Project extends React.Component {
 
         };
 
-       
         this.handlePictureClick = this.handlePictureClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleUpdateClick = this.handleUpdateClick.bind(this);
-        this.icg = new ProjectCardGrid(props, 6, this.listOfProjects) ; //project = await listofp())
 
-        // this.icg = new ProjectCardGrid(props, 6, project) ; //project = await listofp())
     }
 
+    componentDidUpdate(prevProps) {
 
-    async listofp() {
-        return Promise((resolve, reject) => {
-            getListOfProjects(this.props.userId, (err, data) => {
-                resolve(data)
-            })
-        })
-    }
-    // constructor(props, numberOfCards, issues, cardsPerRow=4){
-    //     this.props = props;
-    //     this.numberOfCards = numberOfCards;
-    //     this.issues = issues;
-    //     this.cardRows = [];
-    //     this.cardsPerRow = cardsPerRow;
-    //     this.cardSize = 12/cardsPerRow;
-    // }
+        // if (prevProps.listOfProjects.length < this.props.listOfProjects.length){
 
+        // }
 
+        // if (typeof this.props.listOfProjects != "undefined") {
+        //     console.log('inside componentDidUpdate');
+        //     console.log(this.props.listOfProjects.length);
+        //     for (let i = 0; i < this.props.listOfProjects.length; i++) {
+        //         console.log('i:',i);
+        //         console.log('prevProps.project[i].isDeleted:',prevProps.project[i].isDeleted)
+        //         console.log('this.props.project[i].isDeleted:',this.props.project[i].isDeleted)
+        //         if (prevProps.project[i].isDeleted != this.props.project[i].isDeleted) {
 
+        //             let listOfp = this.state.listOfProjects;
+        //             listOfp = listOfp.filter(project => project[i].isDeleted != this.props.project[i].isDeleted);
+        //             this.setState({ listOfProjects: listOfp })
 
-    componentDidUpdate(prevProps){
-        // if (prevProps.task.taskName != this.props.task.taskName){
-        //     const getListofTasksForUser = this.state.getListofTasksForUser;
-        //     getListofTasksForUser.forEach(task => {
-        //         if (task.taskID == this.props.task.taskID)
-        //             task = this.props.task;
-        //     })
-        //     this.setState({getListofTasksForUser: getListofTasksForUser});
+        //         }
+        //     }
         // }
     }
 
-    async componentDidMount() {
+    componentDidMount() {
 
         //console.log('isProjectSelected:',this.props.isProjectSelected);
         //console.log('isProjectTasksSelected:',this.props.isProjectTasksSelected);
 
-
-       getListOfProjects(this.props.userId, (err, data) => {
-            this.setState({ listOfProjects: data });
-            this.icg.updateGrid(data);
+        getListOfProjects(this.props.userId, (err, data) => {
+           this.props.dispatch({type: 'USER_LIST_OF_PROJECT_DEMAND', listOfProjects:data});
 
         });
-        // const projects = await this.listofp();
-        // this.icg.updateGrid(projects);
+
+
+
         // socket.on('GET_PROJECTCATEGORIES', data => {
         //     this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.state.project,
         //             projectCategoryList: data.length > 0 ? data : [] });
@@ -154,48 +134,11 @@ class Project extends React.Component {
         e.preventDefault();
     }
 
-   
-    //this.icg = new ProjectCardGrid(this.props, 6, this.listOfProjects);
-
 
     render() {
         return (
-
-            <div>
-                {this.props.isProjectSelected && this.icg.getGrid()
-
-                }
-
-                {/* {this.props.isProjectSelected && <div width="20%">
-                    {this.state.listOfProjects.map(project =>
-                        <Card body width="20%">
-                            <CardHeader className="text-center" style={{ backgroundColor: "#157ffb" }} 
-                                onClick={(e) => {
-                                    this.handlePictureClick(project); 
-                                    e.preventDefault()
-                                }
-                            }>
-                            {project.projectName}
-                            </CardHeader>
-                            <CardImg top width="20%" src="../images/projectbackground.png" alt="Card image cap" 
-                                onClick={(e) => {
-                                    this.handlePictureClick(project); 
-                                    e.preventDefault()
-                                }}
-                            />
-                            <CardBody className="text-center">
-                                <Button color="secondary">update</Button>
-                            </CardBody>
-                        </Card>
-                    )}
-                </div>
-                } */}
-
-                {this.props.isProjectSelected &&
-                    <Button id="add-project-button" class="addprojectbtn" color="secondary" onClick={(e) => this.handleClick(e)}>Add Project </Button>
-                }
-
-                {/* {this.props.isProjectSelected && <div class="project">
+            <div id="projectMainContainer">
+                {this.props.isProjectSelected && <div class="project">
                     <ul>
                         {this.props.listOfProjects.map(project =>
                             <li>
@@ -217,7 +160,7 @@ class Project extends React.Component {
                         </form>
                     }
                 </div>
-                } */}
+                }
                 {/* {this.props.isProjectSelected && <ProjectTask dispatch={this.props.dispatch} />} */}
                 {this.props.isProjectUpdateSelected && <ProjectUpdate dispatch={this.props.dispatch} />}
                 {this.props.isProjectTasksSelected && <ProjectTask dispatch={this.props.dispatch} />}

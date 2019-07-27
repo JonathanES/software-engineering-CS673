@@ -83,12 +83,11 @@ class CategoryForm extends React.Component {
                                 <button type="button" class="close" data-dismiss="modal" onClick={(e) => { this.props.dispatch({ type: 'USER_ADD_CATEGORY_DEMAND' }); e.preventDefault() }}></button>
                                 <h4 class="modal-title">Add New Category</h4>
                             </div>
-                            <form onClick={this.handleSubmit} style={{ position: "relative", textAlign:'center' }}>
+                            <form onClick={this.handleSubmit} style={{ position: "absolute", left: "10" }}>
                                 <input id="categoryName" type="text" value={this.state.categoryName} onChange={this.handleChange} />
-                                
+                                <button class="add_category_button" id="add-cat-button" type="submit">Add Category</button>
                                 <div class="modal-footer">
-                                <button class="btns" style={{width:'70px',height:'30px',lineHeight:'30px'}} id="add-cat-button" type="submit">Add Category</button>
-                                    <button type="submit" style={{width:'70px',height:'30px',lineHeight:'30px'}} class="btns" data-dismiss="modal"
+                                    <button type="submit" class="btn btn-default" data-dismiss="modal"
                                         onClick={(e) => { this.props.dispatch({ type: 'USER_ADD_CATEGORY_DEMAND' }); e.preventDefault() }}>Close</button>
                                 </div>
                             </form>
