@@ -44,6 +44,11 @@ module.exports = function (io) {
             client.emit('UPDATE_TASK_NAME', result);
         })
 
+        client.on('USER_UPDATE_DUE_DATE', async (taskID, dueDate) => {
+            const result = await taskController.updateDueDate(taskID, dueDate);
+            client.emit('UPDATE_DUE_DATE', result);
+        })
+
         client.on('USER_UPDATE_TASK_INFO', async (taskID, taskInfo) => {
             const result = await taskController.updateTaskInfo(taskID, taskInfo);
             client.emit('UPDATE_TASK_INFO', result);
@@ -59,8 +64,8 @@ module.exports = function (io) {
             client.emit('UPDATE_TASK_ACTTIME', result);
         })
 
-        client.on('USER_UPDATE_TASK_ISDELETE', async (taskID, isdelete) => {
-            const result = await taskController.updateIsDeleted(taskID, isdelete);
+        client.on('USER_UPDATE_TASK_ISDELETE', async (taskID, isDeleted) => {
+            const result = await taskController.updateIsDeleted(taskID, isDeleted);
             client.emit('UPDATE_TASK_ISDELETE', result);
         })
 

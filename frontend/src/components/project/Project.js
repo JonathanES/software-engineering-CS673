@@ -6,6 +6,7 @@ import ProjectTask from '../Task/projectTask.js';
 import ProjectUpdate from '../project/projectUpdate.js';
 import ProjectForm from './ProjectForm';
 import TaskForm from '../task-design/TaskForm';
+import ProjectTaskUpdate from '../Task/projectTaskUpdate';
 //import {userId} from '../../socket/userSocket';
 import { socket } from '../../socket/config'
 import '../../css/project.css'
@@ -19,6 +20,7 @@ const mapStateToProps = state => ({
     isProjectTasksSelected: state.project.isProjectTasksSelected,
     isProjectForm: state.project.isProjectForm,
     isAddTaskForm: state.project.isAddTaskForm,
+    isUpdateTaskForm: state.project.isUpdateTaskForm,
     //isProjectTaskDemand: state.project.isProjectTaskDemand,
     //projectForm: state.project.projectForm,
     project: {}
@@ -46,10 +48,30 @@ class Project extends React.Component {
 
     }
 
+    componentDidUpdate(prevProps) {
+
+        if (typeof this.props.listOfProjects != "undefined") {
+            console.log('inside componentDidUpdate');
+            console.log(this.listOfProjects.length);
+            for (let i = 0; i < this.listOfProjects.length; i++) {
+                console.log('i:',i);
+                console.log('prevProps.project[i].isDeleted:',prevProps.project[i].isDeleted)
+                console.log('this.props.project[i].isDeleted:',this.props.project[i].isDeleted)
+                if (prevProps.project[i].isDeleted != this.props.project[i].isDeleted) {
+
+                    let listOfp = this.state.listOfProjects;
+                    listOfp = listOfp.filter(project => project[i].isDeleted != this.props.project[i].isDeleted);
+                    this.setState({ listOfProjects: listOfp })
+
+                }
+            }
+        }
+    }
+
     componentDidMount() {
 
-        console.log('isProjectSelected:',this.props.isProjectSelected);
-        console.log('isProjectTasksSelected:',this.props.isProjectTasksSelected);
+        //console.log('isProjectSelected:',this.props.isProjectSelected);
+        //console.log('isProjectTasksSelected:',this.props.isProjectTasksSelected);
 
         getListOfProjects(this.props.userId, (err, data) => {
             this.setState({ listOfProjects: data });
@@ -67,7 +89,7 @@ class Project extends React.Component {
     }
 
     handlePictureClick(project) {
-        console.log(project.projectID);
+        //console.log(project.projectID);
         this.setState({project: project})
         //showCategories(project.projectID)
         /*, (err, data) => {
@@ -113,22 +135,14 @@ class Project extends React.Component {
                 {this.props.isProjectSelected && <div class="project">
                     <ul>
                         {this.state.listOfProjects.map(project =>
-                            <li>
+                            <li style={{display:"inline block",backgroundColor:'white',
+                            borderRadius:"50"}}>
                                 <a id={project.projectID} onClick={(e) => {
-                                    this.handlePictureClick(project
-                                        // {
-                                        //     projectID: project.projectID, projectName: project.projectName
-                                        // }
-                                    ); e.preventDefault()
+                                    this.handlePictureClick(project); e.preventDefault()
                                 }}></a>
                                 <div>
-                                    <span id={project.projectID} onClick={(e) => {
-                                        this.handlePictureClick( project
-                                            // {
-                                            //     projectID: project.projectID, projectName: project.projectName
-                                            // }
-                                        ); e.preventDefault()
-                                    }} class="project-content">{project.projectName}</span>
+                                    <span id={project.projectID} onClick={(e) => {this.handlePictureClick( project); e.preventDefault()}} 
+                                    class="project-content">{project.projectName}</span>
                                 </div>
                                 {<a class="updatebtn" id={project.projectID} onClick={(e) => this.handleUpdateClick(project)}> </a>}
                             </li>
@@ -147,6 +161,7 @@ class Project extends React.Component {
                 {this.props.isProjectTasksSelected && <ProjectTask dispatch={this.props.dispatch} />}
                 {this.props.isProjectForm && <ProjectForm dispatch ={this.props.dispatch} />}
                 {this.props.isAddTaskForm && <TaskForm dispatch={this.props.dispatch}/>}
+                {/* {this.props.isUpdateTaskForm && <ProjectTaskUpdate dispatch={this.props.dispatch}/>} */}
             </div>
         );
     }

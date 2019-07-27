@@ -3,6 +3,7 @@ const client = require('../config/database');
 const ProjectModel = require('../model/ProjectModel');
 const taskController = require('./taskController');
 
+
 const listOfProjects = [];
 const listOfCategories = [];
 let pID = -1;
@@ -25,7 +26,7 @@ let pID = -1;
             client.emit('CREATE_PROJECT', result);
            })
  */
-
+ 
 async function insertNewProject(userID, projectName, dueDate) {
     return new Promise(async resolve => {
         client.query('INSERT INTO Projects(ProjectName, DateCreated, DueDate) VALUES(?,NOW(),?)', [projectName, dueDate], async function (error, results, fields) {
@@ -235,6 +236,27 @@ async function updateProjectIsDeleted(projectID, isDeleted) {
 }
 
 
+async function updateDeleteProjectDependencies(projectID, isDeleted){
+    
+    return new Promise(async resolve => {
+        client.query('SELECT T.TaskID FROM Tasks T JOIN Categories C ON T.CategoryID = C.CategoryID WHERE C.ProjectID =?;',[projectID], async function (error, result, fields){
+            if(error) throw error;
+            console.log(result)
+            const res = await updateProjectIsDeleted(projectID, isDeleted);
+            console.log('ProjectID:', projectID, ' is now marked as ', res);
+            for (task of result) {
+                console.log('task:',task);
+                const elt = await taskController.updateIsDeleted(task.TaskID, isDeleted);
+                console.log('task delete:', task.TaskID, ' is marked as ', elt );
+            }
+
+            console.log(result);
+            resolve(result)
+        })
+    });
+}
+
+
 async function getuserprev(projectID, userID){
     return new Promise((resolve, reject) => {
         //console.log(projectID, userID);
@@ -293,12 +315,20 @@ async function getlevel(){
 
 async function getListOfAvailableUser(projectID, userID){
     return new Promise(async (resolve, reject) => {
-        // client.query('SELECT U.userId, U.username FROM Users U LEFT JOIN ProjectUsers PU on PU.UserID = U.UserID where PU.userID != ? and PU.ProjectID = ?', [userID, projectID], function(error, result, fields){
         client.query('SELECT U.UserID, U.username FROM Users U WHERE U.UserID NOT IN (SELECT PU.UserID FROM ProjectUsers PU WHERE PU.ProjectID = ?)', [projectID], function(error, result, fields){    
         if(error) throw error;
             //console.log('Project ID:', projectID);
             //console.log('UserID:', userID);
             //console.log('result:', result);
+            resolve(result);
+        })
+    })
+};
+
+async function gettaskstatus(){
+    return new Promise(async (resolve, reject) => {
+        client.query('SELECT * FROM TaskStatus', function(error, result, fields){    
+        if(error) throw error;
             resolve(result);
         })
     })
@@ -312,6 +342,7 @@ module.exports = {
     updateProjectName: updateProjectName,
     updateProjectDueDate: updateProjectDueDate,
     updateProjectIsDeleted: updateProjectIsDeleted,
+    updateDeleteProjectDependencies:updateDeleteProjectDependencies,
     getCategories: getCategories,
     addCategory: addCategory,
     getuserprev:getuserprev,
@@ -319,5 +350,6 @@ module.exports = {
     getpriority:getpriority,
     getlevel:getlevel,
     getprojectdetail:getprojectdetail,
-    getListOfAvailableUser:getListOfAvailableUser
+    getListOfAvailableUser:getListOfAvailableUser,
+    gettaskstatus:gettaskstatus
 }
