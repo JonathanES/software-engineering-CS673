@@ -9,6 +9,7 @@ const mapStateToProps = state => ({
   username: state.user.username,
   userId: state.user.userId,
   projectID: state.project.projectID,
+  listOfProjects: state.project.listOfProjects,
 });
 
 
@@ -71,15 +72,17 @@ class ProjectForm extends React.Component {
       console.log('Due Date:', this.state.dueDate);
       addProject(this.state.userId, this.state.projectName, this.state.dueDate, (err, data) => {
 
+          // const listOfProject = this.props.listOfProject;
+        this.props.dispatch({type: 'USER_LIST_OF_PROJECT_DEMAND', listOfProjects:data});
 
-        console.log(data);
+        // console.log(data);
         // getListOfProjects(this.props.userId, (err, data) => {
         //   this.setState({ listOfProjects: data });
 
         //  });
         //here we should call the mainpage, so they can see the project added to their screen, wonder how we will do it
-        this.props.dispatch({ type: 'USER_PROJECT_DEMAND' })
-        this.props.dispatch({ type: 'USER_VIEW_PROJECT' })
+        // this.props.dispatch({ type: 'USER_PROJECT_DEMAND' })
+        // this.props.dispatch({ type: 'USER_VIEW_PROJECT' })
       });
     }
     event.preventDefault();

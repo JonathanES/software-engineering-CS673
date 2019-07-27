@@ -21,6 +21,7 @@ const mapStateToProps = state => ({
     isProjectForm: state.project.isProjectForm,
     isAddTaskForm: state.project.isAddTaskForm,
     isUpdateTaskForm: state.project.isUpdateTaskForm,
+    listOfProjects: state.project.listOfProjects,
     //isProjectTaskDemand: state.project.isProjectTaskDemand,
     //projectForm: state.project.projectForm,
     project: {}
@@ -50,22 +51,26 @@ class Project extends React.Component {
 
     componentDidUpdate(prevProps) {
 
-        if (typeof this.props.listOfProjects != "undefined") {
-            console.log('inside componentDidUpdate');
-            console.log(this.listOfProjects.length);
-            for (let i = 0; i < this.listOfProjects.length; i++) {
-                console.log('i:',i);
-                console.log('prevProps.project[i].isDeleted:',prevProps.project[i].isDeleted)
-                console.log('this.props.project[i].isDeleted:',this.props.project[i].isDeleted)
-                if (prevProps.project[i].isDeleted != this.props.project[i].isDeleted) {
+        // if (prevProps.listOfProjects.length < this.props.listOfProjects.length){
 
-                    let listOfp = this.state.listOfProjects;
-                    listOfp = listOfp.filter(project => project[i].isDeleted != this.props.project[i].isDeleted);
-                    this.setState({ listOfProjects: listOfp })
+        // }
 
-                }
-            }
-        }
+        // if (typeof this.props.listOfProjects != "undefined") {
+        //     console.log('inside componentDidUpdate');
+        //     console.log(this.props.listOfProjects.length);
+        //     for (let i = 0; i < this.props.listOfProjects.length; i++) {
+        //         console.log('i:',i);
+        //         console.log('prevProps.project[i].isDeleted:',prevProps.project[i].isDeleted)
+        //         console.log('this.props.project[i].isDeleted:',this.props.project[i].isDeleted)
+        //         if (prevProps.project[i].isDeleted != this.props.project[i].isDeleted) {
+
+        //             let listOfp = this.state.listOfProjects;
+        //             listOfp = listOfp.filter(project => project[i].isDeleted != this.props.project[i].isDeleted);
+        //             this.setState({ listOfProjects: listOfp })
+
+        //         }
+        //     }
+        // }
     }
 
     componentDidMount() {
@@ -74,9 +79,11 @@ class Project extends React.Component {
         //console.log('isProjectTasksSelected:',this.props.isProjectTasksSelected);
 
         getListOfProjects(this.props.userId, (err, data) => {
-            this.setState({ listOfProjects: data });
+           this.props.dispatch({type: 'USER_LIST_OF_PROJECT_DEMAND', listOfProjects:data});
 
         });
+
+
 
         // socket.on('GET_PROJECTCATEGORIES', data => {
         //     this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.state.project,
