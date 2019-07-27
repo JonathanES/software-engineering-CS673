@@ -220,8 +220,10 @@ describe("Testing the IssueController with socket conenction", () => {
         let issueID = 2; // Will get overwritten which is what we want
         const issueName = "Update ProjectID Test";
         const issueSummary = "Starts at 1 goes to 2";
+
         const projectID = 1;
         const updatedProjectID = 2;
+
         const issueStatusID = 1;
         const userID = 1;
         const responsibleUserID = 1;
@@ -262,8 +264,10 @@ describe("Testing the IssueController with socket conenction", () => {
         const issueName = "Update Issue Status Test";
         const issueSummary = "We gonna go from 1 to 2 yeet yeet";
         const projectID = 1;
+
         const issueStatusID = 1;
         const newIssueStatusID = 2;
+
         const userID = 1;
         const responsibleUserID = 1;
         const priorityID = 1;
@@ -307,7 +311,46 @@ describe("Testing the IssueController with socket conenction", () => {
     });
 
     // Test 8
-    it("Should create a new issue and then update the assignee ID");
+    it("Should create a new issue and then update the assignee ID", (done) => {
+        // Setup client connection to backend
+        let client = io.connect(socketUrl, options);
+        let issueID = 2; // Will get overwritten which is what we want
+        const issueName = "Update AssigneeID Test";
+        const issueSummary = "Starts at 1 goes to 2";
+        const projectID = 1;
+        const issueStatusID = 1;
+
+        const assigneeID = 1;
+        const updatedAssingeeID = 2;
+
+        const assignedToID = 1;
+        const priorityID = 1;
+
+        // Wait for connection to backend
+        client.on("connect", async () => {
+            client.emit("CREATE_NEW_ISSUE", issueName, issueSummary, projectID, issueStatusID, assigneeID, assignedToID, priorityID);
+
+            // Await response from server from CREATE_NEW_ISSUE Command
+            client.on("CREATED_NEW_ISSUE", (data) => {
+                assert.notEqual(data, 0, "Returned RowID was 0!");
+                issueID = data;
+
+                // Emit here so it doesn't emit before we get the data back
+                client.emit("UPDATE_ASSIGNEEID_ON_ISSUE_WITH_ID", issueID, updatedAssingeeID);
+            });
+
+            client.on("UPDATED_ASSIGNEEID_ON_ISSUE_WITH_ID", (data) => {
+                assert.equal(data, 1, "We changed either more or less than 1 row"); // Check to make sure we affected only one row and therefore one projectID
+
+                client.emit("GET_ISSUE_WITH_ID", issueID);
+            });
+
+            client.on("GOT_ISSUE_WITH_ID", (data) => {
+                assert.equal(data.AssigneeID, updatedAssingeeID, "AssigneeID does not match the udpated AssigneeID");
+                done();
+            });
+        });
+    });
 
     // Test 9
     it("Should create a new issue and then update the assignedTo ID");
