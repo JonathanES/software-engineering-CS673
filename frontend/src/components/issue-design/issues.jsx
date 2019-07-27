@@ -1,4 +1,4 @@
-/*import React, {Component} from 'react';
+import React, {Component} from 'react';
 import {Card, Button, CardTitle, CardText, Row, Col, Container} from 'reactstrap';
 
 import IssueCard from "./issuecard.jsx"
@@ -83,4 +83,3 @@ class Issues extends React.Component {
 }
 
 export default Issues;
-*/
