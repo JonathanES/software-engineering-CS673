@@ -1,34 +1,58 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,700&display=swap");
 
-body {
-  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#7abcff+0,60abf8+44,4096ee+100;Blue+3D+%2314 */
-  background: rgb(122, 188, 255); /* Old browsers */
+ body {
+  background: rgb(122, 188, 255); 
   background: -moz-linear-gradient(
-    45deg,
     rgba(122, 188, 255, 1) 0%,
     rgba(96, 171, 248, 1) 44%,
     rgba(64, 150, 238, 1) 100%
-  ); /* FF3.6-15 */
+  ); 
   background: -webkit-linear-gradient(
-    45deg,
     rgba(122, 188, 255, 1) 0%,
     rgba(96, 171, 248, 1) 44%,
     rgba(64, 150, 238, 1) 100%
-  ); /* Chrome10-25,Safari5.1-6 */
+
+   
+  ); 
   background: linear-gradient(
-    45deg,
     rgba(122, 188, 255, 1) 0%,
     rgba(96, 171, 248, 1) 44%,
     rgba(64, 150, 238, 1) 100%
-  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-}
+
+  ); 
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=1 ); 
+} 
 
 body,
 html {
   height: calc(100% - 2em);
   margin: 0;
   font-family: "source sans pro", "sans-serif";
+  overflow: hidden;
+}
+
+.bg{
+  width: 100%;
+  height:100vh;
+  background: rgb(122, 188, 255);
+  background: -webkit-linear-gradient(
+  45deg,
+  rgba(122, 188, 255, 1) 0%,
+  rgba(96, 171, 248, 1) 44%,
+  rgba(64, 150, 238, 1) 100%
+); /* Chrome10-25,Safari5.1-6 */
+  z-index: -1;
+  position: absolute;
+  overflow: hidden;
+}
+.bg::before{
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: url("../images/bg.jpg") no-repeat;
+  background-size: 100% 100%;
+  filter: blur(10px);
 }
 
 
@@ -72,7 +96,10 @@ ul li a {
   background-color: rgba(255, 255, 255, 0.35);
   color: #000;
 }
-
+ul li a:hover{
+  text-decoration: none;
+  color: white;
+}
 #main {
   background: #fff;
   padding: 1em 1.4em;
@@ -105,7 +132,7 @@ p {
     display: none;
   }
   aside {
-    background: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.8);
     position: absolute;
     left: 0%;
     width: 13%;
@@ -114,11 +141,21 @@ p {
     grid-template-rows: 20% auto;*/
     padding: 0;
   }
+  aside ul li:hover{
+    transition: .5s;
+    background: #0e7fff;
+    color:white;
+  }
   .main-page{
     position: absolute;
     right: 0px;
     width: 87%;
     height: 100%;
+    padding: 5%;
+    background: url("./bg2.jpg") no-repeat;
+    background-size: 100% 100%;
+    z-index: -1;
+    overflow: hidden;
   }
 
   #main {
@@ -136,18 +173,21 @@ p {
   }
   figcaption {
     text-align: center;
-    color: #fff;
+    color: #000;
   }
 
   ul {
     display: block;
     margin-top: 2em;
     position: relative !important;
-    background: none !important;
-    width: 100% !important;
+    background: none;
+    width: 100%;
   }
 
   nav {
     background: none;
+  }
+  .ul-menu li{
+    display: block;
   }
 }

@@ -130,6 +130,7 @@ class ProjectTask extends React.Component {
         return (
             <div style={{ overflowX: 'auto' }}>
                 {this.props.isProjectTasksSelected && <div class="title"
+
                     style={{ padding: "5%", alignItems: 'top', fontSize:"26px", color:'black' }}> You are viewing: {this.props.projectName}
                     <a href=" " title="Add Category" style={{ backgroundcolor: '#FFFFFF', color: '#000000', textdecoration: 'none' }}>
                         <input id="add-button" type="image" style={{ height: "20px", width: '20px' }}
@@ -137,7 +138,7 @@ class ProjectTask extends React.Component {
                                 this.props.dispatch({ type: 'USER_ADD_CATEGORY_DEMAND' });
                                 e.preventDefault()
                             }} />
-                    </a>
+                    {/* </a> */}
                 </div>}
                 <div>
                     {this.props.addCategory && <CategoryForm dispatch={this.props.dispatch} />}

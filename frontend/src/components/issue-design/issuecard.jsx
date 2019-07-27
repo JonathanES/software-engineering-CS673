@@ -1,4 +1,4 @@
-import React from 'react';
+/*import React from 'react';
 import { Card, CardImg, CardHeader, CardText, CardBody,
     CardTitle, CardSubtitle, Button, CardFooter } from 'reactstrap';
 
@@ -69,3 +69,4 @@ const IssueCard = (props, projectID, issueStatusID, assigneeID, assignedToID, pr
 };
 
 export default IssueCard;
+*/
