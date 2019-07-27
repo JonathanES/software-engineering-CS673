@@ -36,7 +36,6 @@ class Project extends React.Component {
             userID: props.userId,
             username: props.username,
             projectID: '',
-            listOfProjects: [],
             projectcategories: [],
             projectName: "User Projects"
 
@@ -141,7 +140,7 @@ class Project extends React.Component {
             <div id="projectMainContainer">
                 {this.props.isProjectSelected && <div class="project">
                     <ul>
-                        {this.state.listOfProjects.map(project =>
+                        {this.props.listOfProjects.map(project =>
                             <li>
                                 <a id={project.projectID} onClick={(e) => {
                                     this.handlePictureClick(project); e.preventDefault()
