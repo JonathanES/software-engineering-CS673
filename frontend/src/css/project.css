@@ -34,11 +34,18 @@ input {
 }
 .project{
     position: relative;
-    width: 100%;
+    width: 40%;
     overflow: hidden;
     justify-content: center;
     align-items: center;
     text-align:center;
+
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px 14px 14px 54px;
+  -moz-border-radius: 8px 14px 14px 54px;
+  -webkit-border-radius: 8px 14px 14px 54px;
+  border: 13px solid #ebf1f5;
 }
 .project ul{
     margin-top:20px;
@@ -107,7 +114,7 @@ input {
     border-radius: 4px;
     /*margin: 2em 0;*/
     margin:2em auto;
-    
+
   }
   .footer{
     margin-top:25px;
@@ -227,4 +234,13 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+div.projectform{
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px 14px 14px 54px;
+-moz-border-radius: 8px 14px 14px 54px;
+-webkit-border-radius: 8px 14px 14px 54px;
+border: 13px solid #ebf1f5;
+
 }
