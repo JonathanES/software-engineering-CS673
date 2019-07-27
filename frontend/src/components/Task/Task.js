@@ -15,20 +15,6 @@ const mapStateToProps = state => ({
     //taskname: state.Task.newtask
 });
 
-Card.propTypes = {
-    // Pass in a Component to override default element
-    tag: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    inverse: PropTypes.bool,
-    color: PropTypes.string,
-    body: PropTypes.bool,
-    className: PropTypes.string
-  };
-  
-CardText.propTypes = {
-    // Pass in a Component to override default element
-    tag: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
-    className: PropTypes.string
-  };
 
 class Task extends React.Component {
     constructor(props) {
@@ -171,12 +157,13 @@ class Task extends React.Component {
                             //         </ul>
                             //     </div>
 
-                                <Col col-sm-auto offset-sm-1> 
-                                <Card body inverse color="white" sm="6">
-                                    <CardHeader className="text-center">{task.StatusName}</CardHeader>
+                                <Col xs="6" sm="4"> 
+                                <Card body inverse color="white">
+                                    <CardHeader className="text-center"><small className="text-muted">{task.StatusName}</small></CardHeader>
                                     <CardBody className="text-center">
-                                        <CardTitle>{task.taskName}</CardTitle>
-                                        <CardText>{task.taskInfo}</CardText>
+                                        <CardTitle><capital className="text-muted">{task.taskName}</capital></CardTitle>
+                                        <CardText>
+                                        <capital className="text-muted">{task.taskInfo}</capital> </CardText>
                                         <CardText>
                                             <small className="text-muted">Priority {task.priority}</small>
                                         </CardText>
