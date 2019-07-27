@@ -79,13 +79,13 @@ class TaskForm extends Component {
         this.setState({ taskInfo: event.target.value });
         break;
       case "expDuration":
-        console.log(typeof (parseInt(event.target.value)));
+        //console.log(typeof (parseInt(event.target.value)));
         if (typeof (parseInt(event.target.value)) == 'number') {
           this.setState({ expDuration: event.target.value });
         }
         break;
       case "dueDate":
-        console.log('New date:', event.target.value);
+        //console.log('New date:', event.target.value);
         this.setState({ dueDate: event.target.value });
         break;
 

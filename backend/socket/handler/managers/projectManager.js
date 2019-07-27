@@ -34,7 +34,6 @@ module.exports = function (io) {
             client.emit('UPDATE_PROJECT_ISDELETED', result);
         })
 
-        
         client.on('USER_GET_PROJECTCATEGORIES', async (pID) => {
             const result = await projectController.getCategories(pID);
             client.emit('GET_PROJECTCATEGORIES', result);
@@ -78,6 +77,11 @@ module.exports = function (io) {
         client.on('GET_TASK_STATUS', async()=>{
             const result = await projectController.gettaskstatus();
             client.emit('TASK_STATUS', result);
+        })
+
+        client.on('USER_DELETE_PROJECT_DEPENDENCIES', async(projectID, isDeleted)=>{
+            const result = await projectController.updateDeleteProjectDependencies(projectID,isDeleted);
+            client.emit('DELETE_PROJECT_DEPENDENCIES', result);
         })
 
     })
