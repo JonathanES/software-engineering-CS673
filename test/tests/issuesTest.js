@@ -26,7 +26,7 @@ async function getCommentWithID(commentID){
 }
 
 describe("Testing the IssueController with socket conenction", () => {
-    // Test 1
+    // Test 1 - Issue Creation
     it("Should create a new issue and retrieve new Issue from ID", (done) => {
         // Setup client connection to backend
         let client = io.connect(socketUrl, options);
@@ -69,7 +69,7 @@ describe("Testing the IssueController with socket conenction", () => {
         });
     });
 
-    // Test 2
+    // Test 2 - Issue Deletion
     it("Should create a new issue and then delete the issue", (done) => {
         let client = io.connect(socketUrl, options);
         let issueID = 2 // Will get overwritten
@@ -104,7 +104,7 @@ describe("Testing the IssueController with socket conenction", () => {
         });
     });
 
-    // Test 3
+    // Test 3 - Get all issues
     it("Should get all the issues in the database", (done) => {
         // Setup client connection to backend
         let client = io.connect(socketUrl, options);
@@ -141,7 +141,7 @@ describe("Testing the IssueController with socket conenction", () => {
         });
     });
 
-    // Test 4
+    // Test 4 - Adding a comment
     it("Should attach a comment and then retrieve the comment for the issue", (done) => {
         // Setup client connection to backend
         let client = io.connect(socketUrl, options);
@@ -173,8 +173,45 @@ describe("Testing the IssueController with socket conenction", () => {
         });
     });
 
-    // Test 5
-    it("Should get the first blank issue (#1) in the database");
+    // Test 5 - Getting an individual issue
+    it("Should get the first blank issue (#1) in the database", (done) => {
+        // Setup client connection to backend
+        let client = io.connect(socketUrl, options);
+        const issueID = 1;
+        const projectID = 1;
+        const issueStatusID = 1;
+        const assigneeID = 1;
+        const assignedToID = 1;
+        const priorityID = 1;
+        const issueName = "Test";
+        const summary = "Test";
+        const dateCreated = "2010-01-01 00:00:00";
+        const lastUpdate = "2010-01-01 00:00:00";
+        const dateResolved = null;
+        const isResolved = 0;
+        const isDeleted = 0;
+
+        client.on("connect", async () => {
+            client.emit("GET_ISSUE_WITH_ID", 1);
+
+            client.on("GOT_ISSUE_WITH_ID", (data) => {
+                assert.equal(data.IssueID, issueID, "IssueIDs are not equal");
+                assert.equal(data.ProjectID, projectID, "ProjectIDs are not equal");
+                assert.equal(data.IssueStatusID, issueStatusID, "IssueStatusIDs are not equal");
+                assert.equal(data.AssigneeID, assigneeID, "AssigneeIDs are not equal");
+                assert.equal(data.AssignedToID, assignedToID, "AssignedToIDs are not equal");
+                assert.equal(data.PriorityID, priorityID, "PriorityIDs are not equal");
+                assert.equal(data.IssueName, issueName, "IssueNames are not equal");
+                assert.equal(data.Summary, summary, "Summaries are not equal");
+                //assert.equal(data.DateCreated, dateCreated, "Creation dates are not equal"); // These cant be tested since the server is on another time zone still :(
+                //assert.equal(data.LastUpdate, lastUpdate, "LastUpdates are not equal");
+                assert.equal(data.DateResolved, dateResolved, "Resolved dates are not equal");
+                assert.equal(data.IsResolved, isResolved, "IsResolveds are not equal");
+                assert.equal(data.IsDeleted, isDeleted, "IsDeleteds are not equal");
+                done();
+            });
+        });
+    });
 
     // Test 6
     it("Should create a new issue and update the project ID");
