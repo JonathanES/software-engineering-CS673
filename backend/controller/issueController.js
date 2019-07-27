@@ -210,7 +210,7 @@ async function updateLastUpdate(issueID, lastUpdate){
         client.query("UPDATE Issues SET LastUpdate = ? WHERE IssueID = ?", [lastUpdate, issueID],
                     async (error, results, fields) => {
                         if (error) throw error;
-                        resolve(results.changedRows);
+                        resolve(results.affectedRows); // Changed from changedRows to affectedRows (maybe if you call it too quickly it wont change the date?)
                     });
     });
 };

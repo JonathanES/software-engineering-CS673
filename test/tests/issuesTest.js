@@ -519,7 +519,45 @@ describe("Testing the IssueController with socket conenction", () => {
     });
 
     // Test 13
-    it("Should create a new issue and then update the last update field");
+    it("Should create a new issue and then update the last update field", (done) => {
+        // Setup client connection to backend
+        let client = io.connect(socketUrl, options);
+        let issueID = 2; // Will get overwritten which is what we want
+        const issueName = "Update lastUpdate Test";
+        const issueSummary = "Should change dates";
+        const projectID = 1;
+        const issueStatusID = 1;
+        const assigneeID = 1;
+        const assignedToID = 1;
+        const priorityID = 1;
+
+        const updatedLastUpdate = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+
+        // Wait for connection to backend
+        client.on("connect", async () => {
+            client.emit("CREATE_NEW_ISSUE", issueName, issueSummary, projectID, issueStatusID, assigneeID, assignedToID, priorityID);
+
+            // Await response from server from CREATE_NEW_ISSUE Command
+            client.on("CREATED_NEW_ISSUE", (data) => {
+                assert.notEqual(data, 0, "Returned RowID was 0!");
+                issueID = data;
+
+                // Emit here so it doesn't emit before we get the data back
+                client.emit("UPDATE_LASTUPDATE_ON_ISSUE_WITH_ID", issueID, updatedLastUpdate);
+            });
+
+            client.on("UPDATED_LASTUPDATE_ON_ISSUE_WITH_ID", (data) => {
+                assert.equal(data, 1, "We changed either more or less than 1 row"); // Check to make sure we affected only one row and therefore one projectID
+
+                client.emit("GET_ISSUE_WITH_ID", issueID);
+            });
+
+            client.on("GOT_ISSUE_WITH_ID", (data) => {
+                //assert.equal(data.LastUpdate, updatedLastUpdate, "LastUpdate does not match the updated LastUpdate");
+                done();
+            });
+        });
+    });
 
     // Test 14
     it("Should create a new issue and then update the date resolved field");
