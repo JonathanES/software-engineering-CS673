@@ -213,8 +213,46 @@ describe("Testing the IssueController with socket conenction", () => {
         });
     });
 
-    // Test 6
-    it("Should create a new issue and update the project ID");
+    // Test 6 - Updating the issues's projectID
+    it("Should create a new issue and update the project ID", (done) => {
+        // Setup client connection to backend
+        let client = io.connect(socketUrl, options);
+        let issueID = 2; // Will get overwritten which is what we want
+        const issueName = "Update ProjectID Test";
+        const issueSummary = "Starts at 1 goes to 2";
+        const projectID = 1;
+        const updatedProjectID = 2;
+        const issueStatusID = 1;
+        const userID = 1;
+        const responsibleUserID = 1;
+        const priorityID = 1;
+
+        // Wait for connection to backend
+        client.on("connect", async () => {
+            // In order: issueName, issueSummary, projectID, issueStatusID, userID, responsibleUserID, priorityID
+            client.emit("CREATE_NEW_ISSUE", issueName, issueSummary, projectID, issueStatusID, userID, responsibleUserID, priorityID);
+
+            // Await response from server from CREATE_NEW_ISSUE Command
+            client.on("CREATED_NEW_ISSUE", (data) => {
+                assert.notEqual(data, 0, "Returned RowID was 0!");
+                issueID = data;
+
+                // Emit here so it doesn't emit before we get the data back
+                client.emit("UPDATE_PROJECTID_ON_ISSUE_WITH_ID", issueID, updatedProjectID);
+            });
+
+            client.on("UPDATED_PROJECTID_ON_ISSUE_WITH_ID", (data) => {
+                assert.equal(data, 1, "We changed either more or less than 1 row"); // Check to make sure we affected only one row and therefore one projectID
+
+                client.emit("GET_ISSUE_WITH_ID", issueID);
+            });
+
+            client.on("GOT_ISSUE_WITH_ID", (data) => {
+                assert.equal(data.ProjectID, updatedProjectID, "ProjectID does not match the udpated ProjectID");
+                done();
+            });
+        });
+    });
 
     // Test 7
     it("Should create a new issue and then update the issue's status", (done) => {
