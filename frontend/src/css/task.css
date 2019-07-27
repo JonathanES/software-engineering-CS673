@@ -12,7 +12,7 @@ input {
 .direct{
     padding: 20px;
     margin: 5px;
-    
+
 }
 .user-task{
     display: block;
@@ -20,7 +20,13 @@ input {
     width: 300px;
     border: 15px solid silver;
     padding: 120px;
-    margin: 20px; 
+    margin: 20px;
+
+    
+    border-radius: 8px 14px 14px 54px;
+  -moz-border-radius: 8px 14px 14px 54px;
+  -webkit-border-radius: 8px 14px 14px 54px;
+  border: 13px solid #ebf1f5;
 }
 
 .category{
@@ -33,21 +39,35 @@ input {
     background: silver !important;
     width: 30% !important
 }
-
+#add-task-button{
+    background: #0084ff;
+     color:white;
+     text-align: center;
+     width: 150px;
+     height:40px;
+     border: 0;
+     position: relative;
+     left:50%;
+     margin-left:-75px;
+     margin-top:50px;
+}
 .cat_task{
     display: block;
     padding: 10px;
     background: rgb(240, 234, 234) !important;
     margin: 10px;
-    width: 20% !important
+    width: 20% !important;
+    padding: 30px;
+    border-radius: 8px 14px 14px 54px;
+  -moz-border-radius: 8px 14px 14px 54px;
+  -webkit-border-radius: 8px 14px 14px 54px;
+  border: 13px solid #ebf1f5;
 
 }
-
-
 ul li{
     display: inline;
     /* margin-top: 2em; */
-    
+
     /* position: relative !important;
     background: none !important;
     width: 100% !important;
@@ -55,7 +75,36 @@ ul li{
     /* padding: 20px;
     margin: 10px; */
 }
-
 .span-project-mid{
     display: block;
+}
+.taskform-header h4{
+    display: block;
+    text-align: center;
+    color: white;
+}
+.taskform-group{
+  margin-top:50px;
+}
+.taskform-field{
+    margin-top:20px;
+    text-align: center;
+}
+.taskform span{
+    color:black;
+}
+.project-content{
+    color:black;
+}
+.taskformbtn{
+    background: #0084ff;
+     color:white;
+     text-align: center;
+     width: 150px;
+     height:40px;
+     border: 0;
+     position: relative;
+     left:50%;
+     margin-left:-75px;
+     margin-top:40px;
 }

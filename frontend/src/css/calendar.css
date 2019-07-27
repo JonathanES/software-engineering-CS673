@@ -152,6 +152,7 @@
   top: .75em;
   right: .75em;
   font-weight: 700;
+  color: black;
 }
 
 .calendar .body .disabled {
