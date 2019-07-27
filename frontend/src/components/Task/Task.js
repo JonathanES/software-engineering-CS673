@@ -1,3 +1,4 @@
+
 import React from "react";
 import { connect } from 'react-redux';
 import { getTasksUsers } from '../../socket/taskSocket';
@@ -177,4 +178,5 @@ class Task extends React.Component {
         );
     }
 }
+
 export default connect(mapStateToProps)(Task);
