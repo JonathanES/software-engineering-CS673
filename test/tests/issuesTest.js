@@ -82,11 +82,11 @@ describe("Testing the IssueController with socket conenction", () => {
                 issueID = data;
 
                 // Emit here so it doesn't emit before we get the data back
-                client.emit("UPDATE_ISSUE_STATUS", issueID, newIssueStatusID);
+                client.emit("UPDATE_ISSUE_STATUS_ON_ISSUE_WITH_ID", issueID, newIssueStatusID);
             });
 
             // Once we updated the IssueStatusID get the row back and check
-            client.on("UPDATED_ISSUE_STATUS", (data) => {
+            client.on("UPDATED_ISSUE_STATUS_ON_ISSUE_WITH_ID", (data) => {
                 assert.equal(data, 1, "We returned more than 1 changed row! SOMIT SCHLECHT!");
 
                 // If we have changed a row, lets get the row back, here we know that we have the issueID from before since this occurs after the insert
