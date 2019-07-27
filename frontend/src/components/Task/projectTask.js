@@ -175,10 +175,8 @@ class ProjectTask extends React.Component {
                                 </li>
                             )}
                             <span class="footer">
-                                <form onClick={(e)=>this.handleClick(e,category)} class="footerform">
-                                    <img src={require("../../images/add_button_2.png")} class="photos" />
+                                    <input class="add_task_button" src={require("../../images/add_button_2.png")} id={category.CategoryID } onClick={(e)=>this.handleClick(e,category)} type="image"/>
                                     <button class="add_task_button" id={category.CategoryID} type="submit">Add New Task</button>
-                                </form>
                             </span>
                         </li>
                     )}
