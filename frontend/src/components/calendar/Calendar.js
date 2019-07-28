@@ -159,9 +159,11 @@ class CalendarComponent extends Component {
             if (moment(task.dueDate).format('DD-MM-YY') == moment(day).format('DD-MM-YY'))
                 taskOfDay.push(task)
         })
-        console.log(taskOfDay.length);
-        if (taskOfDay.length > 0)
-            this.props.dispatch({ type: "USER_DEMAND_TASK_OF_DAY", taskOfDay: taskOfDay });
+        // console.log(taskOfDay.length);
+         if (taskOfDay.length > 0)
+            this.props.dispatch({ type: "USER_DEMAND_TASK_OF_DAY", taskOfDay: taskOfDay, selectedDate: day });
+        else
+            this.props.dispatch({type: "USER_DEMAND_VIEW_CALENDAR_PROJECT", selectedDate: day})
     };
 
     nextMonth = () => {
