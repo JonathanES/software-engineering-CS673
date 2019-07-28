@@ -48,12 +48,16 @@ function* handleGetTaskDetailDemand(action) {
     yield put({ type: "TASK_DEMAND" });
     console.log(action.task);
     yield put({ type: 'INFO_TASK_DEMAND', task: action.task });
+    yield put ({ type: "USER_DEMAND_TASK_OF_DAY"});
+
+
 }
 
 function* handleAddTaskFromCalendarDemand(action) {
     yield put({ type: "PROJECT_DEMAND" });
     console.log(action.category);
     yield put({ type: 'ADD_TASKFORM_DEMAND', category: action.category, selectedDate: action.selectedDate });
+    yield put ({ type: "USER_DEMAND_TASK_OF_DAY"});
 }
 
 function* demandSaga() {
