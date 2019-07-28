@@ -1,389 +1,394 @@
-html, body, #root, #wrapper,.boxchat {
-    margin: 0;
-    height: auto;
-    overflow: hidden;
+html,
+body,
+#root,
+#wrapper,
+.boxchat {
+  margin: 0;
+  height: auto;
+  overflow: hidden;
 }
 li {
-    list-style: none;
+  list-style: none;
 }
 input {
-    border-radius: 5px;
+  border-radius: 5px;
 }
 .leftbar ul {
-    padding: 0px;
+  padding: 0px;
 }
 .leftbar li {
-    padding: 0px;
+  padding: 0px;
 }
 .leftbar {
-    background-color: #212e3e;
-    width: 50px;
-    height: 100%;
-    color:grey;
-    padding: 0px;
-    text-align: center;
-    position: absolute;
+  background-color: #212e3e;
+  width: 50px;
+  height: 100%;
+  color: grey;
+  padding: none;
+  text-align: center;
+  position: absolute;
 }
 .container {
-    height: calc(100% - 30px);
-    width: 100%;
-    /* background:  linear-gradient(#1f94bf 20%,#edf5f8 0, #edf5f8 80%, #1f94bf 0); */
-    display: flex;
-    margin: 0;
-    margin-top:58px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  margin: none;
+  margin-top: 70px;
 }
 .chatbox {
-    margin: auto;
-    height: calc(100% - 30px);
-    margin-top:30px;
-    width: 100%;
-    height: 800px;
-    transform: translateY(-10%);
-    box-shadow: 0 0 0 1px gray;
-    display: flex;
+  margin: auto;
+  height: calc(100% - 30px);
+  margin-top: 30px;
+  width: 100%;
+  height: 800px;
+  transform: translateY(-10%);
+  box-shadow: 0 0 0 1px gray;
+  display: flex;
 }
 .chatleft {
-    background-color:rgb(52, 53, 54);
-    width: 25%;
-    left: 0;
-    height: 100%;
-    border-right: solid 0.5px #383838;
+  background-color: rgb(52, 53, 54);
+  width: 25%;
+  left: 0;
+  height: 100%;
+  border-right: solid 0.5px #383838;
 }
-.userhead{
-    width:50px;
-    height:50px;
-    border-radius: 50%;
+.userhead {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
-.appname{
-    color:white;
-    font-size:1.5em;
-    font-weight:bold;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    MARGIN-TOP:10px;
-    width:80%;
-    float:left;
-    margin-left:5%;
+.appname {
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-top: 10px;
+  width: 80%;
+  float: left;
+  margin-left: 5%;
 }
 .chatleft .top {
-    height: 10%;
-    display: flex;
-    flex-flow: column nowrap;
-    
-    padding-left: 10px;
+  height: 10%;
+  display: flex;
+  flex-flow: column nowrap;
+
+  padding-left: 10px;
 }
-.personalname{
-    display: flex;
-    MARGIN-TOP:10px;
-    height:15px;
-    padding:1px;
-    color: white;
-    width:90%;
-    margin-left:5%;
-    transition: .5s;
+.personalname {
+  display: flex;
+  margin-top: 10px;
+  height: 15px;
+  padding: 1px;
+  color: white;
+  width: 90%;
+  margin-left: 5%;
+  transition: 0.5s;
 }
-.personalname:hover{
-    background: rgb(52, 53, 54);
-    cursor:pointer;
+.personalname:hover {
+  background: rgb(52, 53, 54);
+  cursor: pointer;
 }
-.charlefttext{
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1em;
-    font-weight: bolder;
-    height: 30px;
-    line-height: 30px;
+.charlefttext {
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1em;
+  font-weight: bolder;
+  height: 30px;
+  line-height: 30px;
 }
-.channellogo{
-    font-size: 1.1em;
-    font-weight: bolder;
-    margin-right:10px;
-    height: 30px;
-    line-height: 30px;
+.channellogo {
+  font-size: 1.1em;
+  font-weight: bolder;
+  margin-right: 10px;
+  height: 30px;
+  line-height: 30px;
 }
-.yuan{
-    width:10px;
-    height:10px;
-    border-radius: 50%;
-    border:2px solid #d2d2d2;
-    margin-right:10px;
-    position: relative;
-    top:50%;
-    margin-top:-5px;
+.yuan {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid #d2d2d2;
+  margin-right: 10px;
+  position: relative;
+  top: 50%;
+  margin-top: -5px;
 }
-.yuanselect{
-    width: 12px;
-    height:12px;
-    background: rgb(48, 172, 122);
-    border:0;
+.yuanselect {
+  width: 12px;
+  height: 12px;
+  background: rgb(48, 172, 122);
+  border: 0;
 }
-.title{
-    width:100%;
-    color: white;
-    font-size:1.2em;
-    text-align: left;
-    padding-left:5%;
-    height:40px;
-    line-height: 40px;
-    position: relative;
-    top:20px;
+.title {
+  width: 100%;
+  color: white;
+  font-size: 1.2em;
+  text-align: left;
+  padding-left: 5%;
+  height: 40px;
+  line-height: 40px;
+  position: relative;
+  top: 20px;
 }
 .searchbtn {
-    height: 36px;
-    width: 36px;
-    border-radius: 18px;
-    background-color:  #0a8cdd;
-    color: white;
-    margin-left: 10px;
-    border:0;
-    outline: 0;
+  height: 36px;
+  width: 36px;
+  border-radius: 18px;
+  background-color: #0a8cdd;
+  color: white;
+  margin-left: 10px;
+  border: 0;
+  outline: 0;
 }
 .searchbtn:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 .chatleft .center {
-    overflow:hidden;
-    height: 90%;
+  overflow: hidden;
+  height: 90%;
 }
-.chatleft .center ul{
-    padding-left: 10px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    position: absolute;
-    z-index: 999;
-    max-height: 360px;
+.chatleft .center ul {
+  padding-left: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: absolute;
+  z-index: 999;
+  max-height: 360px;
 }
-.directul{
+.directul {
   height: 300px;
 }
-.channelul{
-    height: 300px;
+.channelul {
+  height: 300px;
 }
-ul::-webkit-scrollbar{
-    width:3px;
-    height:9px;
+ul::-webkit-scrollbar {
+  width: 3px;
+  height: 9px;
 }
-.chatleft .center li{
-    margin: 10px;
+.chatleft .center li {
+  margin: 10px;
 }
 .chatright {
-    background-color:white;
-    width: 75%;
-    height: 100%;
+  background-color: white;
+  width: 75%;
+  height: 100%;
 }
 .chatright .top {
-    height: 10%;
-    display: flex;
-    align-items: center;
-    padding-left: 30px;
-    border-bottom: 1px solid #d2d2d2;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  border-bottom: 1px solid #d2d2d2;
 }
 .chatright .center {
-    background-color: white;
-    height: 65%;
+  background-color: white;
+  height: 65%;
 }
 .chatright .center ul {
-    padding: 10px;
+  padding: 10px;
 }
 .chatright .center li {
-    margin: 10px;
-    width: 100%;
+  margin: 10px;
+  width: 100%;
 }
-.chatright .center p{
-    display: inline-block;
+.chatright .center p {
+  display: inline-block;
 }
 .msgcard {
-    margin: 0 10px 0 10px;
-    background-color: white;
-    border-radius: 10px;
-    padding: 10px;
-    max-width: 60%;
+  margin: 0 10px 0 10px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  max-width: 60%;
 }
 
 .chatright .chatfooter {
-    height: 8%;
-    width: 100%;
-    background-color: white;
-    padding-left:5%; 
+  height: 8%;
+  width: 100%;
+  background-color: white;
+  padding-left: 5%;
 }
-.chatright .footer form{
-    width: 100%;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
+.chatright .footer form {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
 }
 .sendbtn {
-    height: 35px;
-    width: 80px;
-    border-radius: 10px;
-    background-color: #0a8cdd;
-    color: white;
-    font-weight: bold;
-    border:0;
-    outline: 0;
+  height: 35px;
+  width: 80px;
+  border-radius: 10px;
+  background-color: #0a8cdd;
+  color: white;
+  font-weight: bold;
+  border: 0;
+  outline: 0;
+  margin-bottom: 40px;
 }
 
 #message-box {
-    bottom: 0%;
-    width: 75%; 
-    height: 30px;
-    resize: none;
-    border: solid 1px #383838;
-    margin-right:50px;
+  bottom: 0%;
+  width: 75%;
+  height: 30px;
+  resize: none;
+  border: solid 1px #383838;
+  margin-right: 40px;
+  margin-bottom: 40px;
 }
 
 .search-chatleft {
-    border: 0.5px solid #333232;
-    width: 180px;
-    height: 30px;
-    margin-left: 25px;
-    margin-top: 8px;
-    outline: 0;
-    padding-left:2%;
-    border-radius: 5px;
+  border: 0.5px solid #333232;
+  width: 180px;
+  height: 30px;
+  margin-left: 25px;
+  margin-top: 8px;
+  outline: 0;
+  padding-left: 2%;
+  border-radius: 5px;
 }
 
 .pic-user-left {
-    border-radius: 20px;
-    vertical-align: middle;
+  border-radius: 20px;
+  vertical-align: middle;
 }
 
-.pic-user-right{
-    width: 4.5%;
-    height:75%;
-    border-radius: 20px;
-    vertical-align: middle;
-    margin-top: 8px;
+.pic-user-right {
+  width: 4.5%;
+  height: 75%;
+  border-radius: 20px;
+  vertical-align: middle;
+  margin-top: 8px;
 }
 
-.span-user-left{
-    padding:0;
-    margin-left: 20px;
+.span-user-left {
+  padding: 0;
+  margin-left: 20px;
 }
 
-.username-right{
-   margin-left: 20px;
-   font-weight: bolder;
-   font-size:1.2em;
+.username-right {
+  margin-left: 20px;
+  font-weight: bolder;
+  font-size: 1.2em;
 }
 
-.chat-position-right{
-    margin-right: 3%;
+.chat-position-right {
+  margin-right: 3%;
 }
-.top-left{
-    display: flex;
-    flex-flow: row nowrap;
-    justify-items: center;
-    align-items: center;
-    width: 45%;
-}
-.top-right{
-    width:55%;
-    height:100%;
+.top-left {
   display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
+  flex-flow: row nowrap;
+  justify-items: center;
+  align-items: center;
+  width: 45%;
 }
-.chatli{
-    width: 80%;
-    padding:10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.top-right {
+  width: 55%;
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
 }
-.chatlileft{
-    display: none;
+.chatli {
+  width: 80%;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.chatlileft-left{
-    margin:0;
+.chatlileft {
+  display: none;
 }
-.chatlileft-right{
-    margin-left:20px;
+.chatlileft-left {
+  margin: 0;
 }
-.chatliright{
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: center;
-    margin-left:20px;
-    width: 80%;
-    min-height:30px;
-    word-break: break-all;
+.chatlileft-right {
+  margin-left: 20px;
 }
-.senderName{
-    font-weight: bolder;
-    display: block;
-    width:100px;
-    float:left;
+.chatliright {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  margin-left: 20px;
+  width: 80%;
+  min-height: 30px;
+  word-break: break-all;
 }
-.senderName-right{
-    float:right;
+.senderName {
+  font-weight: bolder;
+  display: block;
+  width: 100px;
+  float: left;
 }
-.sendMessage{
-    width: 100% !important;
-    word-break: normal;
-    float: left !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    white-space: normal !important;
+.senderName-right {
+  float: right;
 }
-.chaton{
-    height:68vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    white-space: nowrap;
+.sendMessage {
+  width: 100% !important;
+  word-break: normal;
+  float: left !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: normal !important;
 }
-.show{
-    display: block;
+.chaton {
+  height: 68vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  white-space: nowrap;
 }
-.chatli-right{
-    position:relative;
-    right:130px;
+.show {
+  display: block;
+}
+.chatli-right {
+  position: relative;
+  right: 130px;
 }
 
 #add-button {
-    margin-left: 1%;
-    width: 7%;
+  margin-left: 1%;
+  width: 7%;
 }
 
 #add-user-in-group-button {
-    margin-left: 1%;
-    position: absolute;
-    right: 0px;
-    width: 5%;
+  margin-left: 1%;
+  position: absolute;
+  right: 0px;
+  width: 5%;
 }
 
-#add-user-group{
-    float: left;
-    width: 50%;
-    padding: 10px;
+#add-user-group {
+  float: left;
+  width: 50%;
+  padding: 10px;
 }
 
-#delete-user-group{
-    float: right;
-    width: 50%;
-    padding: 10px;
+#delete-user-group {
+  float: right;
+  width: 50%;
+  padding: 10px;
 }
 
 #delete-user-group #delete-user-button {
-    margin-left: 1%;
-    float: right;
-    width: 5%;
+  margin-left: 1%;
+  float: right;
+  width: 5%;
 }
 
 #add-user-group #add-user-button {
-    margin-left: 1%;
-    width: 5%;
+  margin-left: 1%;
+  width: 5%;
 }
 
-#delete-user-group-title{
-    font-weight: bold;
-    text-decoration: underline;
+#delete-user-group-title {
+  font-weight: bold;
+  text-decoration: underline;
 }
 
-#add-user-group-title{
-    font-weight: bold;
-    text-decoration: underline;
+#add-user-group-title {
+  font-weight: bold;
+  text-decoration: underline;
 }
