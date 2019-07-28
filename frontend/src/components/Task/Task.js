@@ -204,7 +204,7 @@ class Task extends React.Component {
         return (
             <div>
                 {/* {this.getGrid()} */}
-                    {this.grid}
+                    {/* {this.grid} */}
             </div>
                 // {this.props.updateTask && <TaskUpdate dispatch={this.props.dispatch} />}
                 // {!this.props.updateTask && <div class="direct">
