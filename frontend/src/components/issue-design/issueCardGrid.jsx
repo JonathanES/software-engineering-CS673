@@ -18,7 +18,7 @@ export class IssueCardGrid extends React.Component {
         };
         this.updateGrid();
 
-        getIssues((error, data) => {
+        getIssues((data) => {
             console.log(data);
             this.updateIssues(data);
             this.updateGrid();
