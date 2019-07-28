@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Card, Button, CardTitle, CardText, Row, Col, Container} from 'reactstrap';
-import IssueCardGrid from "./issueCardGrid.jsx";
 import {createIssue, updateIssueStatus, getIssues, getIssueWithID, createNewIssueStatus} from "../../socket/issuesSocket.js";
+
+import {IssueCardGrid} from "./issueCardGrid.jsx";
 
 const mapStateToProps = state => ({
     username: state.user.username,
@@ -26,72 +27,22 @@ class Issues extends React.Component {
         ];
 
 
-        this.icg = new IssueCardGrid(props, 6, this.rowObjects);
+        //this.icg = new IssueCardGrid(props, 6, this.rowObjects);
         this.state = {
             email: '',
             password: '',
             id_user: '',
-            grid: this.icg.getGrid()
+            grid: <IssueCardGrid
+                    numberOfCards={this.rowObjects.length}
+                    issues={this.rowObjects}
+                    cardsPerRow={4}/>
         };
-
     }
 
-    // function setupGrid(listOfIssues, columns=4){
-    //
-    // }
 
     render() {
         return (
             this.state.grid
-
-            // <div>
-            // <Row className="mx-md-3">
-            //     <Col className="my-md-3">
-            //         <Card body>
-            //             <CardTitle>Special Title Treatment</CardTitle>
-            //             <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-            //             <Button>Go somewhere</Button>
-            //         </Card>
-            //     </Col>
-            //     <Col className="my-md-3">
-            //         <Card body>
-            //             <CardTitle>Special Title Treatment</CardTitle>
-            //             <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-            //             <Button>Go somewhere</Button>
-            //         </Card>
-            //     </Col>
-            //     <Col className="my-md-3">
-            //         <Card body>
-            //             <CardTitle>Special Title Treatment</CardTitle>
-            //             <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-            //             <Button>Go somewhere</Button>
-            //         </Card>
-            //     </Col>
-            //     <Col className="my-md-3">
-            //         <Card body>
-            //             <CardTitle>Special Title Treatment</CardTitle>
-            //             <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-            //             <Button>Go somewhere</Button>
-            //         </Card>
-            //     </Col>
-            // </Row>
-            // <Row className="mx-md-3">
-            //     <Col className="my-md-3">
-            //         <Card body>
-            //             <CardTitle>Special Title Treatment</CardTitle>
-            //             <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-            //             <Button>Go somewhere</Button>
-            //         </Card>
-            //     </Col>
-            //     <Col className="my-md-3">
-            //         <Card body>
-            //             <CardTitle>Special Title Treatment</CardTitle>
-            //             <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-            //             <Button>Go somewhere</Button>
-            //         </Card>
-            //     </Col>
-            // </Row>
-            // </div>
         );
     }
 }
