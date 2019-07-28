@@ -66,6 +66,7 @@ class TaskCard {
     }
 
     getCard(){
+        console.log(this.priorityID);
         if (this.priorityID == 1){
             return(this.blueCard(this.taskName, this.priorityID, this.taskInfo, "Update", this.usernameD, this.dueDate));
 

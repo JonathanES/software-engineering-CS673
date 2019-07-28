@@ -153,19 +153,19 @@ class Task extends React.Component {
     async getGrid() {
         const data = await this.getUserTasks();
         const res = await this.generateRows(data);
-        return res;
+        //return res;
         // getTasksUsers(this.props.userId, (err, data) => {
         //     this.setState({ rowObjects: data }, () => {
         //         console.log(this.state.rowObjects);
         //         this.generateRows();
         //     }); //, grid: this.generateRows });
         // });
-        // return(this.grid);
+        return(res);
     }
 
     componentDidMount() {
 
-
+       this.getGrid();
 
 
         // this.tcg = new TaskCardGrid(this.props, 6, this.rowObjects);
@@ -202,10 +202,11 @@ class Task extends React.Component {
 
     render() {
         return (
-            <div>
-                {/* {this.getGrid()} */}
-                    {/* {this.grid} */}
-            </div>
+            <div></div>
+            // <div>
+                // this.getGrid()
+                    // {/* {this.grid} */}
+            // </div>
                 // {this.props.updateTask && <TaskUpdate dispatch={this.props.dispatch} />}
                 // {!this.props.updateTask && <div class="direct">
                     // <div class="title uppercase" style={{ marginBottom: '10px' }}>{this.props.username}'s Tasks</div>
