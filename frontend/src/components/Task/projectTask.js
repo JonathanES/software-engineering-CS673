@@ -128,71 +128,143 @@ class ProjectTask extends React.Component {
     console.log(task);
     this.props.dispatch({ type: "USER_PROJECT_TASK_UPDATE", task: task });
   }
-   
+
   render() {
+    return (
+      <div style={{ overflowX: "auto" }}>
+        {this.props.isProjectTasksSelected && (
+          <div
+            class="title"
+            style={{
+              padding: "5%",
+              alignItems: "top",
+              fontSize: "26px",
+              color: "black"
+            }}
+          >
+            {" "}
+            You are viewing: {this.props.projectName}
+            <a
+              href=" "
+              title="Add Category"
+              style={{
+                backgroundcolor: "#FFFFFF",
+                color: "#000000",
+                textdecoration: "none"
+              }}
+            >
+              <input
+                id="add-button"
+                type="image"
+                style={{ height: "20px", width: "20px" }}
+                src={require("../../images/plus.svg")}
+                onClick={e => {
+                  this.props.dispatch({ type: "USER_ADD_CATEGORY_DEMAND" });
+                  e.preventDefault();
+                }}
+              />
+            </a>
+          </div>
+        )}
+        <div>
+          {this.props.addCategory && (
+            <CategoryForm dispatch={this.props.dispatch} />
+          )}
+          <ul style={{ verticalAlign: "top", padding: "10px" }}>
+            {/* <ul > */}
+            {this.props.projectCategoryList.map(category => (
+              <li
+                class="cat-task_li"
+                onClick={this.handleUpdate}
+                style={{
+                  width: "300px",
+                  maxHeight: "500px",
+                  height: "auto",
+                  paddingBlock: "10px",
+                  verticalAlign: "top",
+                  marginTop: "8px",
+                  borderRadius: "5px",
+                  backgroundColor: "#white",
+                  position: "relative",
+                  display: "inline-block"
+                }}
+                id={category.projectID}
+                onClick={this.handleClickProject}
+              >
+                <span class="categorytitle">{category.CategoryName}</span>
+                <span class="footer">
+                  <input
+                    class="add_task_button"
+                    src={require("../../images/add_button_2.png")}
+                    style={{ width: "5%" }}
+                    id={category.CategoryID}
+                    onClick={e => this.handleClick(e, category)}
+                    type="image"
+                  />
+                  <button
+                    class="add_task_button"
+                    id={category.CategoryID}
+                    type="submit"
+                  >
+                    Add New Task
+                  </button>
+                  <br />
+                </span>
+                {category.listOfTasks.map(task => (
+                  <li
+                    class="cat-task_li_li"
+                    onClick={() => this.handleUpdate(task)}
+                    onMouseOver={e => this.handleMouseOver(e)}
+                    onMouseLeave={e => this.handleMouseOut(e)}
+                    style={{
+                      width: "94%",
+                      height: "200px",
+                      borderRadius: "5px",
+                      marginLeft: "3%",
+                      marginTop: "8px",
+                      marginBottom: "0",
+                      height: "auto",
+                      padding: "5px"
+                    }}
+                  >
+                    <div class="cat_tast_head">
+                      <span class="cat_task_span">{task.TaskName}</span>
 
-        return (
-            <div style={{ overflowX: 'auto' }}>
-                {this.props.isProjectTasksSelected && <div class="title"
-                    style={{ padding: "5%", alignItems: 'top', fontSize:"26px", color:'black' }}> You are viewing: {this.props.projectName}
-                    <a href=" " title="Add Category" style={{ backgroundcolor: '#FFFFFF', color: '#000000', textdecoration: 'none' }}>
-                        <input id="add-button" type="image" style={{ height: "20px", width: '20px' }}
-                            src={require("../../images/plus.svg")} onClick={(e) => {
-                                this.props.dispatch({ type: 'USER_ADD_CATEGORY_DEMAND' });
-                                e.preventDefault()
-                            }} />
-                    </a>
-                </div>}
-                <div>
-                    {this.props.addCategory && <CategoryForm dispatch={this.props.dispatch} />}
-                    <ul style={{ verticalAlign: 'top', padding: '10px' }}>
-                    {/* <ul > */}
-                        {this.props.projectCategoryList.map(category =>
-                        <li class="cat-task_li" onClick={this.handleUpdate} 
-                            style={{ width: '300px',maxHeight:'500px' ,  height: "auto", 
-                                     paddingBlock:'10px', verticalAlign:'top', 
-                                     marginTop: '8px', borderRadius: '5px', 
-                                     backgroundColor: "#white", position: "relative" , 
-                                     display: 'inline-block'}} 
-                                     id={category.projectID} onClick={this.handleClickProject}>
-                                      
-                            <span class="categorytitle">{category.CategoryName}</span>
-                            <span class="footer">
-                                    <input class="add_task_button" src={require("../../images/add_button_2.png")} style={{width:'5%' }} id={category.CategoryID } onClick={(e)=>this.handleClick(e,category)} type="image"/>
-                                    <button class="add_task_button" id={category.CategoryID} type="submit">Add New Task</button>
-                                    <br></br>
-                            </span>
-                            {category.listOfTasks.map(task =>
-                                <li class="cat-task_li_li" onClick={() => this.handleUpdate(task)} onMouseOver={(e) => this.handleMouseOver(e)} 
-                                    onMouseLeave={(e) => this.handleMouseOut(e)} 
-                                    style={{ width: '94%', height: '200px', 
-                                    borderRadius: '5px', marginLeft: '3%', 
-                                    marginTop: '8px', marginBottom: '0', height: "auto", padding: "5px" }}>
-                                    <div class="cat_tast_head">
-                                        <span class="cat_task_span">{task.TaskName}</span>
-                                        
-                                        <img src={require("./../../images/edit.png")} 
-                                            style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} />
-                                    </div>
+                      <img
+                        src={require("./../../images/edit.png")}
+                        style={{
+                          display: this.state.modalIsOpen,
+                          width: "15px",
+                          height: "15px"
+                        }}
+                      />
+                    </div>
 
-                                    {/* done|||bstart not start*/}
-                                    <span class="state" style={{background: task.StatusName == 'Done'?'green': '#f4d03c' }}>{task.StatusName} </span>
-                                    
-                                    {/* <span class="cat_task_span">{task.TaskName}</span> */}
-                                    <div class="cat_tast_head">
-                                        <span class="cat_task_span">Assigned to: {task.username}</span>
-                                    </div>
-                                    <div class="cat_tast_footer">
-                                        <span class="time">{moment(task.DueDate).format('D MMM')}</span>
-                                        {/* <img src={require("./../../images/admin-tool.png")} class="photo" /> */}
-                                    </div>
-                                </li>
-                            )}
-                            {/* <span class="footer">
-                                    <br></br>
-                                    <input class="add_task_button" src={require("../../images/add_button_2.png")} style={{width:'5%' }} id={category.CategoryID } onClick={(e)=>this.handleClick(e,category)} type="image"/>
-                                    <button class="add_task_button" id={category.CategoryID} type="submit">Add New Task</button>
-                            </span> */}
+                    {/* done|||bstart not start*/}
+                    <span
+                      class="state"
+                      style={{
+                        background:
+                          task.StatusName == "Done" ? "green" : "#f4d03c"
+                      }}
+                    >
+                      {task.StatusName}{" "}
+                    </span>
+
+                    {/* <span class="cat_task_span">{task.TaskName}</span> */}
+                    <div class="cat_tast_head">
+                      <span class="cat_task_span">
+                        Assigned to: {task.username}
+                      </span>
+                    </div>
+                    <div class="cat_tast_footer">
+                      <span class="time">
+                        {moment(task.DueDate).format("D MMM")}
+                      </span>
+                      {/* <img src={require("./../../images/admin-tool.png")} class="photo" /> */}
+                    </div>
+                  </li>
+                ))}
               </li>
             ))}
           </ul>
