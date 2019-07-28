@@ -1,8 +1,8 @@
-/*html, body, #root, #wrapper,.box {
+html, body, #root, #wrapper,.box {
     margin: 0;
     height: 100%;
-    /* overflow: hidden; 
-} */
+     overflow: hidden;
+}
 /* li {
     list-style: none;
 } */
@@ -15,18 +15,20 @@
     margin: 5px;
 
 }
+*/
 .user-task{
     display: block;
     background-color: white;
     width: 300px;
-  /*border: 15px solid silver;
+    border: 15px solid silver;
     padding: 120px;
     margin: 20px;
     border-radius: 8px 14px 14px 54px;
   -moz-border-radius: 8px 14px 14px 54px;
   -webkit-border-radius: 8px 14px 14px 54px;
   border: 13px solid #ebf1f5;
-}*/
+}
+
 
 /*.category{
     display: block;
@@ -72,7 +74,7 @@ ul li{
     width: 100% !important;
      */
 /* padding: 20px;
-    margin: 10px; 
+    margin: 10px;
 } /*
 .span-project-mid{
     display: block;
