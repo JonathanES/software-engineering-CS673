@@ -90,8 +90,8 @@ ul li{
     margin-top:20px;
     text-align: center;
 }
-span{
-    color:white;
+.taskform span{
+    color:black;
 }
 .project-content{
     color:black;
