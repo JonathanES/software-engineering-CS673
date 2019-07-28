@@ -5,7 +5,7 @@ import { addTask, getTask } from "../../socket/taskSocket";
 import {
   showCategories_old,
   getPriorities,
-  getAvailableUsers
+  getAvailableUsersForProject
 } from "../../socket/projectSocket";
 import "../../css/task.css";
 
@@ -41,8 +41,8 @@ class TaskForm extends Component {
       newTask: {},
 
       listOfFriends: [],
-      newusername: '',
-      newuserid: ''
+      newusername: "",
+      newuserid: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -54,33 +54,37 @@ class TaskForm extends Component {
 
   componentDidMount() {
     getPriorities((err, data) => {
-
-      this.setState({ taskPriorities: data })
-      console.log(data)
-      this.state.taskPriorities.push({ PriorityID: 4, Priority: 'Please Select One' });
-      console.log(this.state.taskPriorities)
+      this.setState({ taskPriorities: data });
+      console.log(data);
+      this.state.taskPriorities.push({
+        PriorityID: 4,
+        Priority: "Please Select One"
+      });
+      console.log(this.state.taskPriorities);
       //console.log('User levels:',this.state.userlevels);
     });
 
-    getAvailableUsersForProject(this.props.projectID, this.props.userId, (err, data) => {
-      data.push({ UserID: 0, username: 'Please Select a User' })
-      console.log(data);
-      this.setState({ listOfFriends: data });
-      console.log(this.state.listOfFriends);
-    });
+    getAvailableUsersForProject(
+      this.props.projectID,
+      this.props.userId,
+      (err, data) => {
+        data.push({ UserID: 0, username: "Please Select a User" });
+        console.log(data);
+        this.setState({ listOfFriends: data });
+        console.log(this.state.listOfFriends);
+      }
+    );
   }
-  handleClick(event) {
-
-  }
+  handleClick(event) {}
 
   handleNewUser(e) {
     const friend = JSON.parse(e.target.value);
     //friend.preventDefault();
     //console.log('User ID:',event.target.value);
     this.setState({ newuserid: friend.UserID });
-    this.setState({ newusername: friend.username })
+    this.setState({ newusername: friend.username });
     console.log(this.state.newusername);
-    console.log(this.state.newuserid)
+    console.log(this.state.newuserid);
     //event.preventDefault();
   }
 
@@ -135,89 +139,112 @@ class TaskForm extends Component {
     // console.log('Exp Duration:', this.state.expDuration);
     // console.log('Actual Time Spent:', 0);
 
-    if (this.state.taskName == '') {
-      alert('Please check your input, Task Name cannot be empty');
-    }
-    else if (this.state.priorityID == '') {
-      alert('Please select the task\'s priority');
-    }
-    else if (this.state.expDuration == '') {
-      alert('Please enter an expected duration to complete this task');
-    }
-    else if (this.state.deuDate == '') {
-      alert('Please enter a due date to complete this task');
-    }
-    else {
-
+    if (this.state.taskName == "") {
+      alert("Please check your input, Task Name cannot be empty");
+    } else if (this.state.priorityID == "") {
+      alert("Please select the task's priority");
+    } else if (this.state.expDuration == "") {
+      alert("Please enter an expected duration to complete this task");
+    } else if (this.state.deuDate == "") {
+      alert("Please enter a due date to complete this task");
+    } else {
       //here we should call the mainpage, so they can see the project added to their screen, wonder how we will do it
       //this.props.dispatch({ type: 'USER_LOGIN', username: data.username});
-      console.log('Project ID:', this.props.projectCategoryList[0].ProjectID);
-      console.log('projectCategoryList:', this.props.projectCategoryList);
-      console.log('ProjectName:', this.props.projectName);
-      console.log('this.state.userid:', this.state.userId);
-      console.log('this.state.username:', this.state.username);
-      console.log('category ID:', this.state.categoryID);
-      console.log('category name:', this.state.categoryName);
-      console.log('newusername:', this.state.newusername);
-      console.log('newuserid:', this.state.newuserid);
+      console.log("Project ID:", this.props.projectCategoryList[0].ProjectID);
+      console.log("projectCategoryList:", this.props.projectCategoryList);
+      console.log("ProjectName:", this.props.projectName);
+      console.log("this.state.userid:", this.state.userId);
+      console.log("this.state.username:", this.state.username);
+      console.log("category ID:", this.state.categoryID);
+      console.log("category name:", this.state.categoryName);
+      console.log("newusername:", this.state.newusername);
+      console.log("newuserid:", this.state.newuserid);
 
       if (this.state.newuserid != 0) {
+        addTask(
+          1,
+          this.state.categoryID,
+          this.state.newuserid,
+          1,
+          this.state.priorityID,
+          this.state.taskName,
+          this.state.taskInfo,
+          this.state.dueDate,
+          this.state.expDuration,
+          0,
+          async (err, data) => {
+            // addProject(this.state.userId, this.state.projectName, this.state.dueDate, (err, data) => {
+            //console.log(data);
+            //const listofT = this.props.projectCategoryList;
 
-        addTask(1, this.state.categoryID, this.state.newuserid, 1, this.state.priorityID, this.state.taskName, this.state.taskInfo, this.state.dueDate, this.state.expDuration, 0, async (err, data) => {
-          // addProject(this.state.userId, this.state.projectName, this.state.dueDate, (err, data) => {
-          //console.log(data);
-          //const listofT = this.props.projectCategoryList;
+            // await getTask(data.insertId, async (err, data) => {
+            //   console.log(data[0]);
 
-          // await getTask(data.insertId, async (err, data) => {
-          //   console.log(data[0]);
+            //   this.setState({ newTask: data[0] });
+            //   console.log(this.state.newTask);
+            // })
 
-          //   this.setState({ newTask: data[0] });
-          //   console.log(this.state.newTask);
-          // })
+            //const newTask = await getTask(data.insertId);
 
-          //const newTask = await getTask(data.insertId);
-
-
-          // this.setState({ taskName: '' });
-          // this.setState({ priorityID: '' });
-          // this.setState({ taskInfo: '' });
-          // this.setState({ expDuration: ' ' });
-          // this.setState({ dueDate: '' });
-          showCategories_old(this.props.projectID, (err, data) => {
-            this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.props.project, projectCategoryList: data.length > 0 ? data : [] });
-          })
-        });
+            // this.setState({ taskName: '' });
+            // this.setState({ priorityID: '' });
+            // this.setState({ taskInfo: '' });
+            // this.setState({ expDuration: ' ' });
+            // this.setState({ dueDate: '' });
+            showCategories_old(this.props.projectID, (err, data) => {
+              this.props.dispatch({
+                type: "USER_IS_PROJECTTASK_DEMAND",
+                project: this.props.project,
+                projectCategoryList: data.length > 0 ? data : []
+              });
+            });
+          }
+        );
 
         // this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.props.project, projectCategoryList: this.props.projectCategoryList });
-      }
-      else {
+      } else {
+        addTask(
+          1,
+          this.state.categoryID,
+          this.props.userId,
+          1,
+          this.state.priorityID,
+          this.state.taskName,
+          this.state.taskInfo,
+          this.state.dueDate,
+          this.state.expDuration,
+          0,
+          async (err, data) => {
+            // addProject(this.state.userId, this.state.projectName, this.state.dueDate, (err, data) => {
+            //console.log(data);
+            // const listofT = this.props.projectCategoryList;
 
-        addTask(1, this.state.categoryID, this.props.userId, 1, this.state.priorityID, this.state.taskName, this.state.taskInfo, this.state.dueDate, this.state.expDuration, 0, async (err, data) => {
-          // addProject(this.state.userId, this.state.projectName, this.state.dueDate, (err, data) => {
-          //console.log(data);
-          // const listofT = this.props.projectCategoryList;
+            // await getTask(data.insertId, async (err, data) => {
+            //   console.log(data[0]);
 
-          // await getTask(data.insertId, async (err, data) => {
-          //   console.log(data[0]);
+            //   this.setState({ newTask: data[0] });
+            //   console.log(this.state.newTask);
+            // })
 
-          //   this.setState({ newTask: data[0] });
-          //   console.log(this.state.newTask);
-          // })
+            showCategories_old(this.props.projectID, (err, data) => {
+              this.props.dispatch({
+                type: "USER_IS_PROJECTTASK_DEMAND",
+                project: this.props.project,
+                projectCategoryList: data.length > 0 ? data : []
+              });
+            });
 
-          showCategories_old(this.props.projectID, (err, data) => {
-            this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.props.project, projectCategoryList: data.length > 0 ? data : [] });
-          })
+            // this.setState({ taskName: '' });
+            // this.setState({ priorityID: '' });
+            // this.setState({ taskInfo: '' });
+            // this.setState({ expDuration: ' ' });
+            // this.setState({ dueDate: '' });
+            console.log(this.props.project);
+            console.log(data);
 
-          // this.setState({ taskName: '' });
-          // this.setState({ priorityID: '' });
-          // this.setState({ taskInfo: '' });
-          // this.setState({ expDuration: ' ' });
-          // this.setState({ dueDate: '' });
-          console.log(this.props.project);
-          console.log(data);
-
-          // this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.props.project, projectCategoryList: data });
-        });
+            // this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.props.project, projectCategoryList: data });
+          }
+        );
 
         // this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.props.project, projectCategoryList: this.props.projectCategoryList });
       }
@@ -225,8 +252,6 @@ class TaskForm extends Component {
 
     event.preventDefault();
   }
-
-
 
   render() {
     return (
@@ -292,8 +317,12 @@ class TaskForm extends Component {
               Assign to user:
               <select onChange={this.handleNewUser}>
                 {this.state.listOfFriends.map(friend => (
-                  <option className={friend.username} value={JSON.stringify(friend)}>{friend.username}</option>
-
+                  <option
+                    className={friend.username}
+                    value={JSON.stringify(friend)}
+                  >
+                    {friend.username}
+                  </option>
                 ))}
               </select>
               <button type="submit" className="taskformbtn uppercase">
