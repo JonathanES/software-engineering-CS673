@@ -5,8 +5,7 @@ import { connect } from "react-redux";
 import { addCategory } from "../../socket/projectSocket";
 import CategoryForm from "../project/categoryform";
 import "../../css/projectTask.css";
-import { relative } from "path";
-// import '../../css/group-chat.css'
+//import "../../css/group-chat.css";
 
 const mapStateToProps = state => ({
   projectID: state.project.projectID,
