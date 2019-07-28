@@ -31,16 +31,18 @@ async function insertNewProject(userID, projectName, dueDate) {
     return new Promise(async resolve => {
         client.query('INSERT INTO Projects(ProjectName, DateCreated, DueDate) VALUES(?,NOW(),?)', [projectName, dueDate], async function (error, results, fields) {
             if (error) throw error;
-            const projects = await getListOfProjects(userID);
-            resolve(projects);
+            let pID = await findProjectID(projectName);
+
+            //console.log('pID: ',pID);
+            client.query('INSERT INTO ProjectUsers(UserID, ProjectID, AccountTypeID) VALUES(?,?,?)', [userID, pID, 1], async function (error, results, fields) {
+                if (error) throw error;
+                const projects = await getListOfProjects(userID);
+                resolve(projects);
+            });
+
         });
 
-        let pID = await findProjectID(projectName);
 
-        //console.log('pID: ',pID);
-        client.query('INSERT INTO ProjectUsers(UserID, ProjectID, AccountTypeID) VALUES(?,?,?)', [userID, pID, 1], async function (error, results, fields) {
-            if (error) throw error;
-        });
     })
 }
 
@@ -61,8 +63,8 @@ async function insertNewProject(userID, projectName, dueDate) {
 async function findProjectID(projectName) {
     return new Promise((resolve, reject) => {
         client.query('SELECT * FROM Projects WHERE ProjectName = ?', [projectName], function (error, results, fields) {
-            const pID = results[results.length - 1].ProjectID;
             if (error) throw error;
+            const pID = results[results.length - 1].ProjectID;
             resolve(pID);
         });
     })
@@ -86,17 +88,18 @@ async function findProjectID(projectName) {
 function getListOfProjects(userID) {
     return new Promise((resolve, reject) => {
         //console.log('Project for user:', userID)
-        client.query('SELECT * FROM Projects P Join ProjectUsers PU on P.ProjectID = PU.ProjectID WHERE PU.UserID = ? and IsDeleted=0', [userID], function (error, results, fields) {
+        client.query('SELECT * FROM Projects P Join ProjectUsers PU on P.ProjectID = PU.ProjectID WHERE PU.UserID = ? and P.IsDeleted=?', [userID,0], function (error, results, fields) {
+            if (error) throw error;
             results.forEach(result => {
                 if (!listOfProjects.some(project => project.getUserID == userID && project.getProjectID == result.ProjectID)) {
                     const project = new ProjectModel(result.ProjectID, result.ProjectName, result.UserID, result.DateCreated, result.DueDate, result.IsDeleted);
                     listOfProjects.push(project);
                 }
             })
+
             let userProjects = listOfProjects.filter(project => {
-                if (project.getUserID == userID) return project
+                if (project.getUserID == userID && project.getIsDeleted == 0) return project
             });
-            if (error) throw error;
             //console.log(listOfProjects);
             resolve(userProjects);
 
@@ -227,8 +230,13 @@ async function updateProjectIsDeleted(projectID, isDeleted) {
         //console.log('IsDeleted:',isDeleted);
         client.query('UPDATE Projects SET IsDeleted = ?  WHERE ProjectID = ?; ', [isDeleted, projectID], async function (error, results, fields) {
             if (error) throw error;
-            //console.log("updateProjectIsDeleted function called");
-            resolve(isDeleted);
+            console.log(results);
+            console.log("updateProjectIsDeleted function called");
+            listOfProjects.forEach(project => {
+                if (project.getProjectID == projectID)
+                    project.setIsDeleted = isDeleted;
+            })
+             resolve(isDeleted);
             //console.log(results);
         });
         
@@ -325,6 +333,16 @@ async function getListOfAvailableUser(projectID, userID){
     })
 };
 
+
+async function getListOfAvailableUserForProject(projectID, userID){
+    return new Promise(async (resolve, reject) => {
+        client.query('SELECT U.UserID, U.username FROM Users U WHERE U.UserID IN (SELECT PU.UserID FROM ProjectUsers PU WHERE PU.ProjectID = ?)', [projectID], function(error, result, fields){    
+        if(error) throw error;
+            resolve(result);
+        })
+    })
+};
+
 async function gettaskstatus(){
     return new Promise(async (resolve, reject) => {
         client.query('SELECT * FROM TaskStatus', function(error, result, fields){    
@@ -351,5 +369,6 @@ module.exports = {
     getlevel:getlevel,
     getprojectdetail:getprojectdetail,
     getListOfAvailableUser:getListOfAvailableUser,
+    getListOfAvailableUserForProject:getListOfAvailableUserForProject,
     gettaskstatus:gettaskstatus
 }

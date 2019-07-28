@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import moment from 'moment'
 
 import { getAddtoProject, getUserLevel, getprojectdetail,getAvailableUsers,deleteproject,updateDeleteProjectDependencies} from '../../socket/projectSocket';
-import {updateProjectName, updateProjectDueDate} from '../../socket/projectSocket';
+import {updateProjectName, updateProjectDueDate, getListOfProjects} from '../../socket/projectSocket';
 import {getUserPrev} from '../../socket/taskSocket';
 
 import '../../css/projectUpdate.css'
@@ -13,6 +13,7 @@ const mapStateToProps = state => ({
   userId: state.user.userId,
   project: state.project.project,
   projectName: state.project.projectName,
+  listOfProjects: state.project.listOfProjects
   //isProjectSelected: state.project.isProjectSelected
   //taskname: state.Task.newtask
 });
@@ -117,6 +118,7 @@ class ProjectUpdate extends React.Component {
   handleNameChange(newName){
     console.log('Name Change:',newName);
     this.setState({projectName:newName})
+
   }
 
   handleClick(event) {
@@ -146,7 +148,18 @@ class ProjectUpdate extends React.Component {
 
     updateDeleteProjectDependencies(this.props.project.projectID,1, (err,data)=>{
       console.log('Deleted:',data);
+      const project = this.props.project;
+      project.isDeleted = 1;
+
+      console.log('before update:', this.props.listOfProjects);
+      getListOfProjects(this.props.userId, (err, data_list) => {
+        console.log('after update:', data_list);
+        this.props.dispatch({type: 'USER_LIST_OF_PROJECT_DEMAND', listOfProjects:data_list});
+
+     });
+
     });
+
 
 
 
@@ -159,33 +172,29 @@ class ProjectUpdate extends React.Component {
     console.log('New Name:',this.state.projectName);
     console.log('old Name:',this.props.project.projectName);
     console.log('DueDate:', this.state.dueDate);
-
+    const project = {};
 
     if(this.state.projectName != this.props.project.projectName && this.state.projectName != '' ){
       updateProjectName(this.props.project.projectID, this.state.projectName, (err,data)=>{
         console.log('Name change is:', data);
+        this.project = this.props.project;  
+        this.project.projectName = data;
+        this.props.dispatch({ type: 'USER_PROJECTUPDATEFORM', project:project });
       });
     }
 
     if(this.state.dueDate != this.props.project.dueDate && this.state.dueDate != ''){
       updateProjectDueDate(this.props.project.projectID, this.state.dueDate, (err,data) =>{
         console.log('New Due Date:', data);
+        
       });
     }
 
-    // if (this.state.projectName != this.props.project.projectName && this.state.projectName != '') {
-    //   console.log(this.props.task.taskID);
-    //   console.log(this.state.projectName);
-    //   updateProjectName(this.props.project.projectID, this.state.projectName, (err, data) => {
-    //       console.log('New Project Name:', data);
-    //       const project = this.props.project;  
-    //       project.projectName = data;
-    //       this.props.dispatch({type:'USER_IS_PROJECT_DEMAND', project: project});
-    //   });
-  //}
-
-    this.props.dispatch({ type: 'USER_PROJECT_DEMAND' })
-    this.props.dispatch({ type: 'USER_VIEW_PROJECT' })
+  
+    //this.props.dispatch({ type: 'USER_PROJECT_DEMAND', project:project })
+    // this.props.dispatch({ type: 'USER_PROJECTUPDATEFORM', project:project });
+    // this.props.dispatch({ type: 'USER_PROJECT_DEMAND' })
+    // this.props.dispatch({ type: 'USER_VIEW_PROJECT' })
 
   }
 

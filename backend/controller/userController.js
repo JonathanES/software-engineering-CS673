@@ -24,13 +24,13 @@ const listOfUsers = [];
 function getListofUsers(userId) {
     return new Promise((resolve, reject) => {
         client.query('SELECT userId, username, email FROM Users WHERE userId != ?', [userId], function (error, results, fields) {
+            if (error) throw error;
             results.forEach(result => {
                 if (!listOfUsers.some(user => user.getUserId == result.userId)) {
                     const user = new UserModel(result.userId, result.username, result.email);
                     listOfUsers.push(user);
                 }
             })
-            if (error) throw error;
             resolve(results);
         });
     })
@@ -74,6 +74,7 @@ function getSingleUser(email, password) {
 async function userinfo(userId) {
     return new Promise(async (resolve) => {
         client.query('SELECT username FROM Users where UserID =?', [userId], function (error, result, fields) {
+            if (error) throw error;
             let username = result[0].username;
             client.query('INSERT INTO UserLog(UserID, UserName) Values(?,?)', [userId, username], function (error, results, fields) {
                 if (error) throw error;

@@ -19,6 +19,12 @@ const task = (state = defaultState, action) => {
         updateTask: !state.updateTask,
         task: action.task
       }
+    case 'INFO_TASK_DEMAND':
+      return {
+        ...state,
+        updateTask: true,
+        task: action.task
+      }
 
     
 

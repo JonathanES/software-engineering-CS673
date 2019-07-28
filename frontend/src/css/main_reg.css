@@ -11,7 +11,7 @@ body {
 }
 
 .leftside {
-  background-color: blue;
+  background: url("../images/bg2.jpg") no-repeat;
 }
 
 .rightside {

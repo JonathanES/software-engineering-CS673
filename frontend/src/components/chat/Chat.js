@@ -41,6 +41,7 @@ class Chat extends React.Component {
 
 
     componentDidUpdate() {
+        this.onScroll();
         if (this.props.listOfGroups)
             if (this.state.listOfGroups.length < this.props.listOfGroups.length)
                 this.setState({ listOfGroups: this.props.listOfGroups });
@@ -51,10 +52,10 @@ class Chat extends React.Component {
             data.forEach(elt => {
                 elt.isadd = 'false'
                 elt.color = "rgb(155, 121, 156)";
-            })
+            })       
             this.setState({ listOfFriends: data });
         });
-
+       
         getUserGroups(this.state.userId, (err, data) => {
             this.setState({ listOfGroups: data });
             this.props.dispatch({ type: 'USER_GET_GROUPS_DEMAND', listOfGroups: data });
@@ -64,6 +65,14 @@ class Chat extends React.Component {
     handleChange(event) {
         this.setState({ message: event.target.value });
     }
+    onScroll(){
+        const { clientHeight, scrollHeight, scrollTop } = this.scrollDom;
+        const isBottom = clientHeight + scrollTop === scrollHeight;
+        if(!isBottom){
+           this.scrollDom.scrollTop=scrollHeight;
+        }
+        console.log(clientHeight, scrollHeight, scrollTop, isBottom,this.scrollDom);
+      }
     handleSubmit(event) {
         if (!this.state.isGroupDiscussion) {
             const history = this.state.chatHistory;
@@ -85,6 +94,7 @@ class Chat extends React.Component {
             });
         }
         event.preventDefault();
+        this.onScroll();
     }
 
     handleClick(event) {
@@ -149,7 +159,6 @@ class Chat extends React.Component {
 
     render() {
         return (
-            <div class="box">
                 <div class="container">
                     <div class="chatbox">
                         {this.props.addGroup && <AddGroup dispatch={this.props.dispatch} />}
@@ -216,7 +225,7 @@ class Chat extends React.Component {
                                 </div>
                             </div>
                             <div>
-                                <ul class="chaton">
+                                <ul class="chaton" ref={e => (this.scrollDom = e)}>
                                     {this.state.isGroupDiscussion && <input id="add-user-in-group-button" type="image" src={require("../../images/plus-black.svg")} onClick={(e) => { this.props.dispatch({ type: 'USER_ADD_USER_TO_GROUP_DEMAND', groupId: this.state.receiverId }); e.preventDefault() }} />}
                                     {this.state.chatHistory.map(chat =>
                                         <div class="chat-position-right" align={chat.position}>
@@ -245,7 +254,6 @@ class Chat extends React.Component {
                         </div>
                     </div>
                 </div>
-            </div>
         );
     }
 }

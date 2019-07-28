@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import Calendar from 'react-calendar';
 import '../../css/calendar.css';
 import { getListOfProjects, showCategories_old } from '../../socket/projectSocket';
+import { getTasksUsers } from '../../socket/taskSocket';
 import dateFns from "date-fns";
+import CalendarModal from './CalendarModal';
 
-
-// import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 
-// const localizer = momentLocalizer(moment)
 
 
 const mapStateToProps = state => ({
     projectCategoryList: state.project.projectCategoryList,
-    userId: state.user.userId
+    userId: state.user.userId,
+    isTaskOfDay: state.calendar.isTaskOfDay
 });
 
 class CalendarComponent extends Component {
     state = {
         currentMonth: new Date(),
-        selectedDate: []
+        selectedDate: [],
+        tasks: [],
+        currentDate: new Date()
     }
 
     setDate(date) {
@@ -28,13 +29,12 @@ class CalendarComponent extends Component {
         this.setState({ milestones: date });
     }
 
-    async test2(project, set) {
+    async test2(project, array) {
         return new Promise((resolve, reject) => {
             showCategories_old(project.projectID, (err, projectCategoryList) => {
                 for (let category of projectCategoryList) {
-                    set.add(new Date(category.DueDate))
+                    array.push(category)
                 }
-                let array = Array.from(set);
                 resolve(array);
             });
         })
@@ -43,24 +43,32 @@ class CalendarComponent extends Component {
 
     async test() {
         return new Promise((resolve, reject) => {
-            const set = new Set();
+            const array = [];
             getListOfProjects(this.props.userId, async (err, listOfProjects) => {
                 for (let project of listOfProjects) {
-                    const array = await this.test2(project, set);
-                    array.forEach(elt => {
-                        set.add(elt);
+                    const res = await this.test2(project, array);
+                    res.forEach(elt => {
+                        array.push(elt);
                     })
                 }
-                resolve(Array.from(set));
+                resolve(array);
             });
         })
     }
+    async getTask() {
+        return new Promise((resolve, reject) => {
+            getTasksUsers(this.props.userId, (err, data) => {
+                resolve(data);
+            });
+        })
 
+    }
     async componentDidMount() {
-        let date = await this.test();
-        date = date.filter(elt => { if (elt != 'Invalid Date') return elt });
-        date.sort((x, y) => { return x - y })
-        this.setState({ selectedDate: date });
+        //let res = await this.test();
+        let tasks = await this.getTask();
+        console.log(tasks);
+        let date = tasks.map(elt => elt.dueDate);
+        this.setState({ selectedDate: date, tasks: tasks });
     }
 
     renderHeader() {
@@ -123,13 +131,14 @@ class CalendarComponent extends Component {
                         className={`col cell ${
                             !dateFns.isSameMonth(day, monthStart)
                                 ? "disabled"
-                                : (selectedDate.find(elt => dateFns.isSameDay(day, elt))) ? "selected" : ""
+                                : (selectedDate.find(elt => dateFns.isSameDay(day, elt)) &&  dateFns.isSameDay(day, this.state.currentDate)) ? "currentDaySelected " 
+                                : (selectedDate.find(elt => dateFns.isSameDay(day, elt))) ? "selected"
+                                : (dateFns.isSameDay(day, this.state.currentDate)) ? "currentDay" : ""
                             }`}
                         key={day}
                         onClick={() => this.onDateClick(dateFns.parse(cloneDay))}
                     >
                         <span className="number">{formattedDate}</span>
-                        <span className="bg">{formattedDate}</span>
                     </div>
                 );
                 day = dateFns.addDays(day, 1);
@@ -145,7 +154,16 @@ class CalendarComponent extends Component {
     }
 
     onDateClick = day => {
-        alert(day);
+        let taskOfDay = [];
+        this.state.tasks.forEach(task => {
+            if (moment(task.dueDate).format('DD-MM-YY') == moment(day).format('DD-MM-YY'))
+                taskOfDay.push(task)
+        })
+        // console.log(taskOfDay.length);
+         if (taskOfDay.length > 0)
+            this.props.dispatch({ type: "USER_DEMAND_TASK_OF_DAY", taskOfDay: taskOfDay, selectedDate: day });
+        else
+            this.props.dispatch({type: "USER_DEMAND_VIEW_CALENDAR_PROJECT", selectedDate: day})
     };
 
     nextMonth = () => {
@@ -166,34 +184,10 @@ class CalendarComponent extends Component {
                 {this.renderHeader()}
                 {this.renderDays()}
                 {this.renderCells()}
+                {this.props.isTaskOfDay && <CalendarModal />}
             </div>
         );
     }
-    // onClickDay = date => {
-    //     const listOfDates = this.state.date;
-    //     listOfDates.forEach(elt => {
-    //         if (moment(elt).format('DD/MM/YY') == moment(date).format('DD/MM/YY'))
-    //             alert(date);
-    //     })
-    //     this.setState({ date: [new Date('08/08/2019'), new Date(),new Date('08/09/2019')] })
-    // }
-
-    // render() {
-    //     return (
-    //         <div class="center">
-    //             <Calendar
-    //                 value={this.state.date}
-    //                 onClickDay={this.onClickDay}
-    //             />
-    //             {/* <Calendar
-    //                 localizer={localizer}
-    //                 events={this.state.date}
-    //                 startAccessor="start"
-    //                 endAccessor="end"
-    //             /> */}
-    //         </div>
-    //     );
-    // }
 }
 
 
