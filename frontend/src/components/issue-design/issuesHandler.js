@@ -14,6 +14,10 @@ function getIssuesCallback(data){
 
 }
 
+function createCommentForIssueCallback(data){
+
+}
+
 function getCommentsForIssueCallback(data){
 
 }
@@ -71,6 +75,7 @@ function updateIsResolvedCallback(data){
 export {createIssueCallback,
         deleteIssueCallback,
         getIssuesCallback,
+        createCommentForIssueCallback,
         getCommentsForIssueCallback,
         getIssueWithIDCallback,
         createNewIssueStatusCallback,

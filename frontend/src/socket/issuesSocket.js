@@ -2,6 +2,7 @@ import { socket } from './config';
 import {createIssueCallback,
         deleteIssueCallback,
         getIssuesCallback,
+        createCommentForIssueCallback,
         getCommentsForIssueCallback,
         getIssueWithIDCallback,
         createNewIssueStatusCallback,
@@ -33,6 +34,11 @@ function deleteIssue(issueID, cb=deleteIssueCallback){
 function getIssues(cb=getIssuesCallback) {
     socket.emit('GET_ISSUES');
     socket.on('GOT_ISSUES', data => cb(data));
+}
+
+function createCommentForIssue(issueID, creatorID, commentText, cb=createCommentForIssueCallback){
+    socket.emit("CREATE_COMMENT_FOR_ISSUE_WITH_ID");
+    socket.on("CREATED_COMMENT_FOR_ISSUE_WITH_ID", data => cb(data));
 }
 
 function getCommentsForIssue(issueID, cb=getCommentsForIssueCallback){

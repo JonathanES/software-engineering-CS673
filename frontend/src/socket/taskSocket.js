@@ -56,6 +56,7 @@ function deleteTask(taskID, isDelete,cb){
   socket.emit('USER_UPDATE_TASK_ISDELETE', taskID, isDelete);
 }
 
+
 function getTask(taskID, cb){
   socket.on('GET_SINGLETASK', data => cb(null, data));
   socket.emit('USER_GET_SINGLETASK', taskID);
