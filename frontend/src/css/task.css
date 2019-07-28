@@ -16,13 +16,13 @@ input {
 }
 .user-task{
     display: block;
-    background-color: lightgrey;
+    background-color: white;
     width: 300px;
-    border: 15px solid silver;
+  /*border: 15px solid silver;*/
     padding: 120px;
     margin: 20px;
 
-    
+
     border-radius: 8px 14px 14px 54px;
   -moz-border-radius: 8px 14px 14px 54px;
   -webkit-border-radius: 8px 14px 14px 54px;
