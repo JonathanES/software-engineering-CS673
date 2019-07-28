@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import moment from 'moment'
-import { addTask, getTask } from '../../socket/taskSocket'
-import { showCategories_old, getPriorities, getAvailableUsersForProject } from '../../socket/projectSocket';
-import '../../css/task.css'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import moment from "moment";
+import { addTask, getTask } from "../../socket/taskSocket";
+import {
+  showCategories_old,
+  getPriorities,
+  getAvailableUsers
+} from "../../socket/projectSocket";
+import "../../css/task.css";
 
 const mapStateToProps = state => ({
   userId: state.user.userId,
@@ -17,7 +21,6 @@ const mapStateToProps = state => ({
   //addTask: state.message.addTask
 });
 
-
 class TaskForm extends Component {
   constructor(props) {
     super(props);
@@ -30,17 +33,16 @@ class TaskForm extends Component {
       categoryName: props.category.CategoryName,
       projectName: props.projectName,
       pID: props.pID,
-      priorityID: '',
-      taskName: '',
-      taskInfo: '',
-      expDuration: '',
+      priorityID: "",
+      taskName: "",
+      taskInfo: "",
+      expDuration: "",
       taskPriorities: [],
       newTask: {},
+
       listOfFriends: [],
       newusername: '',
       newuserid: ''
-
-
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -51,14 +53,14 @@ class TaskForm extends Component {
   }
 
   componentDidMount() {
-
     getPriorities((err, data) => {
+
       this.setState({ taskPriorities: data })
       console.log(data)
       this.state.taskPriorities.push({ PriorityID: 4, Priority: 'Please Select One' });
       console.log(this.state.taskPriorities)
       //console.log('User levels:',this.state.userlevels);
-    })
+    });
 
     getAvailableUsersForProject(this.props.projectID, this.props.userId, (err, data) => {
       data.push({ UserID: 0, username: 'Please Select a User' })
@@ -66,7 +68,6 @@ class TaskForm extends Component {
       this.setState({ listOfFriends: data });
       console.log(this.state.listOfFriends);
     });
-
   }
   handleClick(event) {
 
@@ -83,23 +84,17 @@ class TaskForm extends Component {
     //event.preventDefault();
   }
 
-
-
   handlePriorityChange(event) {
-    console.log('User Type:', event.target.value);
-    console.log('User Type:', event.target.selectedIndex);
+    console.log("User Type:", event.target.value);
+    console.log("User Type:", event.target.selectedIndex);
     this.setState({ priorityID: event.target.value });
     event.preventDefault();
   }
 
-
-
-
-
   handleChange(event) {
     switch (event.target.id) {
       case "taskName":
-        if (event.target.value != '') {
+        if (event.target.value != "") {
           this.setState({ taskName: event.target.value });
         }
         break;
@@ -111,7 +106,7 @@ class TaskForm extends Component {
         break;
       case "expDuration":
         //console.log(typeof (parseInt(event.target.value)));
-        if (typeof (parseInt(event.target.value)) == 'number') {
+        if (typeof parseInt(event.target.value) == "number") {
           this.setState({ expDuration: event.target.value });
         }
         break;
@@ -125,9 +120,7 @@ class TaskForm extends Component {
     }
   }
 
-
   handleSubmit(event) {
-
     // console.log('After clicking add project button');
     // console.log('Handle Submit: userID', this.state.userId);
     // console.log('Category ID:', this.state.categoryID);
@@ -237,58 +230,78 @@ class TaskForm extends Component {
 
   render() {
     return (
-      <div>
-        <div className="taskform">
-          <div className="taskform-header">
-            <h4> Add a new Task for Project {this.props.projectName} under {this.props.category.CategoryName} category</h4>
-          </div>
-          <div className="taskform-contain">
-            <div className="taskform-group">
-              <form onSubmit={this.handleSubmit}>
-                <div className="taskform-field">
-                  <label htmlFor="taskName">Task Name :</label>
-                  <input id="taskName" type="text" value={this.state.taskName} onChange={this.handleChange} />
-                </div>
-                <div className="taskform-field">
-                  <label htmlFor="prioritylevelSelection">Priority of the Task:</label>
-                  <select onChange={(e) => this.handlePriorityChange(e)}>
-                    {this.state.taskPriorities.map(tp =>
-                      <option selected={tp.PriorityID} value={tp.PriorityID}> {tp.Priority} </option>
-                    )}
-                  </select>
-                </div>
-                <div className="taskform-field">
-                  <label htmlFor="taskInfo">TaskInfo:</label>
-                  <input id="taskInfo" type="text" value={this.state.taskInfo} onChange={this.handleChange} />
-                </div>
-                <div className="taskform-field">
-                  <label for="dueDate">Due Date:</label>
-                  <input type="date" id="dueDate" className="trip-start" value={this.state.dueDate} min="2019-06-01" max="2030-12-31" onChange={this.handleChange} />
-                </div>
-                <div className="taskform-field">
-                  <label htmlFor="expDuration">Expected Time to Complete:</label>
-                  <input id="expDuration" type="number" value={this.state.expDuration} onChange={this.handleChange} />
-                  <span> hours</span>
-                </div>
-                <div className="taskform-field" style={{ marginBottom: '43px' }}>
-                  <label htmlFor="assignuser">Assign to user:</label>
-                  {/* <select value={this.state.newuserid}> */}
-                  <select onChange={(e) => this.handleNewUser(e)}>
-                    {this.state.listOfFriends.map(friend =>
-                      <option className={friend.username} value={JSON.stringify(friend)}>{friend.username}</option>
-                    )}
-                  </select>
-                  {/* <select  onChange = {(friend) => this.handleNewUser(friend)}>
-                    {this.state.listOfFriends.map(friend =>
-                      <option selected={friend.username} value={friend.username} id={friend.UserID}>{friend.username}</option>
-                    )}
-                  </select> */}
-                </div>
-                <button type="submit" className="taskformbtn uppercase" style={{ alignItems: 'center' }}>Add Task</button>
-              </form>
+      <div className="taskform">
+        <h4>
+          {" "}
+          Add a new Task for Project {this.props.projectName} under{" "}
+          {this.props.category.CategoryName} category
+        </h4>
+        <div className="taskform-contain">
+          <form onSubmit={this.handleSubmit}>
+            <div className="taskform-field">
+              Task Name:
+              <input
+                id="taskName"
+                type="text"
+                value={this.state.taskName}
+                onChange={this.handleChange}
+              />
+              <br />
+              <br />
+              Priority of the Task:
+              <select onChange={e => this.handlePriorityChange(e)}>
+                {this.state.taskPriorities.map(tp => (
+                  <option selected={tp.PriorityID} value={tp.PriorityID}>
+                    {" "}
+                    {tp.Priority}{" "}
+                  </option>
+                ))}
+              </select>
+              <br />
+              <br />
+              TaskInfo:
+              <input
+                id="taskInfo"
+                type="text"
+                value={this.state.taskInfo}
+                onChange={this.handleChange}
+              />
+              <br />
+              <br />
+              Due Date:
+              <input
+                type="date"
+                id="dueDate"
+                //className="trip-start"
+                value={this.state.dueDate}
+                min="2019-06-01"
+                max="2030-12-31"
+                onChange={this.handleChange}
+              />
+              <br />
+              <br />
+              Expected Time to Complete:
+              <input
+                id="expDuration"
+                type="number"
+                value={this.state.expDuration}
+                onChange={this.handleChange}
+              />
+              <span> hours</span>
+              <br />
+              Assign to user:
+              <select onChange={this.handleNewUser}>
+                {this.state.listOfFriends.map(friend => (
+                  <option className={friend.username} value={JSON.stringify(friend)}>{friend.username}</option>
+
+                ))}
+              </select>
+              <button type="submit" className="taskformbtn uppercase">
+                Add Task
+              </button>
             </div>
-            {/* <p className="account-help">You already have an account ? <a onClick={this.handleClick} className="underline red" >Login</a></p> */}
-          </div>
+          </form>
+          {/* <p className="account-help">You already have an account ? <a onClick={this.handleClick} className="underline red" >Login</a></p> */}
         </div>
       </div>
     );

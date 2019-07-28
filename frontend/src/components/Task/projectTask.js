@@ -1,131 +1,135 @@
 import React from "react";
 // import {Moment} from "react-moment"
-import moment from 'moment'
-import { connect } from 'react-redux';
-import { addCategory } from '../../socket/projectSocket';
-import CategoryForm from '../project/categoryform';
-import '../../css/projectTask.css'
-// import '../../css/group-chat.css'
-
+import moment from "moment";
+import { connect } from "react-redux";
+import { addCategory } from "../../socket/projectSocket";
+import CategoryForm from "../project/categoryform";
+import "../../css/projectTask.css";
+//import "../../css/group-chat.css";
 
 const mapStateToProps = state => ({
-    projectID: state.project.projectID,
-    projectCategoryList: state.project.projectCategoryList,
-    projectName: state.project.projectName,
-    iisProjectSelected: state.project.isProjectSelected,
-    isProjectTasksSelected: state.project.isProjectTasksSelected,
+  projectID: state.project.projectID,
+  projectCategoryList: state.project.projectCategoryList,
+  projectName: state.project.projectName,
+  iisProjectSelected: state.project.isProjectSelected,
+  isProjectTasksSelected: state.project.isProjectTasksSelected,
 
-    addCategory: state.category.addCategory,
+  addCategory: state.category.addCategory,
 
-    username: state.user.username,
-    userId: state.user.userId,
-    //taskname: state.Task.newtask
+  username: state.user.username,
+  userId: state.user.userId
+  //taskname: state.Task.newtask
 });
 
 class ProjectTask extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            userId: props.userId,
-            username: props.username,
-            listOfTasks: [],
-            category: {},
-            getListofTasksForUser: [],
-            newtask: '',
-            catName: '',
-            modalIsOpen: '',
-        };
+    this.state = {
+      userId: props.userId,
+      username: props.username,
+      listOfTasks: [],
+      category: {},
+      getListofTasksForUser: [],
+      newtask: "",
+      catName: "",
+      modalIsOpen: ""
+    };
 
-        this.handleClick = this.handleClick.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleMouseOver = this.handleMouseOver.bind(this);
-        this.handleMouseOut = this.handleMouseOut.bind(this);
-        this.handleAddCategory = this.handleAddCategory.bind(this);
-        this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleMouseOver = this.handleMouseOver.bind(this);
+    this.handleMouseOut = this.handleMouseOut.bind(this);
+    this.handleAddCategory = this.handleAddCategory.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
+  }
+
+  componentDidMount() {
+    //console.log('isProjectTasksSelected:',this.props.isProjectTasksSelected)
+  }
+
+  handleChange(event) {
+    this.setState({ catName: event.target.value });
+    //console.log("inside handleChange:" + event.target.value);
+  }
+
+  handleMouseOver(e) {
+    if (e.target.className == "cat-task_li_li") {
+      let child = e.target.childNodes[0].childNodes[1];
+      child.style.display = "block";
     }
+  }
 
-    componentDidMount() {
-
-        //console.log('isProjectTasksSelected:',this.props.isProjectTasksSelected)
-
-
+  handleMouseOut(e) {
+    if (
+      e.target.className == "cat-task_li_li" ||
+      e.target.parentNode.className == "cat-task_li_li"
+    ) {
+      if (e.target.className == "cat-task_li_li") {
+        let child = e.target.childNodes[0].childNodes[1];
+        child.style.display = "none";
+      } else {
+        let child = e.target.parentNode.childNodes[0].childNodes[1];
+        child.style.display = "none";
+      }
     }
+  }
+  handleClick(event, catinfo) {
+    event.preventDefault();
 
-    handleChange(event) {
-        this.setState({ catName: event.target.value });
-        //console.log("inside handleChange:" + event.target.value);
-    }
+    //console.log(event);
+    //console.log(event.target.id);
 
-    handleMouseOver(e) {
-        if (e.target.className == "cat-task_li_li") {
-            let child = e.target.childNodes[0].childNodes[1]
-            child.style.display = "block"
+    switch (event.target.className) {
+      case "add_category_button":
+        //console.log('add cat btn pressed');
+        if (this.state.catName == "") {
+          //console.log('it came here')
+          break;
         }
+        console.log(
+          "Project ID:",
+          this.props.projectID,
+          " Cat Name: ",
+          this.state.catName
+        );
+        addCategory(this.props.projectID, this.state.catName, (err, data) => {
+          console.log("Add Project button pressed");
+          this.setState({ catName: "" });
+          console.log("inside handleSubmit");
+        });
+        break;
+
+      case "add_task_button":
+        //console.log('ProjectID:', this.props.projectID);
+        //console.log(this.props.projectCategoryList[0].CategoryID);
+        //console.log(catinfo)
+        //console.log('catID:', event.target.id);
+        this.setState({ category: catinfo });
+        //console.log('categoryID', this.state.categoryID);
+        this.props.dispatch({
+          type: "USER_ADD_TASKFORM_DEMAND",
+          category: catinfo
+        });
+        break;
+
+      default:
+        console.log("is this called");
+        break;
     }
+  }
 
-    handleMouseOut(e) {
-        if (e.target.className == "cat-task_li_li" || e.target.parentNode.className == "cat-task_li_li") {
-            if (e.target.className == "cat-task_li_li") {
-                let child = e.target.childNodes[0].childNodes[1]
-                child.style.display = "none"
-            } else {
-                let child = e.target.parentNode.childNodes[0].childNodes[1]
-                child.style.display = "none"
-            }
-        }
-    }
-    handleClick(event,catinfo) {
-        event.preventDefault();
+  handleAddCategory() {
+    this.props.dispatch({ type: "USER_ADD_CATEGORY_DEMAND" });
+  }
 
-        //console.log(event);
-        //console.log(event.target.id);
-
-        switch (event.target.className) {
-
-            case "add_category_button":
-                //console.log('add cat btn pressed');
-                if (this.state.catName == "") {
-                    //console.log('it came here')
-                    break;
-                }
-                console.log('Project ID:', this.props.projectID, ' Cat Name: ', this.state.catName);
-                addCategory(this.props.projectID, this.state.catName, (err, data) => {
-                    console.log('Add Project button pressed');
-                    this.setState({ catName: '' });
-                    console.log("inside handleSubmit");
-                })
-                break;
-
-            case "add_task_button":
-
-                //console.log('ProjectID:', this.props.projectID);
-                //console.log(this.props.projectCategoryList[0].CategoryID);
-                //console.log(catinfo)
-                //console.log('catID:', event.target.id);
-                this.setState({ category: catinfo })
-                //console.log('categoryID', this.state.categoryID);
-                this.props.dispatch({ type: 'USER_ADD_TASKFORM_DEMAND', category: catinfo });
-                break;
-
-            default:
-                console.log('is this called');
-                break;
-        }
-    }
-
-    handleAddCategory() {
-        this.props.dispatch({ type: 'USER_ADD_CATEGORY_DEMAND' });
-    }
-
-    handleUpdate(task){
-        console.log('why here');
-        console.log(task);
-        this.props.dispatch({type:'USER_PROJECT_TASK_UPDATE', task:task});
-    }
-
-
-    render() {
+  handleUpdate(task) {
+    console.log("why here");
+    console.log(task);
+    this.props.dispatch({ type: "USER_PROJECT_TASK_UPDATE", task: task });
+  }
+   
+  render() {
 
         return (
             <div style={{ overflowX: 'auto' }}>
@@ -189,17 +193,15 @@ class ProjectTask extends React.Component {
                                     <input class="add_task_button" src={require("../../images/add_button_2.png")} style={{width:'5%' }} id={category.CategoryID } onClick={(e)=>this.handleClick(e,category)} type="image"/>
                                     <button class="add_task_button" id={category.CategoryID} type="submit">Add New Task</button>
                             </span> */}
-                        </li>
-                    )}
-                    </ul>
-                    </div>
-            </div>
-            
-            
-        )    
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    );
 
-                // );
-    }
+    // );
+  }
 }
 
 export default connect(mapStateToProps)(ProjectTask);
