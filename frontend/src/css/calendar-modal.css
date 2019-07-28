@@ -56,8 +56,8 @@
     background-color:red;
     color: white;
     font-weight: bold;
-    border:10;
-    outline: 10;
+    border:10px;
+    outline: 10px;
     float: right;
     margin: 0;
     right: 0px;
@@ -79,7 +79,7 @@
     margin: 0;
     padding: 0px;
 }
-#modal-calendar .modal-footer {
+#modal-calendar .modal-footer2 {
     position: absolute; 
     bottom: 5%;
     height: 15%;
