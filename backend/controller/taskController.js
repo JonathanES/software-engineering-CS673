@@ -52,7 +52,8 @@ async function insertNewTask(parentID, categoryID, userID, statusID, priorityID,
             if (error) throw error;
             //console.log(results);
             const tasks = await getListofTasks(categoryID);
-            resolve(results);
+            // resolve(results);
+            resolve(tasks);
         });
     })
 }
@@ -98,8 +99,9 @@ async function getSingleTask(taskID) {
 async function getListofTasksForUser(userID) {
     return new Promise((resolve, reject) => {
         //console.log(userID);
-        client.query('SELECT T.TaskID, T.ParentID, T.CategoryID, T.UserID, TS.StatusID, TS.StatusName, P.PriorityID, P.Priority, T.TaskName, T.TaskInfo, T.CreatedDate, T.DueDate, T.ExpectedDuration, T.ActualTimeSpent, T.IsDeleted FROM Tasks T JOIN TaskStatus TS on TS.StatusID = T.StatusID JOIN Priority P ON T.PriorityID = P.PriorityID WHERE UserID = ? and T.IsDeleted = 0', [userID], function (error, results, fields) {
+        client.query('SELECT T.TaskID, T.ParentID, T.CategoryID, T.UserID, TS.StatusID, TS.StatusName, P.PriorityID, P.Priority, T.TaskName, T.TaskInfo, T.CreatedDate, T.DueDate, T.ExpectedDuration, T.ActualTimeSpent, T.IsDeleted FROM Tasks T JOIN TaskStatus TS on TS.StatusID = T.StatusID JOIN Priority P ON T.PriorityID = P.PriorityID WHERE T.UserID = ? and T.IsDeleted = 0', [userID], function (error, results, fields) {
             if (error) throw error;
+            //console.log(results);
             results.forEach(result => {
                 if (!listofTaskUsers.some(task => task.getTaskID == result.TaskID)) {
                     const task = new TaskModel(result.TaskID, result.ParentID, result.CategoryID, result.UserID, result.StatusID, result.StatusName, result.PriorityID, result.Priority, result.TaskName, result.TaskInfo, result.CreatedDate, result.DueDate, result.ExpectedDuration, result.ActualTimeSpent, result.IsDeleted);
@@ -135,7 +137,7 @@ async function getListofTasksForUser(userID) {
  */
 async function getListofTasksForCategories(categoryID) {
     return new Promise((resolve, reject) => {
-        client.query('SELECT T.ParentID, T.CategoryID, T.UserID, TS.StatusName, P.Priority, T.TaskName, T.TaskInfo, T.CreatedDate, T.DueDate, T.ExpectedDuration, T.ActualTimeSpent FROM Tasks T JOIN TaskStatus TS on TS.StatusID = T.StatusID JOIN Priority P on P.PriorityID = T.PriorityID WHERE CategoryID = ?', [categoryID], function (error, results, fields) {
+        client.query('SELECT T.ParentID, T.CategoryID, T.UserID, U.username, TS.StatusName, P.Priority, T.TaskName, T.TaskInfo, T.CreatedDate, T.DueDate, T.ExpectedDuration, T.ActualTimeSpent FROM Tasks T JOIN TaskStatus TS on TS.StatusID = T.StatusID JOIN Priority P on P.PriorityID = T.PriorityID JOIN Users U on U.UserID = T.UserID WHERE CategoryID = ?', [categoryID], function (error, results, fields) {
             if (error) throw error;
             resolve(results);
         });

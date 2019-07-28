@@ -87,7 +87,6 @@ class Project extends React.Component {
         const res = await this.projectList(this.props.userId);
         if (!this.props.isAddTaskForm)
             this.props.dispatch({ type: 'USER_LIST_OF_PROJECT_DEMAND', listOfProjects: res });
-
         // getListOfProjects(this.props.userId, (err, data) => {
         //    this.props.dispatch({type: 'USER_LIST_OF_PROJECT_DEMAND', listOfProjects:data});
 

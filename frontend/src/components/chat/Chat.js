@@ -159,7 +159,6 @@ class Chat extends React.Component {
 
     render() {
         return (
-            <div class="box">
                 <div class="container">
                     <div class="chatbox">
                         {this.props.addGroup && <AddGroup dispatch={this.props.dispatch} />}
@@ -255,7 +254,6 @@ class Chat extends React.Component {
                         </div>
                     </div>
                 </div>
-            </div>
         );
     }
 }

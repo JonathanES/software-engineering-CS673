@@ -333,6 +333,16 @@ async function getListOfAvailableUser(projectID, userID){
     })
 };
 
+
+async function getListOfAvailableUserForProject(projectID, userID){
+    return new Promise(async (resolve, reject) => {
+        client.query('SELECT U.UserID, U.username FROM Users U WHERE U.UserID IN (SELECT PU.UserID FROM ProjectUsers PU WHERE PU.ProjectID = ?)', [projectID], function(error, result, fields){    
+        if(error) throw error;
+            resolve(result);
+        })
+    })
+};
+
 async function gettaskstatus(){
     return new Promise(async (resolve, reject) => {
         client.query('SELECT * FROM TaskStatus', function(error, result, fields){    
@@ -359,5 +369,6 @@ module.exports = {
     getlevel:getlevel,
     getprojectdetail:getprojectdetail,
     getListOfAvailableUser:getListOfAvailableUser,
+    getListOfAvailableUserForProject:getListOfAvailableUserForProject,
     gettaskstatus:gettaskstatus
 }
