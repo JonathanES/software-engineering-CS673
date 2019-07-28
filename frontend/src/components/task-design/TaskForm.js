@@ -285,6 +285,7 @@ class TaskForm extends Component {
               <br />
               <br />
               TaskInfo:
+              <br />
               <input
                 id="taskInfo"
                 type="text"
@@ -294,6 +295,7 @@ class TaskForm extends Component {
               <br />
               <br />
               Due Date:
+              <br />
               <input
                 type="date"
                 id="dueDate"
@@ -313,6 +315,7 @@ class TaskForm extends Component {
                 onChange={this.handleChange}
               />
               <span> hours</span>
+              <br />
               <br />
               Assign to user:
               <select onChange={this.handleNewUser}>
