@@ -155,7 +155,7 @@ class ProjectTask extends React.Component {
             >
               <input
                 id="add-button"
-                type="image"
+                type="photo"
                 style={{ height: "20px", width: "20px" }}
                 src={require("../../images/plus.svg")}
                 onClick={e => {
