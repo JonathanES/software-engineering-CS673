@@ -35,25 +35,16 @@ async function createNewIssue(issueName, issueSummary, projectID, issueStatusID,
     });
 };
 
-
-// Method to update an Issue's Status to a new Status
-/**
- * This function updates an Issue's status in the database
- * @param {number} issueID The ID of the Issue whose status you want to update
- * @param {number} newStatusID An issueStatusID number to set the new issueStatus of the Issue
- * @returns {number} Returns the count/number of changed rows in the database
- */
-async function updateIssueStatus(issueID, newStatusID){
+async function deleteIssue(issueID){
     return new Promise(async (resolve, reject) => {
-      client.query("UPDATE Issues SET IssueStatusID = ? WHERE IssueID = ?",
-                   [newStatusID, issueID],
-                   async (error, results, fields) =>{
-                      if(error) throw error;
-                      resolve(results.changedRows) // Return number of changed rows, should be 1
-                  });
+        client.query("UPDATE Issues SET IsDeleted = 1 WHERE IssueID = ?",
+                    [issueID],
+                    async (error, results, fields) => {
+                        if (error) throw error;
+                        resolve(results.changedRows);
+                    });
     });
 };
-
 
 // Empty & Populate Issues Array and return Issues from MySQL database
 /**
@@ -71,6 +62,29 @@ async function getIssues(){
           resolve(results);
       });
   });
+};
+
+async function createCommentForIssue(issueID, creatorID, commentText){
+    return new Promise(async (resolve, reject) => {
+        const dateCreated = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss');
+        client.query("INSERT INTO Comments(IssueID, TaskID, CreatedBy, DateCreated, Message, IsDeleted) VALUES(?,?,?,?,?,?)",
+                    [issueID, 1, creatorID, dateCreated, commentText, 0],
+                    async (error, results, fields) => {
+                        if (error) throw error;
+                        resolve(results.insertId); // Return the ID of the inserted comment for reference
+                    }
+    );
+    });
+};
+
+async function getCommentsForIssue(issueID){
+    return new Promise(async (resolve, reject) => {
+        client.query("SELECT * FROM Comments WHERE IssueID = ?", [issueID],
+            async (error, results, fields) => {
+                if (error) throw error;
+                resolve(results); // Return comments in an array
+        });
+    });
 };
 
 // Get and return a particular row in the issue table from ID (PK)
@@ -101,10 +115,130 @@ async function createNewIssueStatus(status){
     });
 };
 
+async function updateProjectID(issueID, projectID){
+    return new Promise(async (resolve, reject) => {
+        client.query("UPDATE Issues SET ProjectID = ? WHERE IssueID = ?", [projectID, issueID],
+        async (error, results, fields) => {
+            if (error) throw error;
+            resolve(results.changedRows);
+        }
+        );
+    });
+};
+
+// Method to update an Issue's Status to a new Status
+/**
+ * This function updates an Issue's status in the database
+ * @param {number} issueID The ID of the Issue whose status you want to update
+ * @param {number} newStatusID An issueStatusID number to set the new issueStatus of the Issue
+ * @returns {number} Returns the count/number of changed rows in the database
+ */
+async function updateIssueStatus(issueID, newStatusID){
+    return new Promise(async (resolve, reject) => {
+      client.query("UPDATE Issues SET IssueStatusID = ? WHERE IssueID = ?",
+                   [newStatusID, issueID],
+                   async (error, results, fields) =>{
+                      if(error) throw error;
+                      resolve(results.changedRows); // Return number of changed rows, should be 1
+                  });
+    });
+};
+
+async function updateAssigneeID(issueID, assigneeID){
+    return new Promise(async (resolve, reject) => {
+        client.query("UPDATE Issues SET AssigneeID = ? WHERE IssueID = ?", [assigneeID, issueID],
+                    async (error, results, fields) => {
+                        if (error) throw error;
+                        resolve(results.changedRows);
+                    });
+    });
+};
+
+async function updateAssignedToID(issueID, assignedToID){
+    return new Promise(async (resolve, reject) => {
+        client.query("UPDATE Issues SET AssignedToID = ? WHERE IssueID = ?", [assignedToID, issueID],
+                    async (error, results, fields) => {
+                        if (error) throw error;
+                        resolve(results.changedRows);
+                    });
+    });
+};
+
+async function updatePriorityID(issueID, priorityID){
+    return new Promise(async (resolve, reject) => {
+        client.query("UPDATE Issues SET PriorityID = ? WHERE IssueID = ?", [priorityID, issueID],
+                    async (error, results, fields) => {
+                        if (error) throw error;
+                        resolve(results.changedRows);
+                    });
+    });
+};
+
+async function updateIssueName(issueID, issueName){
+    return new Promise(async (resolve, reject) => {
+        client.query("UPDATE Issues SET IssueName = ? WHERE IssueID = ?", [issueName, issueID],
+                    async (error, results, fields) => {
+                        if (error) throw error;
+                        resolve(results.changedRows);
+                    });
+    });
+};
+
+async function updateIssueSummary(issueID, issueSummary){
+    return new Promise(async (resolve, reject) => {
+        client.query("UPDATE Issues SET IssueSummary = ? WHERE IssueID = ?", [issueSummary, issueID],
+                    async (error, results, fields) => {
+                        if (error) throw error;
+                        resolve(results.changedRows);
+                    });
+    });
+};
+
+async function updateLastUpdate(issueID, lastUpdate){
+    return new Promise(async (resolve, reject) => {
+        client.query("UPDATE Issues SET LastUpdate = ? WHERE IssueID = ?", [lastUpdate, issueID],
+                    async (error, results, fields) => {
+                        if (error) throw error;
+                        resolve(results.changedRows);
+                    });
+    });
+};
+
+async function updateDateResolved(issueID, dateResolved){
+    return new Promise(async (resolve, reject) => {
+        client.query("UPDATE Issues SET DateResolved = ? WHERE IssueID = ?", [dateResolved, issueID],
+                    async (error, results, fields) => {
+                        if (error) throw error;
+                        resolve(results.changedRows);
+                    });
+    });
+};
+
+async function updateIsResolved(issueID, isResolved){
+    return new Promise(async (resolve, reject) => {
+        client.query("UPDATE Issues SET IsResolved = ? WHERE IssueID = ?", [isResolved, issueID],
+                    async (error, results, fields) => {
+                        if (error) throw error;
+                        resolve(results.changedRows);
+                    });
+    });
+};
+
 module.exports = {
   createNewIssue: createNewIssue,
-  updateIssueStatus: updateIssueStatus,
+  deleteIssue: deleteIssue,
   getIssues: getIssues,
+  getCommentsForIssue: getCommentsForIssue,
   getIssueWithID: getIssueWithID,
-  createNewIssueStatus: createNewIssueStatus
+  createNewIssueStatus: createNewIssueStatus,
+  updateProjectID: updateProjectID,
+  updateIssueStatus: updateIssueStatus,
+  updateAssigneeID: updateAssigneeID,
+  updateAssignedToID: updateAssignedToID,
+  updatePriorityID: updatePriorityID,
+  updateIssueName: updateIssueName,
+  updateIssueSummary: updateIssueSummary,
+  updateLastUpdate: updateLastUpdate,
+  updateDateResolved: updateDateResolved,
+  updateIsResolved: updateIsResolved
 };

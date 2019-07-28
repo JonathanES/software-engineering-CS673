@@ -1,3 +1,4 @@
+
 import React from "react";
 import { connect } from 'react-redux';
 import { getTasksUsers } from '../../socket/taskSocket';
@@ -78,7 +79,7 @@ class Task extends React.Component {
         }
 
         if (prevProps.task.isDeleted != this.props.task.isDeleted ){
-            
+
             let listOfTask = this.state.getListofTasksForUser;
             listOfTask = listOfTask.filter(task => task.taskID != this.props.task.taskID);
             this.setState({getListofTasksForUser: listOfTask})
@@ -88,7 +89,7 @@ class Task extends React.Component {
     }
 
     componentDidMount() {
-       
+
         getTasksUsers(this.state.userId, (err, data) => {
             this.setState({ getListofTasksForUser: data });
         });
@@ -102,7 +103,7 @@ class Task extends React.Component {
         console.log('Add Task button pressed before call');
 
         this.props.dispatch({ type: 'USER_ADD_TASK_DEMAND' });
-        
+
         // dispatch: <TaskForm  dispatch={this.props.dispatch}/>;
 
         // addTask(this.state.userId, this.state.newtask, (err, data) => {
@@ -118,7 +119,7 @@ class Task extends React.Component {
         console.log('Calling Task Update');
         this.props.dispatch({type:'USER_UPDATE_TASK_DEMAND', task:task});
     }
-    
+
 
     render() {
         return (
@@ -128,15 +129,15 @@ class Task extends React.Component {
                     <div class="title uppercase" style={{marginBottom:'10px'}}>{this.props.username}'s Tasks</div>
                     <ul style={{display: 'block'}}>
                         {this.state.getListofTasksForUser.map(task =>
-                            <li style={{ width: '300px', height: "auto", 
-                            paddingBlock:'10px', verticalAlign:'top', 
-                            margin:'2px 2px 2px 2px' , borderRadius: '5px', 
-                            backgroundColor: "#e6e6e6", position: "relative" , 
+                            <li style={{ width: '300px', height: "auto",
+                            paddingBlock:'10px', verticalAlign:'top',
+                            margin:'2px 2px 2px 2px' , borderRadius: '5px',
+                            backgroundColor: "#ebf1f5", position: "relative" , 
                             display: 'inline-block'}}>
                                 <div id={task.taskName} onClick={(e) =>this.handleClick(e,task)}>
                                 </div>
-                                <div class="user-task" style={{ width: '94%', height: '200px', 
-                                    borderRadius: '5px', marginLeft: '3%', display:'block', 
+                                <div class="user-task" style={{ width: '94%', height: '200px',
+                                    borderRadius: '5px', marginLeft: '3%', display:'block',
                                     marginTop: '8px', marginBottom: '8px', padding: "5px" }}>
                                     <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> {task.taskName}</span>
                                     {/* <ul style={{verticalAlign:'top', padding:'10px'}}>
@@ -161,14 +162,12 @@ class Task extends React.Component {
                                             <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> Assigned To: {this.state.username}</span>
                                         </div>
                                     </div>
-
                                 </div>
                             </li>
                         )}
                     </ul>
                 </div>
                 }
-
                 {/* <div class="add_task"> */}
                 {/* {!this.props.updateTask &&<div>
                     <form onSubmit={this.handleSubmit}>

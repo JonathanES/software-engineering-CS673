@@ -6,9 +6,10 @@ import project from './project';
 import demand from './demand';
 import task from "./task";
 import category from './category'
+import calendar from './calendar';
 
 const reducers = combineReducers({
-  user, message, project, demand, task, category
+  user, message, project, demand, task, category, calendar
 });
 
 export default reducers;

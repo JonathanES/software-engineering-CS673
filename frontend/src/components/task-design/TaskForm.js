@@ -12,7 +12,8 @@ const mapStateToProps = state => ({
   projectID: state.project.projectID,
   project: state.project.project,
   projectCategoryList: state.project.projectCategoryList,
-  projectName: state.project.projectName
+  projectName: state.project.projectName,
+  taskDate: state.project.taskDate
   //addTask: state.message.addTask
 });
 
@@ -20,6 +21,7 @@ const mapStateToProps = state => ({
 class TaskForm extends Component {
   constructor(props) {
     super(props);
+    console.log(props.taskDate);
     this.state = {
       userId: props.userId,
       username: props.username,
@@ -37,6 +39,7 @@ class TaskForm extends Component {
       listOfFriends: [],
       newusername: '',
       newuserid: ''
+
 
     };
 
