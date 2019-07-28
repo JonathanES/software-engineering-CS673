@@ -14,7 +14,7 @@ const defaultState = {
   isProjectForm: false,
   isAddTaskForm: false,
   isUpdateTaskForm: false,
-
+  taskDate: new Date()
 };
 
 const project = (state = defaultState, action) => {
@@ -107,6 +107,7 @@ const project = (state = defaultState, action) => {
       return {
         ...state,
         category: action.category,
+        taskDate: action.selectedDate,
         isProjectForm: false,
         isProjectSelected: false,
         isProjectUpdateSelected: false,
