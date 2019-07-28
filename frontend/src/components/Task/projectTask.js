@@ -156,7 +156,7 @@ class ProjectTask extends React.Component {
             >
               <input
                 id="add-button"
-                type="image"
+                type="photo"
                 style={{ height: "20px", width: "20px" }}
                 src={require("../../images/plus.svg")}
                 onClick={e => {
@@ -179,15 +179,16 @@ class ProjectTask extends React.Component {
                 onClick={this.handleUpdate}
                 style={{
                   width: "300px",
-                  maxHeight: "500px",
+                  maxHeight: "400px",
                   height: "auto",
-                  paddingBlock: "10px",
+                  padding: "40px",
                   verticalAlign: "top",
                   marginTop: "8px",
                   borderRadius: "5px",
-                  backgroundColor: "#white",
+                  backgroundColor: "white",
                   position: "relative",
-                  display: "inline-block"
+                  display: "inline-block",
+                  border: "none"
                 }}
                 id={category.projectID}
                 onClick={this.handleClickProject}
@@ -197,7 +198,7 @@ class ProjectTask extends React.Component {
                   <input
                     class="add_task_button"
                     src={require("../../images/add_button_2.png")}
-                    style={{ width: "5%" }}
+                    style={{ width: "20%", height: "90%" }}
                     id={category.CategoryID}
                     onClick={e => this.handleClick(e, category)}
                     type="image"
@@ -209,7 +210,7 @@ class ProjectTask extends React.Component {
                   >
                     Add New Task
                   </button>
-                  <br />
+                  <hr />
                 </span>
                 {category.listOfTasks.map(task => (
                   <li
