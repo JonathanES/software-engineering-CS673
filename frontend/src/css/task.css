@@ -121,8 +121,8 @@ form {
   width: 400px;
   /* To see the outline of the form */
   padding: 1em;
-  border: 1px solid #ccc;
-  border-radius: 1em;
+  /* border: 1px solid #ccc;
+  border-radius: 1em; */
   background: white;
 }
 
