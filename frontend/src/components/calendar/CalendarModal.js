@@ -41,11 +41,11 @@ class AddUserGroup extends Component {
     handleProjectClick(project) {
         showCategories_old(project.projectID, (err, data) => {
             this.props.dispatch({ type: 'USER_DEMAND_VIEW_CALENDAR_CATEGORIES' });
-            this.setState({listOfCategories: data});
+            this.setState({ listOfCategories: data });
         })
     }
 
-    handleCategoryClick(category){
+    handleCategoryClick(category) {
         console.log(category)
         this.props.dispatch({ type: 'USER_ADD_TASK_FROM_CALENDAR_DEMAND', category: category, selectedDate: this.props.selectedDate });
     }
@@ -89,7 +89,7 @@ class AddUserGroup extends Component {
                                     this.props.viewCalendarProjects &&
                                     <div>
                                         {this.state.listOfProjects.map(project =>
-                                            <div id="task" onClick={(e) => {this.handleProjectClick(project); e.preventDefault()} }>
+                                            <div id="task" onClick={(e) => { this.handleProjectClick(project); e.preventDefault() }}>
                                                 {project.projectName}
                                             </div>
                                         )}
@@ -98,8 +98,8 @@ class AddUserGroup extends Component {
                                 {
                                     this.props.viewCalendarCategories &&
                                     <div>
-                                         {this.state.listOfCategories.map(category =>
-                                            <div id="task" onClick={(e) => {this.handleCategoryClick(category); e.preventDefault()} }>
+                                        {this.state.listOfCategories.map(category =>
+                                            <div id="task" onClick={(e) => { this.handleCategoryClick(category); e.preventDefault() }}>
                                                 {category.CategoryName}
                                             </div>
                                         )}
@@ -107,7 +107,7 @@ class AddUserGroup extends Component {
                                 }
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-default" data-dismiss="modal" onClick={() => { this.props.dispatch({ type: 'USER_DEMAND_VIEW_CALENDAR_PROJECT', taskOfDay: this.props.taskOfDay }); }}>Add task</button>
+                                {this.props.viewCalendarTask && <button type="submit" class="btn" data-dismiss="modal" onClick={() => { this.props.dispatch({ type: 'USER_DEMAND_VIEW_CALENDAR_PROJECT', taskOfDay: this.props.taskOfDay }); }}>Add task</button>}
                                 <button type="submit" class="btn btn-default" data-dismiss="modal" onClick={() => { this.props.dispatch({ type: 'USER_DEMAND_TASK_OF_DAY', taskOfDay: this.props.taskOfDay }); }}>Close</button>
                             </div>
                         </form>

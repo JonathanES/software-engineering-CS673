@@ -87,3 +87,9 @@
     top:5%;  
 
 }
+
+#modal-calendar #task:hover{
+    cursor: pointer;
+    background-color: #1a8fff;
+    transition: 0.5s ease-out;
+}
