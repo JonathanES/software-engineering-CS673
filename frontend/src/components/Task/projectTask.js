@@ -36,6 +36,7 @@ class ProjectTask extends React.Component {
       modalIsOpen: ""
     };
 
+
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleMouseOver = this.handleMouseOver.bind(this);

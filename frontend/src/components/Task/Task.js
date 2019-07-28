@@ -1,4 +1,3 @@
-
 import React from "react";
 import { connect } from 'react-redux';
 import { getTasksUsers } from '../../socket/taskSocket';
@@ -126,13 +125,12 @@ class Task extends React.Component {
             <div>
                 {this.props.updateTask && <TaskUpdate dispatch={this.props.dispatch} />}
                 {!this.props.updateTask && <div class="direct">
-                    <div class="title uppercase" style={{marginBottom:'10px'}}>{this.props.username}'s Tasks</div>
+                    <div class="title uppercase" style={{marginBottom:'10px', color: 'black'}}>{this.props.username}'s Tasks</div>
                     <ul style={{display: 'block'}}>
                         {this.state.getListofTasksForUser.map(task =>
                             <li style={{ width: '300px', height: "auto",
                             paddingBlock:'10px', verticalAlign:'top',
-                            margin:'2px 2px 2px 2px' , borderRadius: '5px',
-                            backgroundColor: "#ebf1f5", position: "relative" , 
+                             position: "relative" ,
                             display: 'inline-block'}}>
                                 <div id={task.taskName} onClick={(e) =>this.handleClick(e,task)}>
                                 </div>
@@ -180,3 +178,4 @@ class Task extends React.Component {
 }
 
 export default connect(mapStateToProps)(Task);
+
