@@ -73,7 +73,7 @@
   font-size: 115%;
   padding: 1.5em 0;
   border-bottom: 1px black;
-  background: lightslategrey;
+  background: 	#FFC0CB;
 }
 
 .calendar .header .icon {
@@ -115,22 +115,22 @@
 }
 
 .calendar .body .cell:hover {
-  background-color: #7af1ac;
+  background-color: #8FBC8F;
   transition: 0.5s ease-out;
 }
 
 .calendar .body .selected {
-  background: #1a8fff;
+  background: #87CEEB;
 }
 
 .calendar .body .currentDay {
   border-left-color: red;
-  background: red;
+  background: #F08080;
 }
 
 .calendar .body .currentDaySelected {
-  border-left: 20px solid red;
-  background-color: #1a8fff;
+  border-left: 20px solid#F08080;
+  background-color: #87CEEB;
 }
 
 .calendar .body .row {
