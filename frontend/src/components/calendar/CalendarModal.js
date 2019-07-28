@@ -18,7 +18,7 @@ class AddUserGroup extends Component {
 
     handleClick(task) {
         console.log('Calling Task Update');
-        this.props.dispatch({ type: 'USER_UPDATE_TASK_DEMAND', task: task });
+        this.props.dispatch({type:'USER_GET_TASK_DETAIL_DEMAND', task:task});
     }
 
     render() {
@@ -48,7 +48,7 @@ class AddUserGroup extends Component {
                                                     }
                                                 </div>
                                                 <div id="right" className={(task.priorityID == 1) ? "yellow" : (task.priorityID == 2 ? "orange" : "red")}>
-                                                    {task.priority}
+                                                    <span>{task.priority}</span>
                                                 </div>
                                             </div>
                                         </div>
