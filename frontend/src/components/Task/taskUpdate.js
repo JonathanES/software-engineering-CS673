@@ -131,7 +131,7 @@ class TaskUpdate extends React.Component {
     handleNewUser(event) {
 
         // //console.log('User ID:',event.target.value);
-        // this.setState({newuserid: event.target.value}); 
+        // this.setState({newuserid: event.target.value});
         // event.preventDefault();
     }
 
@@ -229,29 +229,28 @@ class TaskUpdate extends React.Component {
     render() {
         return (
             // <div sytle={{backgroundColor:'black'}}>
-            <div sytle={{ backgroundColor: 'black', padding: '20px' }}>
-                <div sytle={{ backgroundColor: 'black' }}>
-                    <div sytle={{ backgroundColor: 'black' }}></div>
+          <div style={{ backgroundColor: 'white', borderradius: '8px 14px 14px 54px' , mozborderradius: '8px 14px 14px 54px' , webkitborderradius: '8px 14px 14px 54px' , border: '13px solid #ebf1f5'}}>
+            <div style={{ color: 'black', padding: '20px' }}>
 
-                    <div sytle={{ backgroundColor: 'black', padding: '20px' }}>
+                    <div style={{backgroundcolor: 'white', color: 'black', padding: '20px' }}>
                         <button type="button" class="close" onClick={(e) => { this.props.dispatch({ type: 'USER_UPDATE_TASK_DEMAND', task: this.props.task }); e.preventDefault() }}></button>
-                        <h4 sytle={{ backgroundColor: 'black', padding: '20px' }} >Update Task Information</h4>
+                        <h4 style={{backgroundcolor: 'white', color: 'black', padding: '20px' }} >Update Task Information</h4>
                     </div>
-                    <div>
+                    <div style={{backgroundcolor: 'white'}}>
                         <label for="taskName">Task Name:</label>
                         <input type="string" id="taskName" style={{ textAlign: 'center' }} value={this.state.taskName} onChange={(e) => this.handleNameChange(e.target.value)} />
                     </div>
-                    <div>
+                    <div style={{backgroundcolor: 'white'}}>
                         <label for="dueDate">Due Date:</label>
                         <input type="date" id="dueDate" style={{ textAlign: 'center' }} className="trip-start" value={moment(this.state.dueDate).format('YYYY-MM-DD')} min="2019-06-01" max="2030-12-31" onChange={(e) => this.handleDateChange(e.target.value)} />
                     </div>
-                    <div className="taskform-field">
+                    <div className="taskform-field" style={{backgroundcolor: 'white'}}>
                         <label htmlFor="prioritylevelSelection">Priority of the Task:</label>
                         <select value={this.state.priorityID} onChange={(e) => this.handlePriorityChange(e)}>
                             {this.state.taskPriorities.map(tp => <option value={tp.PriorityID} style={{ textAlign: 'center' }}> {tp.Priority} </option>)}
                         </select>
                     </div>
-                    <div className="taskform-field">
+                    <div className="taskform-field" style={{backgroundcolor: 'white'}}>
                         <label htmlFor="statuslevelSelection">Status of the Task:</label>
                         <select value={this.state.statusID} onChange = {(e) => this.handleStatusChange(e)}>
                             {this.state.taskStatus.map(ts =>
@@ -259,22 +258,22 @@ class TaskUpdate extends React.Component {
                             )}
                         </select>
                     </div>
-                    <div>
+                    <div style={{backgroundcolor: 'white'}}>
                         <label for="taskInfoName">Task Info:</label>
                         <input type="string" id="taskInfo" style={{ textAlign: 'center' }} value={this.state.taskInfo} onChange={(e) => this.handleInfoChange(e.target.value)} />
                     </div>
-                    <div>
+                    <div style={{backgroundcolor: 'white'}}>
                         <label for="taskExpDur">Expected Time to Finish:</label>
                         <span type="numer" id="expDur" style={{ textAlign: 'center' }}> {this.state.expDuration} hours</span>
                     </div>
-                    <div>
+                    <div style={{backgroundcolor: 'white'}}>
                         <label for="taskActTime">Actual Time Spent on the Task:</label>
                         <input type="numer" id="actTime" style={{ textAlign: 'center' }} value={this.state.actTime} onChange={(e) => this.handleActTimeChange(e.target.value)} />
                     </div>
 
 
-                    <form style={{ position: "absolute", padding: '30px' }}>
-                        <div class="modal-footer" style={{ marginBottom: '10px' }}>
+                    <form style={{ position: "relative", padding: '30px' }}>
+                        <div class="modal-footer" style={{ marginBottom: '10px' }} style={{backgroundcolor: 'white'}}>
                             <button class="btn btn-default" style={{ left: '0', width: '140px' }} id="add-cat-button" type="Click"
                                 onClick={(e) => this.handleUpdateTask(e)} >Update Task</button>
                             <button type="submit" class="btn btn-default" data-dismiss="modal" style={{ left: '160px', width: '140px' }}
