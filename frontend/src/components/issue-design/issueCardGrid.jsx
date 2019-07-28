@@ -19,7 +19,6 @@ export class IssueCardGrid extends React.Component {
         this.updateGrid();
 
         getIssues((data) => {
-            console.log(data);
             this.updateIssues(data);
             this.updateGrid();
         });
@@ -61,6 +60,7 @@ export class IssueCardGrid extends React.Component {
 
     updateIssues(newIssues){
         this.setState({
+            numberOfCards: newIssues.length,
             issues: newIssues
         });
     }
