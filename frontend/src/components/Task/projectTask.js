@@ -142,16 +142,22 @@ class ProjectTask extends React.Component {
                 <div>
                     {this.props.addCategory && <CategoryForm dispatch={this.props.dispatch} />}
                     <ul style={{ verticalAlign: 'top', padding: '10px' }}>
+                    {/* <ul > */}
                         {this.props.projectCategoryList.map(category =>
                         <li class="cat-task_li" onClick={this.handleUpdate} 
-                            style={{ width: '300px', height: "500px", 
+                            style={{ width: '300px',maxHeight:'500px' ,  height: "auto", 
                                      paddingBlock:'10px', verticalAlign:'top', 
                                      marginTop: '8px', borderRadius: '5px', 
                                      backgroundColor: "#e6e6e6", position: "relative" , 
                                      display: 'inline-block'}} 
                                      id={category.projectID} onClick={this.handleClickProject}>
-                            
+                                      
                             <span class="categorytitle">{category.CategoryName}</span>
+                            <span class="footer">
+                                    <input class="add_task_button" src={require("../../images/add_button_2.png")} style={{width:'5%' }} id={category.CategoryID } onClick={(e)=>this.handleClick(e,category)} type="image"/>
+                                    <button class="add_task_button" id={category.CategoryID} type="submit">Add New Task</button>
+                                    <br></br>
+                            </span>
                             {category.listOfTasks.map(task =>
                                 <li class="cat-task_li_li" onClick={() => this.handleUpdate(task)} onMouseOver={(e) => this.handleMouseOver(e)} 
                                     onMouseLeave={(e) => this.handleMouseOut(e)} 
@@ -174,10 +180,11 @@ class ProjectTask extends React.Component {
                                     </div>
                                 </li>
                             )}
-                            <span class="footer">
-                                    <input class="add_task_button" src={require("../../images/add_button_2.png")} id={category.CategoryID } onClick={(e)=>this.handleClick(e,category)} type="image"/>
+                            {/* <span class="footer">
+                                    <br></br>
+                                    <input class="add_task_button" src={require("../../images/add_button_2.png")} style={{width:'5%' }} id={category.CategoryID } onClick={(e)=>this.handleClick(e,category)} type="image"/>
                                     <button class="add_task_button" id={category.CategoryID} type="submit">Add New Task</button>
-                            </span>
+                            </span> */}
                         </li>
                     )}
                     </ul>
