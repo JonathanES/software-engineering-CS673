@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment'
 import { addTask, getTask } from '../../socket/taskSocket'
-import { showCategories_old, getPriorities, getAvailableUsers } from '../../socket/projectSocket';
+import { showCategories_old, getPriorities, getAvailableUsersForProject } from '../../socket/projectSocket';
 import '../../css/task.css'
 
 const mapStateToProps = state => ({
   userId: state.user.userId,
+  username: state.user.username,
   category: state.project.category,
   projectID: state.project.projectID,
-  project:state.project.project,
+  project: state.project.project,
   projectCategoryList: state.project.projectCategoryList,
   projectName: state.project.projectName,
   taskDate: state.project.taskDate
@@ -23,6 +24,7 @@ class TaskForm extends Component {
     console.log(props.taskDate);
     this.state = {
       userId: props.userId,
+      username: props.username,
       parentID: 1,
       categoryID: props.category.CategoryID,
       categoryName: props.category.CategoryName,
@@ -33,9 +35,11 @@ class TaskForm extends Component {
       taskInfo: '',
       expDuration: '',
       taskPriorities: [],
-      newTask:{},
-      listOfFriends:[],
-      dueDate: props.taskDate
+      newTask: {},
+      listOfFriends: [],
+      newusername: '',
+      newuserid: ''
+
 
     };
 
@@ -51,14 +55,16 @@ class TaskForm extends Component {
     getPriorities((err, data) => {
       this.setState({ taskPriorities: data })
       console.log(data)
-      this.state.taskPriorities.push({PriorityID:4,Priority:'Please Select One'});
+      this.state.taskPriorities.push({ PriorityID: 4, Priority: 'Please Select One' });
       console.log(this.state.taskPriorities)
       //console.log('User levels:',this.state.userlevels);
     })
 
-    getAvailableUsers(this.state.pID, this.state.userId, (err, data) => {
+    getAvailableUsersForProject(this.props.projectID, this.props.userId, (err, data) => {
+      data.push({ UserID: 0, username: 'Please Select a User' })
+      console.log(data);
       this.setState({ listOfFriends: data });
-      this.state.listOfFriends.push({UserID:0,username:'Please Select a User'});      
+      console.log(this.state.listOfFriends);
     });
 
   }
@@ -66,14 +72,18 @@ class TaskForm extends Component {
 
   }
 
-  handleNewUser(event){
-
+  handleNewUser(e) {
+    const friend = JSON.parse(e.target.value);
+    //friend.preventDefault();
     //console.log('User ID:',event.target.value);
-    this.setState({newuserid: event.target.value}); 
+    this.setState({ newuserid: friend.UserID });
+    this.setState({ newusername: friend.username })
+    console.log(this.state.newusername);
+    console.log(this.state.newuserid)
     //event.preventDefault();
   }
 
-  
+
 
   handlePriorityChange(event) {
     console.log('User Type:', event.target.value);
@@ -141,44 +151,89 @@ class TaskForm extends Component {
     else if (this.state.expDuration == '') {
       alert('Please enter an expected duration to complete this task');
     }
+    else if (this.state.deuDate == '') {
+      alert('Please enter a due date to complete this task');
+    }
     else {
 
-  
-      addTask(1, this.state.categoryID, this.state.userId, 1, this.state.priorityID, this.state.taskName, this.state.taskInfo, this.state.dueDate, this.state.expDuration, 0, async (err, data) => {
-        // addProject(this.state.userId, this.state.projectName, this.state.dueDate, (err, data) => {
-        console.log(data);
-        //here we should call the mainpage, so they can see the project added to their screen, wonder how we will do it
-        //this.props.dispatch({ type: 'USER_LOGIN', username: data.username});
-        // console.log('Project ID:',this.props.projectCategoryList[0].ProjectID);
-        // console.log('projectCategoryList:',this.props.projectCategoryList);
-        // console.log('ProjectName:',this.props.projectName);
-        const listofT = this.props.projectCategoryList;
+      //here we should call the mainpage, so they can see the project added to their screen, wonder how we will do it
+      //this.props.dispatch({ type: 'USER_LOGIN', username: data.username});
+      console.log('Project ID:', this.props.projectCategoryList[0].ProjectID);
+      console.log('projectCategoryList:', this.props.projectCategoryList);
+      console.log('ProjectName:', this.props.projectName);
+      console.log('this.state.userid:', this.state.userId);
+      console.log('this.state.username:', this.state.username);
+      console.log('category ID:', this.state.categoryID);
+      console.log('category name:', this.state.categoryName);
+      console.log('newusername:', this.state.newusername);
+      console.log('newuserid:', this.state.newuserid);
 
-        await getTask(data.insertId, async(err,data)=>{
-          console.log(data[0]); 
-          
-          this.setState({newTask: data[0]});
-          console.log(this.state.newTask);
-        })
+      if (this.state.newuserid != 0) {
 
-        //const newTask = await getTask(data.insertId);
+        addTask(1, this.state.categoryID, this.state.newuserid, 1, this.state.priorityID, this.state.taskName, this.state.taskInfo, this.state.dueDate, this.state.expDuration, 0, async (err, data) => {
+          // addProject(this.state.userId, this.state.projectName, this.state.dueDate, (err, data) => {
+          //console.log(data);
+          //const listofT = this.props.projectCategoryList;
 
-        
-        this.setState({ taskName: '' });
-        this.setState({ priorityID: '' });
-        this.setState({ taskInfo: '' });
-        this.setState({ expDuration: ' ' });
-        this.setState({ dueDate: '' });
-      });
+          // await getTask(data.insertId, async (err, data) => {
+          //   console.log(data[0]);
 
-      this.props.dispatch({type: 'USER_IS_PROJECTTASK_DEMAND',project: this.props.project, projectCategoryList: this.props.projectCategoryList});
+          //   this.setState({ newTask: data[0] });
+          //   console.log(this.state.newTask);
+          // })
 
-      //this.props.dispatch({ type: 'USER_PROJECT_DEMAND' })
-      //this.props.dispatch({ type: 'USER_VIEW_PROJECT' })
-      // this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: this.props.projectCategoryList[0].ProjectID, projectCategoryList: this.props.projectCategoryList, projectName: this.props.projectName });
+          //const newTask = await getTask(data.insertId);
+
+
+          // this.setState({ taskName: '' });
+          // this.setState({ priorityID: '' });
+          // this.setState({ taskInfo: '' });
+          // this.setState({ expDuration: ' ' });
+          // this.setState({ dueDate: '' });
+          showCategories_old(this.props.projectID, (err, data) => {
+            this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.props.project, projectCategoryList: data.length > 0 ? data : [] });
+          })
+        });
+
+        // this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.props.project, projectCategoryList: this.props.projectCategoryList });
+      }
+      else {
+
+        addTask(1, this.state.categoryID, this.props.userId, 1, this.state.priorityID, this.state.taskName, this.state.taskInfo, this.state.dueDate, this.state.expDuration, 0, async (err, data) => {
+          // addProject(this.state.userId, this.state.projectName, this.state.dueDate, (err, data) => {
+          //console.log(data);
+          // const listofT = this.props.projectCategoryList;
+
+          // await getTask(data.insertId, async (err, data) => {
+          //   console.log(data[0]);
+
+          //   this.setState({ newTask: data[0] });
+          //   console.log(this.state.newTask);
+          // })
+
+          showCategories_old(this.props.projectID, (err, data) => {
+            this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.props.project, projectCategoryList: data.length > 0 ? data : [] });
+          })
+
+          // this.setState({ taskName: '' });
+          // this.setState({ priorityID: '' });
+          // this.setState({ taskInfo: '' });
+          // this.setState({ expDuration: ' ' });
+          // this.setState({ dueDate: '' });
+          console.log(this.props.project);
+          console.log(data);
+
+          // this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.props.project, projectCategoryList: data });
+        });
+
+        // this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.props.project, projectCategoryList: this.props.projectCategoryList });
+      }
     }
+
     event.preventDefault();
   }
+
+
 
   render() {
     return (
@@ -208,22 +263,28 @@ class TaskForm extends Component {
                 </div>
                 <div className="taskform-field">
                   <label for="dueDate">Due Date:</label>
-                  <input type="date" id="dueDate" className="trip-start" value={moment(this.state.dueDate).format('YYYY-MM-DD')} min="2019-06-01" max="2030-12-31" onChange={this.handleChange} />
+                  <input type="date" id="dueDate" className="trip-start" value={this.state.dueDate} min="2019-06-01" max="2030-12-31" onChange={this.handleChange} />
                 </div>
-                <div className="taskform-field" style={{marginBottom:'43px'}}> 
+                <div className="taskform-field">
                   <label htmlFor="expDuration">Expected Time to Complete:</label>
                   <input id="expDuration" type="number" value={this.state.expDuration} onChange={this.handleChange} />
                   <span> hours</span>
                 </div>
-                <div className="taskform-field">
+                <div className="taskform-field" style={{ marginBottom: '43px' }}>
                   <label htmlFor="assignuser">Assign to user:</label>
-                  <select onChange = {this.handleNewUser}>
+                  {/* <select value={this.state.newuserid}> */}
+                  <select onChange={(e) => this.handleNewUser(e)}>
                     {this.state.listOfFriends.map(friend =>
-                      <option selected={friend.username} value={friend.UserID} id={friend.UserID}>{friend.username}</option>
+                      <option className={friend.username} value={JSON.stringify(friend)}>{friend.username}</option>
                     )}
                   </select>
-                  </div>
-                <button type="submit" className="taskformbtn uppercase">Add Task</button>
+                  {/* <select  onChange = {(friend) => this.handleNewUser(friend)}>
+                    {this.state.listOfFriends.map(friend =>
+                      <option selected={friend.username} value={friend.username} id={friend.UserID}>{friend.username}</option>
+                    )}
+                  </select> */}
+                </div>
+                <button type="submit" className="taskformbtn uppercase" style={{ alignItems: 'center' }}>Add Task</button>
               </form>
             </div>
             {/* <p className="account-help">You already have an account ? <a onClick={this.handleClick} className="underline red" >Login</a></p> */}

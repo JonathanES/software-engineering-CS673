@@ -148,7 +148,7 @@ class ProjectTask extends React.Component {
                             style={{ width: '300px',maxHeight:'500px' ,  height: "auto", 
                                      paddingBlock:'10px', verticalAlign:'top', 
                                      marginTop: '8px', borderRadius: '5px', 
-                                     backgroundColor: "#e6e6e6", position: "relative" , 
+                                     backgroundColor: "#white", position: "relative" , 
                                      display: 'inline-block'}} 
                                      id={category.projectID} onClick={this.handleClickProject}>
                                       
@@ -173,7 +173,11 @@ class ProjectTask extends React.Component {
 
                                     {/* done|||bstart not start*/}
                                     <span class="state" style={{background: task.StatusName == 'Done'?'green': '#f4d03c' }}>{task.StatusName} </span>
+                                    
                                     {/* <span class="cat_task_span">{task.TaskName}</span> */}
+                                    <div class="cat_tast_head">
+                                        <span class="cat_task_span">Assigned to: {task.username}</span>
+                                    </div>
                                     <div class="cat_tast_footer">
                                         <span class="time">{moment(task.DueDate).format('D MMM')}</span>
                                         {/* <img src={require("./../../images/admin-tool.png")} class="photo" /> */}
