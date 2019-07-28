@@ -148,7 +148,7 @@ class ProjectTask extends React.Component {
                             style={{ width: '300px',maxHeight:'500px' ,  height: "auto", 
                                      paddingBlock:'10px', verticalAlign:'top', 
                                      marginTop: '8px', borderRadius: '5px', 
-                                     backgroundColor: "#e6e6e6", position: "relative" , 
+                                     backgroundColor: "#white", position: "relative" , 
                                      display: 'inline-block'}} 
                                      id={category.projectID} onClick={this.handleClickProject}>
                                       
