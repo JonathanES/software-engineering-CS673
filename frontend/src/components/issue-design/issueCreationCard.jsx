@@ -33,6 +33,14 @@ export default class IssueCreationCard extends React.Component{
                       </Input>
                     </FormGroup>
                     <FormGroup>
+                      <Label for="projectSelect">Project</Label>
+                      <Input type="select" name="projectID" id="projectSelect">
+                        <option>Project 1</option>
+                        <option>Project 2</option>
+                        <option>Project 3</option>
+                      </Input>
+                    </FormGroup>
+                    <FormGroup>
                       <Label for="userSelect">Assign a User</Label>
                       <Input type="select" name="assignedTo" id="userSelect">
                         <option>User 1</option>
