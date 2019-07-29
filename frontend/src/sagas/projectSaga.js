@@ -61,7 +61,6 @@ function *handleListOfProjectDemand(action){
 
 
 
-
  function *projectSaga(){
     yield takeEvery('USER_IS_PROJECT_DEMAND', handleProjectDemand);
     yield takeEvery('USER_IS_PROJECTTASK_DEMAND', handleProjectTaskDemand);

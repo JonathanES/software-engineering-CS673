@@ -4,6 +4,7 @@ import moment from 'moment'
 
 import { getAddtoProject, getUserLevel, getprojectdetail,getAvailableUsers,deleteproject,updateDeleteProjectDependencies} from '../../socket/projectSocket';
 import {updateProjectName, updateProjectDueDate, getListOfProjects} from '../../socket/projectSocket';
+
 import {getUserPrev} from '../../socket/taskSocket';
 
 import '../../css/projectUpdate.css'
@@ -157,7 +158,6 @@ class ProjectUpdate extends React.Component {
         this.props.dispatch({type: 'USER_LIST_OF_PROJECT_DEMAND', listOfProjects:data_list});
 
      });
-
     });
 
 

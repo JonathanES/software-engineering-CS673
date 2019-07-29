@@ -180,4 +180,3 @@ class Task extends React.Component {
 }
 
 export default connect(mapStateToProps)(Task);
-

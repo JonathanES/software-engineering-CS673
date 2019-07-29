@@ -9,12 +9,14 @@ import {
 } from "../../socket/projectSocket";
 import "../../css/taskForm.css";
 
+
 const mapStateToProps = state => ({
   userId: state.user.userId,
   username: state.user.username,
   category: state.project.category,
   projectID: state.project.projectID,
   project: state.project.project,
+
   projectCategoryList: state.project.projectCategoryList,
   projectName: state.project.projectName,
   taskDate: state.project.taskDate
@@ -39,6 +41,7 @@ class TaskForm extends Component {
       expDuration: "",
       taskPriorities: [],
       newTask: {},
+
 
       listOfFriends: [],
       newusername: "",
@@ -185,7 +188,6 @@ class TaskForm extends Component {
             // })
 
             //const newTask = await getTask(data.insertId);
-
             // this.setState({ taskName: '' });
             // this.setState({ priorityID: '' });
             // this.setState({ taskInfo: '' });
@@ -200,6 +202,7 @@ class TaskForm extends Component {
             });
           }
         );
+
 
         // this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.props.project, projectCategoryList: this.props.projectCategoryList });
       } else {
@@ -248,6 +251,7 @@ class TaskForm extends Component {
 
         // this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.props.project, projectCategoryList: this.props.projectCategoryList });
       }
+
     }
 
     event.preventDefault();
