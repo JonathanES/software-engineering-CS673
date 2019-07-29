@@ -102,12 +102,10 @@ export class IssueCardGrid extends React.Component {
     }
 
     updateGrid(){
-        if(this.state.issues != ""){
-            let newGrid = this.generateRows();
-            this.setState({
-                grid: newGrid
-            });
-        }
+        let newGrid = this.generateRows();
+        this.setState({
+            grid: newGrid
+        });
     }
 
 
