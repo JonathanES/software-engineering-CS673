@@ -27,6 +27,7 @@ class Menu extends React.Component {
                 <ul className="ul-menu">
                     <li><a href="#" className={this.state.selected == "project" ? "red" : ""} onClick={(e) => {
                         this.props.dispatch({ type: 'USER_PROJECT_DEMAND' });
+                        this.props.dispatch({ type: 'USER_VIEW_PROJECT' });	
                         this.setState({ selected: "project" });
                     }
                     }>Projects</a></li>

@@ -123,7 +123,7 @@ input,select {
     font-size: 1.2em;
     text-align: center;
     font-weight: bold;
-    border-radius: 4px;
+    border: none;
     /*margin: 2em 0;*/
     margin:2em auto;
 
@@ -286,7 +286,7 @@ input,select {
 }
 #projectMainContainer{
   height: 100%;
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   align-items: center;
 }

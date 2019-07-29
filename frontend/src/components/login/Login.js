@@ -102,9 +102,11 @@ class Login extends Component {
 
               </div>
               </form>
-              <a class="underlineHover" onClick={this.handlePasswordForgotten} className="underline red" >Forgot your password?</a>
-<br></br>
-              <div class="btn-group" role="group" aria-label="Basic example">
+              <a class="underlineHover" onClick={this.handlePasswordForgotten} className="underline red" >Forgot your password?</a><br></br>
+
+              <p class="font-weight-bold text-center align-middle" style={{color:'black'}}>Organize your project and take flight</p>
+              <p class="font-weight-bold text-center align-middle" style={{color:'black'}}>Join Swellodesk Today!</p>
+              <div class="text-center" role="group" aria-label="Basic example">
                 <button onClick={this.handleClick}  type="button" class="btn btn-primary ">Register</button>
                 </div>
           </div>

@@ -20,9 +20,10 @@
     -moz-transform: translate(-50%,-50%);
     width: 618px;
     height: 400px;
-} */
+} 
+*/
 
-#modal-calendar .modal-dialog{
+/*#modal-calendar .modal-dialog{
     position: absolute;
     width: 100%;
     height: 50%;
@@ -32,32 +33,55 @@
     z-index: 999;
     border: 1px solid #888;
 }
+*/
 #modal-calendar .modal-content{
   position: absolute;
   background-color: #fefefe;
   margin: auto;
   padding: 0;
   border: 1px solid #888;
+  justify-content: center;
   /*box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);*/
   animation-name: animatetop;
   animation-duration: 0.4s
+
 }
-#modal-calendar .btn-default {
+#modal-calendar .btn-closeIt {
     position: absolute; 
-    height: 35px;
-   width: 80px;
+    left:80%;
+    bottom:2%;
+    height: 30px;
+    width: 80px;
     border-radius: 10px;
     background-color:red;
+    color: white;
+    font-weight: bold;
+    border:10px;
+    outline: 10px;
+    float: right;
+    margin: 0;
+    right: 0px;
+    padding: 0px;
+}
+#modal-calendar .btn-addTask {
+    position: absolute; 
+    left:40%;
+    bottom:8%;
+    height: 30px;
+    width: 80px;
+    border-radius: 10px;
+    background-color:#0a8cdd;
     color: white;
     font-weight: bold;
     border:10;
     outline: 10;
     float: right;
     margin: 0;
-    right: 0px;
     padding: 0px;
 }
-#modal-calendar .modal-footer {
+#modal-calendar .modal-footer2 {
+    /* position: absolute;  */
+    bottom: 5%;
     height: 15%;
     width: 100%;
     background-color: white;
@@ -66,7 +90,17 @@
     justify-content: center;
     align-items: center;
 }
-#modal-calendar .submit{  
+#modal-calendar .modal-header {
+    position: absolute; 
+    top:1%;
+    width:100%;
+    background-color: white;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+/*#modal-calendar .submit{  
    position:absolute;  
    height: 35px;
    width: 80px;
@@ -81,6 +115,7 @@
    right: 15%;
    padding: 0px;
 }
+*/
 #modal-calendar .close{
     position:absolute;
     left:95%;  

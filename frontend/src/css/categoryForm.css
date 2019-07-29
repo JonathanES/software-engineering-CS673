@@ -1,13 +1,17 @@
-html, body, #root, #wrapper,.box {
-    margin: 0;
-    /*height: 10%;*/
-    /*overflow: hidden;*/
+html,
+body,
+#root,
+#wrapper,
+.box {
+  margin: 0;
+  /*height: 10%;*/
+  /*overflow: hidden;*/
 }
 li {
-    list-style: none;
+  list-style: none;
 }
 input {
-    border-radius: 5px;
+  border-radius: 2px;
 }
 /*.shadow-bg {
     position: absolute;
@@ -19,20 +23,20 @@ input {
     width: 618px;
     height: 400px;
 } */
-.modal-dialog{
-    position: fixed;
-    top: 50%;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 15%;
-    margin-top:-5%;
-    background: rgba(0,0,0,0.3);
-    z-index: 999;
-    border: 1px solid #888;
+.modal-dialog {
+  position: fixed;
+  top: 50%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 15%;
+  margin-top: -5%;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  border: 1px solid #888;
 }
-.modal-content{
+.modal-content {
   position: absolute;
   background-color: #fefefe;
   margin: auto;
@@ -41,61 +45,60 @@ input {
   /*box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);*/
   animation-name: animatetop;
   animation-duration: 0.4s;
-  height:200px;
+  height: 200px;
 }
-.modal-fade{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(200, 200, 200, 0.8);
-    top: 0;
-    left: 0;
-    z-index:998;
-    overflow: hidden;
+.modal-fade {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(200, 200, 200, 0.8);
+  top: 0;
+  left: 0;
+  z-index: 998;
+  overflow: hidden;
 }
 .btn-default {
-    position: absolute; 
-    height: 35px;
-    width: 80px;
-    border-radius: 10px;
-    background-color:red;
-    color: white;
-    font-weight: bold;
-    border:10;
-    outline: 10;
-    float: right;
-    margin: 0;
-    right: 0px;
-    padding: 0px;
+  position: absolute;
+  height: 35px;
+  width: 80px;
+  border-radius: 10px;
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  border: 10;
+  outline: 10;
+  float: right;
+  margin: 0;
+  right: 0px;
+  padding: 0px;
 }
 .modal-footer {
-    height: 15%;
-    width: 100%;
-    background-color: white;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
+  height: 15%;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
 }
-.submit{  
-   position:absolute;  
-   height: 35px;
-   width: 80px;
-   border-radius: 10px;
-   background-color:#0a8cdd;
-   color: white;
-   font-weight: bold;
-   border:10;
-   outline: 10;
-   margin-right: 10%;
-   margin: 0;
-   right: 15%;
-   padding: 0px;
+.submit {
+  position: absolute;
+  height: 35px;
+  width: 80px;
+  border-radius: 10px;
+  background-color: #0a8cdd;
+  color: white;
+  font-weight: bold;
+  border: 10;
+  outline: 10;
+  margin-right: 10%;
+  margin: 0;
+  right: 15%;
+  padding: 0px;
 }
-.close{
-    position:absolute;
-    color: silver;
-    left:95%;  
-    top:5%;  
-
+.close {
+  position: absolute;
+  color: silver;
+  left: 95%;
+  top: 5%;
 }

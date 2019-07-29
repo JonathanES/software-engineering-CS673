@@ -1,51 +1,42 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,700&display=swap");
 
- body {
-  background: rgb(122, 188, 255); 
+body {
+  background: rgb(122, 188, 255);
   background: -moz-linear-gradient(
     rgba(122, 188, 255, 1) 0%,
     rgba(96, 171, 248, 1) 44%,
     rgba(64, 150, 238, 1) 100%
-  ); 
+  );
   background: -webkit-linear-gradient(
     rgba(122, 188, 255, 1) 0%,
     rgba(96, 171, 248, 1) 44%,
     rgba(64, 150, 238, 1) 100%
-
-   
-  ); 
+  );
   background: linear-gradient(
     rgba(122, 188, 255, 1) 0%,
     rgba(96, 171, 248, 1) 44%,
     rgba(64, 150, 238, 1) 100%
-
-  ); 
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=1 ); 
-} 
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7abcff', endColorstr='#4096ee',GradientType=1 );
+}
 
 body,
 html {
   height: calc(100% - 2em);
   margin: 0;
   font-family: "source sans pro", "sans-serif";
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
-.bg{
+.bg {
   width: 100%;
-  height:100vh;
-  background: rgb(122, 188, 255);
-  background: -webkit-linear-gradient(
-  45deg,
-  rgba(122, 188, 255, 1) 0%,
-  rgba(96, 171, 248, 1) 44%,
-  rgba(64, 150, 238, 1) 100%
-); /* Chrome10-25,Safari5.1-6 */
+  height: 100vh;
+  background: black;
   z-index: -1;
   position: absolute;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
-.bg::before{
+.bg::before {
   content: "";
   width: 100%;
   height: 100%;
@@ -54,8 +45,6 @@ html {
   background-size: 100% 100%;
   filter: blur(10px);
 }
-
-
 aside {
   color: #fff;
   display: grid;
@@ -96,7 +85,7 @@ ul li a {
   background-color: rgba(255, 255, 255, 0.35);
   color: #000;
 }
-ul li a:hover{
+ul li a:hover {
   text-decoration: none;
   color: white;
 }
@@ -111,7 +100,7 @@ h1 {
 
 p {
   font-size: 1.1em;
-  line-height: 1.5em;
+  line-height: 1.5em; 
 }
 
 .cta {
@@ -127,7 +116,7 @@ p {
   margin: 2em 0;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 200px) {
   img {
     display: none;
   }
@@ -138,15 +127,16 @@ p {
     width: 13%;
     height: 100%;
     /*grid-template-columns: auto;
-    grid-template-rows: 20% auto;*/
+    grid-template-rows: 20% auto;
+    */
     padding: 0;
   }
-  aside ul li:hover{
-    transition: .5s;
+  aside ul li:hover {
+    transition: 0.5s;
     background: #0e7fff;
-    color:white;
+    color: white;
   }
-  .main-page{
+  .main-page {
     position: absolute;
     right: 0px;
     width: 87%;
@@ -154,7 +144,7 @@ p {
     padding: 5%;
     background: url("./bg2.jpg") no-repeat;
     background-size: 100% 100%;
-    overflow: hidden;
+    overflow: auto;
   }
 
   #main {
@@ -186,7 +176,7 @@ p {
   nav {
     background: none;
   }
-  .ul-menu li{
+  .ul-menu li {
     display: block;
   }
 }

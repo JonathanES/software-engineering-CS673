@@ -46,6 +46,17 @@ async function deleteIssue(issueID){
     });
 };
 
+async function hardDeleteIssue(issueID){
+    return new Promise(async (resolve, reject) => {
+        client.query("DELETE FROM Issues WHERE IssueID = ?",
+        [issueID],
+        async (error, results, fields) => {
+            if (error) throw error;
+            resolve(results.changedRows);
+        });
+    })
+}
+
 // Empty & Populate Issues Array and return Issues from MySQL database
 /**
  * This function returns all the Issues in the DB in an array
@@ -186,7 +197,7 @@ async function updateIssueName(issueID, issueName){
 
 async function updateIssueSummary(issueID, issueSummary){
     return new Promise(async (resolve, reject) => {
-        client.query("UPDATE Issues SET IssueSummary = ? WHERE IssueID = ?", [issueSummary, issueID],
+        client.query("UPDATE Issues SET Summary = ? WHERE IssueID = ?", [issueSummary, issueID],
                     async (error, results, fields) => {
                         if (error) throw error;
                         resolve(results.changedRows);
@@ -199,7 +210,7 @@ async function updateLastUpdate(issueID, lastUpdate){
         client.query("UPDATE Issues SET LastUpdate = ? WHERE IssueID = ?", [lastUpdate, issueID],
                     async (error, results, fields) => {
                         if (error) throw error;
-                        resolve(results.changedRows);
+                        resolve(results.affectedRows); // Changed from changedRows to affectedRows (maybe if you call it too quickly it wont change the date?)
                     });
     });
 };
@@ -227,7 +238,9 @@ async function updateIsResolved(issueID, isResolved){
 module.exports = {
   createNewIssue: createNewIssue,
   deleteIssue: deleteIssue,
+  hardDeleteIssue: hardDeleteIssue,
   getIssues: getIssues,
+  createCommentForIssue: createCommentForIssue,
   getCommentsForIssue: getCommentsForIssue,
   getIssueWithID: getIssueWithID,
   createNewIssueStatus: createNewIssueStatus,

@@ -1,12 +1,13 @@
 html, body, #root, #wrapper,.box {
     margin: 0;
     height: 100%;
-    /* overflow: hidden; */
+     overflow: hidden;
 }
 /* li {
     list-style: none;
 } */
-input {
+
+/* input {
     border-radius: 5px;
 }
 .direct{
@@ -14,22 +15,22 @@ input {
     margin: 5px;
 
 }
+*/
 .user-task{
     display: block;
     background-color: white;
     width: 300px;
-  /*border: 15px solid silver;*/
+    border: 15px solid silver;
     padding: 120px;
     margin: 20px;
-
-
     border-radius: 8px 14px 14px 54px;
   -moz-border-radius: 8px 14px 14px 54px;
   -webkit-border-radius: 8px 14px 14px 54px;
   border: 13px solid #ebf1f5;
 }
 
-.category{
+
+/*.category{
     display: block;
     border-style: inset;
     border-radius: 5px;
@@ -68,13 +69,13 @@ ul li{
     display: inline;
     /* margin-top: 2em; */
 
-    /* position: relative !important;
+/* position: relative !important;
     background: none !important;
     width: 100% !important;
      */
-    /* padding: 20px;
-    margin: 10px; */
-}
+/* padding: 20px;
+    margin: 10px;
+} /*
 .span-project-mid{
     display: block;
 }
@@ -95,16 +96,80 @@ ul li{
 }
 .project-content{
     color:black;
+} */
+
+.task-container .taskformbtn {
+  background: #0084ff;
+  color: white;
+  text-align: center;
+  width: 150px;
+  height: 40px;
+  border: 0;
+  position: relative;
+  left: 50%;
+  margin-left: -75px;
+  margin-top: 40px;
 }
-.taskformbtn{
-    background: #0084ff;
-     color:white;
-     text-align: center;
-     width: 150px;
-     height:40px;
-     border: 0;
-     position: relative;
-     left:50%;
-     margin-left:-75px;
-     margin-top:40px;
+
+.task-container #dueDate {
+  width: 50%;
+}
+
+.task-container form {
+  /* Just to center the form on the page */
+  margin: 0 auto;
+  width: 400px;
+  /* To see the outline of the form */
+  padding: 1em;
+  border: 1px solid #ccc;
+  border-radius: 1em;
+  background: white;
+}
+
+.task-container label {
+  /* To make sure that all labels have the same size and are properly aligned */
+  display: inline-block;
+  width: 90px;
+  text-align: right;
+}
+
+.task-container input,
+textarea,
+select {
+  /* To make sure that all text fields have the same font settings
+       By default, textareas have a monospace font */
+  font: 1em sans-serif;
+
+  /* To give the same size to all text fields */
+  width: 300px;
+  box-sizing: border-box;
+
+  /* To harmonize the look & feel of text field border */
+  border: 1px solid #999;
+}
+
+.task-container input:focus,
+textarea:focus,
+select:focus {
+  /* To give a little highlight on active elements */
+  border-color: #000;
+}
+
+.task-container textarea {
+  /* To properly align multiline text fields with their labels */
+  vertical-align: top;
+
+  /* To give enough room to type some text */
+  height: 5em;
+}
+
+.task-container .button {
+  /* To position the buttons to the same position of the text fields */
+  padding-left: 90px; /* same size as the label elements */
+}
+
+.task-container button {
+  /* This extra margin represent roughly the same space as the space
+       between the labels and their text fields */
+  margin-left: 0.5em;
 }
