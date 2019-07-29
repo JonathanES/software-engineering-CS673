@@ -268,7 +268,7 @@ class TaskUpdate extends React.Component {
           mozborderradius: "8px 14px 14px 54px",
           webkitborderradius: "8px 14px 14px 54px",
           border: "13px solid #ebf1f5",
-          padding: "20px",
+          paddingLeft: "10%",
           width:'60%'
         }}
       >
@@ -303,11 +303,10 @@ class TaskUpdate extends React.Component {
         </div>
         <div style={{ backgroundcolor: "white" }}>
           <label for="taskName">Task Name:</label>
-          <br />
           <input
             type="string"
             id="taskName"
-            style={{ textAlign: "center" }}
+            style={{ textAlign: "center", marginLeft:"20px" }}
             value={this.state.taskName}
             onChange={e => this.handleNameChange(e.target.value)}
           />

@@ -305,16 +305,7 @@ class TaskForm extends Component {
               <br />
               <div className="taskform-field">
               <label>Due Date:</label>
-              <input
-                type="date"
-                id="dueDate2"
-                style={{ width:'60%'}}
-                //className="trip-start"
-                value={this.state.dueDate}
-                min="2019-06-01"
-                max="2030-12-31"
-                onChange={this.handleChange}
-              />
+              <input type="date" id="dueDate2" value={this.state.dueDate} min="2019-06-01" max="2030-12-31" onChange={this.handleChange} />
               </div>
        
               <br />
