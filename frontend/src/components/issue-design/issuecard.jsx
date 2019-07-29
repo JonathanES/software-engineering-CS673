@@ -4,90 +4,61 @@ import { Card, CardImg, CardHeader, CardText, CardBody,
 
 
 // ProjectID, IssueStatusID, AssigneeID, AssignedToID, PriorityID, IssueName, Summary, DateCreated, LastUpdate, DateResolved, IsResolved
-class IssueCard {
-    constructor(issueRowObject){
-        this.issueName =     issueRowObject.IssueID;
-        this.priorityID =    issueRowObject.PriorityID;
-        this.issueStatusID = issueRowObject.IssueStatusID;
-        this.assigneeID =    issueRowObject.AssigneeID;
-        this.assignedToID =  issueRowObject.AssignedToID;
-        this.priorityID =    issueRowObject.PriorityID;
-        this.issueName =     issueRowObject.IssueName;
-        this.summary =       issueRowObject.Summary;
-        this.dateCreated =   issueRowObject.DateCreated;
-        this.lastUpdate =    issueRowObject.LastUpdate;
-        this.dateResolved =  issueRowObject.DateResolved;
-        this.isResolved =    issueRowObject.IsResolved;
-        this.IsDeleted =     issueRowObject.IsDeleted;
-    }
-
-    blueCard(header, title, text, buttonText, assignedTo, assignee, lastUpdate){
-        return(
-            <Card body>
-                <CardHeader className="text-center" style={{backgroundColor: "#157ffb"}}>{header}</CardHeader>
-                <CardBody className="text-center">
-                    <CardTitle>{title}</CardTitle>
-                    <CardText>{text}</CardText>
-                    <Button color="secondary">{buttonText}</Button>
-                    <CardText>
-                        <small className="text-muted">Last updated {lastUpdate}</small>
-                    </CardText>
-                </CardBody>
-                <CardFooter className="text-center">Assigned to: {assignedTo} by {assignee}</CardFooter>
-            </Card>
-        );
-    }
-
-    yellowCard(header, title, text, buttonText, assignedTo, assignee, lastUpdate){
-        return(
-            <Card body>
-                <CardHeader className="text-center" style={{backgroundColor: "#fdc02f"}}>{header}</CardHeader>
-                <CardBody className="text-center">
-                    <CardTitle>{title}</CardTitle>
-                    <CardText>{text}</CardText>
-                    <Button color="secondary">{buttonText}</Button>
-                    <CardText>
-                        <small className="text-muted">Last updated {lastUpdate}</small>
-                    </CardText>
-                </CardBody>
-                <CardFooter className="text-center">Assigned to: {assignedTo} by {assignee}</CardFooter>
-            </Card>
-        );
-    }
-
-    redCard(header, title, text, buttonText, assignedTo, assignee, lastUpdate){
-        return(
-            <Card body>
-                <CardHeader className="text-center" style={{backgroundColor: "#d63648"}}>{header}</CardHeader>
-                <CardBody className="text-center">
-                    <CardTitle>{title}</CardTitle>
-                    <CardText>{text}</CardText>
-                    <Button color="secondary">{buttonText}</Button>
-                    <CardText>
-                        <small className="text-muted">Last updated {lastUpdate}</small>
-                    </CardText>
-                </CardBody>
-                <CardFooter className="text-center">Assigned to: {assignedTo} by {assignee}</CardFooter>
-            </Card>
-        );
-    }
-
-    getCard(){
-        if (this.priorityID == 1){
-            return(this.blueCard(this.issueName, this.priorityID, this.summary, "Test Button", this.assignedToID, this.assigneeID, this.lastUpdate));
-
-        }else if(this.priorityID == 2){
-            return(this.yellowCard(this.issueName, this.priorityID, this.summary, "Test Button", this.assignedToID, this.assigneeID, this.lastUpdate));
-
-        }else if(this.priorityID == 3){
-            return(this.redCard(this.issueName, this.priorityID, this.summary, "Test Button", this.assignedToID, this.assigneeID, this.lastUpdate));
+export  default class IssueCard extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            header: this.props.IssueName,
+            title:  this.props.PriorityID,
+            text:   this.props.Summary,
+            buttonText: "Test Button",
+            lastUpdate: this.props.LastUpdate,
+            assignedTo: this.props.AssignedToID,
+            assignee:   this.props.AssigneeID
         }
     }
 
-    updateIssueName(){
-
+    getHeaderColour(priority){
+        if(priority == 1){  // Blue Header
+            return(
+                {backgroundColor:"#157ffb"}
+            );
+        }else if(priority == 2){  // Yellow Header
+            return(
+                {backgroundColor:"#fdc02f"}
+            );
+        }else if(priority == 3){  // Red Header
+            return(
+                {backgroundColor:"#d63648"}
+            );
+        }else{  // Blue Header
+            return(
+            {backgroundColor:"#157ffb"}
+            );
+        }
     }
 
-};
+    onButtonClick(){
+        let newText = "Test Click!";
+        this.setState({
+            buttonText: newText
+        });
+    }
 
-export default IssueCard;
+    render(){
+        return(
+            <Card body>
+                <CardHeader className="text-center" style={this.getHeaderColour(this.props.PriorityID)}>{this.state.header}</CardHeader>
+                <CardBody className="text-center">
+                    <CardTitle>{this.state.title}</CardTitle>
+                    <CardText>{this.state.text}</CardText>
+                    <Button onClick={this.onButtonClick.bind(this)} color="secondary">{this.state.buttonText}</Button>
+                    <CardText>
+                        <small className="text-muted">Last updated {this.state.lastUpdate}</small>
+                    </CardText>
+                </CardBody>
+                <CardFooter className="text-center">Assigned to: {this.state.assignedTo} by {this.state.assignee}</CardFooter>
+            </Card>
+        );
+    }
+};

@@ -32,11 +32,25 @@ export class IssueCardGrid extends React.Component {
         // console.log(issuesInRow);
 
         for (colCount = 0; colCount < issuesInRow.length; colCount++){
-            currentIssueCard = new IssueCard(issuesInRow[colCount]); // Generate a new card instance
+            let currentIssue = issuesInRow[colCount];
 
             // Get the card from the instance and push it onto the row array
             row.push(<Col className={"my-md-" + this.state.cardSize} key={"Issue " + (rowCount*4) + colCount}>
-                        {currentIssueCard.getCard()}
+                        <IssueCard
+                            IssueID={currentIssue.IssueID}
+                            ProjectID={currentIssue.ProjectID}
+                            IssueStatusID={currentIssue.IssueStatusID}
+                            AssigneeID={currentIssue.AssigneeID}
+                            AssignedToID={currentIssue.AssignedToID}
+                            PriorityID={currentIssue.PriorityID}
+                            IssueName={currentIssue.IssueName}
+                            Summary={currentIssue.Summary}
+                            DateCreated={currentIssue.DateCreated}
+                            LastUpdate={currentIssue.LastUpdate}
+                            DateResolved={currentIssue.DateResolved}
+                            isResolved={currentIssue.IsResolved}
+                            IsDeleted={currentIssue.IsDeleted}
+                        />
                     </Col>
                     );
         };
