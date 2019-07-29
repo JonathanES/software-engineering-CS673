@@ -16,19 +16,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-console.log = function (d) { //
-    log_file.write(util.format(d) + '\n');
-    log_stdout.write(util.format(d) + '\n');
-};
-
-
-const logRequests = (req, res, next) => {
-    const { ip, method, originalUrl } = req;
-    console.log(`[LOG] ${ip} ${method} ${originalUrl}`);
-    next();
-};
-
-app.use(logRequests);
 
 // creation of the server, server is running on port 8080
 const server = app.listen(8000, function () {
@@ -43,5 +30,3 @@ module.exports = {
     io: io,
     server: server
 };
-
-

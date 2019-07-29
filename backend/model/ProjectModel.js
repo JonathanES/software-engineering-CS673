@@ -31,6 +31,10 @@ class ProjectModel {
     return this.isDeleted;
   }
 
+  set setIsDeleted(isDeleted) {
+    this.isDeleted = isDeleted;
+}
+
 }
 
 module.exports = ProjectModel

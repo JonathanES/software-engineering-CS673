@@ -55,6 +55,9 @@ function *handleProjectTaskUpdateDemand(action){
     yield put({type:'PROJECT_TASK_UPDATE', task:action.task});
 }
 
+function *handleListOfProjectDemand(action){
+    yield put({type:'LIST_OF_PROJECT_DEMAND', listOfProjects:action.listOfProjects});
+}
 
 
 
@@ -70,6 +73,7 @@ function *handleProjectTaskUpdateDemand(action){
     yield takeEvery('USER_ADD_TASKFORM_DEMAND', handleAddTaskDemand);
     yield takeEvery('USER_UPDATE_RETURN', handleUpdateReturn);
     yield takeEvery('USER_PROJECT_TASK_UPDATE', handleProjectTaskUpdateDemand);
+    yield takeEvery('USER_LIST_OF_PROJECT_DEMAND', handleListOfProjectDemand);
 }
 
 export default projectSaga;

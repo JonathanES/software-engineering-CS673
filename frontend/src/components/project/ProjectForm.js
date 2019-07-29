@@ -9,6 +9,7 @@ const mapStateToProps = state => ({
   username: state.user.username,
   userId: state.user.userId,
   projectID: state.project.projectID,
+  listOfProjects: state.project.listOfProjects,
 });
 
 
@@ -71,15 +72,8 @@ class ProjectForm extends React.Component {
       console.log('Due Date:', this.state.dueDate);
       addProject(this.state.userId, this.state.projectName, this.state.dueDate, (err, data) => {
 
+        this.props.dispatch({type: 'USER_LIST_OF_PROJECT_DEMAND', listOfProjects:data});
 
-        console.log(data);
-        // getListOfProjects(this.props.userId, (err, data) => {
-        //   this.setState({ listOfProjects: data });
-
-        //  });
-        //here we should call the mainpage, so they can see the project added to their screen, wonder how we will do it
-        this.props.dispatch({ type: 'USER_PROJECT_DEMAND' })
-        this.props.dispatch({ type: 'USER_VIEW_PROJECT' })
       });
     }
     event.preventDefault();
@@ -87,14 +81,13 @@ class ProjectForm extends React.Component {
 
   render() {
     return (
-      <div>
         <div className="projectform">
           <div className="projectform-header">
             <h1 id = "addNProjT" className="uppercase"> Add a new Project </h1>
           </div>
           <div className="projectform-contain">
             <div className="projectform-group">
-              <form onSubmit={this.handleSubmit}>
+              <form onSubmit={this.handleSubmit} id="createProjectForm">
                 <div className="projectform-field">
                   <label htmlFor="projectName">Project Name :</label>
                   <input id="projectName" type="text" value={this.state.projectName} onChange={this.handleChange}  placeholder="Enter Project Name"/>
@@ -108,7 +101,6 @@ class ProjectForm extends React.Component {
             </div>
           </div>
         </div>
-      </div>
     );
   }
 }

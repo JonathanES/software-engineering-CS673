@@ -20,7 +20,7 @@ const mapStateToProps = (state) => ({
 const BasePage = ({ dispatch, connexionDemand, registerDemand, passwordDemand }) => (
     <div>
         {!passwordDemand && !connexionDemand && !registerDemand && <Menu />}
-        <MainPage />
+        {!registerDemand && !connexionDemand && !passwordDemand &&<MainPage />}
         <CookiesProvider>
         {registerDemand && !connexionDemand && !passwordDemand && <Inscription dispatch={dispatch} />}
         {connexionDemand && !registerDemand && !passwordDemand && <Login dispatch={dispatch} cookies={cookies}/>}

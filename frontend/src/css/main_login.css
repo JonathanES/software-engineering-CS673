@@ -11,7 +11,7 @@ body {
 }
 
 #leftLog {
-  background-color: rgba(122, 188, 255, 1) 0%,;
+  background: url("../images/bg2.jpg") no-repeat;
 }
 
 .signup {
@@ -34,6 +34,7 @@ body {
 }
 #rightLog {
   background-color: white;
+  
 }
 
 p {
