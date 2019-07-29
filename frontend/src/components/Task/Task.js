@@ -122,7 +122,7 @@ class Task extends React.Component {
 
     render() {
         return (
-            <div>
+            <div id="task-container">
                 {this.props.updateTask && <TaskUpdate dispatch={this.props.dispatch} />}
                 {!this.props.updateTask && <div class="direct">
 

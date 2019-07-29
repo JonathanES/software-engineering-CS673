@@ -80,7 +80,7 @@
     padding: 0px;
 }
 #modal-calendar .modal-footer2 {
-    position: absolute; 
+    /* position: absolute;  */
     bottom: 5%;
     height: 15%;
     width: 100%;
