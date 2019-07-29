@@ -204,8 +204,9 @@ class Chat extends React.Component {
                 <div class="title">
                   Channels
                   <input
-                    id="add-button"
+                    class="add_task_button"
                     type="image"
+                    style={{ width: "20%", height: "50%" }}
                     src={require("../../images/plus.svg")}
                     onClick={e => {
                       this.props.dispatch({ type: "USER_ADD_GROUP_DEMAND" });
