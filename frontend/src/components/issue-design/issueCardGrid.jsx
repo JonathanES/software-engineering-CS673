@@ -73,9 +73,13 @@ export class IssueCardGrid extends React.Component {
     }
 
     updateIssues(newIssues){
+        let filteredIssues = newIssues.filter((value, index, arr) => {
+            return value.IssueID > 1;
+        });
+
         this.setState({
-            numberOfCards: newIssues.length,
-            issues: newIssues
+            numberOfCards: filteredIssues.length,
+            issues: filteredIssues
         });
     }
 
