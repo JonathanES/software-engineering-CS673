@@ -101,10 +101,8 @@ class TaskForm extends Component {
   handleChange(event) {
     switch (event.target.id) {
       case "taskName":
-        if (event.target.value != "") {
           this.setState({ taskName: event.target.value });
-        }
-        break;
+          break;
       case "priorityID":
         this.setState({ priorityID: event.target.value });
         break;
@@ -117,7 +115,7 @@ class TaskForm extends Component {
           this.setState({ expDuration: event.target.value });
         }
         break;
-      case "dueDate":
+      case "dueDate2":
         //console.log('New date:', event.target.value);
         this.setState({ dueDate: event.target.value });
         break;
@@ -310,6 +308,7 @@ class TaskForm extends Component {
               <input
                 type="date"
                 id="dueDate2"
+                style={{ width:'60%'}}
                 //className="trip-start"
                 value={this.state.dueDate}
                 min="2019-06-01"

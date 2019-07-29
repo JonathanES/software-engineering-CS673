@@ -11,7 +11,7 @@ input,select {
     width: 250px;
     height: 35px;
     padding:0px 10px;
-    border: 0;
+    border: 1px solid black;
     outline: 0;
     line-height: 35px;
 }
@@ -290,9 +290,11 @@ input,select {
   justify-content: center;
   align-items: center;
 }
+
 div.projectform{
   background-color: white;
   padding: 30px;
+  width: 60%;
   border-radius: 8px 14px 14px 54px;
 -moz-border-radius: 8px 14px 14px 54px;
 -webkit-border-radius: 8px 14px 14px 54px;
