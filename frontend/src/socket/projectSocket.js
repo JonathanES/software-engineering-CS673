@@ -54,9 +54,9 @@ function getAvailableUsers(projectID, userID, cb){
   }
 
 
-  function getAvailableUsersForProject(projectID, userID, cb){
+  function getAvailableUsersForProject(projectID, cb){
     socket.on('AVAILABLE_USER_FOR_PROJECT', data => cb(null, data));
-    socket.emit('GET_AVAILABLE_USER_FOR_PROJECT', projectID, userID);
+    socket.emit('GET_AVAILABLE_USER_FOR_PROJECT', projectID);
   }
 
 

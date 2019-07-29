@@ -69,7 +69,6 @@ class TaskForm extends Component {
 
     getAvailableUsersForProject(
       this.props.projectID,
-      this.props.userId,
       (err, data) => {
         data.push({ UserID: 0, username: "Please Select a User" });
         console.log(data);

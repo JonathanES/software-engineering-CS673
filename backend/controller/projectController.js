@@ -333,7 +333,7 @@ async function getListOfAvailableUser(projectID, userID){
 };
 
 
-async function getListOfAvailableUserForProject(projectID, userID){
+async function getListOfAvailableUserForProject(projectID){
     return new Promise(async (resolve, reject) => {
         client.query('SELECT U.UserID, U.username FROM Users U WHERE U.UserID IN (SELECT PU.UserID FROM ProjectUsers PU WHERE PU.ProjectID = ?)', [projectID], function(error, result, fields){    
         if(error) throw error;
