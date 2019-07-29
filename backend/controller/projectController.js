@@ -230,8 +230,8 @@ async function updateProjectIsDeleted(projectID, isDeleted) {
         //console.log('IsDeleted:',isDeleted);
         client.query('UPDATE Projects SET IsDeleted = ?  WHERE ProjectID = ?; ', [isDeleted, projectID], async function (error, results, fields) {
             if (error) throw error;
-            console.log(results);
-            console.log("updateProjectIsDeleted function called");
+            //console.log(results);
+            //console.log("updateProjectIsDeleted function called");
             listOfProjects.forEach(project => {
                 if (project.getProjectID == projectID)
                     project.setIsDeleted = isDeleted;
