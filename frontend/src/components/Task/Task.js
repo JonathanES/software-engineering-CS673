@@ -153,6 +153,12 @@ class Task extends React.Component {
                                     </ul> */}
                                     <div class="cat-task_li_li" style={{verticalAlign:'top', padding:'10px'}}>
                                         <div class="cat-task_li_li">
+                                            <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)} style={{fontStyle:'bold'}}> Project: {task.projectName}</span>
+                                        </div>
+                                        <div class="cat-task_li_li">
+                                            <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> Category: {task.categoryName}</span>
+                                        </div>
+                                        <div class="cat-task_li_li">
                                             <span class="span-user-left" style={{backgroundColor: 'orange', background: task.priority == "High" ? "red" : "orange" }}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priority}</span>
                                         </div>
                                         <div class="cat-task_li_li">
