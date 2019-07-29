@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardImg, CardHeader, CardText, CardBody,
-    CardTitle, CardSubtitle, Button, Badge, CardFooter, Popover, PopoverHeader, PopoverBody } from 'reactstrap';
+    CardTitle, CardSubtitle, Button, Badge, CardFooter, Popover, PopoverHeader, PopoverBody, Row, Col } from 'reactstrap';
 
 
 // ProjectID, IssueStatusID, AssigneeID, AssignedToID, PriorityID, IssueName, Summary, DateCreated, LastUpdate, DateResolved, IsResolved
@@ -12,7 +12,7 @@ export default class IssueCard extends React.Component{
 
         this.state = {
             header: this.props.IssueName,
-            title:  this.props.PriorityID,
+            title:  this.props.AssigneeID,
             text:   this.props.Summary,
             buttonText: "Test Button",
             lastUpdate: this.props.LastUpdate,
@@ -66,24 +66,30 @@ export default class IssueCard extends React.Component{
 
     render(){
         return(
-            <Card body>
+            <Card body className="text-center">
                 <CardHeader className="text-center" style={this.getHeaderColour(this.props.PriorityID)}>{this.state.header}</CardHeader>
                 <CardBody className="text-center">
-                    <CardTitle>{this.state.title}</CardTitle>
+                    <CardTitle>{"Created by: " + this.state.title}</CardTitle>
                     <CardText>{this.state.text}</CardText>
-                    <Button onClick={this.onButtonClick.bind(this)} color="secondary">{this.state.buttonText} <Badge color="secondary">4</Badge> </Button>
+                    <Button onClick={this.onButtonClick.bind(this)} color="secondary">{this.state.buttonText}</Button>
                     <CardText>
                         <small className="text-muted">Last updated {this.state.lastUpdate}</small>
                     </CardText>
                 </CardBody>
-                <Button id={"Popover" + this.props.IssueID} type="button">
-                  Launch Popover
-                </Button>
+                <Row>
+                    <Col className="text-sm-left">
+                        <Button id={"Popover" + this.props.IssueID} type="button">
+                          Comments <Badge color="secondary" className="text-sm-right">4</Badge>
+                        </Button>
+                    </Col>
+                    <Col className="text-sm-right">
+                        <Button color="danger">Delete</Button>
+                    </Col>
+                </Row>
                 <Popover placement="bottom" isOpen={this.state.popoverOpen} target={"Popover" + this.props.IssueID} toggle={this.toggle.bind(this)}>
                   <PopoverHeader>Popover Title</PopoverHeader>
                   <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
                 </Popover>
-                <CardFooter className="text-center">Assigned to: {this.state.assignedTo} by {this.state.assignee}</CardFooter>
             </Card>
         );
     }
