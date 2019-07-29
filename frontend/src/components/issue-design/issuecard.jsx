@@ -7,7 +7,8 @@ import { Card, CardImg, CardHeader, CardText, CardBody,
 export default class IssueCard extends React.Component{
     constructor(props){
         super(props);
-
+        this.onButtonClick = this.onButtonClick.bind(this);
+        this.toggle = this.toggle.bind(this);
 
         this.state = {
             header: this.props.IssueName,
