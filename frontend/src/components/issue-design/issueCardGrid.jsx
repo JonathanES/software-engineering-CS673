@@ -16,8 +16,8 @@ export class IssueCardGrid extends React.Component {
             cardSize: 12/this.props.cardsPerRow,
             grid: ""
         };
-        this.updateGrid();
 
+        // Call the socket for getting the Issues from the DB with our overwritting callback to set the state
         getIssues((data) => {
             this.updateIssues(data);
             this.updateGrid();

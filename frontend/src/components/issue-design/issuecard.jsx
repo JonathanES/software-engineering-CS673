@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardImg, CardHeader, CardText, CardBody,
-    CardTitle, CardSubtitle, Button, CardFooter } from 'reactstrap';
+    CardTitle, CardSubtitle, Button, CardFooter, Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 
 
 // ProjectID, IssueStatusID, AssigneeID, AssignedToID, PriorityID, IssueName, Summary, DateCreated, LastUpdate, DateResolved, IsResolved
@@ -14,11 +14,11 @@ export  default class IssueCard extends React.Component{
             buttonText: "Test Button",
             lastUpdate: this.props.LastUpdate,
             assignedTo: this.props.AssignedToID,
-            assignee:   this.props.AssigneeID
+            assignee:   this.props.AssigneeID,
         }
     }
-
     getHeaderColour(priority){
+
         if(priority == 1){  // Blue Header
             return(
                 {backgroundColor:"#157ffb"}
@@ -38,12 +38,14 @@ export  default class IssueCard extends React.Component{
         }
     }
 
+
     onButtonClick(){
         let newText = "Test Click!";
         this.setState({
             buttonText: newText
         });
     }
+// <Button onClick={this.onButtonClick.bind(this)} color="secondary">{this.state.buttonText}</Button>
 
     render(){
         return(
