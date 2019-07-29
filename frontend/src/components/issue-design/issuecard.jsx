@@ -1,93 +1,90 @@
 import React from 'react';
 import { Card, CardImg, CardHeader, CardText, CardBody,
-    CardTitle, CardSubtitle, Button, CardFooter } from 'reactstrap';
+    CardTitle, CardSubtitle, Button, Badge, CardFooter, Popover, PopoverHeader, PopoverBody } from 'reactstrap';
 
 
 // ProjectID, IssueStatusID, AssigneeID, AssignedToID, PriorityID, IssueName, Summary, DateCreated, LastUpdate, DateResolved, IsResolved
-class IssueCard {
-    constructor(issueRowObject){
-        this.issueName =     issueRowObject.IssueID;
-        this.priorityID =    issueRowObject.PriorityID;
-        this.issueStatusID = issueRowObject.IssueStatusID;
-        this.assigneeID =    issueRowObject.AssigneeID;
-        this.assignedToID =  issueRowObject.AssignedToID;
-        this.priorityID =    issueRowObject.PriorityID;
-        this.issueName =     issueRowObject.IssueName;
-        this.summary =       issueRowObject.Summary;
-        this.dateCreated =   issueRowObject.DateCreated;
-        this.lastUpdate =    issueRowObject.LastUpdate;
-        this.dateResolved =  issueRowObject.DateResolved;
-        this.isResolved =    issueRowObject.IsResolved;
-        this.IsDeleted =     issueRowObject.IsDeleted;
+export default class IssueCard extends React.Component{
+    constructor(props){
+        super(props);
+        this.onButtonClick = this.onButtonClick.bind(this);
+        this.toggle = this.toggle.bind(this);
+
+        this.state = {
+            header: this.props.IssueName,
+            title:  this.props.PriorityID,
+            text:   this.props.Summary,
+            buttonText: "Test Button",
+            lastUpdate: this.props.LastUpdate,
+            assignedTo: this.props.AssignedToID,
+            assignee:   this.props.AssigneeID,
+            popoverOpen: false
+        }
     }
+    getHeaderColour(priority){
 
-    blueCard(header, title, text, buttonText, assignedTo, assignee, lastUpdate){
-        return(
-            <Card body>
-                <CardHeader className="text-center" style={{backgroundColor: "#157ffb"}}>{header}</CardHeader>
-                <CardBody className="text-center">
-                    <CardTitle>{title}</CardTitle>
-                    <CardText>{text}</CardText>
-                    <Button color="secondary">{buttonText}</Button>
-                    <CardText>
-                        <small className="text-muted">Last updated {lastUpdate}</small>
-                    </CardText>
-                </CardBody>
-                <CardFooter className="text-center">Assigned to: {assignedTo} by {assignee}</CardFooter>
-            </Card>
-        );
-    }
-
-    yellowCard(header, title, text, buttonText, assignedTo, assignee, lastUpdate){
-        return(
-            <Card body>
-                <CardHeader className="text-center" style={{backgroundColor: "#fdc02f"}}>{header}</CardHeader>
-                <CardBody className="text-center">
-                    <CardTitle>{title}</CardTitle>
-                    <CardText>{text}</CardText>
-                    <Button color="secondary">{buttonText}</Button>
-                    <CardText>
-                        <small className="text-muted">Last updated {lastUpdate}</small>
-                    </CardText>
-                </CardBody>
-                <CardFooter className="text-center">Assigned to: {assignedTo} by {assignee}</CardFooter>
-            </Card>
-        );
-    }
-
-    redCard(header, title, text, buttonText, assignedTo, assignee, lastUpdate){
-        return(
-            <Card body>
-                <CardHeader className="text-center" style={{backgroundColor: "#d63648"}}>{header}</CardHeader>
-                <CardBody className="text-center">
-                    <CardTitle>{title}</CardTitle>
-                    <CardText>{text}</CardText>
-                    <Button color="secondary">{buttonText}</Button>
-                    <CardText>
-                        <small className="text-muted">Last updated {lastUpdate}</small>
-                    </CardText>
-                </CardBody>
-                <CardFooter className="text-center">Assigned to: {assignedTo} by {assignee}</CardFooter>
-            </Card>
-        );
-    }
-
-    getCard(){
-        if (this.priorityID == 1){
-            return(this.blueCard(this.issueName, this.priorityID, this.summary, "Test Button", this.assignedToID, this.assigneeID, this.lastUpdate));
-
-        }else if(this.priorityID == 2){
-            return(this.yellowCard(this.issueName, this.priorityID, this.summary, "Test Button", this.assignedToID, this.assigneeID, this.lastUpdate));
-
-        }else if(this.priorityID == 3){
-            return(this.redCard(this.issueName, this.priorityID, this.summary, "Test Button", this.assignedToID, this.assigneeID, this.lastUpdate));
+        if(priority == 1){  // Blue Header
+            return(
+                {backgroundColor:"#157ffb"}
+            );
+        }else if(priority == 2){  // Yellow Header
+            return(
+                {backgroundColor:"#fdc02f"}
+            );
+        }else if(priority == 3){  // Red Header
+            return(
+                {backgroundColor:"#d63648"}
+            );
+        }else{  // Blue Header
+            return(
+            {backgroundColor:"#157ffb"}
+            );
         }
     }
 
-    updateIssueName(){
 
+    onButtonClick(){
+        let newText = "Test Click!";
+        this.setState({
+            buttonText: newText
+        }, () => {
+            console.log(this.props.IssueID);
+        });
     }
 
-};
+    toggle() {
+        this.setState({popoverOpen: !this.state.popoverOpen},
+            () => {
+                console.log("Updated popup!");
+                console.log(this.props.IssueID);
+            }
+        );
+    }
 
-export default IssueCard;
+
+// <Button onClick={this.onButtonClick.bind(this)} color="secondary">{this.state.buttonText}</Button>
+
+    render(){
+        return(
+            <Card body>
+                <CardHeader className="text-center" style={this.getHeaderColour(this.props.PriorityID)}>{this.state.header}</CardHeader>
+                <CardBody className="text-center">
+                    <CardTitle>{this.state.title}</CardTitle>
+                    <CardText>{this.state.text}</CardText>
+                    <Button onClick={this.onButtonClick.bind(this)} color="secondary">{this.state.buttonText} <Badge color="secondary">4</Badge> </Button>
+                    <CardText>
+                        <small className="text-muted">Last updated {this.state.lastUpdate}</small>
+                    </CardText>
+                </CardBody>
+                <Button id={"Popover" + this.props.IssueID} type="button">
+                  Launch Popover
+                </Button>
+                <Popover placement="bottom" isOpen={this.state.popoverOpen} target={"Popover" + this.props.IssueID} toggle={this.toggle.bind(this)}>
+                  <PopoverHeader>Popover Title</PopoverHeader>
+                  <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
+                </Popover>
+                <CardFooter className="text-center">Assigned to: {this.state.assignedTo} by {this.state.assignee}</CardFooter>
+            </Card>
+        );
+    }
+};
