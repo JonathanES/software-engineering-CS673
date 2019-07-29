@@ -5,17 +5,26 @@ import { Card, CardImg, CardHeader, CardText, CardBody,
 export default class IssueCreationCard extends React.Component{
     constructor(props){
         super(props);
-
+        this.handleSubmit = this.handleSubmit.bind(this);
 
     }
 
     // Green header colour #28A745
+    handleSubmit(event){
+        event.preventDefault();
+        const data = new FormData(event.target);
+
+        data.forEach((element) => {
+            console.log(element);
+        });
+    }
+
 
     render(){
         return(
             <Card body className="text-center">
                 <CardHeader className="text-center" style={{backgroundColor:"#28A745"}}>Create an Issue</CardHeader>
-                <Form>
+                <Form onSubmit={this.handleSubmit}>
                     <FormGroup>
                       <Label for="issueHeader">Name</Label>
                       <Input type="text" name="headerText" id="issueHeader" placeholder="Enter a name for the issue" />
