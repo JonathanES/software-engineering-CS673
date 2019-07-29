@@ -25,7 +25,7 @@ html {
   height: calc(100% - 2em);
   margin: 0;
   font-family: "source sans pro", "sans-serif";
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .bg {
@@ -34,7 +34,7 @@ html {
   background: black;
   z-index: -1;
   position: absolute;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .bg::before {
   content: "";
@@ -100,7 +100,7 @@ h1 {
 
 p {
   font-size: 1.1em;
-  line-height: 1.5em;
+  line-height: 1.5em; 
 }
 
 .cta {
@@ -144,7 +144,7 @@ p {
     padding: 5%;
     background: url("./bg2.jpg") no-repeat;
     background-size: 100% 100%;
-    overflow: hidden;
+    overflow: auto;
   }
 
   #main {

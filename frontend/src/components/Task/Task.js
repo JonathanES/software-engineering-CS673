@@ -122,10 +122,12 @@ class Task extends React.Component {
 
     render() {
         return (
-            <div>
+            <div id="task-container">
                 {this.props.updateTask && <TaskUpdate dispatch={this.props.dispatch} />}
                 {!this.props.updateTask && <div class="direct">
+
                     <div class="title uppercase" style={{marginBottom:'10px', color: 'black'}}>{this.props.username}'s Tasks</div>
+
                     <ul style={{display: 'block'}}>
                         {this.state.getListofTasksForUser.map(task =>
                             <li style={{ width: '300px', height: "auto",
