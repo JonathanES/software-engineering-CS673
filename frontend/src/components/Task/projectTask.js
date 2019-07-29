@@ -206,6 +206,7 @@ class ProjectTask extends React.Component {
                   <button
                     class="add_task_button"
                     id={category.CategoryID}
+                    onClick={e => this.handleClick(e, category)}
                     type="submit"
                   >
                     Add New Task
