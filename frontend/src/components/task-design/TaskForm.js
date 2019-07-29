@@ -69,7 +69,6 @@ class TaskForm extends Component {
 
     getAvailableUsersForProject(
       this.props.projectID,
-      this.props.userId,
       (err, data) => {
         data.push({ UserID: 0, username: "Please Select a User" });
         console.log(data);
@@ -305,27 +304,13 @@ class TaskForm extends Component {
               <br />
               <div className="taskform-field">
               <label>Due Date:</label>
-              <input
-                type="date"
-                id="dueDate2"
-                style={{ width:'60%'}}
-                //className="trip-start"
-                value={this.state.dueDate}
-                min="2019-06-01"
-                max="2030-12-31"
-                onChange={this.handleChange}
-              />
+              <input type="date" id="dueDate2" value={this.state.dueDate} min="2019-06-01" max="2030-12-31" onChange={this.handleChange} />
               </div>
        
               <br />
               <div className="taskform-field">
               <label>Expected Time to Complete:</label>
-              <input
-                id="expDuration"
-                type="number"
-                value={this.state.expDuration}
-                onChange={this.handleChange}
-              />
+              <input id="expDuration" type="number" value={this.state.expDuration} onChange={this.handleChange} />
               <span> hours</span>
               </div>
       
@@ -334,12 +319,7 @@ class TaskForm extends Component {
               <label>Assign to user:</label>
               <select onChange={this.handleNewUser}>
                 {this.state.listOfFriends.map(friend => (
-                  <option
-                    className={friend.username}
-                    value={JSON.stringify(friend)}
-                  >
-                    {friend.username}
-                  </option>
+                  <option className={friend.username} value={JSON.stringify(friend)}>{friend.username}</option>
                 ))}
               </select>
               </div>

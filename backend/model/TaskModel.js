@@ -1,5 +1,5 @@
 class TaskModel {
-  constructor(taskID, parentID, categoryID, userID, statusID,status,  priorityID, priority, taskName, taskInfo, createdDate,dueDate, expectedDuration, actualTimeSpent, isDeleted) {
+  constructor(taskID, parentID, categoryID, userID, statusID,status,  priorityID, priority, taskName, taskInfo, createdDate,dueDate, expectedDuration, actualTimeSpent, isDeleted, projectName, categoryName) {
     this.taskID = taskID;
     this.parentID = parentID;
     this.categoryID = categoryID;
@@ -15,6 +15,8 @@ class TaskModel {
     this.expectedDuration = expectedDuration;
     this.actualTimeSpent = actualTimeSpent;
     this.isDeleted = isDeleted;
+    this.projectName = projectName;
+    this.categoryName = categoryName;
   }
   
   get getTaskID() {
@@ -75,6 +77,14 @@ class TaskModel {
 
   get getIsDeleted() {
     return this.isDeleted;
+  }
+
+  get getProjectName(){
+    return this.projectName;
+  }
+
+  get getCategoryName(){
+    return this.categoryName;
   }
 }
 
