@@ -128,7 +128,7 @@ class ProjectTask extends React.Component {
   handleUpdate(task) {
     console.log("why here");
     console.log(task);
-    this.props.dispatch({ type: "USER_PROJECT_TASK_UPDATE", task: task });
+    //this.props.dispatch({ type: "USER_PROJECT_TASK_UPDATE", task: task });
   }
 
   render() {

@@ -268,7 +268,8 @@ class TaskUpdate extends React.Component {
           mozborderradius: "8px 14px 14px 54px",
           webkitborderradius: "8px 14px 14px 54px",
           border: "13px solid #ebf1f5",
-          padding: "20px"
+          padding: "20px",
+          width:'60%'
         }}
       >
         <div style={{ color: "black", padding: "20px" }}>
@@ -317,7 +318,7 @@ class TaskUpdate extends React.Component {
           <input
             type="date"
             id="dueDate"
-            style={{ textAlign: "center" }}
+            style={{ textAlign: "center", width:'250px' }}
             className="trip-start"
             value={moment(this.state.dueDate).format("YYYY-MM-DD")}
             min="2019-06-01"

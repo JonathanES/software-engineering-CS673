@@ -126,7 +126,7 @@ class Task extends React.Component {
                 {this.props.updateTask && <TaskUpdate dispatch={this.props.dispatch} />}
                 {!this.props.updateTask && <div class="direct">
 
-                    <div class="title uppercase" style={{marginBottom:'10px', color: 'black'}}>{this.props.username}'s Tasks</div>
+                    <div class="title uppercase" style={{marginBottom:'10px', color: 'black', fontWeight:'bold'}}>{this.props.username}'s Tasks</div>
 
                     <ul style={{display: 'block'}}>
                         {this.state.getListofTasksForUser.map(task =>
@@ -137,7 +137,7 @@ class Task extends React.Component {
                                 <div id={task.taskName} onClick={(e) =>this.handleClick(e,task)}>
                                 </div>
                                 <div class="user-task" style={{ width: '94%', height: '200px',
-                                    borderRadius: '5px', marginLeft: '3%', display:'block',
+                                    borderRadius: '5px', marginLeft: '3%', backgroundColor:'white',display:'block',
                                     marginTop: '8px', marginBottom: '8px', padding: "5px" }}>
                                     <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> {task.taskName}</span>
                                     {/* <ul style={{verticalAlign:'top', padding:'10px'}}>
@@ -153,7 +153,7 @@ class Task extends React.Component {
                                     </ul> */}
                                     <div class="cat-task_li_li" style={{verticalAlign:'top', padding:'10px'}}>
                                         <div class="cat-task_li_li">
-                                            <span class="span-user-left" style={{backgroundColor: 'orange'}}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priority}</span>
+                                            <span class="span-user-left" style={{backgroundColor: 'orange', background: task.priority == "High" ? "red" : "orange" }}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priority}</span>
                                         </div>
                                         <div class="cat-task_li_li">
                                             <span class="span-user-left"  style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} onClick={(e) =>this.handleClick(e,task)}> Status: {task.status}</span>

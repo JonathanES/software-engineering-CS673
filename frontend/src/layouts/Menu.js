@@ -17,6 +17,11 @@ class Menu extends React.Component {
             selected: 'project'
         };
     }
+
+    componentDidMount(){
+        this.props.dispatch({ type: 'USER_PROJECT_DEMAND' });
+        this.props.dispatch({ type: 'USER_VIEW_PROJECT' });	
+    }
     render() {
         return (
             <aside>
