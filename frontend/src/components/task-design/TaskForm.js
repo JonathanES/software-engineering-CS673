@@ -9,12 +9,14 @@ import {
 } from "../../socket/projectSocket";
 import "../../css/taskForm.css";
 
+
 const mapStateToProps = state => ({
   userId: state.user.userId,
   username: state.user.username,
   category: state.project.category,
   projectID: state.project.projectID,
   project: state.project.project,
+
   projectCategoryList: state.project.projectCategoryList,
   projectName: state.project.projectName,
   taskDate: state.project.taskDate
@@ -39,6 +41,7 @@ class TaskForm extends Component {
       expDuration: "",
       taskPriorities: [],
       newTask: {},
+
 
       listOfFriends: [],
       newusername: "",
@@ -98,10 +101,8 @@ class TaskForm extends Component {
   handleChange(event) {
     switch (event.target.id) {
       case "taskName":
-        if (event.target.value != "") {
           this.setState({ taskName: event.target.value });
-        }
-        break;
+          break;
       case "priorityID":
         this.setState({ priorityID: event.target.value });
         break;
@@ -114,7 +115,7 @@ class TaskForm extends Component {
           this.setState({ expDuration: event.target.value });
         }
         break;
-      case "dueDate":
+      case "dueDate2":
         //console.log('New date:', event.target.value);
         this.setState({ dueDate: event.target.value });
         break;
@@ -185,7 +186,6 @@ class TaskForm extends Component {
             // })
 
             //const newTask = await getTask(data.insertId);
-
             // this.setState({ taskName: '' });
             // this.setState({ priorityID: '' });
             // this.setState({ taskInfo: '' });
@@ -200,6 +200,7 @@ class TaskForm extends Component {
             });
           }
         );
+
 
         // this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.props.project, projectCategoryList: this.props.projectCategoryList });
       } else {
@@ -248,6 +249,7 @@ class TaskForm extends Component {
 
         // this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.props.project, projectCategoryList: this.props.projectCategoryList });
       }
+
     }
 
     event.preventDefault();
@@ -306,6 +308,7 @@ class TaskForm extends Component {
               <input
                 type="date"
                 id="dueDate2"
+                style={{ width:'60%'}}
                 //className="trip-start"
                 value={this.state.dueDate}
                 min="2019-06-01"

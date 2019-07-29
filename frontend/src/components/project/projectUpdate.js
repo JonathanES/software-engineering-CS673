@@ -4,6 +4,7 @@ import moment from 'moment'
 
 import { getAddtoProject, getUserLevel, getprojectdetail,getAvailableUsers,deleteproject,updateDeleteProjectDependencies} from '../../socket/projectSocket';
 import {updateProjectName, updateProjectDueDate, getListOfProjects} from '../../socket/projectSocket';
+
 import {getUserPrev} from '../../socket/taskSocket';
 
 import '../../css/projectUpdate.css'
@@ -157,7 +158,6 @@ class ProjectUpdate extends React.Component {
         this.props.dispatch({type: 'USER_LIST_OF_PROJECT_DEMAND', listOfProjects:data_list});
 
      });
-
     });
 
 
@@ -242,7 +242,7 @@ class ProjectUpdate extends React.Component {
                   }
                   <button type="submit" className="addUserToProject" onClick={this.handleAddUser}>Add User to Project</button>
                 
-                <div><button type="submit" className="projectformbtn uppercase" onClick={(e) => this.handleUpdateProject(e)}>Update Project</button></div>
+                <div><button type="submit" style={{}} className="projectformbtn" onClick={(e) => this.handleUpdateProject(e)}>Update Project</button></div>
                 {/* <div><button className="projectformbtn uppercase" onClick={this.handleDeleteProject} >Delete Project</button></div> */}
                 <div><button  className='delete-button' onClick={(e) => { if (window.confirm('Are you sure you wish to delete this Project?')) this.handleDeleteProject(e) } }>Delete Project </button></div>
 

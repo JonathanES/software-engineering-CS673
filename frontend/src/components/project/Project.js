@@ -22,6 +22,7 @@ const mapStateToProps = state => ({
     isAddTaskForm: state.project.isAddTaskForm,
     isUpdateTaskForm: state.project.isUpdateTaskForm,
     listOfProjects: state.project.listOfProjects,
+
     //isProjectTaskDemand: state.project.isProjectTaskDemand,
     //projectForm: state.project.projectForm,
     project: {}
@@ -94,6 +95,7 @@ class Project extends React.Component {
 
 
 
+
         // socket.on('GET_PROJECTCATEGORIES', data => {
         //     this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.state.project,
         //             projectCategoryList: data.length > 0 ? data : [] });
@@ -107,6 +109,7 @@ class Project extends React.Component {
     handlePictureClick(project) {
         //console.log(project.projectID);
         this.setState({ project: project })
+
         //showCategories(project.projectID)
         /*, (err, data) => {
             console.log(data);
@@ -176,6 +179,7 @@ class Project extends React.Component {
                 {this.props.isProjectTasksSelected && <ProjectTask dispatch={this.props.dispatch} />}
                 {this.props.isProjectForm && <ProjectForm dispatch={this.props.dispatch} />}
                 {this.props.isAddTaskForm && <TaskForm dispatch={this.props.dispatch} />}
+
                 {/* {this.props.isUpdateTaskForm && <ProjectTaskUpdate dispatch={this.props.dispatch}/>} */}
             </div>
         );

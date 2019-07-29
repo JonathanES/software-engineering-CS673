@@ -25,6 +25,7 @@ class ProjectTask extends React.Component {
   constructor(props) {
     super(props);
 
+
     this.state = {
       userId: props.userId,
       username: props.username,
@@ -127,7 +128,7 @@ class ProjectTask extends React.Component {
   handleUpdate(task) {
     console.log("why here");
     console.log(task);
-    this.props.dispatch({ type: "USER_PROJECT_TASK_UPDATE", task: task });
+    //this.props.dispatch({ type: "USER_PROJECT_TASK_UPDATE", task: task });
   }
 
   render() {
