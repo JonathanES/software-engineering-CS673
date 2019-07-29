@@ -102,7 +102,6 @@ function getListOfProjects(userID) {
             });
             //console.log(listOfProjects);
             resolve(userProjects);
-
         });
     })
 }
@@ -249,16 +248,16 @@ async function updateDeleteProjectDependencies(projectID, isDeleted){
     return new Promise(async resolve => {
         client.query('SELECT T.TaskID FROM Tasks T JOIN Categories C ON T.CategoryID = C.CategoryID WHERE C.ProjectID =?;',[projectID], async function (error, result, fields){
             if(error) throw error;
-            console.log(result)
+            //console.log(result)
             const res = await updateProjectIsDeleted(projectID, isDeleted);
-            console.log('ProjectID:', projectID, ' is now marked as ', res);
+            //console.log('ProjectID:', projectID, ' is now marked as ', res);
             for (task of result) {
-                console.log('task:',task);
+                //console.log('task:',task);
                 const elt = await taskController.updateIsDeleted(task.TaskID, isDeleted);
-                console.log('task delete:', task.TaskID, ' is marked as ', elt );
+                //console.log('task delete:', task.TaskID, ' is marked as ', elt );
             }
 
-            console.log(result);
+            //console.log(result);
             resolve(result)
         })
     });

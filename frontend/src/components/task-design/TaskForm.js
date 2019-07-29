@@ -311,12 +311,7 @@ class TaskForm extends Component {
               <br />
               <div className="taskform-field">
               <label>Expected Time to Complete:</label>
-              <input
-                id="expDuration"
-                type="number"
-                value={this.state.expDuration}
-                onChange={this.handleChange}
-              />
+              <input id="expDuration" type="number" value={this.state.expDuration} onChange={this.handleChange} />
               <span> hours</span>
               </div>
       
@@ -325,12 +320,7 @@ class TaskForm extends Component {
               <label>Assign to user:</label>
               <select onChange={this.handleNewUser}>
                 {this.state.listOfFriends.map(friend => (
-                  <option
-                    className={friend.username}
-                    value={JSON.stringify(friend)}
-                  >
-                    {friend.username}
-                  </option>
+                  <option className={friend.username} value={JSON.stringify(friend)}>{friend.username}</option>
                 ))}
               </select>
               </div>
