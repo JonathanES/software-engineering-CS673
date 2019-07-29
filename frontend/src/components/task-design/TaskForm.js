@@ -7,7 +7,7 @@ import {
   getPriorities,
   getAvailableUsersForProject
 } from "../../socket/projectSocket";
-import "../../css/task.css";
+import "../../css/taskForm.css";
 
 const mapStateToProps = state => ({
   userId: state.user.userId,
@@ -261,19 +261,24 @@ class TaskForm extends Component {
           Add a new Task for Project {this.props.projectName} under{" "}
           {this.props.category.CategoryName} category
         </h4>
+        <br/>
+        
         <div className="taskform-contain">
           <form onSubmit={this.handleSubmit}>
             <div className="taskform-field">
-              Task Name:
+              <div className="taskForm-row">
+              <label>Task Name:</label>
               <input
                 id="taskName"
                 type="text"
                 value={this.state.taskName}
                 onChange={this.handleChange}
               />
+              </div>
+        
               <br />
-              <br />
-              Priority of the Task:
+              <div className="taskform-field">
+              <label>Priority of the Task:</label>
               <select onChange={e => this.handlePriorityChange(e)}>
                 {this.state.taskPriorities.map(tp => (
                   <option selected={tp.PriorityID} value={tp.PriorityID}>
@@ -282,32 +287,36 @@ class TaskForm extends Component {
                   </option>
                 ))}
               </select>
+              </div>
+        
               <br />
-              <br />
-              TaskInfo:
-              <br />
+              <div className="taskform-field"></div>
+              <label>TaskInfo:</label>
               <input
                 id="taskInfo"
                 type="text"
                 value={this.state.taskInfo}
                 onChange={this.handleChange}
               />
+              </div>
+      
               <br />
-              <br />
-              Due Date:
-              <br />
+              <div className="taskform-field">
+              <label>Due Date:</label>
               <input
                 type="date"
-                id="dueDate"
+                id="dueDate2"
                 //className="trip-start"
                 value={this.state.dueDate}
                 min="2019-06-01"
                 max="2030-12-31"
                 onChange={this.handleChange}
               />
+              </div>
+       
               <br />
-              <br />
-              Expected Time to Complete:
+              <div className="taskform-field">
+              <label>Expected Time to Complete:</label>
               <input
                 id="expDuration"
                 type="number"
@@ -315,9 +324,11 @@ class TaskForm extends Component {
                 onChange={this.handleChange}
               />
               <span> hours</span>
+              </div>
+      
               <br />
-              <br />
-              Assign to user:
+              <div className="taskform-field">
+              <label>Assign to user:</label>
               <select onChange={this.handleNewUser}>
                 {this.state.listOfFriends.map(friend => (
                   <option
@@ -328,10 +339,12 @@ class TaskForm extends Component {
                   </option>
                 ))}
               </select>
-              <button type="submit" className="taskformbtn uppercase">
+              </div>
+              <br/>
+              <button id="add_task_form" type="submit" className="taskformbtn uppercase">
                 Add Task
               </button>
-            </div>
+              
           </form>
           {/* <p className="account-help">You already have an account ? <a onClick={this.handleClick} className="underline red" >Login</a></p> */}
         </div>
