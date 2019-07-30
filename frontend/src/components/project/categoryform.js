@@ -75,7 +75,7 @@ class CategoryForm extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="categoryForm">
                 <div id="myModal" className="modal-fade" role="dialog">
                     <div className="modal-dialog">
                         <div className="modal-content">
