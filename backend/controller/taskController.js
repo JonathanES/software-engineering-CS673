@@ -99,12 +99,12 @@ async function getSingleTask(taskID) {
 async function getListofTasksForUser(userID) {
     return new Promise((resolve, reject) => {
         //console.log(userID);
-        client.query('SELECT T.TaskID, T.ParentID, T.CategoryID, T.UserID, TS.StatusID, TS.StatusName, P.PriorityID, P.Priority, T.TaskName, T.TaskInfo, T.CreatedDate, T.DueDate, T.ExpectedDuration, T.ActualTimeSpent, T.IsDeleted FROM Tasks T JOIN TaskStatus TS on TS.StatusID = T.StatusID JOIN Priority P ON T.PriorityID = P.PriorityID WHERE T.UserID = ? and T.IsDeleted = 0', [userID], function (error, results, fields) {
+        client.query('SELECT T.TaskID, T.ParentID, Pr.ProjectName, T.CategoryID, C.CategoryName, T.UserID, TS.StatusID, TS.StatusName, P.PriorityID, P.Priority, T.TaskName, T.TaskInfo, T.CreatedDate, T.DueDate, T.ExpectedDuration, T.ActualTimeSpent, T.IsDeleted FROM Tasks T JOIN TaskStatus TS on TS.StatusID = T.StatusID JOIN Priority P ON T.PriorityID = P.PriorityID JOIN Categories C ON C.CategoryID = T.CategoryID JOIN Projects Pr ON C.ProjectID = Pr.ProjectID WHERE T.UserID = ? and T.IsDeleted = 0 ORDER BY Pr.ProjectID, C.CategoryID', [userID], function (error, results, fields) {
             if (error) throw error;
             //console.log(results);
             results.forEach(result => {
                 if (!listofTaskUsers.some(task => task.getTaskID == result.TaskID)) {
-                    const task = new TaskModel(result.TaskID, result.ParentID, result.CategoryID, result.UserID, result.StatusID, result.StatusName, result.PriorityID, result.Priority, result.TaskName, result.TaskInfo, result.CreatedDate, result.DueDate, result.ExpectedDuration, result.ActualTimeSpent, result.IsDeleted);
+                    const task = new TaskModel(result.TaskID, result.ParentID, result.CategoryID, result.UserID, result.StatusID, result.StatusName, result.PriorityID, result.Priority, result.TaskName, result.TaskInfo, result.CreatedDate, result.DueDate, result.ExpectedDuration, result.ActualTimeSpent, result.IsDeleted, result.ProjectName, result.CategoryName);
                     listofTaskUsers.push(task);
                 }
             })
@@ -115,6 +115,7 @@ async function getListofTasksForUser(userID) {
         });
     })
 }
+
 
 
 

@@ -28,7 +28,9 @@ li {
 }
 
 #duedate2{
-    width: 50%;
+    width: 250px;
+    align-content: center;
+    text-align: center;
 }
 
 #add_task_form {
