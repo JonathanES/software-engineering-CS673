@@ -42,7 +42,11 @@ class Menu extends React.Component {
 
                     }
                     }>Tasks</a></li>}
-                     <li><a href="#" onClick={(e) => dispatch({ type: 'USER_MILESTONE_DEMAND' })}>Milestones</a></li>
+                     {<li><a href="#" className={this.state.selected == "milestone" ? "red" : ""} onClick={(e) => {
+                         this.props.dispatch({ type: 'USER_MILESTONE_DEMAND' });
+                         this.setState({ selected: "milestone" });
+                        }
+                         }>Milestones</a></li>}
 
                     <li><a href="#" className={this.state.selected == "issue" ? "red" : ""} onClick={(e) => {
                         this.props.dispatch({ type: 'USER_ISSUE_DEMAND' })
