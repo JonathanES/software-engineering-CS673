@@ -84,7 +84,6 @@ export class IssueCardGrid extends React.Component {
                     );
             }
         };
-        this.state.grid = rows;
         return rows;
     }
 
