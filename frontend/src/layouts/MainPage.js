@@ -6,6 +6,7 @@ import Task from '../components/Task/Task';
 import TaskForm from '../components/task-design/TaskForm';
 import Calendar from '../components/calendar/Calendar';
 import Issues from '../components/issue-design/issues';
+import Milestone from '../components/Milestone/Milestone'
 
 
 const mapStateToProps = state => ({
@@ -22,16 +23,19 @@ const mapStateToProps = state => ({
     projectFormDemand: state.demand.projectFormDemand,
     taskFormDemand: state.demand.taskFormDemand,
     calendarDemand: state.demand.calendarDemand,
+    milestoneDemand: state.demand.milestoneDemand,
     //projectUpdateDemand: state.demand.projectUpdateDemand,
     categoryID: state.demand.categoryID
 });
 
-const MainPage = ({ dispatch, messageDemand, projectDemand, issueDemand, taskDemand, projectFormDemand, projectTaskDemand, taskFormDemand, calendarDemand}) => ( //, projectUpdateDemand }) => (
+
+const MainPage = ({ dispatch, messageDemand, projectDemand, issueDemand, taskDemand, calendarDemand, projectFormDemand, projectTaskDemand, taskFormDemand,milestoneDemand}) => ( //, projectUpdateDemand }) => (
     <div className="main-page">
         {messageDemand && <Chat dispatch={dispatch} />}
         {projectDemand && <Project dispatch={dispatch} />}
         {issueDemand && <Issues dispath={dispatch} />}
         {taskDemand && <Task dispatch={dispatch} />}
+        {milestoneDemand && <Milestone dispatch={dispatch} />}
         {calendarDemand && <Calendar dispatch={dispatch}/>}
         {/* {projectTaskDemand && <ProjectTask dispatch={dispatch} />} */}
         {/* {projectFormDemand && <ProjectForm dispatch={dispatch} />} */}
