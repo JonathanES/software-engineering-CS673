@@ -60,6 +60,7 @@ const project = (state = defaultState, action) => {
         isAddTaskForm: false,
         isUpdateTaskForm: false,
       }
+
     case 'VIEW_PROJECT': return {
       ...state,
       projectID: action.projectID,
