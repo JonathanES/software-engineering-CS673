@@ -282,7 +282,7 @@ class TaskForm extends Component {
               <label>Priority of the Task:</label>
               <select onChange={e => this.handlePriorityChange(e)}>
                 {this.state.taskPriorities.map(tp => (
-                  <option selected={tp.PriorityID} value={tp.PriorityID}>
+                  <option selected={tp.PriorityID} key={"taskFormPriority"+tp.PriorityID} value={tp.PriorityID}>
                     {" "}
                     {tp.Priority}{" "}
                   </option>
@@ -319,7 +319,8 @@ class TaskForm extends Component {
               <label>Assign to user:</label>
               <select onChange={this.handleNewUser}>
                 {this.state.listOfFriends.map(friend => (
-                  <option className={friend.username} value={JSON.stringify(friend)}>{friend.username}</option>
+
+                  <option selected= {friend.username} key={"taskFormusername"+friend.UserID} className={friend.username} value={JSON.stringify(friend)}>{""}{friend.username}{""}</option>
                 ))}
               </select>
               </div>

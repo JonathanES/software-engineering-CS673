@@ -282,7 +282,7 @@ class TaskUpdate extends React.Component {
           />
           <button
             type="button"
-            class="close"
+            className="close"
             onClick={e => {
               this.props.dispatch({
                 type: "USER_UPDATE_TASK_DEMAND",
@@ -383,7 +383,7 @@ class TaskUpdate extends React.Component {
               onChange={e => this.handleActTimeChange(e.target.value)}
             />
             <div
-              class="modal-footer"
+              className="modal-footer"
               style={{ marginBottom: "20px" }}
               style={{ backgroundColor: "white" }}
               style={{ marginTop: "25px" }}
@@ -392,7 +392,7 @@ class TaskUpdate extends React.Component {
               <br />
               <br />
               <button
-                class="btn btn-default bg-primary"
+                className="btn btn-default bg-primary"
                 style={{ left: "100px", width: "140px" }}
                 id="add-cat-button"
                 type="Click"
@@ -402,7 +402,7 @@ class TaskUpdate extends React.Component {
               </button>
               <button
                 type="submit"
-                class="btn btn-default bg-primary"
+                className="btn btn-default bg-primary"
                 data-dismiss="modal"
                 style={{ left: "300px", width: "140px" }}
                 onClick={e => {
@@ -417,7 +417,7 @@ class TaskUpdate extends React.Component {
 
               <button
                 type="submit"
-                class="btn btn-default bg-primary"
+                className="btn btn-default bg-primary"
                 data-dismiss="modal"
                 style={{ left: "500px", width: "140px" }}
                 onClick={e => {

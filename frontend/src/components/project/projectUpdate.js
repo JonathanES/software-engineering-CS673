@@ -217,7 +217,7 @@ class ProjectUpdate extends React.Component {
                   <input type="date" id="dueDate" type="text" value={this.state.dueDate} onChange={()=>this.handleChange} />
                 </div> */}
                 <div>
-                <label for="dueDate">Due Date:</label>
+                <label htmlFor="dueDate">Due Date:</label>
                   <input type="date" id="dueDate" className="trip-start" value={moment(this.state.dueDate).format('YYYY-MM-DD')} min="2019-06-01" max="2030-12-31" onChange={(e)=>this.handleDateChange(e.target.value)}/>
                 </div>
                 <div className="projectform-field">

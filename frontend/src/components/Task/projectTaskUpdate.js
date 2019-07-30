@@ -234,7 +234,7 @@ class ProjectTaskUpdate extends React.Component {
                     <div sytle={{ backgroundColor: 'black' }}></div>
 
                     <div sytle={{ backgroundColor: 'black', padding: '20px' }}>
-                        <button type="button" class="close" onClick={(e) => { this.props.dispatch({ type: 'USER_UPDATE_TASK_DEMAND', task: this.props.task }); e.preventDefault() }}></button>
+                        <button type="button" className="close" onClick={(e) => { this.props.dispatch({ type: 'USER_UPDATE_TASK_DEMAND', task: this.props.task }); e.preventDefault() }}></button>
                         <h4 sytle={{ backgroundColor: 'black', padding: '20px' }} >Update Task Information</h4>
                     </div>
                     <div>
@@ -273,13 +273,13 @@ class ProjectTaskUpdate extends React.Component {
 
 
                     <form style={{ position: "absolute", padding: '30px' }}>
-                        <div class="modal-footer" style={{ marginBottom: '10px' }}>
-                            <button class="btn btn-default" style={{ left: '0', width: '140px' }} id="add-cat-button" type="Click"
+                        <div className="modal-footer" style={{ marginBottom: '10px' }}>
+                            <button className="btn btn-default" style={{ left: '0', width: '140px' }} id="add-cat-button" type="Click"
                                 onClick={(e) => this.handleUpdateTask(e)} >Update Task</button>
-                            <button type="submit" class="btn btn-default" data-dismiss="modal" style={{ left: '160px', width: '140px' }}
+                            <button type="submit" className="btn btn-default" data-dismiss="modal" style={{ left: '160px', width: '140px' }}
                                onClick={(e) => { if (window.confirm('Are you sure you wish to delete this Task?')) this.handleDeleteTask(e) }} >Delete Task</button>
 
-                            <button type="submit" class="btn btn-default" data-dismiss="modal" style={{ left: '320px', width: '140px' }}
+                            <button type="submit" className="btn btn-default" data-dismiss="modal" style={{ left: '320px', width: '140px' }}
                                 onClick={(e) => {this.props.dispatch({ type: 'USER_UPDATE_TASK_DEMAND', task: this.props.task }); e.preventDefault() }}>Close</button>
                         </div>
                     </form>

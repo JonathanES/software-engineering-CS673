@@ -124,48 +124,48 @@ class Task extends React.Component {
         return (
             <div id="task-container">
                 {this.props.updateTask && <TaskUpdate dispatch={this.props.dispatch} />}
-                {!this.props.updateTask && <div class="direct">
+                {!this.props.updateTask && <div className="direct">
 
-                    <div class="title uppercase" style={{marginBottom:'10px', color: 'black', fontWeight:'bold'}}>{this.props.username}'s Tasks</div>
+                    <div className="title uppercase" style={{marginBottom:'10px', color: 'black', fontWeight:'bold'}}>{this.props.username}'s Tasks</div>
 
                     <ul style={{display: 'block'}}>
                         {this.state.getListofTasksForUser.map(task =>
-                            <li style={{ width: '300px', height: "auto",
+                            <li key={"usertask" + task.taskID}style={{ width: '300px', height: "auto",
                             paddingBlock:'10px', verticalAlign:'top',
                              position: "relative" ,
                             display: 'inline-block'}}>
                                 <div id={task.taskName} onClick={(e) =>this.handleClick(e,task)}>
                                 </div>
-                                <div class="user-task" style={{ width: '94%', height: '200px',
+                                <div className="user-task" style={{ width: '94%', height: '200px',
                                     borderRadius: '5px', marginLeft: '3%', backgroundColor:'white',display:'block',
                                     marginTop: '8px', marginBottom: '8px', padding: "5px" }}>
-                                    <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> {task.taskName}</span>
+                                    <span className="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> {task.taskName}</span>
                                     {/* <ul style={{verticalAlign:'top', padding:'10px'}}>
-                                        <li class="cat-task_li_li">
-                                            <span class="span-user-left" style={{backgroundColor: 'orange'}}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priority}</span>
+                                        <li className="cat-task_li_li">
+                                            <span className="span-user-left" style={{backgroundColor: 'orange'}}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priority}</span>
                                         </li>
-                                        <li class="cat-task_li_li">
-                                            <span class="span-user-left"  style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} onClick={(e) =>this.handleClick(e,task)}> Status: {task.status}</span>
+                                        <li className="cat-task_li_li">
+                                            <span className="span-user-left"  style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} onClick={(e) =>this.handleClick(e,task)}> Status: {task.status}</span>
                                         </li>
                                         <li>
-                                            <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> Assigned To: {this.state.username}</span>
+                                            <span className="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> Assigned To: {this.state.username}</span>
                                         </li>
                                     </ul> */}
-                                    <div class="cat-task_li_li" style={{verticalAlign:'top', padding:'10px'}}>
-                                        <div class="cat-task_li_li">
-                                            <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)} style={{fontStyle:'bold'}}> Project: {task.projectName}</span>
+                                    <div className="cat-task_li_li" style={{verticalAlign:'top', padding:'10px'}}>
+                                        <div className="cat-task_li_li">
+                                            <span className="span-user-left"  onClick={(e) =>this.handleClick(e,task)} style={{fontStyle:'bold'}}> Project: {task.projectName}</span>
                                         </div>
-                                        <div class="cat-task_li_li">
-                                            <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> Category: {task.categoryName}</span>
+                                        <div className="cat-task_li_li">
+                                            <span className="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> Category: {task.categoryName}</span>
                                         </div>
-                                        <div class="cat-task_li_li">
-                                            <span class="span-user-left" style={{backgroundColor: 'orange', background: task.priority == "High" ? "red" : "orange" }}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priority}</span>
+                                        <div className="cat-task_li_li">
+                                            <span className="span-user-left" style={{backgroundColor: 'orange', background: task.priority == "High" ? "red" : "orange" }}  onClick={(e) =>this.handleClick(e,task)}> Priority: {task.priority}</span>
                                         </div>
-                                        <div class="cat-task_li_li">
-                                            <span class="span-user-left"  style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} onClick={(e) =>this.handleClick(e,task)}> Status: {task.status}</span>
+                                        <div className="cat-task_li_li">
+                                            <span className="span-user-left"  style={{ display: this.state.modalIsOpen, width: "15px", height: "15px" }} onClick={(e) =>this.handleClick(e,task)}> Status: {task.status}</span>
                                         </div>
-                                        <div class="cat-task_li_li">
-                                            <span class="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> Assigned To: {this.state.username}</span>
+                                        <div className="cat-task_li_li">
+                                            <span className="span-user-left"  onClick={(e) =>this.handleClick(e,task)}> Assigned To: {this.state.username}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -174,7 +174,7 @@ class Task extends React.Component {
                     </ul>
                 </div>
                 }
-                {/* <div class="add_task"> */}
+                {/* <div className="add_task"> */}
                 {/* {!this.props.updateTask &&<div>
                     <form onSubmit={this.handleSubmit}>
                         <button id="add-task-button" type="submit">Add Task</button>

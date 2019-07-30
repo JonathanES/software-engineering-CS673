@@ -136,7 +136,7 @@ class ProjectTask extends React.Component {
       <div style={{ overflowX: "auto" }}>
         {this.props.isProjectTasksSelected && (
           <div
-            class="title"
+            className="title"
             style={{
               padding: "5%",
               alignItems: "top",
@@ -176,7 +176,8 @@ class ProjectTask extends React.Component {
             {/* <ul > */}
             {this.props.projectCategoryList.map(category => (
               <li
-                class="cat-task_li"
+                className="cat-task_li" 
+                key={"projectTaskCategoryName" + category.CategoryID}
                 onClick={this.handleUpdate}
                 style={{
                   width: "300px",
@@ -194,10 +195,10 @@ class ProjectTask extends React.Component {
                 id={category.projectID}
                 onClick={this.handleClickProject}
               >
-                <span class="categorytitle">{category.CategoryName}</span>
-                <span class="footer">
+                <span className="categorytitle">{category.CategoryName}</span>
+                <span className="footer">
                   <input
-                    class="add_task_button"
+                    className="add_task_button"
                     src={require("../../images/add_button_2.png")}
                     style={{ width: "20%", height: "90%" }}
                     id={category.CategoryID}
@@ -205,7 +206,7 @@ class ProjectTask extends React.Component {
                     type="image"
                   />
                   <button
-                    class="add_task_button"
+                    className="add_task_button"
                     id={category.CategoryID}
                     onClick={e => this.handleClick(e, category)}
                     type="submit"
@@ -215,8 +216,9 @@ class ProjectTask extends React.Component {
                   <hr />
                 </span>
                 {category.listOfTasks.map(task => (
-                  <li
-                    class="cat-task_li_li"
+                  <div
+                    className="cat-task_li_li"
+                    key = {"projectTaskTask" + task.TaskID}
                     onClick={() => this.handleUpdate(task)}
                     onMouseOver={e => this.handleMouseOver(e)}
                     onMouseLeave={e => this.handleMouseOut(e)}
@@ -231,8 +233,8 @@ class ProjectTask extends React.Component {
                       padding: "5px"
                     }}
                   >
-                    <div class="cat_tast_head">
-                      <span class="cat_task_span">{task.TaskName}</span>
+                    <div className="cat_tast_head">
+                      <span className="cat_task_span">{task.TaskName}</span>
 
                       <img
                         src={require("./../../images/edit.png")}
@@ -246,7 +248,7 @@ class ProjectTask extends React.Component {
 
                     {/* done|||bstart not start*/}
                     <span
-                      class="state"
+                      className="state"
                       style={{
                         background:
                           task.StatusName == "Done" ? "green" : "#f4d03c"
@@ -255,19 +257,19 @@ class ProjectTask extends React.Component {
                       {task.StatusName}{" "}
                     </span>
 
-                    {/* <span class="cat_task_span">{task.TaskName}</span> */}
-                    <div class="cat_tast_head">
-                      <span class="cat_task_span">
+                    {/* <span className="cat_task_span">{task.TaskName}</span> */}
+                    <div className="cat_tast_head">
+                      <span className="cat_task_span">
                         Assigned to: {task.username}
                       </span>
                     </div>
-                    <div class="cat_tast_footer">
-                      <span class="time">
+                    <div className="cat_tast_footer">
+                      <span className="time">
                         {moment(task.DueDate).format("D MMM")}
                       </span>
-                      {/* <img src={require("./../../images/admin-tool.png")} class="photo" /> */}
+                      {/* <img src={require("./../../images/admin-tool.png")} className="photo" /> */}
                     </div>
-                  </li>
+                  </div>
                 ))}
               </li>
             ))}
