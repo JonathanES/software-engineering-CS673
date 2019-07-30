@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import moment from 'moment'
 
 import { getAddtoProject, getUserLevel, getprojectdetail,getAvailableUsers,deleteproject,updateDeleteProjectDependencies} from '../../socket/projectSocket';
-import {updateProjectName, updateProjectDueDate} from '../../socket/projectSocket';
+import {updateProjectName, updateProjectDueDate, getListOfProjects} from '../../socket/projectSocket';
+
 import {getUserPrev} from '../../socket/taskSocket';
 
 import '../../css/projectUpdate.css'
@@ -13,6 +14,7 @@ const mapStateToProps = state => ({
   userId: state.user.userId,
   project: state.project.project,
   projectName: state.project.projectName,
+  listOfProjects: state.project.listOfProjects
   //isProjectSelected: state.project.isProjectSelected
   //taskname: state.Task.newtask
 });
@@ -149,8 +151,13 @@ class ProjectUpdate extends React.Component {
       console.log('Deleted:',data);
       const project = this.props.project;
       project.isDeleted = 1;
-      
 
+      console.log('before update:', this.props.listOfProjects);
+      getListOfProjects(this.props.userId, (err, data_list) => {
+        console.log('after update:', data_list);
+        this.props.dispatch({type: 'USER_LIST_OF_PROJECT_DEMAND', listOfProjects:data_list});
+
+     });
     });
 
 
@@ -235,7 +242,7 @@ class ProjectUpdate extends React.Component {
                   }
                   <button type="submit" className="addUserToProject" onClick={this.handleAddUser}>Add User to Project</button>
                 
-                <div><button type="submit" className="projectformbtn uppercase" onClick={(e) => this.handleUpdateProject(e)}>Update Project</button></div>
+                <div><button type="submit" style={{}} className="projectformbtn" onClick={(e) => this.handleUpdateProject(e)}>Update Project</button></div>
                 {/* <div><button className="projectformbtn uppercase" onClick={this.handleDeleteProject} >Delete Project</button></div> */}
                 <div><button  className='delete-button' onClick={(e) => { if (window.confirm('Are you sure you wish to delete this Project?')) this.handleDeleteProject(e) } }>Delete Project </button></div>
 

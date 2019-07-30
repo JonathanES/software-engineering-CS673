@@ -81,11 +81,12 @@ class Login extends Component {
               <img src={require("../../images/swellodesk_image.png")} className="rounded mx-auto d-block" alt="swello" id="axBP"></img></div>
 
           </div>
-          <div className="col" id="rightLog">
+          <div className="col-auto" id="rightLog">
             <form onSubmit={this.handleSubmit} id="LoginFormCA" className="form-inline">
-
               <label className="sr-only" htmlFor="inlineFormInputUsername2">Email</label>
+              <div class="input-group mb-2 mr-sm-2">
               <input className="form-control mb-2 mr-sm-2" id="email" placeholder="Email" type="text" value={this.state.email} onChange={this.handleChange} />
+              </div>
 
               <label className="sr-only" htmlFor="inlineFormInputGroupPassword2">Password</label>
               <div className="input-group mb-2 mr-sm-2">
@@ -93,19 +94,20 @@ class Login extends Component {
               </div>
 
               <div className="form-check mb-2 mr-sm-2">
-                <input className="form-check-input" type="checkbox" id="inlineFormCheck"></input>
-                <label className="form-check-label" htmlFor="inlineFormCheck">
+                <input className="form-check-input" style={{width:'55px'}}type="checkbox" id="inlineFormCheck"></input>
+                <label className="form-check-label" htmlFor="inlineFormCheck" style={{width:'120px'}}>
                   Remember me
                       </label>
                 <button className="btn uppercase" type="submit">Sign in</button>
+
               </div>
               </form>
-              <a class="underlineHover" onClick={this.handlePasswordForgotten} className="underline red" >Forgot your password?</a>
-<br></br>
-              <div class="btn-group" role="group" aria-label="Basic example">
+              <a class="underlineHover" onClick={this.handlePasswordForgotten} className="underline red" >Forgot your password?</a><br></br>
+
+              <p class="font-weight-bold text-center align-middle" style={{color:'black'}}>Organize your project and take flight</p>
+              <p class="font-weight-bold text-center align-middle" style={{color:'black'}}>Join Swellodesk Today!</p>
+              <div class="text-center" role="group" aria-label="Basic example">
                 <button onClick={this.handleClick}  type="button" class="btn btn-primary ">Register</button>
-                <button type="button" class="btn btn-primary">Sign up with Facebook</button>
-                <button type="button" class="btn btn-primary">Sign up with Google</button>
                 </div>
           </div>
         </div>
@@ -142,4 +144,3 @@ class Login extends Component {
 }
 
 export default Login;
-

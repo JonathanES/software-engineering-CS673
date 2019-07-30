@@ -65,3 +65,4 @@ function getTask(taskID, cb){
 
 export { addTask, getTasksUsers, getListofTasksForCategories, getUserPrev, 
     updateTaskName,updateDueDate, updatePriorityID , updateTaskInfo, updateStatusID, updateActTime,deleteTask, getTask};
+

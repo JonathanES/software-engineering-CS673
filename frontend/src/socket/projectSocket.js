@@ -54,6 +54,12 @@ function getAvailableUsers(projectID, userID, cb){
   }
 
 
+  function getAvailableUsersForProject(projectID, cb){
+    socket.on('AVAILABLE_USER_FOR_PROJECT', data => cb(null, data));
+    socket.emit('GET_AVAILABLE_USER_FOR_PROJECT', projectID);
+  }
+
+
   function deleteproject(projectID, isDeleted, cb){
       socket.on('UPDATE_PROJECT_ISDELETED', data=> cb(null,data));
       socket.emit('USER_UPDATE_PROJECT_ISDELETED', projectID, isDeleted);
@@ -83,5 +89,5 @@ function getStatus(cb){
 
 export {addProject, getListOfProjects, addCategory, getAddtoProject, getPriorities, 
     getUserLevel, getprojectdetail,getAvailableUsers, showCategories_old, deleteproject,
-    updateProjectName, updateProjectDueDate,getStatus, updateDeleteProjectDependencies
+    updateProjectName, updateProjectDueDate,getStatus, updateDeleteProjectDependencies, getAvailableUsersForProject
 };

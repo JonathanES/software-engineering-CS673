@@ -14,7 +14,7 @@ const defaultState = {
   isProjectForm: false,
   isAddTaskForm: false,
   isUpdateTaskForm: false,
-
+  taskDate: new Date()
 };
 
 const project = (state = defaultState, action) => {
@@ -47,6 +47,18 @@ const project = (state = defaultState, action) => {
         isAddTaskForm: false,
         isUpdateTaskForm: false,
 
+      }
+
+    case 'LIST_OF_PROJECT_DEMAND':
+      return{
+        ...state,
+        listOfProjects: action.listOfProjects,
+        isProjectSelected: true,
+        isProjectUpdateSelected: false,
+        isProjectTasksSelected: false,
+        isProjectForm: false,
+        isAddTaskForm: false,
+        isUpdateTaskForm: false,
       }
 
     case 'VIEW_PROJECT': return {
@@ -95,6 +107,7 @@ const project = (state = defaultState, action) => {
       return {
         ...state,
         category: action.category,
+        taskDate: action.selectedDate,
         isProjectForm: false,
         isProjectSelected: false,
         isProjectUpdateSelected: false,
@@ -125,7 +138,6 @@ const project = (state = defaultState, action) => {
           isProjectUpdateSelected: false,
           isProjectTasksSelected: false,
           isAddTaskForm: false,
-
         }
 
 

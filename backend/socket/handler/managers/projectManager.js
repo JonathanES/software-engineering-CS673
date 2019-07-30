@@ -74,6 +74,11 @@ module.exports = function (io) {
             client.emit('AVAILABLEUSER', result);
          });
 
+         client.on('GET_AVAILABLE_USER_FOR_PROJECT', async(projectID) => { 
+            const result = await projectController.getListOfAvailableUserForProject(projectID);
+            client.emit('AVAILABLE_USER_FOR_PROJECT', result);
+         });
+
         client.on('GET_TASK_STATUS', async()=>{
             const result = await projectController.gettaskstatus();
             client.emit('TASK_STATUS', result);

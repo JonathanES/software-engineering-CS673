@@ -1,54 +1,15 @@
-html, body, #root, #wrapper,.box {
-    margin: 0;
-    height: 100%;
-    overflow: hidden;
+#modal-calendar {
+    display: inline-block;
 }
-li {
+#modal-calendar li {
     list-style: none;
 }
-
-.taskform {
-    margin-left: 5%;
-    width:60%;
-    background-color: white;
-    align-items: center;
-    border: 13px solid #ebf1f5;
-    border-radius: 8px 14px 14px 54px;
-    -moz-border-radius: 8px 14px 14px 54px;
-    -webkit-border-radius: 8px 14px 14px 54px;
-    padding: 30px;
-}
-.taskform input,select {
-    border: 1px solid black;
+#modal-calendar input {
     border-radius: 5px;
 }
 
-.taskform label{
-    width:30%;
-}
-
-#duedate2{
-    width: 250px;
-    align-content: center;
-    text-align: center;
-}
-
-#add_task_form {
-    height: 30px;
-    width: 20%;
-    border-radius: 10px;
-    background-color:#0a8cdd;
-    color: white;
-    font-weight: bold;
-    border:10;
-    outline: 10;
-    float: center;
-    margin-left: 35%;
-
-} 
-
-.taskForm-row{
-    align-items: center;
+#modal-calendar form{
+    background-color: white;
 }
 /*.shadow-bg {
     position: absolute;
@@ -59,46 +20,68 @@ li {
     -moz-transform: translate(-50%,-50%);
     width: 618px;
     height: 400px;
-} */
-.taskform .modal-dialog{
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+} 
+*/
+
+/*#modal-calendar .modal-dialog{
+    position: absolute;
     width: 100%;
-    height: 100%;
+    height: 50%;
+    top: 25%;
+    left: 25%;
     background: rgba(0,0,0,0.3);
-    z-index: 5;
+    z-index: 999;
     border: 1px solid #888;
 }
-.taskform .modal-content{
+*/
+#modal-calendar .modal-content{
   position: absolute;
   background-color: #fefefe;
   margin: auto;
   padding: 0;
   border: 1px solid #888;
+  justify-content: center;
   /*box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);*/
   animation-name: animatetop;
-  animation-duration: 0.4s;
-  height: 200px;
+  animation-duration: 0.4s
+
 }
-.taskform .btn-default {
+#modal-calendar .btn-closeIt {
     position: absolute; 
-    height: 35px;
-   width: 80px;
+    left:80%;
+    bottom:2%;
+    height: 30px;
+    width: 80px;
     border-radius: 10px;
     background-color:red;
+    color: white;
+    font-weight: bold;
+    border:10px;
+    outline: 10px;
+    float: right;
+    margin: 0;
+    right: 0px;
+    padding: 0px;
+}
+#modal-calendar .btn-addTask {
+    position: absolute; 
+    left:40%;
+    bottom:8%;
+    height: 30px;
+    width: 80px;
+    border-radius: 10px;
+    background-color:#0a8cdd;
     color: white;
     font-weight: bold;
     border:10;
     outline: 10;
     float: right;
     margin: 0;
-    right: 0px;
     padding: 0px;
 }
-.taskform .modal-footer {
+#modal-calendar .modal-footer2 {
+    /* position: absolute;  */
+    bottom: 5%;
     height: 15%;
     width: 100%;
     background-color: white;
@@ -107,11 +90,17 @@ li {
     justify-content: center;
     align-items: center;
 }
-.taskform .modal-header{
-    width: 100%;
-    height: 100px;
+#modal-calendar .modal-header {
+    position: absolute; 
+    top:1%;
+    width:100%;
+    background-color: white;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
 }
-.taskform .submit{  
+/*#modal-calendar .submit{  
    position:absolute;  
    height: 35px;
    width: 80px;
@@ -126,9 +115,16 @@ li {
    right: 15%;
    padding: 0px;
 }
-.taskform .close{
-    color:silver;
+*/
+#modal-calendar .close{
     position:absolute;
     left:95%;  
     top:5%;  
+
+}
+
+#modal-calendar #task:hover{
+    cursor: pointer;
+    background-color: #1a8fff;
+    transition: 0.5s ease-out;
 }
