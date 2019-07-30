@@ -45,7 +45,7 @@ li {
     float: center;
     margin-left: 35%;
 
-} 
+}
 
 .taskForm-row{
     align-items: center;
@@ -84,13 +84,14 @@ li {
   height: 200px;
 }
 .taskform .btn-default {
-    position: absolute; 
+    position: absolute;
     height: 35px;
    width: 80px;
     border-radius: 10px;
     background-color:red;
     color: white;
     font-weight: bold;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
     border:10;
     outline: 10;
     float: right;
@@ -111,14 +112,15 @@ li {
     width: 100%;
     height: 100px;
 }
-.taskform .submit{  
-   position:absolute;  
+.taskform .submit{
+   position:absolute;
    height: 35px;
    width: 80px;
    border-radius: 10px;
    background-color:#0a8cdd;
    color: white;
    font-weight: bold;
+   font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
    border:10;
    outline: 10;
    margin-right: 10%;
@@ -129,6 +131,6 @@ li {
 .taskform .close{
     color:silver;
     position:absolute;
-    left:95%;  
-    top:5%;  
+    left:95%;
+    top:5%;
 }

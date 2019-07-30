@@ -11,7 +11,8 @@ a, h1 {
 
 body {
     margin: 0;
-    font-family: 'Roboto';
+  /*  font-family: 'Roboto';*/
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: bottom right;
@@ -53,7 +54,8 @@ margin-bottom: 0;
     color:white;
     font-style: normal;
     text-align: center;
-    font-family: 'Courier New', Courier, monospace;
+    /*font-family: 'Courier New', Courier, monospace;*/
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
 }
 button {
     cursor: pointer;
@@ -80,6 +82,7 @@ button {
 h3 {
     font-size: 22px;
     margin: 20px 0;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
 }
 a {
     cursor: pointer;
@@ -262,6 +265,7 @@ nav {
 .window .window-header h1 {
     padding: 37px 0;
     font-size: 26px;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
 }
 .window .window-contain {
     padding: 30px 0;
@@ -318,6 +322,7 @@ z-index: 1;
 .form-group .form-field label {
     display: inline-block;
     font-weight: 600;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
     width: 25%;
     text-align: right;
     margin-right: 10px;
@@ -346,6 +351,7 @@ z-index: 1;
 .form-group-create .form-field-create label {
     display: inline-block;
     font-weight: 600;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
     width: 25%;
     text-align: right;
     margin-right: 10px;
@@ -364,6 +370,7 @@ div.form-check mb-2 mr-sm-2{
 /* Misc */
 .account-help {
     font-size: 14px;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
     margin: 0;
 }
 hr {

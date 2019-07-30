@@ -104,7 +104,8 @@ input,select {
     display: block;
     width: 100%;
     font-weight: bold;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /*  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;*/
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
     margin-top:10px;
     margin-left:10px;
     font-size:1.2em;
@@ -121,6 +122,7 @@ input,select {
     text-decoration: none;
     padding: 8px 50px;
     font-size: 1.2em;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
     text-align: center;
     font-weight: bold;
     border: none;
@@ -160,6 +162,7 @@ input,select {
       /* background: #f4d03c; */
       color: white;
       font-size:0.9em;
+      font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
       border-radius: 5px;
   }
   .cat_tast_footer{
@@ -185,6 +188,7 @@ input,select {
       text-align: center;
       border-radius: 5px;
       font-size:0.8em;
+      font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
   }
   .photo{
       width:30px;

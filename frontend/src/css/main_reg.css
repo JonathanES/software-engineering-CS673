@@ -16,9 +16,11 @@ body {
 
 .rightside {
   background-color: white;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
 }
 
 legend {
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
   font-size: 20px;
   font-weight: bold;
   margin: auto 0;

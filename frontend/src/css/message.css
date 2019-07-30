@@ -61,6 +61,7 @@ input {
   color: white;
   font-size: 1.5em;
   font-weight: bold;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -92,7 +93,8 @@ input {
 }
 .charlefttext {
   color: white;
-  font-family: Arial, Helvetica, sans-serif;
+  /*font-family: Arial, Helvetica, sans-serif;*/
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
   font-size: 1em;
   font-weight: bolder;
   height: 30px;
@@ -101,6 +103,7 @@ input {
 .channellogo {
   font-size: 1.1em;
   font-weight: bolder;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
   margin-right: 10px;
   height: 30px;
   line-height: 30px;
@@ -125,6 +128,7 @@ input {
   width: 100%;
   color: white;
   font-size: 1.2em;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
   text-align: left;
   padding-left: 5%;
   height: 40px;
@@ -224,6 +228,7 @@ ul::-webkit-scrollbar {
   background-color: #0a8cdd;
   color: white;
   font-weight: bold;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
   border: 0;
   outline: 0;
   margin-bottom: 40px;
@@ -319,6 +324,7 @@ ul::-webkit-scrollbar {
 }
 .senderName {
   font-weight: bolder;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
   display: block;
   width: 100px;
   float: left;
@@ -385,10 +391,12 @@ ul::-webkit-scrollbar {
 
 #delete-user-group-title {
   font-weight: bold;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
   text-decoration: underline;
 }
 
 #add-user-group-title {
   font-weight: bold;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
   text-decoration: underline;
 }

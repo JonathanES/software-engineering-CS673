@@ -2,7 +2,7 @@
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
 .icon {
-  font-family: 'Material Icons', serif;
+  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
   font-style: normal;
   display: inline-block;
   vertical-align: middle;
@@ -188,7 +188,7 @@
 .calendar #left{float: left; width: 25%; text-align: center;}
 .calendar #right{float: right; width: 25%; text-align: center}
 .calendar #center{
-  margin:0 auto !important; 
+  margin:0 auto !important;
  display:inline-block;
  width: 50%;
  text-align:center}
@@ -205,4 +205,3 @@
  .calendar #right span{
    color: black;
  }
-
