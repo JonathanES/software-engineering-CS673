@@ -14,6 +14,7 @@ const defaultState = {
     // projectName:'',
     passwordDemand: false,
     calendarDemand: false,
+    milestoneDemand:false,
     project: {},
 };
 
@@ -38,7 +39,8 @@ const user = (state = defaultState, action) => {
                 taskFormDemand: false,
                 projectUpdateDemand: false,
                 passwordDemand: false,
-                calendarDemand: false
+                calendarDemand: false,
+                milestoneDemand:false,
             };
         case 'CONNEXION_DEMAND':
             return {
@@ -54,7 +56,8 @@ const user = (state = defaultState, action) => {
                 taskFormDemand: false,
                 projectUpdateDemand: false,
                 passwordDemand: false,
-                calendarDemand: false
+                calendarDemand: false,
+                milestoneDemand:false,
             };
         case 'PASSWORD_DEMAND':
             return {
@@ -69,7 +72,8 @@ const user = (state = defaultState, action) => {
                 projectTaskDemand: false,
                 taskFromDemand: false,
                 passwordDemand: true,
-                calendarDemand: false
+                calendarDemand: false,
+                milestoneDemand:false,
             };
         case 'DEMAND_LOGOUT':
             return {
@@ -85,7 +89,8 @@ const user = (state = defaultState, action) => {
                 taskFormDemand: false,
                 projectUpdateDemand: false,
                 passwordDemand: false,
-                calendarDemand: false
+                calendarDemand: false,
+                milestoneDemand:false,
             }
         case 'MESSAGE_DEMAND':
             return {
@@ -101,7 +106,8 @@ const user = (state = defaultState, action) => {
                 taskFormDemand: false,
                 projectUpdateDemand: false,
                 passwordDemand: false,
-                calendarDemand: false
+                calendarDemand: false,
+                milestoneDemand:false,
             };
         case 'PROJECT_DEMAND':
             return {
@@ -117,7 +123,8 @@ const user = (state = defaultState, action) => {
                 taskFormDemand: false,
                 projectUpdateDemand: false,
                 passwordDemand: false,
-                calendarDemand: false
+                calendarDemand: false,
+                milestoneDemand:false,
             };
         case 'ISSUE_DEMAND':
             return {
@@ -133,7 +140,8 @@ const user = (state = defaultState, action) => {
                 taskFormDemand: false,
                 projectUpdateDemand: false,
                 passwordDemand: false,
-                calendarDemand: false
+                calendarDemand: false,
+                milestoneDemand:false,
             };
         case 'TASK_DEMAND':
             return {
@@ -150,7 +158,8 @@ const user = (state = defaultState, action) => {
                 categoryID: action.categoryID,
                 projectUpdateDemand: false,
                 passwordDemand: false,
-                calendarDemand: false
+                calendarDemand: false,
+                milestoneDemand:false,
             };
         case 'CALENDAR_DEMAND':
             return {
@@ -167,8 +176,27 @@ const user = (state = defaultState, action) => {
                 taskFormDemand: false,
                 categoryID: action.categoryID,
                 projectUpdateDemand: false,
-                passwordDemand: false
+                passwordDemand: false,
+                milestoneDemand:false,
             };
+            case 'MILESTONE_DEMAND':
+                return {
+                    ...state,
+                    calendarDemand: false,
+                    taskDemand: false,
+                    issueDemand: false,
+                    projectDemand: false,
+                    messageDemand: false,
+                    connexionDemand: false,
+                    registerDemand: false,
+                    projectFormDemand: false,
+                    projectTaskDemand: false,
+                    taskFormDemand: false,
+                    categoryID: action.categoryID,
+                    projectUpdateDemand: false,
+                    passwordDemand: false,
+                    milestoneDemand:true,
+                };
 
         // case 'PROJECTTASK_DEMAND':
         //     return {
