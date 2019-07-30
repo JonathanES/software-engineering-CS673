@@ -44,6 +44,10 @@ function *handleCalendarDemand(){
     yield put({type: "CALENDAR_DEMAND"});
 }
 
+function *handleMilestoneDemand(){
+    yield put({type: "MILESTONE_DEMAND"});
+}
+
 function *demandSaga(){
     yield takeEvery('USER_MESSAGE_DEMAND', handleMessageDemand);
     yield takeEvery('USER_PROJECT_DEMAND', handleProjectDemand);
@@ -55,6 +59,7 @@ function *demandSaga(){
     yield takeEvery('USER_ADD_TASK_DEMAND', handleAddTaskDemand);
     yield takeEvery('USER_PASSWORD_DEMAND', handlePasswordDemand);
     yield takeEvery('USER_CALENDAR_DEMAND', handleCalendarDemand);
+    yield takeEvery('USER_MILESTONE_DEMAND', handleMilestoneDemand);
 
 
     //yield takeEvery('USER_PROJECTTASK_DEMAND', handleProjectTaskDemand);

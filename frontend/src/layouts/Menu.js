@@ -24,6 +24,7 @@ const Menu = ({ dispatch, connexionDemand, registerDemand, username }) => (
             }
             }>Projects</a></li>
             {<li><a href="#" onClick={(e) => dispatch({ type: 'USER_TASK_DEMAND' })}>Tasks</a></li>}
+            <li><a href="#" onClick={(e) => dispatch({ type: 'USER_MILESTONE_DEMAND' })}>Milestones</a></li>
             <li><a href="#" onClick={(e) => dispatch({ type: 'USER_ISSUE_DEMAND' })}>Issues</a></li>
             <li><a href="#" onClick={(e) => dispatch({ type: 'USER_MESSAGE_DEMAND' })}>Messages</a></li>
             <li><a href="#" onClick={(e) => dispatch({ type: 'USER_CALENDAR_DEMAND' })}>Calendar</a></li>
@@ -65,7 +66,7 @@ const Menu = ({ dispatch, connexionDemand, registerDemand, username }) => (
                 {!registerDemand &&  !connexionDemand && <a className="red" onClick={(e) =>  dispatch({ type: 'TASK_CONTROL'})} id="task"> Tasks</a>}
                 {!registerDemand &&  !connexionDemand && <a className="red" onClick={(e) => dispatch({ type: 'USER_LOGOUT'})} id="disconnect"> Logout</a>}
                 {!registerDemand &&  connexionDemand && <a className="red" onClick={(e) =>  dispatch({ type: 'USER_REGISTER_DEMAND'})} id="register">Register</a>}
-                
+
             </div>
         </div>
     </div>
