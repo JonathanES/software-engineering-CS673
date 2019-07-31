@@ -133,6 +133,10 @@ export class IssueCardGrid extends React.Component {
         deleteIssue(issueID, this.handleDeleteIssue);
     }
 
+    // createIssue(issueName, issueSummary, issuePriority, issueProject, assignedTo){
+    //
+    // }
+
 
     render(){
         return(

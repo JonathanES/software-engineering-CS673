@@ -14,9 +14,10 @@ export default class IssueCreationCard extends React.Component{
         event.preventDefault();
         const data = new FormData(event.target);
 
-        data.forEach((element) => {
-            console.log(element);
-        });
+        console.log(this.props.userID);
+        // data.forEach((element) => {
+        //     console.log(element);
+        // });
     }
 
 

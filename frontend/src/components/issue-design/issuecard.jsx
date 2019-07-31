@@ -78,7 +78,7 @@ export default class IssueCard extends React.Component{
 
 
 // <Button onClick={this.onButtonClick.bind(this)} color="secondary">{this.state.buttonText}</Button>
-
+// className="text-sm-left"
     render(){
         return(
             <Card body className="text-center" style={{minHeight:"42vmin"}}>
@@ -93,12 +93,15 @@ export default class IssueCard extends React.Component{
                 </CardBody>
 
                 <Row>
-                    <Col className="text-sm-left">
-                        <Button id={"Popover" + this.props.IssueID} type="button">
-                          Comments <Badge color="secondary" className="text-sm-right">4</Badge>
+                    <Col xs={{ size: 4}}>
+                        <Button id={"Popover" + this.props.IssueID} key={"Comment" + this.props.IssueID} type="button">
+                          Note <Badge color="secondary" className="text-sm-right">4</Badge>
                         </Button>
                     </Col>
-                    <Col className="text-sm-right">
+                    <Col xs={{ size: 4}}>
+                        <Button color="success" key={"Resolve" + this.props.IssueID}>Resolve</Button>
+                    </Col>
+                    <Col xs={{ size: 4}}>
                         <Button color="danger" onClick={this.onDeleteButtonClick} key={"Delete" + this.props.IssueID}>Delete</Button>
                     </Col>
                 </Row>
