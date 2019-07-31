@@ -56,6 +56,7 @@ class ProjectTaskUpdate extends React.Component {
         this.handleDeleteTask = this.handleDeleteTask.bind(this);
 
         this.handleClick = this.handleClick.bind(this);
+        this.handleClosebtn = this.handleClosebtn.bind(this);
 
     }
 
@@ -232,6 +233,14 @@ class ProjectTaskUpdate extends React.Component {
         
     }
 
+    handleClosebtn(){
+
+        showCategories_old(this.props.project.projectID, (err, data) => {
+            this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.props.project, projectCategoryList: data.length > 0 ? data : [] });
+        })
+        
+    }
+
 
 
     render() {
@@ -315,10 +324,7 @@ class ProjectTaskUpdate extends React.Component {
                     }}>Delete Task
                 </button>
 
-                    <button id="closeTaskUpdate" onClick={e => {
-                        this.props.dispatch({ type: "USER_UPDATE_TASK_DEMAND", task: this.props.task });
-                        e.preventDefault();
-                    }}>Close
+                    <button id="closeTaskUpdate" onClick={e => this.handleClosebtn(e) }>Close
                 </button>
                 </div>
             </div>
