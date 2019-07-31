@@ -2,6 +2,7 @@ const defaultState = {
   project: {},
   projectID: '',
   category: {},
+  taskToUpdate:{},
   projectCategoryList: [],
   projectName: '',
   categories: [],
@@ -132,7 +133,7 @@ const project = (state = defaultState, action) => {
         return{
           ...state,
           isUpdateTaskForm:true,
-          task:action.task,
+          taskToUpdate:action.task,
           isProjectForm: false,
           isProjectSelected: false,
           isProjectUpdateSelected: false,
