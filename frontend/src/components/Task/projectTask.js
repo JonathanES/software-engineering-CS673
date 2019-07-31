@@ -48,8 +48,66 @@ class ProjectTask extends React.Component {
     this.handleUpdateTask = this.handleUpdateTask.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+
+    if (prevProps.task.taskName != this.props.task.taskName) {
+      const getListofTasksForUser = this.state.getListofTasksForUser;
+      getListofTasksForUser.forEach(task => {
+        if (task.taskID == this.props.task.taskID)
+          task = this.props.task;
+      })
+      this.setState({ getListofTasksForUser: getListofTasksForUser });
+    }
+
+    if (prevProps.task.dueDate != this.props.task.dueDate) {
+      const getListofTasksForUser = this.state.getListofTasksForUser;
+      getListofTasksForUser.forEach(task => {
+        if (task.taskID == this.props.task.taskID)
+          task = this.props.task;
+      })
+      this.setState({ getListofTasksForUser: getListofTasksForUser });
+    }
+
+    if (prevProps.task.taskInfo != this.props.task.taskInfo) {
+      const getListofTasksForUser = this.state.getListofTasksForUser;
+      getListofTasksForUser.forEach(task => {
+        if (task.taskID == this.props.task.taskID)
+          task = this.props.task;
+      })
+      this.setState({ getListofTasksForUser: getListofTasksForUser });
+    }
+
+    if (prevProps.task.statusID != this.props.task.statusID) {
+      const getListofTasksForUser = this.state.getListofTasksForUser;
+      getListofTasksForUser.forEach(task => {
+        if (task.taskID == this.props.task.taskID)
+          task = this.props.task;
+      })
+      this.setState({ getListofTasksForUser: getListofTasksForUser });
+    }
+
+    if (prevProps.task.actualTimeSpent != this.props.task.actualTimeSpent) {
+      const getListofTasksForUser = this.state.getListofTasksForUser;
+      getListofTasksForUser.forEach(task => {
+        if (task.taskID == this.props.task.taskID)
+          task = this.props.task;
+      })
+      this.setState({ getListofTasksForUser: getListofTasksForUser });
+    }
+
+    if (prevProps.task.isDeleted != this.props.task.isDeleted) {
+
+      let listOfTask = this.state.getListofTasksForUser;
+      listOfTask = listOfTask.filter(task => task.taskID != this.props.task.taskID);
+      this.setState({ getListofTasksForUser: listOfTask })
+
+    }
+
+
+  }
   componentDidMount() {
-    //console.log('isProjectTasksSelected:',this.props.isProjectTasksSelected)
+
+
   }
 
   handleChange(event) {
@@ -137,12 +195,12 @@ class ProjectTask extends React.Component {
     return (
       <div style={{ overflowX: "auto" }}>
         {this.props.isProjectTasksSelected && (
-          <div className="title" style={{padding: "5%",alignItems: "top",fontSize: "26px", color: "black" }} >
+          <div className="title" style={{ padding: "5%", alignItems: "top", fontSize: "26px", color: "black" }} >
             {" "}
             You are viewing: {this.props.projectName}
-            <a href=" " title="Add Category" style={{backgroundcolor: "#FFFFFF", color: "#000000", textdecoration: "none"}}>
-              <input id="add-button" type="image" style={{ border:'none' }}src={require("../../images/plus-black.svg")}
-                onClick={(e) => {this.props.dispatch({ type: "USER_ADD_CATEGORY_DEMAND" }); e.preventDefault(); }}
+            <a href=" " title="Add Category" style={{ backgroundcolor: "#FFFFFF", color: "#000000", textdecoration: "none" }}>
+              <input id="add-button" type="image" style={{ border: 'none' }} src={require("../../images/plus-black.svg")}
+                onClick={(e) => { this.props.dispatch({ type: "USER_ADD_CATEGORY_DEMAND" }); e.preventDefault(); }}
               />
             </a>
           </div>
@@ -155,7 +213,7 @@ class ProjectTask extends React.Component {
             {/* <ul > */}
             {this.props.projectCategoryList.map(category => (
               <li
-                className="cat-task_li" 
+                className="cat-task_li"
                 key={"projectTaskCategoryName" + category.CategoryID}
                 onClick={this.handleUpdate}
                 style={{
@@ -197,7 +255,7 @@ class ProjectTask extends React.Component {
                 {category.listOfTasks.map(task => (
                   <div
                     className="cat-task_li_li"
-                    key = {"projectTaskTask" + task.TaskID}
+                    key={"projectTaskTask" + task.TaskID}
                     onClick={() => this.handleUpdateTask(task)}
                     onMouseOver={e => this.handleMouseOver(e)}
                     onMouseLeave={e => this.handleMouseOut(e)}
