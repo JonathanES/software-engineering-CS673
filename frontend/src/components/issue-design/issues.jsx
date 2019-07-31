@@ -30,6 +30,13 @@ class Issues extends React.Component {
         });
     }
 
+    // render() {
+    //     return (
+    //         <div style={{"font-family": "Helvetica Neue"}}>
+    //         {this.state.grid}
+    //         </div>
+    //     );
+    // }
     render() {
         return (
             this.state.grid

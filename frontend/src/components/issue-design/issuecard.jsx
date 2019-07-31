@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardImg, CardHeader, CardText, CardBody,
     CardTitle, CardSubtitle, Button, Badge, CardFooter, Popover, PopoverHeader, PopoverBody, Row, Col } from 'reactstrap';
-
+const moment = require("moment")
 
 // ProjectID, IssueStatusID, AssigneeID, AssignedToID, PriorityID, IssueName, Summary, DateCreated, LastUpdate, DateResolved, IsResolved
 export default class IssueCard extends React.Component{
@@ -23,13 +23,6 @@ export default class IssueCard extends React.Component{
             popoverOpen: false
         }
     }
-
-    // componentWillUnmount(){
-    //     // AppStore.removeChangeListener(this.onButtonClick);
-    //     // AppStore.removeChangeListener(this.onDeleteButtonClick);
-    //     // AppStore.removeChangeListener(this.toggle);
-    //     window.removeEventListener("onClick", this.onDeleteButtonClick);
-    // }
 
 
     getHeaderColour(priority){
@@ -84,11 +77,10 @@ export default class IssueCard extends React.Component{
             <Card body className="text-center" style={{minHeight:"42vmin"}}>
                 <CardHeader className="text-center" style={this.getHeaderColour(this.props.PriorityID)}>{this.state.header}</CardHeader>
                 <CardBody className="text-center">
-                    <CardTitle>{"Created by: " + this.state.title}</CardTitle>
-                    <CardText>{this.state.text}</CardText>
-                    <Button onClick={this.onButtonClick} color="secondary">{this.state.buttonText}</Button>
+                    <CardSubtitle>{"Created by: " + this.state.title}</CardSubtitle>
+                    <CardText style={{minHeight:"20vmin", color:"black", "font-style": "normal", "font-size": "16px"}}>{this.state.text}</CardText>
                     <CardText>
-                        <small className="text-muted">Last updated {this.state.lastUpdate}</small>
+                        <small id="lastupdate" style={{color:"grey","font-style": "normal"}}>Last updated {moment(this.state.lastUpdate).format('YYYY-MM-DD HH:mm:ss')}</small>
                     </CardText>
                 </CardBody>
 
