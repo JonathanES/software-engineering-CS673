@@ -23,25 +23,20 @@ export class IssueCardGrid extends React.Component {
             cardSize: 12/this.props.cardsPerRow,
             grid: ""
         };
-
-        console.log("Grid component constructed!");
     }
 
     componentDidMount(){
         // Call the socket for getting the Issues from the DB with our overwritting callback to set the state
-        console.log("Grid component mounted!");
         getIssues(this.handleGotIssues);
     }
 
 
     handleGotIssues(data){
-        console.log("Got Issues!");
         this.updateIssues(data);
         this.updateGrid();
     }
 
     handleDeleteIssue(data){
-        console.log("Got Delete!");
         getIssues(this.handleGotIssues);
     }
 
@@ -115,10 +110,11 @@ export class IssueCardGrid extends React.Component {
     }
 
     updateIssues(newIssues){
-        if(newIssues.length > 0){
+        let issuesNewFirst = newIssues.reverse();
+        if(issuesNewFirst.length > 0){
             this.setState({
-                numberOfCards: newIssues.length,
-                issues: newIssues
+                numberOfCards: issuesNewFirst.length,
+                issues: issuesNewFirst
             });
         }
     }
