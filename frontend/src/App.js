@@ -11,7 +11,7 @@ import { withCookies } from 'react-cookie';
 const App = () => (
   <Provider store={store}>
     <Router>
-      <div>
+      <div  style={{"font-family": "Helvetica Neue"}}>
         <Route exact path="/" component={BasePage} />
         <Route path="/password" component={UpdatePassword} />
       </div>
