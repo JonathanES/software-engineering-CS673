@@ -4,7 +4,7 @@ import moment from 'moment'
 
 import { getPriorities, getStatus } from '../../socket/projectSocket';
 import { updateTaskName, updateDueDate, updatePriorityID, updateTaskInfo, updateStatusID, updateActTime, deleteTask } from '../../socket/taskSocket';
-import { getUserPrev } from '../../socket/taskSocket';
+import { showCategories_old } from '../../socket/projectSocket';
 
 //import '../../css/projectUpdate.css'
 
@@ -24,6 +24,7 @@ class ProjectTaskUpdate extends React.Component {
         super(props);
         this.state = {
             userId: props.userId,
+            project: props.project,
             pID: props.project.projectID,
             taskID: props.task.TaskID,
 
@@ -146,10 +147,10 @@ class ProjectTaskUpdate extends React.Component {
         // console.log('actTime:', this.state.actTime);
         e.preventDefault();
 
-        if (this.state.taskName != this.props.task.taskName && this.state.taskName != '') {
+        if (this.state.taskName != this.props.task.TaskName && this.state.taskName != '') {
             // console.log(this.props.task.taskID);
             // console.log(this.state.taskName);
-            updateTaskName(this.props.task.taskID, this.state.taskName, (err, data) => {
+            updateTaskName(this.props.task.TaskID, this.state.taskName, (err, data) => {
                 console.log('New Task Name:', data);
                 const task = this.props.task;
                 task.taskName = data;
@@ -157,10 +158,10 @@ class ProjectTaskUpdate extends React.Component {
             });
         }
 
-        if (this.state.dueDate != this.props.task.dueDate && this.state.dueDate != '') {
+        if (this.state.dueDate != this.props.task.DueDate && this.state.dueDate != '') {
             // console.log(this.props.task.taskID);
             // console.log(this.state.dueDate);
-            updateDueDate(this.props.task.taskID, this.state.dueDate, (err, data) => {
+            updateDueDate(this.props.task.TaskID, this.state.dueDate, (err, data) => {
                 console.log('New Due Date:', data);
                 const task = this.props.task;
                 task.dueDate = data;
@@ -168,9 +169,9 @@ class ProjectTaskUpdate extends React.Component {
             });
         }
 
-        if (this.state.priorityID != this.props.task.priorityID && this.state.priorityID != '') {
+        if (this.state.priorityID != this.props.task.PriorityID && this.state.priorityID != '') {
             // console.log(this.state.priorityID);
-            updatePriorityID(this.props.task.taskID, this.state.priorityID, (err, data) => {
+            updatePriorityID(this.props.task.TaskID, this.state.priorityID, (err, data) => {
                 console.log('New Priority:', data);
                 const task = this.props.task;
                 task.priorityID = data;
@@ -179,9 +180,9 @@ class ProjectTaskUpdate extends React.Component {
             });
         }
 
-        if (this.state.taskInfo != this.props.task.taskInfo && this.state.taskInfo != '') {
+        if (this.state.taskInfo != this.props.task.TaskInfo && this.state.taskInfo != '') {
             // console.log(this.state.taskInfo);
-            updateTaskInfo(this.props.task.taskID, this.state.taskInfo, (err, data) => {
+            updateTaskInfo(this.props.task.TaskID, this.state.taskInfo, (err, data) => {
                 console.log('New Task Info:', data);
                 const task = this.props.task;
                 task.taskInfo = data;
@@ -189,9 +190,9 @@ class ProjectTaskUpdate extends React.Component {
             });
         }
 
-        if (this.state.statusID != this.props.task.statusID && this.state.statusID != '') {
+        if (this.state.statusID != this.props.task.StatusID && this.state.statusID != '') {
             // console.log(this.state.statusID);
-            updateStatusID(this.props.task.taskID, this.state.statusID, (err, data) => {
+            updateStatusID(this.props.task.TaskID, this.state.statusID, (err, data) => {
                 // console.log('New Task Info:', data);
                 const task = this.props.task;
                 task.statusID = data;
@@ -200,9 +201,9 @@ class ProjectTaskUpdate extends React.Component {
             });
         }
 
-        if (this.state.actTime != this.props.task.actualTimeSpent && this.state.actTime != '') {
+        if (this.state.actTime != this.props.task.ActualTimeSpent && this.state.actTime != '') {
             console.log(this.state.actTime);
-            updateActTime(this.props.task.taskID, this.state.actTime, (err, data) => {
+            updateActTime(this.props.task.TaskID, this.state.actTime, (err, data) => {
                 // console.log('New Task Info:', data);
                 const task = this.props.task;
                 task.actualTimeSpent = data;
@@ -210,17 +211,25 @@ class ProjectTaskUpdate extends React.Component {
             });
         }
 
+        showCategories_old(this.props.project.projectID, (err, data) => {
+            this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.props.project, projectCategoryList: data.length > 0 ? data : [] });
+        })
+
     }
 
     handleDeleteTask(e) {
 
-        deleteTask(this.props.task.taskID, 1, (err, data) => {
+        deleteTask(this.props.task.TaskID, 1, (err, data) => {
             console.log('Deleted:', data);
             const task = this.props.task;
-            task.isDeleted = 1;
+            task.IsDeleted = 1;
             this.props.dispatch({ type: 'USER_UPDATE_TASK_DEMAND', task: task });
             //this.props.dispatch({type:'USER_TASK_DEMAND'});
+            showCategories_old(this.props.project.projectID, (err, data) => {
+                this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.props.project, projectCategoryList: data.length > 0 ? data : [] });
+            })
         });
+        
     }
 
 
@@ -249,9 +258,9 @@ class ProjectTaskUpdate extends React.Component {
                 <br />
                 <div className="taskform-field">
                     <label htmlFor="prioritylevelSelection">Priority of the Task:</label>
-                    <select defaultValue={this.state.priority} onChange={e => this.handlePriorityChange(e)} >
+                    <select defaultValue={this.state.priorityID} onChange={e => this.handlePriorityChange(e)} >
                         {this.state.taskPriorities.map(tp => (
-                            <option defaultValue={this.state.priority} style={{ textAlign: "center" }}>
+                            <option Value={tp.PriorityID} style={{ textAlign: "center" }}>
                                 {tp.Priority}
                             </option>
                         ))}
