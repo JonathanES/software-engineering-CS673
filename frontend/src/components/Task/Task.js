@@ -130,7 +130,7 @@ class Task extends React.Component {
 
                     <ul style={{display: 'block'}}>
                         {this.state.getListofTasksForUser.map(task =>
-                            <li key={"usertask" + task.taskID}style={{ width: '300px', height: "auto",
+                            <li key={"Taskjs"+task.TaskID} style={{ width: '300px', height: "auto",
                             paddingBlock:'10px', verticalAlign:'top',
                              position: "relative" ,
                             display: 'inline-block'}}>

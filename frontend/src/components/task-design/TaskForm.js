@@ -173,23 +173,7 @@ class TaskForm extends Component {
           this.state.expDuration,
           0,
           async (err, data) => {
-            // addProject(this.state.userId, this.state.projectName, this.state.dueDate, (err, data) => {
-            //console.log(data);
-            //const listofT = this.props.projectCategoryList;
 
-            // await getTask(data.insertId, async (err, data) => {
-            //   console.log(data[0]);
-
-            //   this.setState({ newTask: data[0] });
-            //   console.log(this.state.newTask);
-            // })
-
-            //const newTask = await getTask(data.insertId);
-            // this.setState({ taskName: '' });
-            // this.setState({ priorityID: '' });
-            // this.setState({ taskInfo: '' });
-            // this.setState({ expDuration: ' ' });
-            // this.setState({ dueDate: '' });
             showCategories_old(this.props.projectID, (err, data) => {
               this.props.dispatch({
                 type: "USER_IS_PROJECTTASK_DEMAND",
@@ -200,8 +184,6 @@ class TaskForm extends Component {
           }
         );
 
-
-        // this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.props.project, projectCategoryList: this.props.projectCategoryList });
       } else {
         addTask(
           1,
@@ -215,16 +197,6 @@ class TaskForm extends Component {
           this.state.expDuration,
           0,
           async (err, data) => {
-            // addProject(this.state.userId, this.state.projectName, this.state.dueDate, (err, data) => {
-            //console.log(data);
-            // const listofT = this.props.projectCategoryList;
-
-            // await getTask(data.insertId, async (err, data) => {
-            //   console.log(data[0]);
-
-            //   this.setState({ newTask: data[0] });
-            //   console.log(this.state.newTask);
-            // })
 
             showCategories_old(this.props.projectID, (err, data) => {
               this.props.dispatch({
@@ -233,20 +205,8 @@ class TaskForm extends Component {
                 projectCategoryList: data.length > 0 ? data : []
               });
             });
-
-            // this.setState({ taskName: '' });
-            // this.setState({ priorityID: '' });
-            // this.setState({ taskInfo: '' });
-            // this.setState({ expDuration: ' ' });
-            // this.setState({ dueDate: '' });
-            console.log(this.props.project);
-            console.log(data);
-
-            // this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.props.project, projectCategoryList: data });
           }
         );
-
-        // this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.props.project, projectCategoryList: this.props.projectCategoryList });
       }
 
     }
