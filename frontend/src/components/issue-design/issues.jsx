@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { connect } from "react-redux";
 import {Card, Button, CardTitle, CardText, Row, Col, Container} from 'reactstrap';
 import {createIssue, updateIssueStatus, getIssues, getIssueWithID, createNewIssueStatus} from "../../socket/issuesSocket.js";
 
@@ -7,7 +8,6 @@ import {IssueCardGrid} from "./issueCardGrid.jsx";
 const mapStateToProps = state => ({
     username: state.user.username,
     userId: state.user.userId,
-    //taskname: state.Task.newtask
 });
 
 // ISSUE FIELDS: ProjectID, IssueStatusID, AssigneeID, AssignedToID, PriorityID, IssueName, Summary, DateCreated, LastUpdate, DateResolved, IsResolved)
@@ -15,9 +15,6 @@ class Issues extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
-            password: '',
-            id_user: '',
             grid: ""
         };
     }
@@ -27,10 +24,19 @@ class Issues extends React.Component {
             grid: <IssueCardGrid
                     numberOfCards={0}
                     issues={[]}
-                    cardsPerRow={4}/>
+                    cardsPerRow={4}
+                    username={this.props.username}
+                    userID={this.props.userId}/>
         });
     }
 
+    // render() {
+    //     return (
+    //         <div style={{"font-family": "Helvetica Neue"}}>
+    //         {this.state.grid}
+    //         </div>
+    //     );
+    // }
     render() {
         return (
             this.state.grid
@@ -38,4 +44,4 @@ class Issues extends React.Component {
     }
 }
 
-export default Issues;
+export default connect(mapStateToProps)(Issues);

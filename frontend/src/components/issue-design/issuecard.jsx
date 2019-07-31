@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardImg, CardHeader, CardText, CardBody,
     CardTitle, CardSubtitle, Button, Badge, CardFooter, Popover, PopoverHeader, PopoverBody, Row, Col } from 'reactstrap';
-
+const moment = require("moment")
 
 // ProjectID, IssueStatusID, AssigneeID, AssignedToID, PriorityID, IssueName, Summary, DateCreated, LastUpdate, DateResolved, IsResolved
 export default class IssueCard extends React.Component{
@@ -23,13 +23,6 @@ export default class IssueCard extends React.Component{
             popoverOpen: false
         }
     }
-
-    // componentWillUnmount(){
-    //     // AppStore.removeChangeListener(this.onButtonClick);
-    //     // AppStore.removeChangeListener(this.onDeleteButtonClick);
-    //     // AppStore.removeChangeListener(this.toggle);
-    //     window.removeEventListener("onClick", this.onDeleteButtonClick);
-    // }
 
 
     getHeaderColour(priority){
@@ -78,27 +71,29 @@ export default class IssueCard extends React.Component{
 
 
 // <Button onClick={this.onButtonClick.bind(this)} color="secondary">{this.state.buttonText}</Button>
-
+// className="text-sm-left"
     render(){
         return(
             <Card body className="text-center" style={{minHeight:"42vmin"}}>
                 <CardHeader className="text-center" style={this.getHeaderColour(this.props.PriorityID)}>{this.state.header}</CardHeader>
                 <CardBody className="text-center">
-                    <CardTitle>{"Created by: " + this.state.title}</CardTitle>
-                    <CardText>{this.state.text}</CardText>
-                    <Button onClick={this.onButtonClick} color="secondary">{this.state.buttonText}</Button>
+                    <CardSubtitle>{"Created by: " + this.state.title}</CardSubtitle>
+                    <CardText style={{minHeight:"20vmin", color:"black", "font-style": "normal", "font-size": "16px"}}>{this.state.text}</CardText>
                     <CardText>
-                        <small className="text-muted">Last updated {this.state.lastUpdate}</small>
+                        <small id="lastupdate" style={{color:"grey","font-style": "normal"}}>Last updated {moment(this.state.lastUpdate).format('YYYY-MM-DD HH:mm:ss')}</small>
                     </CardText>
                 </CardBody>
 
                 <Row>
-                    <Col className="text-sm-left">
-                        <Button id={"Popover" + this.props.IssueID} type="button">
-                          Comments <Badge color="secondary" className="text-sm-right">4</Badge>
+                    <Col xs={{ size: 4}}>
+                        <Button id={"Popover" + this.props.IssueID} key={"Comment" + this.props.IssueID} type="button">
+                          Note <Badge color="secondary" className="text-sm-right">4</Badge>
                         </Button>
                     </Col>
-                    <Col className="text-sm-right">
+                    <Col xs={{ size: 4}}>
+                        <Button color="success" key={"Resolve" + this.props.IssueID}>Resolve</Button>
+                    </Col>
+                    <Col xs={{ size: 4}}>
                         <Button color="danger" onClick={this.onDeleteButtonClick} key={"Delete" + this.props.IssueID}>Delete</Button>
                     </Col>
                 </Row>
