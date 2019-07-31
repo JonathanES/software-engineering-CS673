@@ -99,8 +99,15 @@ describe("Testing the IssueController with socket conenction", () => {
 
             client.on("DELETED_ISSUE_WITH_ID", data => {
                 assert.equal(data, 1, "We deleted more or less than 1 row!"); // The data is the number of changes rows
+                client.emit("GET_ISSUE_WITH_ID", issueID);
+
+            });
+
+            client.on("GOT_ISSUE_WITH_ID", data => {
+                assert.equal(data.IsDeleted, 1, "IsDeleted is set to 0 and not 1");
                 done();
             });
+
         });
     });
 
