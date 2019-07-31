@@ -18,13 +18,18 @@ class Issues extends React.Component {
             email: '',
             password: '',
             id_user: '',
+            grid: ""
+        };
+    }
+
+    componentDidMount(){
+        this.setState({
             grid: <IssueCardGrid
                     numberOfCards={0}
                     issues={[]}
                     cardsPerRow={4}/>
-        };
+        });
     }
-
 
     render() {
         return (

@@ -3,12 +3,18 @@ import IssueCard from "./issuecard.jsx";
 import IssueCreationCard from "./issueCreationCard.jsx"
 import {Row, Col} from 'reactstrap';
 
-import {getIssues} from "../../socket/issuesSocket.js";
+import {getIssues, deleteIssue} from "../../socket/issuesSocket.js";
 
 // MEIN HOODIE STONE ISLAND ICH DRIP'
 export class IssueCardGrid extends React.Component {
     constructor(props, numberOfCards, issues, cardsPerRow=4){
         super(props);
+
+        this.deleteIssueFromGrid = this.deleteIssueFromGrid.bind(this);
+        this.handleGotIssues = this.handleGotIssues.bind(this);
+        this.handleDeleteIssue = this.handleDeleteIssue.bind(this);
+        // this.updateIssues = this.updateIssues.bind(this);
+        // this.updateGrid = this.updateGrid.bind(this);
 
         this.state = {
             numberOfCards: this.props.numberOfCards,
@@ -18,12 +24,32 @@ export class IssueCardGrid extends React.Component {
             grid: ""
         };
 
-        // Call the socket for getting the Issues from the DB with our overwritting callback to set the state
-        getIssues((data) => {
-            this.updateIssues(data);
-            this.updateGrid();
-        });
+        console.log("Grid component constructed!");
     }
+
+    componentDidMount(){
+        // Call the socket for getting the Issues from the DB with our overwritting callback to set the state
+        console.log("Grid component mounted!");
+        getIssues(this.handleGotIssues);
+    }
+
+
+    handleGotIssues(data){
+        console.log("Got Issues!");
+        this.updateIssues(data);
+        this.updateGrid();
+    }
+
+    handleDeleteIssue(data){
+        console.log("Got Delete!");
+        getIssues(this.handleGotIssues);
+    }
+
+    // shouldComponentUpdate(nextProps, nextState){
+    //     console.log(`Before Grid Length: ${this.state.grid.length}`);
+    //     console.log(`Next State Grid Length: ${nextState.grid.length}`);
+    //     return this.state.grid.length != nextState.grid.length;
+    // }
 
     generateColumns(issuesInRow, rowCount){
         var colCount;
@@ -55,6 +81,7 @@ export class IssueCardGrid extends React.Component {
                             DateResolved={currentIssue.DateResolved}
                             isResolved={currentIssue.IsResolved}
                             IsDeleted={currentIssue.IsDeleted}
+                            deleteIssueFromGrid={this.deleteIssueFromGrid}
                         />
                     </Col>
                     );
@@ -88,14 +115,10 @@ export class IssueCardGrid extends React.Component {
     }
 
     updateIssues(newIssues){
-        let filteredIssues = newIssues.filter((value, index, arr) => {
-            return value.IssueID > 1;
-        });
-
-        if(filteredIssues.length > 0){
+        if(newIssues.length > 0){
             this.setState({
-                numberOfCards: filteredIssues.length,
-                issues: filteredIssues
+                numberOfCards: newIssues.length,
+                issues: newIssues
             });
         }
     }
@@ -103,8 +126,15 @@ export class IssueCardGrid extends React.Component {
     updateGrid(){
         let newGrid = this.generateRows();
         this.setState({
+            grid: ""
+        });
+        this.setState({
             grid: newGrid
         });
+    }
+
+    deleteIssueFromGrid(issueID){
+        deleteIssue(issueID, this.handleDeleteIssue);
     }
 
 

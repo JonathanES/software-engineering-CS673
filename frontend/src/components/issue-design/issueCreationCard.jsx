@@ -22,7 +22,7 @@ export default class IssueCreationCard extends React.Component{
 
     render(){
         return(
-            <Card body className="text-center">
+            <Card body className="text-center" style={{minHeight:"42vmin"}}>
                 <CardHeader className="text-center" style={{backgroundColor:"#28A745"}}>Create an Issue</CardHeader>
                 <Form onSubmit={this.handleSubmit}>
                     <FormGroup>
