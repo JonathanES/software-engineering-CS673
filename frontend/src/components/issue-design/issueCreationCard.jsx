@@ -23,12 +23,18 @@ export default class IssueCreationCard extends React.Component{
     // Green header colour #28A745
     handleSubmit(event){
         event.preventDefault();
-        const data = new FormData(event.target);
+        let formDataArray = [];
+        const formData = new FormData(event.target);
+        formData.forEach((element) => {
+            formDataArray.push(element);
+        })
 
-        console.log(`Username is: ${this.props.username} and userID is: ${this.props.userID}`);
-        // data.forEach((element) => {
-        //     console.log(element);
-        // });
+        let priorityID = formDataArray[2].split(" ")[0];
+        let projectID = formDataArray[3].split(" ")[0];
+        let assignedUserID = formDataArray[4].split(" ")[0];
+
+        // issueName, issueSummary, issuePriority, issueProject, assignedTo
+        this.props.createIssue(formDataArray[0], formDataArray[1], priorityID, projectID, assignedUserID);
     }
 
     updateProjectList(){
