@@ -82,12 +82,12 @@ class Project extends React.Component {
     }
 
     handleUpdateClick(project) {
-        console.log(project);
+        //console.log(project);
         let projectID = parseInt(project.projectID);
-        console.log(projectID);
+        //console.log(projectID);
         this.props.dispatch({ type: 'USER_PROJECTUPDATEFORM', project: project });
         getUserPrev(projectID, this.state.userID, (err, data) => {
-            console.log(data);
+            ///console.log(data);
             if (data[0].AccountTypeID == 1) {
 
                 this.props.dispatch({ type: 'USER_PROJECTUPDATEFORM', project: project });
