@@ -4,6 +4,7 @@ import moment from "moment";
 import { connect } from "react-redux";
 import { addCategory } from "../../socket/projectSocket";
 import CategoryForm from "../project/categoryform";
+import ProjectTaskUpdate from "./projectTaskUpdate";
 import "../../css/projectTask.css";
 //import "../../css/group-chat.css";
 
@@ -11,8 +12,9 @@ const mapStateToProps = state => ({
   projectID: state.project.projectID,
   projectCategoryList: state.project.projectCategoryList,
   projectName: state.project.projectName,
-  iisProjectSelected: state.project.isProjectSelected,
+  isProjectSelected: state.project.isProjectSelected,
   isProjectTasksSelected: state.project.isProjectTasksSelected,
+  isUpdateTaskForm: state.project.isUpdateTaskForm,
 
   addCategory: state.category.addCategory,
 
@@ -43,7 +45,7 @@ class ProjectTask extends React.Component {
     this.handleMouseOver = this.handleMouseOver.bind(this);
     this.handleMouseOut = this.handleMouseOut.bind(this);
     this.handleAddCategory = this.handleAddCategory.bind(this);
-    this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleUpdateTask = this.handleUpdateTask.bind(this);
   }
 
   componentDidMount() {
@@ -125,50 +127,27 @@ class ProjectTask extends React.Component {
     this.props.dispatch({ type: "USER_ADD_CATEGORY_DEMAND" });
   }
 
-  handleUpdate(task) {
-    console.log("why here");
-    console.log(task);
-    //this.props.dispatch({ type: "USER_PROJECT_TASK_UPDATE", task: task });
+  handleUpdateTask(task) {
+    //console.log("why here");
+    //console.log(task);
+    this.props.dispatch({ type: "USER_PROJECT_TASK_UPDATE", task: task });
   }
 
   render() {
     return (
       <div style={{ overflowX: "auto" }}>
         {this.props.isProjectTasksSelected && (
-          <div
-            className="title"
-            style={{
-              padding: "5%",
-              alignItems: "top",
-              fontSize: "26px",
-              color: "black"
-            }}
-          >
+          <div className="title" style={{padding: "5%",alignItems: "top",fontSize: "26px", color: "black" }} >
             {" "}
             You are viewing: {this.props.projectName}
-            <a
-              href=" "
-              title="Add Category"
-              style={{
-                backgroundcolor: "#FFFFFF",
-                color: "#000000",
-                textdecoration: "none"
-              }}
-            >
-              <input
-                id="add-button"
-                type="image"
-                style={{ border:'none' }}
-                src={require("../../images/plus-black.svg")}
-                onClick={e => {
-                  this.props.dispatch({ type: "USER_ADD_CATEGORY_DEMAND" });
-                  e.preventDefault();
-                }}
+            <a href=" " title="Add Category" style={{backgroundcolor: "#FFFFFF", color: "#000000", textdecoration: "none"}}>
+              <input id="add-button" type="image" style={{ border:'none' }}src={require("../../images/plus-black.svg")}
+                onClick={(e) => {this.props.dispatch({ type: "USER_ADD_CATEGORY_DEMAND" }); e.preventDefault(); }}
               />
             </a>
           </div>
         )}
-        <div>
+        {this.props.isProjectTasksSelected && (<div>
           {this.props.addCategory && (
             <CategoryForm dispatch={this.props.dispatch} />
           )}
@@ -219,7 +198,7 @@ class ProjectTask extends React.Component {
                   <div
                     className="cat-task_li_li"
                     key = {"projectTaskTask" + task.TaskID}
-                    onClick={() => this.handleUpdate(task)}
+                    onClick={() => this.handleUpdateTask(task)}
                     onMouseOver={e => this.handleMouseOver(e)}
                     onMouseLeave={e => this.handleMouseOut(e)}
                     style={{
@@ -274,7 +253,7 @@ class ProjectTask extends React.Component {
               </li>
             ))}
           </ul>
-        </div>
+        </div>)}
       </div>
     );
 

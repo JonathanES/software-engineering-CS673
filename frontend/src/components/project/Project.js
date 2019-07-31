@@ -138,7 +138,7 @@ class Project extends React.Component {
                 {this.props.isProjectForm && <ProjectForm dispatch={this.props.dispatch} />}
                 {this.props.isAddTaskForm && <TaskForm dispatch={this.props.dispatch} />}
 
-                {/* {this.props.isUpdateTaskForm && <ProjectTaskUpdate dispatch={this.props.dispatch}/>} */}
+                {this.props.isUpdateTaskForm && <ProjectTaskUpdate dispatch={this.props.dispatch}/>}
             </div>
         );
     }
