@@ -58,12 +58,12 @@ class TaskForm extends Component {
   componentDidMount() {
     getPriorities((err, data) => {
       this.setState({ taskPriorities: data });
-      console.log(data);
+      //console.log(data);
       this.state.taskPriorities.push({
         PriorityID: 4,
         Priority: "Please Select One"
       });
-      console.log(this.state.taskPriorities);
+      //console.log(this.state.taskPriorities);
       //console.log('User levels:',this.state.userlevels);
     });
 
@@ -71,9 +71,9 @@ class TaskForm extends Component {
       this.props.projectID,
       (err, data) => {
         data.push({ UserID: 0, username: "Please Select a User" });
-        console.log(data);
+        //console.log(data);
         this.setState({ listOfFriends: data });
-        console.log(this.state.listOfFriends);
+        //console.log(this.state.listOfFriends);
       }
     );
   }
@@ -85,14 +85,14 @@ class TaskForm extends Component {
     //console.log('User ID:',event.target.value);
     this.setState({ newuserid: friend.UserID });
     this.setState({ newusername: friend.username });
-    console.log(this.state.newusername);
-    console.log(this.state.newuserid);
+    //console.log(this.state.newusername);
+    //console.log(this.state.newuserid);
     //event.preventDefault();
   }
 
   handlePriorityChange(event) {
-    console.log("User Type:", event.target.value);
-    console.log("User Type:", event.target.selectedIndex);
+    //console.log("User Type:", event.target.value);
+    //console.log("User Type:", event.target.selectedIndex);
     this.setState({ priorityID: event.target.value });
     event.preventDefault();
   }
@@ -150,15 +150,15 @@ class TaskForm extends Component {
     } else {
       //here we should call the mainpage, so they can see the project added to their screen, wonder how we will do it
       //this.props.dispatch({ type: 'USER_LOGIN', username: data.username});
-      console.log("Project ID:", this.props.projectCategoryList[0].ProjectID);
-      console.log("projectCategoryList:", this.props.projectCategoryList);
-      console.log("ProjectName:", this.props.projectName);
-      console.log("this.state.userid:", this.state.userId);
-      console.log("this.state.username:", this.state.username);
-      console.log("category ID:", this.state.categoryID);
-      console.log("category name:", this.state.categoryName);
-      console.log("newusername:", this.state.newusername);
-      console.log("newuserid:", this.state.newuserid);
+      // console.log("Project ID:", this.props.projectCategoryList[0].ProjectID);
+      // console.log("projectCategoryList:", this.props.projectCategoryList);
+      // console.log("ProjectName:", this.props.projectName);
+      // console.log("this.state.userid:", this.state.userId);
+      // console.log("this.state.username:", this.state.username);
+      // console.log("category ID:", this.state.categoryID);
+      // console.log("category name:", this.state.categoryName);
+      // console.log("newusername:", this.state.newusername);
+      // console.log("newuserid:", this.state.newuserid);
 
       if (this.state.newuserid != 0) {
         addTask(
