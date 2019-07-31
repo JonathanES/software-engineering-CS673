@@ -1,12 +1,23 @@
 import React from 'react';
 import { Card, CardImg, CardHeader, CardText, CardBody,
     CardTitle, CardSubtitle, Button, Badge, CardFooter, Popover, PopoverHeader, PopoverBody, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import {getListOfProjects, getAvailableUsersForProject} from "../../socket/projectSocket.js"
 
 export default class IssueCreationCard extends React.Component{
     constructor(props){
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.onHandleChangeUpdateProjectUserList = this.onHandleChangeUpdateProjectUserList.bind(this);
 
+        this.state = {
+            projectList: "",
+            projectUserList: "",
+            selectedProject: ""
+        };
+    }
+
+    componentDidMount(){
+        this.updateProjectList();
     }
 
     // Green header colour #28A745
@@ -14,12 +25,62 @@ export default class IssueCreationCard extends React.Component{
         event.preventDefault();
         const data = new FormData(event.target);
 
-        console.log(this.props.userID);
+        console.log(`Username is: ${this.props.username} and userID is: ${this.props.userID}`);
         // data.forEach((element) => {
         //     console.log(element);
         // });
     }
 
+    updateProjectList(){
+        let newProjectList = [];
+        let firstProjectID = "";
+        // Generate array of JSX
+        getListOfProjects(this.props.userID, (blank, projectData) => {
+            firstProjectID = projectData[0].projectID;
+
+            projectData.forEach((project) => {
+                newProjectList.push(<option key={"Project List " + project.projectID}>
+                                    {project.projectID} - {project.projectName}
+                                </option>);
+            });
+
+            // Update the for the first project which will appear
+            let newProjectUserList = [];
+            getAvailableUsersForProject(firstProjectID, (blank, projectUserData) => {
+                projectUserData.forEach((user) => {
+                    newProjectUserList.push(<option key={"User List " + user.UserID}>
+                                                {user.UserID} - {user.username}
+                                            </option>);
+                });
+
+                // Update the project list state for displaying + auto select first project and after both functions have returned data
+                this.setState({
+                    projectList: newProjectList,
+                    projectUserList: newProjectUserList,
+                    selectedProject: firstProjectID
+                });
+            });
+        });
+    }
+
+    onHandleChangeUpdateProjectUserList(event){
+        // Update the user list for the new project selected
+        let newProjectID = event.target.value.split(" ")[0] // Split the string by the spaces then select the first element which is the ID
+        let newProjectUserList = [];
+        getAvailableUsersForProject(newProjectID, (blank, projectUserData) => {
+            projectUserData.forEach((user) => {
+                newProjectUserList.push(<option key={"User List " + user.UserID}>
+                                            {user.UserID} - {user.username}
+                                        </option>);
+            });
+
+            // Update the project list state for displaying + auto select first project and after both functions have returned data
+            this.setState({
+                projectUserList: newProjectUserList,
+                selectedProject: newProjectID
+            });
+        });
+    }
 
     render(){
         return(
@@ -44,18 +105,14 @@ export default class IssueCreationCard extends React.Component{
                     </FormGroup>
                     <FormGroup>
                       <Label for="projectSelect">Project</Label>
-                      <Input type="select" name="projectID" id="projectSelect">
-                        <option>Project 1</option>
-                        <option>Project 2</option>
-                        <option>Project 3</option>
+                      <Input type="select" name="projectID" id="projectSelect" onChange={this.onHandleChangeUpdateProjectUserList}>
+                        {this.state.projectList}
                       </Input>
                     </FormGroup>
                     <FormGroup>
                       <Label for="userSelect">Assign a User</Label>
                       <Input type="select" name="assignedTo" id="userSelect">
-                        <option>User 1</option>
-                        <option>User 2</option>
-                        <option>User 3</option>
+                        {this.state.projectUserList}
                       </Input>
                     </FormGroup>
                     <Button className="text-center">Create Issue</Button>

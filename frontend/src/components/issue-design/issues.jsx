@@ -24,9 +24,10 @@ class Issues extends React.Component {
             grid: <IssueCardGrid
                     numberOfCards={0}
                     issues={[]}
-                    cardsPerRow={4}/>
+                    cardsPerRow={4}
+                    username={this.props.username}
+                    userID={this.props.userId}/>
         });
-        console.log(this.props);
     }
 
     render() {

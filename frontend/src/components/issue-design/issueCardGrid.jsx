@@ -28,6 +28,7 @@ export class IssueCardGrid extends React.Component {
     componentDidMount(){
         // Call the socket for getting the Issues from the DB with our overwritting callback to set the state
         getIssues(this.handleGotIssues);
+        //console.log(`Username is: ${this.props.username} and userID is: ${this.props.userID}`);
     }
 
 
@@ -53,7 +54,9 @@ export class IssueCardGrid extends React.Component {
 
         if(rowCount == 0){ // Firstly add the Creation Card if we are on the first row
             row.push(<Col className={"my-md-" + this.state.cardSize} key={"CreationCard 1"}>
-                        <IssueCreationCard/>
+                        <IssueCreationCard
+                        username={this.props.username}
+                        userID={this.props.userID}/>
                     </Col>);
         }
 
