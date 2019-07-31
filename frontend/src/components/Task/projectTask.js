@@ -50,59 +50,61 @@ class ProjectTask extends React.Component {
 
   componentDidUpdate(prevProps) {
 
-    if (prevProps.task.taskName != this.props.task.taskName) {
-      const getListofTasksForUser = this.state.getListofTasksForUser;
-      getListofTasksForUser.forEach(task => {
-        if (task.taskID == this.props.task.taskID)
-          task = this.props.task;
-      })
-      this.setState({ getListofTasksForUser: getListofTasksForUser });
+    if (typeof prevProps.task != 'undefined') {
+
+      if (prevProps.task.taskName != this.props.task.taskName) {
+        const getListofTasksForUser = this.state.getListofTasksForUser;
+        getListofTasksForUser.forEach(task => {
+          if (task.taskID == this.props.task.taskID)
+            task = this.props.task;
+        })
+        this.setState({ getListofTasksForUser: getListofTasksForUser });
+      }
+
+      if (prevProps.task.dueDate != this.props.task.dueDate) {
+        const getListofTasksForUser = this.state.getListofTasksForUser;
+        getListofTasksForUser.forEach(task => {
+          if (task.taskID == this.props.task.taskID)
+            task = this.props.task;
+        })
+        this.setState({ getListofTasksForUser: getListofTasksForUser });
+      }
+
+      if (prevProps.task.taskInfo != this.props.task.taskInfo) {
+        const getListofTasksForUser = this.state.getListofTasksForUser;
+        getListofTasksForUser.forEach(task => {
+          if (task.taskID == this.props.task.taskID)
+            task = this.props.task;
+        })
+        this.setState({ getListofTasksForUser: getListofTasksForUser });
+      }
+
+      if (prevProps.task.statusID != this.props.task.statusID) {
+        const getListofTasksForUser = this.state.getListofTasksForUser;
+        getListofTasksForUser.forEach(task => {
+          if (task.taskID == this.props.task.taskID)
+            task = this.props.task;
+        })
+        this.setState({ getListofTasksForUser: getListofTasksForUser });
+      }
+
+      if (prevProps.task.actualTimeSpent != this.props.task.actualTimeSpent) {
+        const getListofTasksForUser = this.state.getListofTasksForUser;
+        getListofTasksForUser.forEach(task => {
+          if (task.taskID == this.props.task.taskID)
+            task = this.props.task;
+        })
+        this.setState({ getListofTasksForUser: getListofTasksForUser });
+      }
+
+      if (prevProps.task.isDeleted != this.props.task.isDeleted) {
+
+        let listOfTask = this.state.getListofTasksForUser;
+        listOfTask = listOfTask.filter(task => task.taskID != this.props.task.taskID);
+        this.setState({ getListofTasksForUser: listOfTask })
+
+      }
     }
-
-    if (prevProps.task.dueDate != this.props.task.dueDate) {
-      const getListofTasksForUser = this.state.getListofTasksForUser;
-      getListofTasksForUser.forEach(task => {
-        if (task.taskID == this.props.task.taskID)
-          task = this.props.task;
-      })
-      this.setState({ getListofTasksForUser: getListofTasksForUser });
-    }
-
-    if (prevProps.task.taskInfo != this.props.task.taskInfo) {
-      const getListofTasksForUser = this.state.getListofTasksForUser;
-      getListofTasksForUser.forEach(task => {
-        if (task.taskID == this.props.task.taskID)
-          task = this.props.task;
-      })
-      this.setState({ getListofTasksForUser: getListofTasksForUser });
-    }
-
-    if (prevProps.task.statusID != this.props.task.statusID) {
-      const getListofTasksForUser = this.state.getListofTasksForUser;
-      getListofTasksForUser.forEach(task => {
-        if (task.taskID == this.props.task.taskID)
-          task = this.props.task;
-      })
-      this.setState({ getListofTasksForUser: getListofTasksForUser });
-    }
-
-    if (prevProps.task.actualTimeSpent != this.props.task.actualTimeSpent) {
-      const getListofTasksForUser = this.state.getListofTasksForUser;
-      getListofTasksForUser.forEach(task => {
-        if (task.taskID == this.props.task.taskID)
-          task = this.props.task;
-      })
-      this.setState({ getListofTasksForUser: getListofTasksForUser });
-    }
-
-    if (prevProps.task.isDeleted != this.props.task.isDeleted) {
-
-      let listOfTask = this.state.getListofTasksForUser;
-      listOfTask = listOfTask.filter(task => task.taskID != this.props.task.taskID);
-      this.setState({ getListofTasksForUser: listOfTask })
-
-    }
-
 
   }
   componentDidMount() {
