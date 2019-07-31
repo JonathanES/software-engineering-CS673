@@ -7,7 +7,9 @@ import { Card, CardImg, CardHeader, CardText, CardBody,
 export default class IssueCard extends React.Component{
     constructor(props){
         super(props);
+        // Always bind these once, since otherwise React will keep making new functions with every bind
         this.onButtonClick = this.onButtonClick.bind(this);
+        this.onDeleteButtonClick = this.onDeleteButtonClick.bind(this);
         this.toggle = this.toggle.bind(this);
 
         this.state = {
@@ -21,6 +23,15 @@ export default class IssueCard extends React.Component{
             popoverOpen: false
         }
     }
+
+    // componentWillUnmount(){
+    //     // AppStore.removeChangeListener(this.onButtonClick);
+    //     // AppStore.removeChangeListener(this.onDeleteButtonClick);
+    //     // AppStore.removeChangeListener(this.toggle);
+    //     window.removeEventListener("onClick", this.onDeleteButtonClick);
+    // }
+
+
     getHeaderColour(priority){
 
         if(priority == 1){  // Blue Header
@@ -52,6 +63,10 @@ export default class IssueCard extends React.Component{
         });
     }
 
+    onDeleteButtonClick(event){
+        this.props.deleteIssueFromGrid(this.props.IssueID);
+    }
+
     toggle() {
         this.setState({popoverOpen: !this.state.popoverOpen},
             () => {
@@ -66,16 +81,17 @@ export default class IssueCard extends React.Component{
 
     render(){
         return(
-            <Card body className="text-center">
+            <Card body className="text-center" style={{minHeight:"42vmin"}}>
                 <CardHeader className="text-center" style={this.getHeaderColour(this.props.PriorityID)}>{this.state.header}</CardHeader>
                 <CardBody className="text-center">
                     <CardTitle>{"Created by: " + this.state.title}</CardTitle>
                     <CardText>{this.state.text}</CardText>
-                    <Button onClick={this.onButtonClick.bind(this)} color="secondary">{this.state.buttonText}</Button>
+                    <Button onClick={this.onButtonClick} color="secondary">{this.state.buttonText}</Button>
                     <CardText>
                         <small className="text-muted">Last updated {this.state.lastUpdate}</small>
                     </CardText>
                 </CardBody>
+
                 <Row>
                     <Col className="text-sm-left">
                         <Button id={"Popover" + this.props.IssueID} type="button">
@@ -83,10 +99,10 @@ export default class IssueCard extends React.Component{
                         </Button>
                     </Col>
                     <Col className="text-sm-right">
-                        <Button color="danger">Delete</Button>
+                        <Button color="danger" onClick={this.onDeleteButtonClick} key={"Delete" + this.props.IssueID}>Delete</Button>
                     </Col>
                 </Row>
-                <Popover placement="bottom" isOpen={this.state.popoverOpen} target={"Popover" + this.props.IssueID} toggle={this.toggle.bind(this)}>
+                <Popover placement="bottom" isOpen={this.state.popoverOpen} target={"Popover" + this.props.IssueID} toggle={this.toggle}>
                   <PopoverHeader>Popover Title</PopoverHeader>
                   <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
                 </Popover>

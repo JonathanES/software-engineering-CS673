@@ -75,19 +75,19 @@ class CategoryForm extends React.Component {
 
     render() {
         return (
-            <div>
-                <div id="myModal" class="modal-fade" role="dialog">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" onClick={(e) => { this.props.dispatch({ type: 'USER_ADD_CATEGORY_DEMAND' }); e.preventDefault() }}></button>
-                                <h4 class="modal-title">Add New Category</h4>
+            <div className="categoryForm">
+                <div id="myModal" className="modal-fade" role="dialog">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <button type="button" className="close" data-dismiss="modal" onClick={(e) => { this.props.dispatch({ type: 'USER_ADD_CATEGORY_DEMAND' }); e.preventDefault() }}></button>
+                                <h4 className="modal-title">Add New Category</h4>
                             </div>
                             <form onClick={this.handleSubmit} style={{ position: "absolute", left: "10" }}>
                                 <input id="categoryName" type="text" value={this.state.categoryName} onChange={this.handleChange} />
-                                <button class="add_category_button" id="add-cat-button" type="submit">Add Category</button>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-default" data-dismiss="modal"
+                                <button className="add_category_button" id="add-cat-button" type="submit">Add Category</button>
+                                <div className="modal-footer">
+                                    <button type="submit" className="btn btn-default" data-dismiss="modal"
                                         onClick={(e) => { this.props.dispatch({ type: 'USER_ADD_CATEGORY_DEMAND' }); e.preventDefault() }}>Close</button>
                                 </div>
                             </form>

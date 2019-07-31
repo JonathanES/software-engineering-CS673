@@ -64,7 +64,7 @@ async function hardDeleteIssue(issueID){
  */
 async function getIssues(){
     return new Promise(async (resolve, reject) => {
-        client.query("SELECT * FROM Issues", async (error, results, fields) => {
+        client.query("SELECT * FROM Issues WHERE (IssueID > 1) AND (IsDeleted = 0)", async (error, results, fields) => {
           if(error) throw error;
           Issues.length = 0; // Erase Issues Array
           results.forEach(issue => {

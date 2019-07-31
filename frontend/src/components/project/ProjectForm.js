@@ -92,6 +92,7 @@ class ProjectForm extends React.Component {
                   <label htmlFor="projectName">Project Name :</label>
                   <input id="projectName" type="text" value={this.state.projectName} onChange={this.handleChange}  placeholder="Enter Project Name"/>
                 </div>
+                <br/>
                 <div className="projectform-field">
                   <label for="dueDate">Due Date:</label>
                   <input type="date" id="dueDate" name="trip-start" value={this.state.dueDate} min="2019-06-01" max="2020-12-31" onChange={this.handleChange} />
