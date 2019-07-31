@@ -94,7 +94,7 @@ class ProjectForm extends React.Component {
                 </div>
                 <br/>
                 <div className="projectform-field">
-                  <label for="dueDate">Due Date:</label>
+                  <label htmlFor="dueDate">Due Date:</label>
                   <input type="date" id="dueDate" name="trip-start" value={this.state.dueDate} min="2019-06-01" max="2020-12-31" onChange={this.handleChange} />
                 </div>
                 <button id="copyButtonColor" type="submit" className="projectformbtn uppercase">Add Project</button>
