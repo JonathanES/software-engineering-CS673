@@ -38,7 +38,8 @@ class Project extends React.Component {
             username: props.username,
             projectID: '',
             projectcategories: [],
-            projectName: "User Projects"
+            projectName: "User Projects",
+            disabled:false,
 
         };
 
@@ -46,6 +47,10 @@ class Project extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.handleUpdateClick = this.handleUpdateClick.bind(this);
+
+        this.onChange =this.onChange.bind(this);
+        this.addproject = this.addproject.bind(this);
+           
 
     }
 
@@ -73,12 +78,19 @@ class Project extends React.Component {
     }
 
     handlePictureClick(project) {
-        this.setState({ project: project })
 
-
-        showCategories_old(project.projectID, (err, data) => {
-            this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: project, projectCategoryList: data.length > 0 ? data : [] });
-        })
+        if (typeof project == 'undefined') {
+            return;
+        }
+        else
+        {
+            //this.setState({disabled:true}); 
+            this.setState({ project: project })
+            showCategories_old(project.projectID, (err, data) => {
+                this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: project, projectCategoryList: data.length > 0 ? data : [] });
+            })
+            // this.setState({disabled:false});
+        }
     }
 
     handleUpdateClick(project) {
@@ -99,8 +111,19 @@ class Project extends React.Component {
 
     }
 
+    addproject(){
+        //this.props.dispatch({ type: 'USER_PROJECTFORM_DEMAND' });
+        //this.props.onButtonClick(this.state.value);
+        this.setState({ disabled: false });
+
+    }
+
+    onChange(e) {
+        this.setState({ value: e.target.value });
+      }
 
     handleClick(e) {
+        this.setState({disabled:true})
         this.props.dispatch({ type: 'USER_PROJECTFORM_DEMAND' });
         e.preventDefault();
     }
@@ -125,9 +148,15 @@ class Project extends React.Component {
                         )}
 
                     </ul>
-                    {this.props.isProjectSelected &&
+                    {/* {this.props.isProjectSelected &&
                         <form onClick={this.handleClick}>
                             <button id="add-project-button" className="addprojectbtn" onClick={(e) => this.handleClick(e)}>Add Project</button>
+                        </form>
+                    } */}
+
+                    {this.props.isProjectSelected &&
+                        <form onClick={this.handleClick}>
+                            <button  id="add-project-button" className="addprojectbtn" onClick={this.addproject}>Add Project</button>
                         </form>
                     }
                 </div>

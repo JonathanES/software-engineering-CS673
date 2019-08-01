@@ -87,7 +87,7 @@ class ProjectForm extends React.Component {
           </div>
           <div className="projectform-contain">
             <div className="projectform-group">
-              <form onSubmit={this.handleSubmit} id="createProjectForm">
+              
                 <div className="projectform-field">
                   <label htmlFor="projectName">Project Name :</label>
                   <input id="projectName" type="text" value={this.state.projectName} onChange={this.handleChange}  placeholder="Enter Project Name"/>
@@ -97,6 +97,7 @@ class ProjectForm extends React.Component {
                   <label htmlFor="dueDate">Due Date:</label>
                   <input type="date" id="dueDate" name="trip-start" value={this.state.dueDate} min="2019-06-01" max="2020-12-31" onChange={this.handleChange} />
                 </div>
+                <form onSubmit={this.handleSubmit} id="createProjectForm">
                 <button id="copyButtonColor" type="submit" className="projectformbtn uppercase">Add Project</button>
               </form>
             </div>
