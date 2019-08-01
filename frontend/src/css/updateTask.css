@@ -7,9 +7,9 @@ li {
     list-style: none;
 }
 
-.taskform {
+.taskUpdate {
     margin-left: 15%;
-    width:60%;
+    width:50%;
     background-color: white;
     align-items: center;
     border: 13px solid #ebf1f5;
@@ -18,16 +18,20 @@ li {
     -webkit-border-radius: 8px 14px 14px 54px;
     padding: 30px;
 }
-.taskform input,select {
+.taskUpdate input,select {
     border: 1px solid black;
     border-radius: 5px;
 }
 
-.taskform label{
-    width:30%;
+.taskUpdate label{
+    width:40%
 }
 
-#duedate2{
+.taskUpdate h4{
+    text-align: center;
+}
+
+#duedate3{
     width: 250px;
     align-content: center;
     text-align: center;
@@ -47,7 +51,7 @@ li {
 
 } 
 
-.taskForm-row{
+.taskUpdate-row{
     align-items: center;
 }
 /*.shadow-bg {
@@ -60,7 +64,7 @@ li {
     width: 618px;
     height: 400px;
 } */
-.taskform .modal-dialog{
+.taskUpdate .modal-dialog{
     position: fixed;
     top: 0;
     bottom: 0;
@@ -72,7 +76,7 @@ li {
     z-index: 5;
     border: 1px solid #888;
 }
-.taskform .modal-content{
+.taskUpdate .modal-content{
   position: absolute;
   background-color: #fefefe;
   margin: auto;
@@ -83,22 +87,22 @@ li {
   animation-duration: 0.4s;
   height: 200px;
 }
-.taskform .btn-default {
+.taskUpdate #btn-btn-default {
     position: absolute; 
     height: 35px;
-   width: 80px;
-    border-radius: 10px;
-    background-color:red;
+    width: 10px;
+    /* border-radius: 10px;
+    background-color:red; */
     color: white;
     font-weight: bold;
     border:10;
     outline: 10;
-    float: right;
+    /* float: right; */
     margin: 0;
-    right: 0px;
-    padding: 0px;
+    /* right: 0px; */
+    padding: 0px; 
 }
-.taskform .modal-footer {
+.taskUpdate .modal-footer {
     height: 15%;
     width: 100%;
     background-color: white;
@@ -107,12 +111,12 @@ li {
     justify-content: center;
     align-items: center;
 }
-.taskform .modal-header{
+.taskUpdate .modal-header{
     width: 100%;
     height: 100px;
 }
-.taskform .submit{  
-   position:absolute;  
+.taskUpdate .submit{  
+   /* position:absolute;  
    height: 35px;
    width: 80px;
    border-radius: 10px;
@@ -122,13 +126,55 @@ li {
    border:10;
    outline: 10;
    margin-right: 10%;
-   margin: 0;
-   right: 15%;
+   margin: 0; */
+   /* right: 15%; */
    padding: 0px;
 }
-.taskform .close{
+
+#updateTaskUpdate{
+    font-family: inherit;
+    height: 30px;
+    width: 20%;
+    border-radius: 10px;
+    background-color:#0a8cdd;
+    color: white;
+    font-weight: bold;
+    border:10;
+    outline: 10;
+    float: center;
+}
+#deleteTaskUpdate{
+    font-family: inherit;
+    height: 30px;
+    width: 20%;
+    border-radius: 10px;
+    background-color:#0a8cdd;
+    color: white;
+    font-weight: bold;
+    border:10;
+    outline: 10;
+    float: center;
+
+
+}
+
+#closeTaskUpdate{
+    font-family: inherit;
+    height: 30px;
+    width: 20%;
+    border-radius: 10px;
+    background-color:#0a8cdd;
+    color: white;
+    font-weight: bold;
+    border:10;
+    outline: 10;
+    float: center;
+
+}
+
+.taskUpdate .close{
     color:silver;
     position:absolute;
-    left:95%;  
-    top:5%;  
+    /* left:95%;   */
+    /* top:5%;   */
 }

@@ -329,6 +329,7 @@ async function getListOfAvailableUser(projectID, userID){
             //console.log('result:', result);
             resolve(result);
         })
+
     })
 };
 

@@ -51,26 +51,6 @@ class Project extends React.Component {
 
     componentDidUpdate(prevProps) {
 
-        // if (prevProps.listOfProjects.length < this.props.listOfProjects.length){
-
-        // }
-
-        // if (typeof this.props.listOfProjects != "undefined") {
-        //     console.log('inside componentDidUpdate');
-        //     console.log(this.props.listOfProjects.length);
-        //     for (let i = 0; i < this.props.listOfProjects.length; i++) {
-        //         console.log('i:',i);
-        //         console.log('prevProps.project[i].isDeleted:',prevProps.project[i].isDeleted)
-        //         console.log('this.props.project[i].isDeleted:',this.props.project[i].isDeleted)
-        //         if (prevProps.project[i].isDeleted != this.props.project[i].isDeleted) {
-
-        //             let listOfp = this.state.listOfProjects;
-        //             listOfp = listOfp.filter(project => project[i].isDeleted != this.props.project[i].isDeleted);
-        //             this.setState({ listOfProjects: listOfp })
-
-        //         }
-        //     }
-        // }
     }
 
     projectList(userID) {
@@ -83,23 +63,9 @@ class Project extends React.Component {
     }
     async componentDidMount() {
 
-        //console.log('isProjectSelected:',this.props.isProjectSelected);
-        //console.log('isProjectTasksSelected:',this.props.isProjectTasksSelected);
         const res = await this.projectList(this.props.userId);
         if (!this.props.isAddTaskForm)
             this.props.dispatch({ type: 'USER_LIST_OF_PROJECT_DEMAND', listOfProjects: res });
-        // getListOfProjects(this.props.userId, (err, data) => {
-        //    this.props.dispatch({type: 'USER_LIST_OF_PROJECT_DEMAND', listOfProjects:data});
-
-        // });
-
-
-
-
-        // socket.on('GET_PROJECTCATEGORIES', data => {
-        //     this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: this.state.project,
-        //             projectCategoryList: data.length > 0 ? data : [] });
-        // });
     }
 
     handleChange(event) {
@@ -107,29 +73,21 @@ class Project extends React.Component {
     }
 
     handlePictureClick(project) {
-        //console.log(project.projectID);
         this.setState({ project: project })
 
-        //showCategories(project.projectID)
-        /*, (err, data) => {
-            console.log(data);
-            this.props.dispatch({ type: 'USER_IS_PROJECT_DEMAND', projectID: project.projectID, projectCategoryList: data.length > 0 ? data : [], projectName: project.projectName });
-        });*/
 
         showCategories_old(project.projectID, (err, data) => {
-            //this.props.dispatch({type: 'USER_IS_PROJECT_DEMAND',projectID: project.projectID, projectCategoryList: data.length > 0 ? data : [], projectName: project.projectName });
             this.props.dispatch({ type: 'USER_IS_PROJECTTASK_DEMAND', project: project, projectCategoryList: data.length > 0 ? data : [] });
-            //this.props.dispatch({type: 'USER_IS_PROJECT_DEMAND',projectID: project.projectID, projectCategoryList: data.length > 0 ? data : [], projectName: project.projectName });
         })
     }
 
     handleUpdateClick(project) {
-        console.log(project);
+        //console.log(project);
         let projectID = parseInt(project.projectID);
-        console.log(projectID);
+        //console.log(projectID);
         this.props.dispatch({ type: 'USER_PROJECTUPDATEFORM', project: project });
         getUserPrev(projectID, this.state.userID, (err, data) => {
-            console.log(data);
+            ///console.log(data);
             if (data[0].AccountTypeID == 1) {
 
                 this.props.dispatch({ type: 'USER_PROJECTUPDATEFORM', project: project });
@@ -151,25 +109,25 @@ class Project extends React.Component {
     render() {
         return (
             <div id="projectMainContainer">
-                {this.props.isProjectSelected && <div class="project">
+                {this.props.isProjectSelected && <div className="project">
                     <ul>
                         {this.props.listOfProjects.map(project =>
-                            <li>
+                            <li key={"Project"+project.projectID}>
                                 <a id={project.projectID} onClick={(e) => {
                                     this.handlePictureClick(project); e.preventDefault()
                                 }}></a>
                                 <div>
                                     <span id={project.projectID} onClick={(e) => { this.handlePictureClick(project); e.preventDefault() }}
-                                        class="project-content">{project.projectName}</span>
+                                        className="project-content">{project.projectName}</span>
                                 </div>
-                                {<a class="updatebtn" id={project.projectID} onClick={(e) => this.handleUpdateClick(project)}> </a>}
+                                {<a className="updatebtn" id={project.projectID} onClick={(e) => this.handleUpdateClick(project)}> </a>}
                             </li>
                         )}
 
                     </ul>
                     {this.props.isProjectSelected &&
                         <form onClick={this.handleClick}>
-                            <button id="add-project-button" class="addprojectbtn" onClick={(e) => this.handleClick(e)}>Add Project</button>
+                            <button id="add-project-button" className="addprojectbtn" onClick={(e) => this.handleClick(e)}>Add Project</button>
                         </form>
                     }
                 </div>
@@ -180,7 +138,7 @@ class Project extends React.Component {
                 {this.props.isProjectForm && <ProjectForm dispatch={this.props.dispatch} />}
                 {this.props.isAddTaskForm && <TaskForm dispatch={this.props.dispatch} />}
 
-                {/* {this.props.isUpdateTaskForm && <ProjectTaskUpdate dispatch={this.props.dispatch}/>} */}
+                {this.props.isUpdateTaskForm && <ProjectTaskUpdate dispatch={this.props.dispatch}/>}
             </div>
         );
     }
