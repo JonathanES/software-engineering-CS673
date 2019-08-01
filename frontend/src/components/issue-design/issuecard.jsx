@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardImg, CardHeader, CardText, CardBody,
-    CardTitle, CardSubtitle, Button, Badge, CardFooter, Popover, PopoverHeader, PopoverBody, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
+    CardTitle, CardSubtitle, Button, Badge, CardFooter, Popover, PopoverHeader, PopoverBody, Row, Col, ListGroup, ListGroupItem, InputGroup, InputGroupAddon, InputGroupButtonDropdown, InputGroupDropdown, Input } from 'reactstrap';
 
 import {getCommentsForIssue, createCommentForIssue} from "../../socket/issuesSocket.js";
 
@@ -14,6 +14,7 @@ export default class IssueCard extends React.Component{
         // Always bind these once, since otherwise React will keep making new functions with every bind
         this.onResolveButtonClick = this.onResolveButtonClick.bind(this);
         this.onDeleteButtonClick = this.onDeleteButtonClick.bind(this);
+        this.onAddCommentButtonClick = this.onAddCommentButtonClick.bind(this);
         this.toggle = this.toggle.bind(this);
 
         this.state = {
@@ -97,6 +98,12 @@ export default class IssueCard extends React.Component{
         this.props.updateIsResolvedFromGrid(this.props.IssueID, this.props.IsResolved);
     }
 
+    onAddCommentButtonClick(event){
+        event.preventDefault();
+        console.log(event);
+
+    }
+
     toggle() {
         this.setState({popoverOpen: !this.state.popoverOpen},
             () => {
@@ -137,8 +144,16 @@ export default class IssueCard extends React.Component{
                 </Row>
 
                 <Popover placement="bottom" isOpen={this.state.popoverOpen} target={"Popover" + this.props.IssueID} toggle={this.toggle}>
-                  <PopoverBody>
-                    <ListGroup flush key={"Comments List group Issue ID " + this.props.IssueID}>
+                  <PopoverBody styles={{"textAlign":"center"}}>
+                    <ListGroup flush styles={{"textAlign":"center"}} key={"Comments List group Issue ID " + this.props.IssueID}>
+                        <ListGroupItem>
+                            <InputGroup>
+                                <InputGroupAddon addonType="prepend">
+                                    <Button onClick={this.onAddCommentButtonClick} aria-describedby="commentText" style={{height:'30px',width:'40px', padding:'0px', margin:'0px'}}>Add</Button>
+                                </InputGroupAddon>
+                                <Input id="commentText" class="form-control" type="text" placeholder="Comment"/>
+                            </InputGroup>
+                        </ListGroupItem>
                         {this.state.commentList}
                     </ListGroup>
                   </PopoverBody>
