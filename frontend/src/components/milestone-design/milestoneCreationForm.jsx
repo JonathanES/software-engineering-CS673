@@ -29,10 +29,10 @@ class MilestoneCreationForm extends React.Component {
         formDataArray.push(element);
     })
 
-    let milestoneName = formDataArray[0].split(" ")[0];
+    let milestoneName = formDataArray[0] //.split(" ")[0];
     let projectID = formDataArray[1].split(" ")[0];
-    let date = formDataArray[2].split(" ")[0];    
-    
+    let date = formDataArray[2].split(" ")[0];
+
     this.props.milestoneCreation(projectID, milestoneName, date)
   }
 
