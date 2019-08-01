@@ -99,7 +99,7 @@ class Task extends React.Component {
         //console.log("inside handleChange:" + event.target.value);
     }
     handleSubmit(event) {
-        console.log('Add Task button pressed before call');
+        // console.log('Add Task button pressed before call');
 
         this.props.dispatch({ type: 'USER_ADD_TASK_DEMAND' });
 
@@ -115,7 +115,7 @@ class Task extends React.Component {
     }
 
     handleClick(e,task){
-        console.log('Calling Task Update');
+        // console.log('Calling Task Update');
         this.props.dispatch({type:'USER_UPDATE_TASK_DEMAND', task:task});
     }
 

@@ -62,7 +62,7 @@ class ProjectTaskUpdate extends React.Component {
 
     componentDidMount() {
 
-        console.log('tasks:', this.props.task);
+        // console.log('tasks:', this.props.task);
 
         getPriorities((err, data) => {
             this.setState({ taskPriorities: data })
@@ -87,10 +87,10 @@ class ProjectTaskUpdate extends React.Component {
 
     handlePriorityChange(e) {
         let selval = parseInt(e.target.value);
-        console.log('Priority Selected:', selval);
+        // console.log('Priority Selected:', selval);
         //console.log(this.state.taskPriorities);
-        console.log('Priority Change:', selval);
-        console.log('Priority Name:', this.state.taskPriorities[selval - 1].Priority)
+        // console.log('Priority Change:', selval);
+        // console.log('Priority Name:', this.state.taskPriorities[selval - 1].Priority)
 
 
 
@@ -102,10 +102,10 @@ class ProjectTaskUpdate extends React.Component {
 
     handleStatusChange(event) {
         let selval = parseInt(event.target.value);
-        console.log('Status Selected:', selval)
-        console.log('Status Change:', selval);
-        //console.log(this.state.taskStatus);
-        console.log('Status Name:', this.state.taskStatus[selval - 1].StatusName)
+        // console.log('Status Selected:', selval)
+        // console.log('Status Change:', selval);
+        // console.log(this.state.taskStatus);
+        // console.log('Status Name:', this.state.taskStatus[selval - 1].StatusName)
         if (selval != '') {
             this.setState({ statusID: selval });
             this.setState({ status: this.state.taskStatus[selval - 1].StatusName });
@@ -152,7 +152,7 @@ class ProjectTaskUpdate extends React.Component {
             // console.log(this.props.task.taskID);
             // console.log(this.state.taskName);
             updateTaskName(this.props.task.TaskID, this.state.taskName, (err, data) => {
-                console.log('New Task Name:', data);
+                // console.log('New Task Name:', data);
                 const task = this.props.task;
                 task.taskName = data;
                 this.props.dispatch({ type: 'USER_UPDATE_TASK_DEMAND', task: task });
@@ -163,7 +163,7 @@ class ProjectTaskUpdate extends React.Component {
             // console.log(this.props.task.taskID);
             // console.log(this.state.dueDate);
             updateDueDate(this.props.task.TaskID, this.state.dueDate, (err, data) => {
-                console.log('New Due Date:', data);
+                // console.log('New Due Date:', data);
                 const task = this.props.task;
                 task.dueDate = data;
                 this.props.dispatch({ type: 'USER_UPDATE_TASK_DEMAND', task: task });
@@ -173,7 +173,7 @@ class ProjectTaskUpdate extends React.Component {
         if (this.state.priorityID != this.props.task.PriorityID && this.state.priorityID != '') {
             // console.log(this.state.priorityID);
             updatePriorityID(this.props.task.TaskID, this.state.priorityID, (err, data) => {
-                console.log('New Priority:', data);
+                // console.log('New Priority:', data);
                 const task = this.props.task;
                 task.priorityID = data;
                 task.priority = this.state.priority
@@ -184,7 +184,7 @@ class ProjectTaskUpdate extends React.Component {
         if (this.state.taskInfo != this.props.task.TaskInfo && this.state.taskInfo != '') {
             // console.log(this.state.taskInfo);
             updateTaskInfo(this.props.task.TaskID, this.state.taskInfo, (err, data) => {
-                console.log('New Task Info:', data);
+                // console.log('New Task Info:', data);
                 const task = this.props.task;
                 task.taskInfo = data;
                 this.props.dispatch({ type: 'USER_UPDATE_TASK_DEMAND', task: task });
@@ -203,7 +203,7 @@ class ProjectTaskUpdate extends React.Component {
         }
 
         if (this.state.actTime != this.props.task.ActualTimeSpent && this.state.actTime != '') {
-            console.log(this.state.actTime);
+            // console.log(this.state.actTime);
             updateActTime(this.props.task.TaskID, this.state.actTime, (err, data) => {
                 // console.log('New Task Info:', data);
                 const task = this.props.task;
@@ -221,7 +221,7 @@ class ProjectTaskUpdate extends React.Component {
     handleDeleteTask(e) {
 
         deleteTask(this.props.task.TaskID, 1, (err, data) => {
-            console.log('Deleted:', data);
+            // console.log('Deleted:', data);
             const task = this.props.task;
             task.IsDeleted = 1;
             this.props.dispatch({ type: 'USER_UPDATE_TASK_DEMAND', task: task });

@@ -26,7 +26,6 @@ const mapStateToProps = state => ({
 class TaskForm extends Component {
   constructor(props) {
     super(props);
-    console.log(props.taskDate);
     this.state = {
       userId: props.userId,
       username: props.username,

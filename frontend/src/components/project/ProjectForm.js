@@ -67,9 +67,9 @@ class ProjectForm extends React.Component {
       alert("Please check your input, you cannot leave Project Due Date empty");
     }
     else {
-      console.log('Adding New Project');
-      console.log('Project Name:',this.state.projectName);
-      console.log('Due Date:', this.state.dueDate);
+      // console.log('Adding New Project');
+      // console.log('Project Name:',this.state.projectName);
+      // console.log('Due Date:', this.state.dueDate);
       addProject(this.state.userId, this.state.projectName, this.state.dueDate, (err, data) => {
 
         this.props.dispatch({type: 'USER_LIST_OF_PROJECT_DEMAND', listOfProjects:data});
