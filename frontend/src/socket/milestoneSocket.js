@@ -5,7 +5,7 @@ function createMilestone(projectID, milestoneName, dueDate, cb = () => {}) {
   socket.emit('USER_CREATE_MILESTONE', projectID, milestoneName, dueDate);
 }
 
-function getListOfMilestones(projectID, cb) {
+function getListOfMilestones(projectID, cb = () => {}) {
   socket.once('GET_MILESTONELIST', data => cb(data));
   socket.emit('USER_GET_MILESTONELIST', projectID);
 }
