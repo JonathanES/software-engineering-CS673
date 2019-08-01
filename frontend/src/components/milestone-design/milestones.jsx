@@ -1,7 +1,7 @@
 import React from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import {createMilestone, getListOfMilestones, getMilestone} from "../../socket/milestoneSocket.js";
-import {MilestoneFormat} from "./milestoneFormat.jsx";
+import {MilestoneFormat} from './milestoneFormat'
 
 const mapStateToProps = state => ({
   username: state.user.username,

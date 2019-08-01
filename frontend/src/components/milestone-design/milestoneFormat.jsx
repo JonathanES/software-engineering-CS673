@@ -1,37 +1,44 @@
 import React from 'react';
 import MilestoneList from "./milestoneList.jsx";
 import MilestoneCreationForm from "./milestoneCreationForm.jsx"
-import {TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col} from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from 'classnames'
 
-import {getListOfMilestones} from "../../socket/milestoneSocket.js";
+import { createMilestone } from "../../socket/milestoneSocket.js";
 
-  export class MilestoneFormat extends React.Component{
-    constructor(props,milestone){
-      super(props);
-      this.toggle = this.toggle.bind(this);
-      this.state = {
-          activeTab:'mile_tab_1',
-          milestoneCreationForm: this.props.milestoneCreationForm,
-          milestones: {}
-      };
-    }
-    toggle(tab){
-      if(this.state.activeTab !== tab){
-        this.setState({
-          activeTab:tab,
+export class MilestoneFormat extends React.Component {
+  constructor(props, milestone) {
+    super(props);
+    this.toggle = this.toggle.bind(this);
+    this.milestoneCreation = this.milestoneCreation.bind(this);
+
+    this.state = {
+      activeTab: 'mile_tab_1',
+      milestones: {},
+      projectID: 1
+    };
+  }
+  toggle(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab,
         //  milestone:milestone
-        });
-      }
+      });
     }
-/*    create(milestone){
-      if(this.state.milestoneCreationForm!==milestone){
-       this.setState({
-         milestoneCreationForm:milestone
-       });
-      }
-    }*/
-    render() {
+  }
+
+  milestoneCreation(projectId, milestoneName, date){
+    this.setState({activeTab: 'mile_tab_1', projectID: projectId});
+    createMilestone(projectId, milestoneName, date, this.toggle(this.state.activeTab))
+  }
+  /*    create(milestone){
+        if(this.state.milestoneCreationForm!==milestone){
+         this.setState({
+           milestoneCreationForm:milestone
+         });
+        }
+      }*/
+  render() {
     return (
       <div>
         <Nav tabs>
@@ -57,13 +64,14 @@ import {getListOfMilestones} from "../../socket/milestoneSocket.js";
             <Row>
               <Col sm="12">
                 <h4>Current Milestones</h4>
-                <MilestoneList/>
+                <MilestoneList projectID={this.props.projectID}/>
               </Col>
             </Row>
           </TabPane>
           <TabPane tabId="mile_tab_2">
-          <div>
-      insert stuff here
+            <div>
+              insert stuff here
+              <MilestoneCreationForm milestoneCreation={this.milestoneCreation}/>
             </div>
           </TabPane>
         </TabContent>

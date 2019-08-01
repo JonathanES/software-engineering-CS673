@@ -39,8 +39,8 @@ class MilestoneList extends React.Component {
     let list = [];
     if (data.length > 0) {
       this.setState({ projectValue: data[0].projectName });
-      getListOfMilestones(1, this.handleGotMilestones);
-      // getListOfMilestones(data[0].projectID, this.handleGotMilestones);
+      //getListOfMilestones(1, this.handleGotMilestones);
+       getListOfMilestones(this.props.projectID, this.handleGotMilestones);
     }
     for (let project of data) {
       list.push(

@@ -1,7 +1,7 @@
 import { socket } from './config'
 
-function createMilestone(projectID, milestoneName, dueDate, cb) {
-  socket.once('CREATE_MILESTONE', data => cb(null, data));
+function createMilestone(projectID, milestoneName, dueDate, cb = () => {}) {
+  socket.once('CREATE_MILESTONE', data => cb(data));
   socket.emit('USER_CREATE_MILESTONE', projectID, milestoneName, dueDate);
 }
 
