@@ -146,8 +146,7 @@ class Chat extends React.Component {
       });
       if (data.length > 0) {
         if (
-          data[0].receiverId == this.state.receiverId ||
-          data[0].senderId == this.state.receiverId
+          data.some(message=> message.receiverId == this.state.receiverId) && data.some(message => message.senderId == this.state.userId)
         )
           this.setState({ chatHistory: data });
       } else {
