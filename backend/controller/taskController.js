@@ -138,7 +138,7 @@ async function getListofTasksForUser(userID) {
  */
 async function getListofTasksForCategories(categoryID) {
     return new Promise((resolve, reject) => {
-        client.query('SELECT T.ParentID, T.CategoryID, T.UserID, U.username, TS.StatusName, P.Priority, T.TaskName, T.TaskInfo, T.CreatedDate, T.DueDate, T.ExpectedDuration, T.ActualTimeSpent FROM Tasks T JOIN TaskStatus TS on TS.StatusID = T.StatusID JOIN Priority P on P.PriorityID = T.PriorityID JOIN Users U on U.UserID = T.UserID WHERE CategoryID = ?', [categoryID], function (error, results, fields) {
+        client.query('SELECT T.TaskID, T.ParentID, T.CategoryID, T.UserID, U.username, TS.StatusID, TS.StatusName, P.Priority, P.PriorityID, T.TaskName, T.TaskInfo, T.CreatedDate, T.DueDate, T.ExpectedDuration, T.ActualTimeSpent, T.IsDeleted FROM Tasks T JOIN TaskStatus TS on TS.StatusID = T.StatusID JOIN Priority P on P.PriorityID = T.PriorityID JOIN Users U on U.UserID = T.UserID WHERE T.CategoryID = ? and T.IsDeleted = 0', [categoryID], function (error, results, fields) {
             if (error) throw error;
             resolve(results);
         });

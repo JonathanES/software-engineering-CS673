@@ -3,12 +3,22 @@ import IssueCard from "./issuecard.jsx";
 import IssueCreationCard from "./issueCreationCard.jsx"
 import {Row, Col} from 'reactstrap';
 
-import {getIssues} from "../../socket/issuesSocket.js";
+import {createIssue, getIssues, deleteIssue} from "../../socket/issuesSocket.js";
 
 // MEIN HOODIE STONE ISLAND ICH DRIP'
 export class IssueCardGrid extends React.Component {
     constructor(props, numberOfCards, issues, cardsPerRow=4){
         super(props);
+
+        // This binds are required since these methods are used in other classes with their own "this"s
+        this.deleteIssueFromGrid = this.deleteIssueFromGrid.bind(this);
+        this.createIssueForGrid = this.createIssueForGrid.bind(this);
+
+        this.handleGotIssues = this.handleGotIssues.bind(this);
+        this.handleDeleteIssue = this.handleDeleteIssue.bind(this);
+        this.handleCreateIssue = this.handleCreateIssue.bind(this);
+        // this.updateIssues = this.updateIssues.bind(this);
+        // this.updateGrid = this.updateGrid.bind(this);
 
         this.state = {
             numberOfCards: this.props.numberOfCards,
@@ -17,13 +27,28 @@ export class IssueCardGrid extends React.Component {
             cardSize: 12/this.props.cardsPerRow,
             grid: ""
         };
-
-        // Call the socket for getting the Issues from the DB with our overwritting callback to set the state
-        getIssues((data) => {
-            this.updateIssues(data);
-            this.updateGrid();
-        });
     }
+
+    componentDidMount(){
+        // Call the socket for getting the Issues from the DB with our overwritting callback to set the state
+        getIssues(this.handleGotIssues);
+        //console.log(`Username is: ${this.props.username} and userID is: ${this.props.userID}`);
+    }
+
+
+    handleGotIssues(data){
+        this.updateIssues(data);
+        this.updateGrid();
+    }
+
+    handleDeleteIssue(data){
+        getIssues(this.handleGotIssues);
+    }
+
+    handleCreateIssue(data){
+        getIssues(this.handleGotIssues); // Get the new issues from the DB and update the displayed grid state
+    }
+
 
     generateColumns(issuesInRow, rowCount){
         var colCount;
@@ -32,7 +57,10 @@ export class IssueCardGrid extends React.Component {
 
         if(rowCount == 0){ // Firstly add the Creation Card if we are on the first row
             row.push(<Col className={"my-md-" + this.state.cardSize} key={"CreationCard 1"}>
-                        <IssueCreationCard/>
+                        <IssueCreationCard
+                        username={this.props.username}
+                        userID={this.props.userID}
+                        createIssue={this.createIssueForGrid}/>
                     </Col>);
         }
 
@@ -55,6 +83,7 @@ export class IssueCardGrid extends React.Component {
                             DateResolved={currentIssue.DateResolved}
                             isResolved={currentIssue.IsResolved}
                             IsDeleted={currentIssue.IsDeleted}
+                            deleteIssueFromGrid={this.deleteIssueFromGrid}
                         />
                     </Col>
                     );
@@ -84,19 +113,15 @@ export class IssueCardGrid extends React.Component {
                     );
             }
         };
-        this.state.grid = rows;
         return rows;
     }
 
     updateIssues(newIssues){
-        let filteredIssues = newIssues.filter((value, index, arr) => {
-            return value.IssueID > 1;
-        });
-
-        if(filteredIssues.length > 0){
+        let issuesNewFirst = newIssues.reverse();
+        if(issuesNewFirst.length > 0){
             this.setState({
-                numberOfCards: filteredIssues.length,
-                issues: filteredIssues
+                numberOfCards: issuesNewFirst.length,
+                issues: issuesNewFirst
             });
         }
     }
@@ -104,8 +129,21 @@ export class IssueCardGrid extends React.Component {
     updateGrid(){
         let newGrid = this.generateRows();
         this.setState({
+            grid: ""
+        });
+        this.setState({
             grid: newGrid
         });
+    }
+
+    deleteIssueFromGrid(issueID){
+        deleteIssue(issueID, this.handleDeleteIssue);
+    }
+
+    // createIssue(issueName, issueSummary, projectID, issueStatusID, userID, responsibleUserID, priorityID, cb=createIssueCallback
+    createIssueForGrid(issueName, issueSummary, issuePriority, issueProject, assignedTo){
+        let issueStatusID = 1; // Unused since we now are using isResolved field in the DB
+        createIssue(issueName, issueSummary, issueProject, issueStatusID, this.props.userID, assignedTo, issuePriority, this.handleCreateIssue);
     }
 
 

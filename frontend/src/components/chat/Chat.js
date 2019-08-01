@@ -276,10 +276,6 @@ class Chat extends React.Component {
                 <button class="searchbtn">
                   <i class="fas fa-search" />
                 </button>
-              </div>
-            </div>
-            <div>
-              <ul class="chaton" ref={e => (this.scrollDom = e)}>
                 {this.state.isGroupDiscussion && (
                   <input
                     id="add-user-in-group-button"
@@ -294,6 +290,10 @@ class Chat extends React.Component {
                     }}
                   />
                 )}
+              </div>
+            </div>
+            <div>
+              <ul class="chaton" ref={e => (this.scrollDom = e)}>
                 {this.state.chatHistory.map(chat => (
                   <div class="chat-position-right" align={chat.position}>
                     <li

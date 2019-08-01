@@ -4,6 +4,7 @@ import moment from "moment";
 import { connect } from "react-redux";
 import { addCategory } from "../../socket/projectSocket";
 import CategoryForm from "../project/categoryform";
+import ProjectTaskUpdate from "./projectTaskUpdate";
 import "../../css/projectTask.css";
 //import "../../css/group-chat.css";
 
@@ -11,8 +12,9 @@ const mapStateToProps = state => ({
   projectID: state.project.projectID,
   projectCategoryList: state.project.projectCategoryList,
   projectName: state.project.projectName,
-  iisProjectSelected: state.project.isProjectSelected,
+  isProjectSelected: state.project.isProjectSelected,
   isProjectTasksSelected: state.project.isProjectTasksSelected,
+  isUpdateTaskForm: state.project.isUpdateTaskForm,
 
   addCategory: state.category.addCategory,
 
@@ -43,11 +45,71 @@ class ProjectTask extends React.Component {
     this.handleMouseOver = this.handleMouseOver.bind(this);
     this.handleMouseOut = this.handleMouseOut.bind(this);
     this.handleAddCategory = this.handleAddCategory.bind(this);
-    this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleUpdateTask = this.handleUpdateTask.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+
+    if (typeof prevProps.task != 'undefined') {
+
+      if (prevProps.task.taskName != this.props.task.taskName) {
+        const getListofTasksForUser = this.state.getListofTasksForUser;
+        getListofTasksForUser.forEach(task => {
+          if (task.taskID == this.props.task.taskID)
+            task = this.props.task;
+        })
+        this.setState({ getListofTasksForUser: getListofTasksForUser });
+      }
+
+      if (prevProps.task.dueDate != this.props.task.dueDate) {
+        const getListofTasksForUser = this.state.getListofTasksForUser;
+        getListofTasksForUser.forEach(task => {
+          if (task.taskID == this.props.task.taskID)
+            task = this.props.task;
+        })
+        this.setState({ getListofTasksForUser: getListofTasksForUser });
+      }
+
+      if (prevProps.task.taskInfo != this.props.task.taskInfo) {
+        const getListofTasksForUser = this.state.getListofTasksForUser;
+        getListofTasksForUser.forEach(task => {
+          if (task.taskID == this.props.task.taskID)
+            task = this.props.task;
+        })
+        this.setState({ getListofTasksForUser: getListofTasksForUser });
+      }
+
+      if (prevProps.task.statusID != this.props.task.statusID) {
+        const getListofTasksForUser = this.state.getListofTasksForUser;
+        getListofTasksForUser.forEach(task => {
+          if (task.taskID == this.props.task.taskID)
+            task = this.props.task;
+        })
+        this.setState({ getListofTasksForUser: getListofTasksForUser });
+      }
+
+      if (prevProps.task.actualTimeSpent != this.props.task.actualTimeSpent) {
+        const getListofTasksForUser = this.state.getListofTasksForUser;
+        getListofTasksForUser.forEach(task => {
+          if (task.taskID == this.props.task.taskID)
+            task = this.props.task;
+        })
+        this.setState({ getListofTasksForUser: getListofTasksForUser });
+      }
+
+      if (prevProps.task.isDeleted != this.props.task.isDeleted) {
+
+        let listOfTask = this.state.getListofTasksForUser;
+        listOfTask = listOfTask.filter(task => task.taskID != this.props.task.taskID);
+        this.setState({ getListofTasksForUser: listOfTask })
+
+      }
+    }
+
+  }
   componentDidMount() {
-    //console.log('isProjectTasksSelected:',this.props.isProjectTasksSelected)
+
+
   }
 
   handleChange(event) {
@@ -89,16 +151,11 @@ class ProjectTask extends React.Component {
           //console.log('it came here')
           break;
         }
-        console.log(
-          "Project ID:",
-          this.props.projectID,
-          " Cat Name: ",
-          this.state.catName
-        );
+        // console.log(`"Project ID: ${this.props.projectID} Cat Name:  ${this.state.catName});
         addCategory(this.props.projectID, this.state.catName, (err, data) => {
-          console.log("Add Project button pressed");
+          // console.log("Add Project button pressed");
           this.setState({ catName: "" });
-          console.log("inside handleSubmit");
+          // console.log("inside handleSubmit");
         });
         break;
 
@@ -116,7 +173,7 @@ class ProjectTask extends React.Component {
         break;
 
       default:
-        console.log("is this called");
+        // console.log("is this called");
         break;
     }
   }
@@ -125,50 +182,27 @@ class ProjectTask extends React.Component {
     this.props.dispatch({ type: "USER_ADD_CATEGORY_DEMAND" });
   }
 
-  handleUpdate(task) {
-    console.log("why here");
-    console.log(task);
-    //this.props.dispatch({ type: "USER_PROJECT_TASK_UPDATE", task: task });
+  handleUpdateTask(task) {
+    //console.log("why here");
+    //console.log(task);
+    this.props.dispatch({ type: "USER_PROJECT_TASK_UPDATE", task: task });
   }
 
   render() {
     return (
       <div style={{ overflowX: "auto" }}>
         {this.props.isProjectTasksSelected && (
-          <div
-            class="title"
-            style={{
-              padding: "5%",
-              alignItems: "top",
-              fontSize: "26px",
-              color: "black"
-            }}
-          >
+          <div className="title" style={{ padding: "5%", alignItems: "top", fontSize: "26px", color: "black" }} >
             {" "}
             You are viewing: {this.props.projectName}
-            <a
-              href=" "
-              title="Add Category"
-              style={{
-                backgroundcolor: "#FFFFFF",
-                color: "#000000",
-                textdecoration: "none"
-              }}
-            >
-              <input
-                id="add-button"
-                type="image"
-                style={{ border:'none' }}
-                src={require("../../images/plus-black.svg")}
-                onClick={e => {
-                  this.props.dispatch({ type: "USER_ADD_CATEGORY_DEMAND" });
-                  e.preventDefault();
-                }}
+            <a href=" " title="Add Category" style={{ backgroundcolor: "#FFFFFF", color: "#000000", textdecoration: "none" }}>
+              <input id="add-button" type="image" style={{ border: 'none' }} src={require("../../images/plus-black.svg")}
+                onClick={(e) => { this.props.dispatch({ type: "USER_ADD_CATEGORY_DEMAND" }); e.preventDefault(); }}
               />
             </a>
           </div>
         )}
-        <div>
+        {this.props.isProjectTasksSelected && (<div>
           {this.props.addCategory && (
             <CategoryForm dispatch={this.props.dispatch} />
           )}
@@ -176,7 +210,8 @@ class ProjectTask extends React.Component {
             {/* <ul > */}
             {this.props.projectCategoryList.map(category => (
               <li
-                class="cat-task_li"
+                className="cat-task_li"
+                key={"projectTaskCategoryName" + category.CategoryID}
                 onClick={this.handleUpdate}
                 style={{
                   width: "300px",
@@ -194,10 +229,10 @@ class ProjectTask extends React.Component {
                 id={category.projectID}
                 onClick={this.handleClickProject}
               >
-                <span class="categorytitle">{category.CategoryName}</span>
-                <span class="footer">
+                <span className="categorytitle">{category.CategoryName}</span>
+                <span className="footer">
                   <input
-                    class="add_task_button"
+                    className="add_task_button"
                     src={require("../../images/add_button_2.png")}
                     style={{ width: "20%", height: "90%" }}
                     id={category.CategoryID}
@@ -205,7 +240,7 @@ class ProjectTask extends React.Component {
                     type="image"
                   />
                   <button
-                    class="add_task_button"
+                    className="add_task_button"
                     id={category.CategoryID}
                     onClick={e => this.handleClick(e, category)}
                     type="submit"
@@ -215,9 +250,10 @@ class ProjectTask extends React.Component {
                   <hr />
                 </span>
                 {category.listOfTasks.map(task => (
-                  <li
-                    class="cat-task_li_li"
-                    onClick={() => this.handleUpdate(task)}
+                  <div
+                    className="cat-task_li_li"
+                    key={"projectTaskTask" + task.TaskID}
+                    onClick={() => this.handleUpdateTask(task)}
                     onMouseOver={e => this.handleMouseOver(e)}
                     onMouseLeave={e => this.handleMouseOut(e)}
                     style={{
@@ -231,8 +267,8 @@ class ProjectTask extends React.Component {
                       padding: "5px"
                     }}
                   >
-                    <div class="cat_tast_head">
-                      <span class="cat_task_span">{task.TaskName}</span>
+                    <div className="cat_tast_head">
+                      <span className="cat_task_span">{task.TaskName}</span>
 
                       <img
                         src={require("./../../images/edit.png")}
@@ -246,7 +282,7 @@ class ProjectTask extends React.Component {
 
                     {/* done|||bstart not start*/}
                     <span
-                      class="state"
+                      className="state"
                       style={{
                         background:
                           task.StatusName == "Done" ? "green" : "#f4d03c"
@@ -255,24 +291,24 @@ class ProjectTask extends React.Component {
                       {task.StatusName}{" "}
                     </span>
 
-                    {/* <span class="cat_task_span">{task.TaskName}</span> */}
-                    <div class="cat_tast_head">
-                      <span class="cat_task_span">
+                    {/* <span className="cat_task_span">{task.TaskName}</span> */}
+                    <div className="cat_tast_head">
+                      <span className="cat_task_span">
                         Assigned to: {task.username}
                       </span>
                     </div>
-                    <div class="cat_tast_footer">
-                      <span class="time">
+                    <div className="cat_tast_footer">
+                      <span className="time">
                         {moment(task.DueDate).format("D MMM")}
                       </span>
-                      {/* <img src={require("./../../images/admin-tool.png")} class="photo" /> */}
+                      {/* <img src={require("./../../images/admin-tool.png")} className="photo" /> */}
                     </div>
-                  </li>
+                  </div>
                 ))}
               </li>
             ))}
           </ul>
-        </div>
+        </div>)}
       </div>
     );
 

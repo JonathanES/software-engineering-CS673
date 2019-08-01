@@ -46,7 +46,7 @@ function* handleCalendarDemand() {
 
 function* handleGetTaskDetailDemand(action) {
     yield put({ type: "TASK_DEMAND" });
-    console.log(action.task);
+    // console.log(action.task);
     yield put({ type: 'INFO_TASK_DEMAND', task: action.task });
     yield put ({ type: "USER_DEMAND_TASK_OF_DAY"});
 
@@ -55,12 +55,16 @@ function* handleGetTaskDetailDemand(action) {
 
 function* handleAddTaskFromCalendarDemand(action) {
     yield put({ type: "PROJECT_DEMAND" });
-    console.log(action.category);
+    // console.log(action.category);
     yield put({ type: 'ADD_TASKFORM_DEMAND', category: action.category, selectedDate: action.selectedDate });
     yield put ({ type: "USER_DEMAND_TASK_OF_DAY"});
 }
 
-function* demandSaga() {
+function *handleMilestoneDemand(){
+    yield put({type: "MILESTONE_DEMAND"});
+}
+
+function *demandSaga(){
     yield takeEvery('USER_MESSAGE_DEMAND', handleMessageDemand);
     yield takeEvery('USER_PROJECT_DEMAND', handleProjectDemand);
     yield takeEvery('USER_LOGOUT', handleLogOut);
@@ -73,6 +77,7 @@ function* demandSaga() {
     yield takeEvery('USER_CALENDAR_DEMAND', handleCalendarDemand);
     yield takeEvery('USER_GET_TASK_DETAIL_DEMAND', handleGetTaskDetailDemand);
     yield takeEvery('USER_ADD_TASK_FROM_CALENDAR_DEMAND', handleAddTaskFromCalendarDemand);
+    yield takeEvery('USER_MILESTONE_DEMAND', handleMilestoneDemand);
 
 
     //yield takeEvery('USER_PROJECTTASK_DEMAND', handleProjectTaskDemand);

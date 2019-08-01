@@ -43,7 +43,7 @@ class Register extends Component {
 
   handleSubmit(event) {
     register(this.state.username, this.state.email, this.state.password, (err, data) => {
-      console.log(data);
+      //console.log(data);
       this.props.dispatch({ type: 'USER_LOGIN', username: data.username });
     });
     event.preventDefault();

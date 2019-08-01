@@ -84,7 +84,7 @@ class Login extends Component {
           <div className="col-auto" id="rightLog">
             <form onSubmit={this.handleSubmit} id="LoginFormCA" className="form-inline">
               <label className="sr-only" htmlFor="inlineFormInputUsername2">Email</label>
-              <div class="input-group mb-2 mr-sm-2">
+              <div className="input-group mb-2 mr-sm-2">
               <input className="form-control mb-2 mr-sm-2" id="email" placeholder="Email" type="text" value={this.state.email} onChange={this.handleChange} />
               </div>
 
@@ -102,12 +102,12 @@ class Login extends Component {
 
               </div>
               </form>
-              <a class="underlineHover" onClick={this.handlePasswordForgotten} className="underline red" >Forgot your password?</a><br></br>
+              <a className="underlineHover" onClick={this.handlePasswordForgotten} className="underline red" >Forgot your password?</a><br></br>
 
-              <p class="font-weight-bold text-center align-middle" style={{color:'black'}}>Organize your project and take flight</p>
-              <p class="font-weight-bold text-center align-middle" style={{color:'black'}}>Join Swellodesk Today!</p>
-              <div class="text-center" role="group" aria-label="Basic example">
-                <button onClick={this.handleClick}  type="button" class="btn btn-primary ">Register</button>
+              <p className="font-weight-bold text-center align-middle" style={{color:'black'}}>Organize your project and take flight</p>
+              <p className="font-weight-bold text-center align-middle" style={{color:'black'}}>Join Swellodesk Today!</p>
+              <div className="text-center" role="group" aria-label="Basic example">
+                <button onClick={this.handleClick}  type="button" className="btn btn-primary ">Register</button>
                 </div>
           </div>
         </div>
