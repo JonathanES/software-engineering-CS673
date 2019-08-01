@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 import MilestoneBasic from "./milestoneBasic.jsx";
-import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText,Form, FormGroup,Button, ButtonGroup, Label, Input } from 'reactstrap';
+import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText, Form, FormGroup, Button, ButtonGroup, Label, Input } from 'reactstrap';
 import { getListOfMilestones } from "../../socket/milestoneSocket.js";
 import { getListOfProjects } from '../../socket/projectSocket';
 import moment from 'moment';
@@ -23,7 +23,7 @@ class MilestoneList extends React.Component {
 
     this.state = {
       //milestones:this.props.milestones,
-  //    rSelected: [],
+      //    rSelected: [],
       list: "",
       listOfProject: [],
       projectValue: ""
@@ -33,29 +33,24 @@ class MilestoneList extends React.Component {
     let newList = [];
     for (let milestone of data) {
       newList.push(
-        <ListGroupItem active>
-          <ListGroupItemHeading> Milestone Name:</ListGroupItemHeading>
-          <ListGroupItemText>
-          {milestone.MilestoneName}
-
-          </ListGroupItemText>
-         <ListGroupItemHeading> Due Date: </ListGroupItemHeading>
-         <ListGroupItemText>
-         {moment(milestone.DueDate).format('YYYY-MM-DD')}
-
-         <h5>Task Status Update</h5>
-         <ButtonGroup>
-           <Button color="primary" onClick={() => this.onRadioBtnClick(1)} active={this.state.rSelected === 1}>Incomplete</Button>
-           <Button color="primary" onClick={() => this.onRadioBtnClick(2)} active={this.state.rSelected === 2}>Complete</Button>
-         </ButtonGroup>
-         <p>Selected: {this.state.rSelected}</p>
-
-         </ListGroupItemText>
-
+        <ListGroupItem >
+          <div style={{ float: "left", width: "33%" }}>
+            Milestone Name: {milestone.MilestoneName}
+          </div>
+          <div style={{ float: "left", width: "33%" }}>
+            Due Date: {moment(milestone.DueDate).format('YYYY-MM-DD')}
+          </div>
+          {/* <div style={{ float: "left", width: "33%" }}>
+            <ButtonGroup>
+              <Button color="primary" onClick={() => this.onRadioBtnClick(1)} active={this.state.rSelected === 1}>Incomplete</Button>
+              <Button color="primary" onClick={() => this.onRadioBtnClick(2)} active={this.state.rSelected === 2}>Complete</Button>
+            </ButtonGroup>
+            <p>Selected: {this.state.rSelected}</p>
+          </div> */}
         </ListGroupItem>
 
 
-      //  <ListGroupItem>Due Date: {milestone.DueDate} </ListGroupItem>
+        //  <ListGroupItem>Due Date: {milestone.DueDate} </ListGroupItem>
       )
     }
     return newList;
@@ -66,7 +61,7 @@ class MilestoneList extends React.Component {
     if (data.length > 0) {
       this.setState({ projectValue: data[0].projectName });
       //getListOfMilestones(1, this.handleGotMilestones);
-       getListOfMilestones(this.props.projectID, this.handleGotMilestones);
+      getListOfMilestones(data[0].projectID, this.handleGotMilestones);
     }
     for (let project of data) {
       list.push(
@@ -96,14 +91,14 @@ class MilestoneList extends React.Component {
   }
 
   onRadioBtnClick(rSelected) {
-      this.setState({ rSelected });
-    }
+    this.setState({ rSelected });
+  }
 
 
 
   handleProjectChange(event) {
     const projectID = event.target.value;
-    this.setState({projectValue: projectID});
+    this.setState({ projectValue: projectID });
     getListOfMilestones(projectID, this.handleGotMilestones);
   }
 
