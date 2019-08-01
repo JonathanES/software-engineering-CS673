@@ -8,7 +8,7 @@ export default class IssueCard extends React.Component{
     constructor(props){
         super(props);
         // Always bind these once, since otherwise React will keep making new functions with every bind
-        this.onButtonClick = this.onButtonClick.bind(this);
+        this.onResolveButtonClick = this.onResolveButtonClick.bind(this);
         this.onDeleteButtonClick = this.onDeleteButtonClick.bind(this);
         this.toggle = this.toggle.bind(this);
 
@@ -20,7 +20,8 @@ export default class IssueCard extends React.Component{
             lastUpdate: this.props.LastUpdate,
             assignedTo: this.props.AssignedToID,
             assignee:   this.props.AssigneeID,
-            popoverOpen: false
+            popoverOpen: false,
+            resolveText: "Resolve"
         };
     }
 
@@ -47,17 +48,12 @@ export default class IssueCard extends React.Component{
     }
 
 
-    onButtonClick(){
-        let newText = "Test Click!";
-        this.setState({
-            buttonText: newText
-        }, () => {
-            console.log(this.props.IssueID);
-        });
-    }
-
     onDeleteButtonClick(event){
         this.props.deleteIssueFromGrid(this.props.IssueID);
+    }
+
+    onResolveButtonClick(event){
+
     }
 
     toggle() {
@@ -91,12 +87,13 @@ export default class IssueCard extends React.Component{
                         </Button>
                     </Col>
                     <Col xs={{ size: 4}}>
-                        <Button color="success" key={"Resolve" + this.props.IssueID}>Resolve</Button>
+                        <Button color="success" onClick={this.onResolveButtonClick} key={"Resolve" + this.props.IssueID}>{this.state.resolveText}</Button>
                     </Col>
                     <Col xs={{ size: 4}}>
                         <Button color="danger" onClick={this.onDeleteButtonClick} key={"Delete" + this.props.IssueID}>Delete</Button>
                     </Col>
                 </Row>
+
                 <Popover placement="bottom" isOpen={this.state.popoverOpen} target={"Popover" + this.props.IssueID} toggle={this.toggle}>
                   <PopoverHeader>Popover Title</PopoverHeader>
                   <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
