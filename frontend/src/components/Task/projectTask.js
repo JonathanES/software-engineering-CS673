@@ -247,7 +247,7 @@ class ProjectTask extends React.Component {
                   >
                     Add New Task
                   </button>
-                  <hr />
+                  <br />
                 </span>
                 {category.listOfTasks.map(task => (
                   <div

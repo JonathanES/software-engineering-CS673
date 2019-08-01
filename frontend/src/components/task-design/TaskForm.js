@@ -224,7 +224,7 @@ class TaskForm extends Component {
         <br/>
         
         <div className="taskform-contain">
-          <form onSubmit={this.handleSubmit}>
+          
             <div className="taskform-field">
               <div className="taskForm-row">
               <label>Task Name:</label>
@@ -284,6 +284,7 @@ class TaskForm extends Component {
               </select>
               </div>
               <br/>
+              <form onSubmit={this.handleSubmit}>
               <button id="add_task_form" type="submit" className="taskformbtn uppercase">
                 Add Task
               </button>
