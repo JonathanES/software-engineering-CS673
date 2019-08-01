@@ -3,7 +3,7 @@ import IssueCard from "./issuecard.jsx";
 import IssueCreationCard from "./issueCreationCard.jsx"
 import {Row, Col} from 'reactstrap';
 
-import {createIssue, getIssues, deleteIssue} from "../../socket/issuesSocket.js";
+import {createIssue, getIssues, deleteIssue, updateIsResolved} from "../../socket/issuesSocket.js";
 
 // MEIN HOODIE STONE ISLAND ICH DRIP'
 export class IssueCardGrid extends React.Component {
@@ -13,10 +13,12 @@ export class IssueCardGrid extends React.Component {
         // This binds are required since these methods are used in other classes with their own "this"s
         this.deleteIssueFromGrid = this.deleteIssueFromGrid.bind(this);
         this.createIssueForGrid = this.createIssueForGrid.bind(this);
+        this.toggleResolveOnIssue = this.toggleResolveOnIssue.bind(this);
 
         this.handleGotIssues = this.handleGotIssues.bind(this);
         this.handleDeleteIssue = this.handleDeleteIssue.bind(this);
         this.handleCreateIssue = this.handleCreateIssue.bind(this);
+        this.handleUpdatedIsResolved = this.handleUpdatedIsResolved.bind(this);
         // this.updateIssues = this.updateIssues.bind(this);
         // this.updateGrid = this.updateGrid.bind(this);
 
@@ -47,6 +49,10 @@ export class IssueCardGrid extends React.Component {
 
     handleCreateIssue(data){
         getIssues(this.handleGotIssues); // Get the new issues from the DB and update the displayed grid state
+    }
+
+    handleUpdatedIsResolved(data){
+        getIssues(this.handleGotIssues);
     }
 
 
@@ -81,9 +87,10 @@ export class IssueCardGrid extends React.Component {
                             DateCreated={currentIssue.DateCreated}
                             LastUpdate={currentIssue.LastUpdate}
                             DateResolved={currentIssue.DateResolved}
-                            isResolved={currentIssue.IsResolved}
+                            IsResolved={currentIssue.IsResolved}
                             IsDeleted={currentIssue.IsDeleted}
                             deleteIssueFromGrid={this.deleteIssueFromGrid}
+                            updateIsResolvedFromGrid={this.toggleResolveOnIssue}
                         />
                     </Col>
                     );
@@ -147,6 +154,15 @@ export class IssueCardGrid extends React.Component {
         createIssue(issueName, issueSummary, issueProject, issueStatusID, this.props.userID, assignedTo, issuePriority, this.handleCreateIssue);
     }
 
+    toggleResolveOnIssue(issueID, isResolved){
+        if(isResolved == 0){
+            updateIsResolved(issueID, 1, this.handleUpdatedIsResolved);
+        }else if(isResolved == 1) {
+            updateIsResolved(issueID, 0, this.handleUpdatedIsResolved);
+        }else {
+            updateIsResolved(issueID, 1, this.handleUpdatedIsResolved);
+        }
+    }
 
     render(){
         return(

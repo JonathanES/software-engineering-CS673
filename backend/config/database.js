@@ -5,13 +5,16 @@ var connection = mysql.createConnection({
   password : 'H!zqxWm789$0',
   database : 'swellodeskDatabase'
 });
- 
-connection.connect();
- 
+
+connection.connect((error) => {
+    if(error) throw error;
+    console.log("Connected!");
+});
+
 connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
   if (error) throw error;
   console.log('The solution is: ', results[0].solution);
 });
- 
+
 
 module.exports = connection;

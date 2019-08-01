@@ -14,11 +14,31 @@ export default class IssueCard extends React.Component{
 
         this.state = {
             popoverOpen: false,
-            resolveText: "Resolve"
+            resolveText: "",
+            headerColour: {backgroundColor:"#157ffb"}
         };
     }
 
+    componentDidMount(){
+        if(this.props.IsResolved == 0){
+            this.setState({
+                    resolveText: "Resolve",
+                    headerColour: this.getHeaderColour(this.props.PriorityID)
+            });
+        } else if (this.props.IsResolved == 1){
+            this.setState({
+                resolveText: "Open",
+                headerColour: {backgroundColor:"#30a64a"}
+            });
+        } else {
+            this.setState({
+                resolveText: "Resolve",
+                headerColour: this.getHeaderColour(this.props.PriorityID)
+            });
+        }
+    }
 
+    // Green 30a64a
     getHeaderColour(priority){
 
         if(priority == 1){  // Blue Header
@@ -46,7 +66,7 @@ export default class IssueCard extends React.Component{
     }
 
     onResolveButtonClick(event){
-
+        this.props.updateIsResolvedFromGrid(this.props.IssueID, this.props.IsResolved);
     }
 
     toggle() {
@@ -64,7 +84,7 @@ export default class IssueCard extends React.Component{
     render(){
         return(
             <Card body className="text-center" style={{minHeight:"42vmin"}}>
-                <CardHeader className="text-center" style={this.getHeaderColour(this.props.PriorityID)}>{this.props.IssueName}</CardHeader>
+                <CardHeader className="text-center" style={this.state.headerColour}>{this.props.IssueName}</CardHeader>
                 <CardBody className="text-center">
                     <CardSubtitle className="pb-2">{"Project:" + this.props.ProjectID}</CardSubtitle>
                     <CardSubtitle className="pb-5">{"Created by: " + ((this.props.AssigneeUsername).charAt(0).toUpperCase() + (this.props.AssignedToUsername).slice(1)) + " assigned to: " + ((this.props.AssignedToUsername).charAt(0).toUpperCase() + (this.props.AssignedToUsername).slice(1))}</CardSubtitle>
