@@ -37,7 +37,7 @@ function getIssues(cb=getIssuesCallback) {
 }
 
 function createCommentForIssue(issueID, creatorID, commentText, cb=createCommentForIssueCallback){
-    socket.emit("CREATE_COMMENT_FOR_ISSUE_WITH_ID");
+    socket.emit("CREATE_COMMENT_FOR_ISSUE_WITH_ID", issueID, creatorID, commentText);
     socket.once("CREATED_COMMENT_FOR_ISSUE_WITH_ID", data => cb(data));
 }
 

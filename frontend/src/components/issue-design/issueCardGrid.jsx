@@ -105,6 +105,8 @@ export class IssueCardGrid extends React.Component {
                             deleteIssueFromGrid={this.deleteIssueFromGrid}
                             updateIsResolvedFromGrid={this.toggleResolveOnIssue}
                             comments={this.state.allComments}
+                            currentUsername={this.props.username}
+                            currentUserID={this.props.userID}
                         />
                     </Col>
                     );
