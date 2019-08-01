@@ -70,7 +70,6 @@ export class MilestoneFormat extends React.Component {
           </TabPane>
           <TabPane tabId="mile_tab_2">
             <div>
-              insert stuff here
               <MilestoneCreationForm milestoneCreation={this.milestoneCreation}/>
             </div>
           </TabPane>

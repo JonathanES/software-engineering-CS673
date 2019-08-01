@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from "react-redux";
 import MilestoneBasic from "./milestoneBasic.jsx";
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
 import { getListOfMilestones } from "../../socket/milestoneSocket.js";
 import { getListOfProjects } from '../../socket/projectSocket';
-
+import moment from 'moment';
+//import 'moment-timezone';
+//
 
 const mapStateToProps = state => ({
   userId: state.user.userId
@@ -29,7 +31,18 @@ class MilestoneList extends React.Component {
     let newList = [];
     for (let milestone of data) {
       newList.push(
-        <ListGroupItem>{milestone.MilestoneName}  {milestone.DueDate}</ListGroupItem>
+        <ListGroupItem active>
+          <ListGroupItemHeading> Milestone Name:</ListGroupItemHeading>
+          <ListGroupItemText>
+          {milestone.MilestoneName}
+          </ListGroupItemText>
+         <ListGroupItemHeading> Due Date: </ListGroupItemHeading>
+         <ListGroupItemText>
+         {moment(milestone.DueDate).format('YYYY-MM-DD')}
+         </ListGroupItemText>
+        </ListGroupItem>
+
+      //  <ListGroupItem>Due Date: {milestone.DueDate} </ListGroupItem>
       )
     }
     return newList;

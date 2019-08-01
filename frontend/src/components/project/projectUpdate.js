@@ -114,7 +114,7 @@ class ProjectUpdate extends React.Component {
 
       console.log('User levels:', this.state.userlevels);
     })
-  
+
   }
 
   handleDateChange(newDate) {
@@ -136,7 +136,7 @@ class ProjectUpdate extends React.Component {
   handleLevelChange(event) {
     //console.log('User Type:',event.target.value);
     this.setState({ newusertype: event.target.value });
-    
+
   }
 
 
@@ -221,7 +221,7 @@ class ProjectUpdate extends React.Component {
                 <br />
                 <div>
                   <label htmlFor="dueDate">Due Date:</label>
-                  <input type="date" id="dueDate4" className="trip-start" value={moment(this.state.dueDate).format('YYYY-MM-DD')} min="2019-06-01" max="2030-12-31" onChange={(e) => this.handleDateChange(e.target.value)} />
+                  <input type="date" id="dueDate4" className="trip-start" value={moment.parseZone(this.state.dueDate)} min="2019-06-01" max="2030-12-31" onChange={(e) => this.handleDateChange(e.target.value)} />
                 </div>
                 <br />
                 <div>
