@@ -46,6 +46,11 @@ function getCommentsForIssue(issueID, cb=getCommentsForIssueCallback){
     socket.once('GOT_COMMENTS_FOR_ISSUE_WITH_ID', data => cb(data));
 }
 
+function getComments(cb){
+    socket.emit('GET_COMMENTS');
+    socket.once('GOT_COMMENTS', data => cb(data));
+}
+
 function getIssueWithID(issueID, cb=getIssueWithIDCallback) {
     socket.emit('GET_ISSUE_WITH_ID', issueID);
     socket.once('GOT_ISSUE_WITH_ID', data => cb(data));
@@ -113,7 +118,9 @@ function updateIsResolved(issueID, isResolved, cb=updateIsResolvedCallback){
 export {createIssue,
         deleteIssue,
         getIssues,
+        createCommentForIssue,
         getCommentsForIssue,
+        getComments,
         getIssueWithID,
         createNewIssueStatus,
         updateProjectID,

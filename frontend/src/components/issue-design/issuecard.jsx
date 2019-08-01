@@ -1,12 +1,16 @@
 import React from 'react';
 import { Card, CardImg, CardHeader, CardText, CardBody,
-    CardTitle, CardSubtitle, Button, Badge, CardFooter, Popover, PopoverHeader, PopoverBody, Row, Col } from 'reactstrap';
+    CardTitle, CardSubtitle, Button, Badge, CardFooter, Popover, PopoverHeader, PopoverBody, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
+
+import {getCommentsForIssue, createCommentForIssue} from "../../socket/issuesSocket.js";
+
 const moment = require("moment")
 
 // ProjectID, IssueStatusID, AssigneeID, AssignedToID, PriorityID, IssueName, Summary, DateCreated, LastUpdate, DateResolved, IsResolved
 export default class IssueCard extends React.Component{
     constructor(props){
         super(props);
+
         // Always bind these once, since otherwise React will keep making new functions with every bind
         this.onResolveButtonClick = this.onResolveButtonClick.bind(this);
         this.onDeleteButtonClick = this.onDeleteButtonClick.bind(this);
@@ -15,7 +19,8 @@ export default class IssueCard extends React.Component{
         this.state = {
             popoverOpen: false,
             resolveText: "",
-            headerColour: {backgroundColor:"#157ffb"}
+            headerColour: {backgroundColor:"#157ffb"},
+            commentList: ""
         };
     }
 
@@ -36,7 +41,9 @@ export default class IssueCard extends React.Component{
                 headerColour: this.getHeaderColour(this.props.PriorityID)
             });
         }
+        this.updateCommentList();
     }
+
 
     // Green 30a64a
     getHeaderColour(priority){
@@ -58,6 +65,27 @@ export default class IssueCard extends React.Component{
             {backgroundColor:"#157ffb"}
             );
         }
+    }
+
+
+    updateCommentList(){
+        let newList = this.generateCommentList();
+        this.setState({
+            commentList: newList
+        });
+    }
+
+    generateCommentList(){
+        let commentsList = []
+        for (let commentCount = 0; commentCount < this.props.comments.length; commentCount++){
+            let commentRow = this.props.comments[commentCount];
+            if (commentRow.IssueID == this.props.IssueID){
+                console.log("Got good comment!");
+                commentsList.push(<ListGroupItem key={"Comment " + commentCount + " IssueID " + this.props.IssueID}>{this.props.comments[commentCount].Message}</ListGroupItem>);
+            };
+        };
+
+        return commentsList;
     }
 
 
@@ -86,7 +114,7 @@ export default class IssueCard extends React.Component{
             <Card body className="text-center" style={{minHeight:"42vmin"}}>
                 <CardHeader className="text-center" style={this.state.headerColour}>{this.props.IssueName}</CardHeader>
                 <CardBody className="text-center">
-                    <CardSubtitle className="pb-2">{"Project:" + this.props.ProjectID}</CardSubtitle>
+                    <CardSubtitle className="pb-2">{"Project: " + this.props.ProjectName}</CardSubtitle>
                     <CardSubtitle className="pb-5">{"Created by: " + ((this.props.AssigneeUsername).charAt(0).toUpperCase() + (this.props.AssigneeUsername).slice(1)) + " assigned to: " + ((this.props.AssignedToUsername).charAt(0).toUpperCase() + (this.props.AssignedToUsername).slice(1))}</CardSubtitle>
                     <CardText style={{minHeight:"15vmin", color:"black", "font-style": "normal", "font-size": "16px"}}>{this.props.Summary}</CardText>
                     <CardText>
@@ -97,7 +125,7 @@ export default class IssueCard extends React.Component{
                 <Row>
                     <Col xs={{ size: 4}}>
                         <Button id={"Popover" + this.props.IssueID} key={"Comment" + this.props.IssueID} type="button">
-                          Note <Badge color="secondary" className="text-sm-right">4</Badge>
+                          Note <Badge color="secondary" className="text-sm-right">{this.state.commentList.length}</Badge>
                         </Button>
                     </Col>
                     <Col xs={{ size: 4}}>
@@ -109,8 +137,11 @@ export default class IssueCard extends React.Component{
                 </Row>
 
                 <Popover placement="bottom" isOpen={this.state.popoverOpen} target={"Popover" + this.props.IssueID} toggle={this.toggle}>
-                  <PopoverHeader>Popover Title</PopoverHeader>
-                  <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
+                  <PopoverBody>
+                    <ListGroup flush key={"Comments List group Issue ID " + this.props.IssueID}>
+                        {this.state.commentList}
+                    </ListGroup>
+                  </PopoverBody>
                 </Popover>
             </Card>
         );
