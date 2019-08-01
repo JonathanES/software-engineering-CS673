@@ -1,5 +1,5 @@
 class TaskModel {
-  constructor(taskID, parentID, categoryID, userID, statusID,status,  priorityID, priority, taskName, taskInfo, createdDate,dueDate, expectedDuration, actualTimeSpent, isDeleted, projectName, categoryName) {
+  constructor(taskID, parentID, categoryID, userID, statusID, status, priorityID, priority, taskName, taskInfo, createdDate, dueDate, expectedDuration, actualTimeSpent, isDeleted, projectName, categoryName) {
     this.taskID = taskID;
     this.parentID = parentID;
     this.categoryID = categoryID;
@@ -18,7 +18,7 @@ class TaskModel {
     this.projectName = projectName;
     this.categoryName = categoryName;
   }
-  
+
   get getTaskID() {
     return this.taskID;
   }
@@ -39,7 +39,7 @@ class TaskModel {
     return this.statusID;
   }
 
-  get getStatus(){
+  get getStatus() {
     return this.status;
   }
 
@@ -47,7 +47,7 @@ class TaskModel {
     return this.priorityID;
   }
 
-  get getPriority(){
+  get getPriority() {
     return this.priority;
   }
 
@@ -58,15 +58,15 @@ class TaskModel {
   get getTaskInfo() {
     return this.taskInfo;
   }
-  
+
 
   get getCreatedDate() {
     return this.createdDate;
   }
-  get getDueDate(){
+  get getDueDate() {
     return this.dueDate;
   }
-  
+
   get getExpectedDuration() {
     return this.expectedDuration;
   }
@@ -79,12 +79,51 @@ class TaskModel {
     return this.isDeleted;
   }
 
-  get getProjectName(){
+  get getProjectName() {
     return this.projectName;
   }
 
-  get getCategoryName(){
+  get getCategoryName() {
     return this.categoryName;
+  }
+
+  set setStatusID(statusID) {
+    this.statusID = statusID;
+  }
+
+  set setStatus(status) {
+    this.status = status;
+  }
+
+  set setTaskName(taskName) {
+    this.taskName = taskName;
+  }
+  set setPriorityID(priorityID) {
+    this.priorityID = priorityID;
+  }
+
+  set setPriority(priority) {
+    this.priority = priority;
+  }
+
+  set setTaskInfo(taskInfo) {
+    this.taskInfo = taskInfo;
+  }
+
+  set setExpectedDuration(expectedDuration) {
+    this.expectedDuration = expectedDuration;
+  }
+
+  set setActualTimeSpent(actualTimeSpent) {
+    this.actualTimeSpent = actualTimeSpent;
+  }
+
+  set setIsDeleted(isDeleted) {
+    this.isDeleted = isDeleted;
+  }
+
+  set setDueDate(dueDate) {
+    this.dueDate = dueDate;
   }
 }
 
