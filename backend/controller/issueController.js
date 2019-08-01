@@ -65,7 +65,7 @@ async function hardDeleteIssue(issueID){
 async function getIssues(){
     return new Promise(async (resolve, reject) => {
         // client.query("SELECT * FROM Issues WHERE (IssueID > 1) AND (IsDeleted = 0)", async (error, results, fields) => {
-        client.query("SELECT I.IssueID, I.ProjectID, I.IssueStatusID, I.AssigneeID, I.AssignedToID, I.PriorityID, I.IssueName, I.Summary, I.DateCreated, I.LastUpdate, I.DateResolved, I.IsResolved, I.IsDeleted, U.username as AssigneeUsername, Us.username as AssignedToUsername FROM Issues I Join Users U on U.UserID = I.AssigneeID Join Users Us on Us.UserID = I.AssignedToID WHERE (I.IssueID > 1) AND (I.IsDeleted = 0)", async (error, results, fields) => {
+        client.query("SELECT I.IssueID, I.ProjectID, I.IssueStatusID, I.AssigneeID, I.AssignedToID, I.PriorityID, I.IssueName, I.Summary, I.DateCreated, I.LastUpdate, I.DateResolved, I.IsResolved, I.IsDeleted, U.username as AssigneeUsername, Us.username as AssignedToUsername, P.ProjectID, P.ProjectName FROM Issues I Join Users U on U.UserID = I.AssigneeID Join Users Us on Us.UserID = I.AssignedToID Join Projects P on P.ProjectID = I.ProjectID WHERE (I.IssueID > 1) AND (I.IsDeleted = 0)", async (error, results, fields) => {
           if(error) throw error;
           Issues.length = 0; // Erase Issues Array
           results.forEach(issue => {
@@ -98,6 +98,16 @@ async function getCommentsForIssue(issueID){
         });
     });
 };
+
+async function getComments(){
+    return new Promise(async (resolve, reject) => {
+        client.query("SELECT * FROM Comments", [],
+            async (error, results, fields) => {
+                if (error) throw error;
+                resolve(results); // Return comments in an array
+        });
+    });
+}
 
 // Get and return a particular row in the issue table from ID (PK)
 /**
@@ -243,6 +253,7 @@ module.exports = {
   getIssues: getIssues,
   createCommentForIssue: createCommentForIssue,
   getCommentsForIssue: getCommentsForIssue,
+  getComments: getComments,
   getIssueWithID: getIssueWithID,
   createNewIssueStatus: createNewIssueStatus,
   updateProjectID: updateProjectID,

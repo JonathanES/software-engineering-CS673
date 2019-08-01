@@ -6,7 +6,7 @@ import Task from '../components/Task/Task';
 import TaskForm from '../components/task-design/TaskForm';
 import Calendar from '../components/calendar/Calendar';
 import Issues from '../components/issue-design/issues';
-import Milestone from '../components/Milestone/Milestone'
+import Milestones from '../components/milestone-design/milestones'
 
 
 const mapStateToProps = state => ({
@@ -35,7 +35,7 @@ const MainPage = ({ dispatch, messageDemand, projectDemand, issueDemand, taskDem
         {projectDemand && <Project dispatch={dispatch} />}
         {issueDemand && <Issues dispath={dispatch} />}
         {taskDemand && <Task dispatch={dispatch} />}
-        {milestoneDemand && <Milestone dispatch={dispatch} />}
+        {milestoneDemand && <Milestones dispatch={dispatch} />}
         {calendarDemand && <Calendar dispatch={dispatch}/>}
         {/* {projectTaskDemand && <ProjectTask dispatch={dispatch} />} */}
         {/* {projectFormDemand && <ProjectForm dispatch={dispatch} />} */}

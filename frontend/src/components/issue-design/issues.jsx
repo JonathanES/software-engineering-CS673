@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import { connect } from "react-redux";
-import {Card, Button, CardTitle, CardText, Row, Col, Container} from 'reactstrap';
-import {createIssue, updateIssueStatus, getIssues, getIssueWithID, createNewIssueStatus} from "../../socket/issuesSocket.js";
 
 import {IssueCardGrid} from "./issueCardGrid.jsx";
 
@@ -10,7 +8,7 @@ const mapStateToProps = state => ({
     userId: state.user.userId,
 });
 
-// ISSUE FIELDS: ProjectID, IssueStatusID, AssigneeID, AssignedToID, PriorityID, IssueName, Summary, DateCreated, LastUpdate, DateResolved, IsResolved)
+
 class Issues extends React.Component {
     constructor(props) {
         super(props);
@@ -30,13 +28,7 @@ class Issues extends React.Component {
         });
     }
 
-    // render() {
-    //     return (
-    //         <div style={{"font-family": "Helvetica Neue"}}>
-    //         {this.state.grid}
-    //         </div>
-    //     );
-    // }
+
     render() {
         return (
             this.state.grid
