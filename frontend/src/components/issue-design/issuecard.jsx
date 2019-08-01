@@ -77,8 +77,8 @@ export default class IssueCard extends React.Component{
             <Card body className="text-center" style={{minHeight:"42vmin"}}>
                 <CardHeader className="text-center" style={this.getHeaderColour(this.props.PriorityID)}>{this.state.header}</CardHeader>
                 <CardBody className="text-center">
-                    <CardSubtitle>{"Created by: " + this.state.title}</CardSubtitle>
-                    <CardText style={{minHeight:"20vmin", color:"black", "font-style": "normal", "font-size": "16px"}}>{this.state.text}</CardText>
+                    <CardSubtitle className="pb-5">{"Created by: " + this.state.title}</CardSubtitle>
+                    <CardText style={{minHeight:"15vmin", color:"black", "font-style": "normal", "font-size": "16px"}}>{this.state.text}</CardText>
                     <CardText>
                         <small id="lastupdate" style={{color:"grey","font-style": "normal"}}>Last updated {moment(this.state.lastUpdate).format('YYYY-MM-DD HH:mm:ss')}</small>
                     </CardText>
