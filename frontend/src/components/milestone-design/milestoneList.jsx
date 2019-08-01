@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 import MilestoneBasic from "./milestoneBasic.jsx";
-import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText } from 'reactstrap';
+import { ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText,Form, FormGroup,Button, ButtonGroup, Label, Input } from 'reactstrap';
 import { getListOfMilestones } from "../../socket/milestoneSocket.js";
 import { getListOfProjects } from '../../socket/projectSocket';
 import moment from 'moment';
@@ -19,9 +19,11 @@ class MilestoneList extends React.Component {
 
     this.handleGotMilestones = this.handleGotMilestones.bind(this);
     this.handleProjectChange = this.handleProjectChange.bind(this);
+    this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
 
     this.state = {
       //milestones:this.props.milestones,
+  //    rSelected: [],
       list: "",
       listOfProject: [],
       projectValue: ""
@@ -35,12 +37,23 @@ class MilestoneList extends React.Component {
           <ListGroupItemHeading> Milestone Name:</ListGroupItemHeading>
           <ListGroupItemText>
           {milestone.MilestoneName}
+
           </ListGroupItemText>
          <ListGroupItemHeading> Due Date: </ListGroupItemHeading>
          <ListGroupItemText>
          {moment(milestone.DueDate).format('YYYY-MM-DD')}
+
+         <h5>Task Status Update</h5>
+         <ButtonGroup>
+           <Button color="primary" onClick={() => this.onRadioBtnClick(1)} active={this.state.rSelected === 1}>Incomplete</Button>
+           <Button color="primary" onClick={() => this.onRadioBtnClick(2)} active={this.state.rSelected === 2}>Complete</Button>
+         </ButtonGroup>
+         <p>Selected: {this.state.rSelected}</p>
+
          </ListGroupItemText>
+
         </ListGroupItem>
+
 
       //  <ListGroupItem>Due Date: {milestone.DueDate} </ListGroupItem>
       )
@@ -82,6 +95,12 @@ class MilestoneList extends React.Component {
     });
   }
 
+  onRadioBtnClick(rSelected) {
+      this.setState({ rSelected });
+    }
+
+
+
   handleProjectChange(event) {
     const projectID = event.target.value;
     this.setState({projectValue: projectID});
@@ -97,6 +116,7 @@ class MilestoneList extends React.Component {
         <ListGroup>
           {this.state.list}
         </ListGroup>
+
       </div>
     )
   }

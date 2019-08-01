@@ -13,10 +13,10 @@ export default class MilestoneBasic extends React.Component{
 
         this.state = {
             header: this.props.milestoneName,
-            title:  this.props.AssigneeID,
-            text:   this.props.Summary,
-            buttonText: "Test Button",
-            popoverOpen: false
+      //      title:  this.props.AssigneeID,
+        //    text:   this.props.Summary,
+          ////  buttonText: "Test Button",
+          //  popoverOpen: false
         }
     }
 
@@ -66,7 +66,7 @@ export default class MilestoneBasic extends React.Component{
                 </CardBody>
 
 
-                    
+
                         <Button id={"Popover" + this.props.milestoneID} type="button">
                           Comments <Badge color="secondary" className="text-sm-right">4</Badge>
                         </Button>
