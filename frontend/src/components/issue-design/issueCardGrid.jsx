@@ -7,7 +7,7 @@ import {createIssue, getIssues, deleteIssue} from "../../socket/issuesSocket.js"
 
 // MEIN HOODIE STONE ISLAND ICH DRIP'
 export class IssueCardGrid extends React.Component {
-    constructor(props, numberOfCards, issues, cardsPerRow=4){
+    constructor(props){
         super(props);
 
         // This binds are required since these methods are used in other classes with their own "this"s
@@ -128,6 +128,7 @@ export class IssueCardGrid extends React.Component {
 
     updateGrid(){
         let newGrid = this.generateRows();
+        // This helps clear the issueCreationCard ?!?! SHOULD FIX FOR PERFORMANCE ISSUES
         this.setState({
             grid: ""
         });
