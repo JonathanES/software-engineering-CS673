@@ -12,13 +12,13 @@
          client.on('USER_SEND_MESSAGE', async (senderID, receiverID, message) => {
              const result = await messagingController.insertDirectMessage(senderID, receiverID, message);
              io.sockets.in(receiverID).emit('SEND_MESSAGE', result);
-            // io.sockets.in(senderID).emit('SEND_MESSAGE', result);
+             io.sockets.in(senderID).emit('SEND_MESSAGE', result);
             })
  
          client.on('USER_GET_MESSAGE', async (senderID, receiverID) => {
              const result = await messagingController.getDirectMessages(senderID, receiverID);
              io.sockets.in(senderID).emit('SEND_MESSAGE', result);
-            // io.sockets.in(receiverID).emit('SEND_MESSAGE', result);
+            io.sockets.in(receiverID).emit('SEND_MESSAGE', result);
          })
 
 
