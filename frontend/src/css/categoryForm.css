@@ -25,7 +25,7 @@ input {
 } */
 .modal-dialog {
   position: fixed;
-  top: 50%;
+  top: 20%;
   bottom: 0;
   left: 0;
   right: 0;

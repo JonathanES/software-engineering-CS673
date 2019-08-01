@@ -358,6 +358,7 @@ ul::-webkit-scrollbar {
   position: absolute;
   right: 0px;
   width: 5%;
+  border:none;
 }
 
 #add-user-group {
@@ -370,17 +371,21 @@ ul::-webkit-scrollbar {
   float: right;
   width: 50%;
   padding: 10px;
+  height: 20px;
 }
 
 #delete-user-group #delete-user-button {
   margin-left: 1%;
   float: right;
-  width: 5%;
+  width: 15%;
+  border: none;
+  height: 24px;
 }
 
 #add-user-group #add-user-button {
   margin-left: 1%;
-  width: 5%;
+  width: 15%;
+  border:none;
 }
 
 #delete-user-group-title {
