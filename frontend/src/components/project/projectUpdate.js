@@ -51,13 +51,13 @@ class ProjectUpdate extends React.Component {
 
   componentDidMount() {
 
-    console.log(this.props.project);
+    //console.log(this.props.project);
 
     getUserLevel((err, data) => {
       this.setState({ userlevels: data })
       this.state.userlevels.push({ AccountTypeID: 0, TypeName: 'Please Select a User Type' });
 
-      console.log('User levels:', this.state.userlevels);
+      //console.log('User levels:', this.state.userlevels);
     })
     //this.state.projectName = this.props.projectName;
     //this.handleNameChange(this.state.projectName)
@@ -69,23 +69,23 @@ class ProjectUpdate extends React.Component {
 
     getAvailableUsers(this.state.pID, this.state.userId, (err, data) => {
       this.setState({ listOfFriends: data });
-      console.log('Available users:', data);
+      //console.log('Available users:', data);
       // this.state.listOfFriends.push(data);
       // this.setState({ listOfFriends: "" });
       // console.log(this.state.listOfFriends);
       this.state.listOfFriends.push({ UserID: 0, username: 'Please Select a User' });
-      console.log('Available Users:', this.state.listOfFriends);
+      //console.log('Available Users:', this.state.listOfFriends);
 
     });
 
     getprojectdetail(this.state.pID, (err, data) => {
-      console.log('projectID:', this.props.project.projectID);
-      console.log('projectName:', this.props.project.projectName);
+      //console.log('projectID:', this.props.project.projectID);
+      //console.log('projectName:', this.props.project.projectName);
 
     })
 
     getUserPrev(this.props.project.projectID, this.state.userId, (err, data) => {
-      console.log(data[0].AccountTypeID);
+      //console.log(data[0].AccountTypeID);
 
       if (data[0].AccountTypeID != 3) {
         this.setState({ userType: true })
@@ -112,18 +112,18 @@ class ProjectUpdate extends React.Component {
     getUserLevel((err, data) => {
       this.setState({ userlevels: data })
 
-      console.log('User levels:', this.state.userlevels);
+      //console.log('User levels:', this.state.userlevels);
     })
   
   }
 
   handleDateChange(newDate) {
-    console.log(newDate);
+    //console.log(newDate);
     this.setState({ dueDate: newDate })
   }
 
   handleNameChange(newName) {
-    console.log('Name Change:', newName);
+    //console.log('Name Change:', newName);
     this.setState({ projectName: newName })
 
   }
@@ -148,19 +148,19 @@ class ProjectUpdate extends React.Component {
   }
 
   handleDeleteProject(e) {
-    console.log('ProjectID:', this.props.project.projectID)
+    //console.log('ProjectID:', this.props.project.projectID)
     // deleteproject(this.props.project.projectID,1, (err,data)=>{
     //   console.log('Deleted:',data);
     // });
 
     updateDeleteProjectDependencies(this.props.project.projectID, 1, (err, data) => {
-      console.log('Deleted:', data);
+      //console.log('Deleted:', data);
       const project = this.props.project;
       project.isDeleted = 1;
 
-      console.log('before update:', this.props.listOfProjects);
+      //console.log('before update:', this.props.listOfProjects);
       getListOfProjects(this.props.userId, (err, data_list) => {
-        console.log('after update:', data_list);
+        //console.log('after update:', data_list);
         this.props.dispatch({ type: 'USER_LIST_OF_PROJECT_DEMAND', listOfProjects: data_list });
 
       });
@@ -175,14 +175,14 @@ class ProjectUpdate extends React.Component {
   }
 
   handleUpdateProject(event) {
-    console.log('New Name:', this.state.projectName);
-    console.log('old Name:', this.props.project.projectName);
-    console.log('DueDate:', this.state.dueDate);
+    // console.log('New Name:', this.state.projectName);
+    // console.log('old Name:', this.props.project.projectName);
+    // console.log('DueDate:', this.state.dueDate);
     const project = {};
 
     if (this.state.projectName != this.props.project.projectName && this.state.projectName != '') {
       updateProjectName(this.props.project.projectID, this.state.projectName, (err, data) => {
-        console.log('Name change is:', data);
+        //console.log('Name change is:', data);
         this.project = this.props.project;
         this.project.projectName = data;
         this.props.dispatch({ type: 'USER_PROJECTUPDATEFORM', project: project });
@@ -191,7 +191,7 @@ class ProjectUpdate extends React.Component {
 
     if (this.state.dueDate != this.props.project.dueDate && this.state.dueDate != '') {
       updateProjectDueDate(this.props.project.projectID, this.state.dueDate, (err, data) => {
-        console.log('New Due Date:', data);
+        //console.log('New Due Date:', data);
 
       });
     }

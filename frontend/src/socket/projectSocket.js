@@ -71,7 +71,7 @@ function getAvailableUsers(projectID, userID, cb){
 }
 
   function updateProjectName(projectID, projectName,cb){
-      console.log('socket props projectID:', projectID, '  and new name:', projectName);
+    //   console.log('socket props projectID:', projectID, '  and new name:', projectName);
       socket.once('UPDATE_PROJECT_NAME', data => cb(null,data));
       socket.emit('USER_UPDATE_PROJECT_NAME', projectID, projectName);
   }

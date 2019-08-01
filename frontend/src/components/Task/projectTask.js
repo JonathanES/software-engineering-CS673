@@ -151,16 +151,11 @@ class ProjectTask extends React.Component {
           //console.log('it came here')
           break;
         }
-        console.log(
-          "Project ID:",
-          this.props.projectID,
-          " Cat Name: ",
-          this.state.catName
-        );
+        // console.log(`"Project ID: ${this.props.projectID} Cat Name:  ${this.state.catName});
         addCategory(this.props.projectID, this.state.catName, (err, data) => {
-          console.log("Add Project button pressed");
+          // console.log("Add Project button pressed");
           this.setState({ catName: "" });
-          console.log("inside handleSubmit");
+          // console.log("inside handleSubmit");
         });
         break;
 
@@ -178,7 +173,7 @@ class ProjectTask extends React.Component {
         break;
 
       default:
-        console.log("is this called");
+        // console.log("is this called");
         break;
     }
   }

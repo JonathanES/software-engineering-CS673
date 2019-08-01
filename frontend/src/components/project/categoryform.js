@@ -29,7 +29,7 @@ class CategoryForm extends React.Component {
 
 
     componentDidMount() {
-        console.log(this.props.projectID);
+        //console.log(this.props.projectID);
     }
 
     handleClick(event) {
