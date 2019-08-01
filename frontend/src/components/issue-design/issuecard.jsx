@@ -73,6 +73,7 @@ export default class IssueCard extends React.Component{
             <Card body className="text-center" style={{minHeight:"42vmin"}}>
                 <CardHeader className="text-center" style={this.getHeaderColour(this.props.PriorityID)}>{this.state.header}</CardHeader>
                 <CardBody className="text-center">
+                    <CardSubtitle className="pb-2">{"Project:" + this.props.ProjectID}</CardSubtitle>
                     <CardSubtitle className="pb-5">{"Created by: " + ((this.state.title).charAt(0).toUpperCase() + (this.state.title).slice(1)) + " assigned to: " + ((this.props.AssignedToUsername).charAt(0).toUpperCase() + (this.props.AssignedToUsername).slice(1))}</CardSubtitle>
                     <CardText style={{minHeight:"15vmin", color:"black", "font-style": "normal", "font-size": "16px"}}>{this.state.text}</CardText>
                     <CardText>

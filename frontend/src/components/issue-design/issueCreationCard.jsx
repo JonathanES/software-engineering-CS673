@@ -23,6 +23,7 @@ export default class IssueCreationCard extends React.Component{
     // Green header colour #28A745
     handleSubmit(event){
         event.preventDefault();
+
         let formDataArray = [];
         const formData = new FormData(event.target);
         formData.forEach((element) => {
