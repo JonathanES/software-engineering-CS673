@@ -64,7 +64,8 @@ async function hardDeleteIssue(issueID){
  */
 async function getIssues(){
     return new Promise(async (resolve, reject) => {
-        client.query("SELECT * FROM Issues WHERE (IssueID > 1) AND (IsDeleted = 0)", async (error, results, fields) => {
+        // client.query("SELECT * FROM Issues WHERE (IssueID > 1) AND (IsDeleted = 0)", async (error, results, fields) => {
+        client.query("SELECT I.IssueID, I.ProjectID, I.IssueStatusID, I.AssigneeID, I.AssignedToID, I.PriorityID, I.IssueName, I.Summary, I.DateCreated, I.LastUpdate, I.DateResolved, I.IsResolved, I.IsDeleted, U.username as AssigneeUsername, Us.username as AssignedToUsername FROM Issues I Join Users U on U.UserID = I.AssigneeID Join Users Us on Us.UserID = I.AssignedToID WHERE (I.IssueID > 1) AND (I.IsDeleted = 0)", async (error, results, fields) => {
           if(error) throw error;
           Issues.length = 0; // Erase Issues Array
           results.forEach(issue => {
