@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --timeout 500000 --exit",
-    "backend": "nodemon server.js",
+    "backend": "node server.js",
     "frontend": "cd ./frontend && npm start",
     "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
     "docs:backend": "documentation build backend/** -f html -o docs",

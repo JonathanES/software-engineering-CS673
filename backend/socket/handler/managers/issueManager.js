@@ -50,6 +50,11 @@ module.exports = (io) => {
             client.emit("GOT_COMMENTS_FOR_ISSUE_WITH_ID", result);
         });
 
+        client.on("GET_COMMENTS", async (issueID) => {
+            const result = await issueController.getComments();
+            client.emit("GOT_COMMENTS", result);
+        });
+
          // Get and return a particular row in the issue table from ID (PK)
          /**
          * This API call gets a specific Issue from the DB

@@ -37,13 +37,18 @@ function getIssues(cb=getIssuesCallback) {
 }
 
 function createCommentForIssue(issueID, creatorID, commentText, cb=createCommentForIssueCallback){
-    socket.emit("CREATE_COMMENT_FOR_ISSUE_WITH_ID");
+    socket.emit("CREATE_COMMENT_FOR_ISSUE_WITH_ID", issueID, creatorID, commentText);
     socket.once("CREATED_COMMENT_FOR_ISSUE_WITH_ID", data => cb(data));
 }
 
 function getCommentsForIssue(issueID, cb=getCommentsForIssueCallback){
     socket.emit('GET_COMMENTS_FOR_ISSUE_WITH_ID', issueID);
     socket.once('GOT_COMMENTS_FOR_ISSUE_WITH_ID', data => cb(data));
+}
+
+function getComments(cb){
+    socket.emit('GET_COMMENTS');
+    socket.once('GOT_COMMENTS', data => cb(data));
 }
 
 function getIssueWithID(issueID, cb=getIssueWithIDCallback) {
@@ -113,7 +118,9 @@ function updateIsResolved(issueID, isResolved, cb=updateIsResolvedCallback){
 export {createIssue,
         deleteIssue,
         getIssues,
+        createCommentForIssue,
         getCommentsForIssue,
+        getComments,
         getIssueWithID,
         createNewIssueStatus,
         updateProjectID,

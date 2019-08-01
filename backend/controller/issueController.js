@@ -99,6 +99,16 @@ async function getCommentsForIssue(issueID){
     });
 };
 
+async function getComments(){
+    return new Promise(async (resolve, reject) => {
+        client.query("SELECT * FROM Comments", [],
+            async (error, results, fields) => {
+                if (error) throw error;
+                resolve(results); // Return comments in an array
+        });
+    });
+}
+
 // Get and return a particular row in the issue table from ID (PK)
 /**
  * This function gets a specific Issue from the DB
@@ -243,6 +253,7 @@ module.exports = {
   getIssues: getIssues,
   createCommentForIssue: createCommentForIssue,
   getCommentsForIssue: getCommentsForIssue,
+  getComments: getComments,
   getIssueWithID: getIssueWithID,
   createNewIssueStatus: createNewIssueStatus,
   updateProjectID: updateProjectID,

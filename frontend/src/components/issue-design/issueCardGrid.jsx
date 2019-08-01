@@ -3,20 +3,23 @@ import IssueCard from "./issuecard.jsx";
 import IssueCreationCard from "./issueCreationCard.jsx"
 import {Row, Col} from 'reactstrap';
 
-import {createIssue, getIssues, deleteIssue} from "../../socket/issuesSocket.js";
+import {createIssue, getIssues, deleteIssue, updateIsResolved, getComments} from "../../socket/issuesSocket.js";
 
 // MEIN HOODIE STONE ISLAND ICH DRIP'
 export class IssueCardGrid extends React.Component {
-    constructor(props, numberOfCards, issues, cardsPerRow=4){
+    constructor(props){
         super(props);
 
         // This binds are required since these methods are used in other classes with their own "this"s
         this.deleteIssueFromGrid = this.deleteIssueFromGrid.bind(this);
         this.createIssueForGrid = this.createIssueForGrid.bind(this);
+        this.toggleResolveOnIssue = this.toggleResolveOnIssue.bind(this);
 
         this.handleGotIssues = this.handleGotIssues.bind(this);
         this.handleDeleteIssue = this.handleDeleteIssue.bind(this);
         this.handleCreateIssue = this.handleCreateIssue.bind(this);
+        this.handleUpdatedIsResolved = this.handleUpdatedIsResolved.bind(this);
+        this.handleGotAllComments = this.handleGotAllComments.bind(this);
         // this.updateIssues = this.updateIssues.bind(this);
         // this.updateGrid = this.updateGrid.bind(this);
 
@@ -25,13 +28,16 @@ export class IssueCardGrid extends React.Component {
             issues: this.props.issues,
             cardsPerRow: this.props.cardsPerRow,
             cardSize: 12/this.props.cardsPerRow,
-            grid: ""
+            grid: "",
+            allComments: ""
         };
     }
 
     componentDidMount(){
         // Call the socket for getting the Issues from the DB with our overwritting callback to set the state
-        getIssues(this.handleGotIssues);
+
+        getComments(this.handleGotAllComments); // This now also gets the issues as well
+
         //console.log(`Username is: ${this.props.username} and userID is: ${this.props.userID}`);
     }
 
@@ -47,6 +53,18 @@ export class IssueCardGrid extends React.Component {
 
     handleCreateIssue(data){
         getIssues(this.handleGotIssues); // Get the new issues from the DB and update the displayed grid state
+    }
+
+    handleUpdatedIsResolved(data){
+        getIssues(this.handleGotIssues);
+    }
+
+    handleGotAllComments(data){
+        this.setState({
+            allComments:data
+        });
+
+        getIssues(this.handleGotIssues); // Get the issues after we get all the comments so we can pass them to the issues
     }
 
 
@@ -72,18 +90,23 @@ export class IssueCardGrid extends React.Component {
                         <IssueCard
                             IssueID={currentIssue.IssueID}
                             ProjectID={currentIssue.ProjectID}
+                            ProjectName={currentIssue.ProjectName}
                             IssueStatusID={currentIssue.IssueStatusID}
-                            AssigneeID={currentIssue.AssigneeID}
-                            AssignedToID={currentIssue.AssignedToID}
+                            AssigneeUsername={currentIssue.AssigneeUsername}
+                            AssignedToUsername={currentIssue.AssignedToUsername}
                             PriorityID={currentIssue.PriorityID}
                             IssueName={currentIssue.IssueName}
                             Summary={currentIssue.Summary}
                             DateCreated={currentIssue.DateCreated}
                             LastUpdate={currentIssue.LastUpdate}
                             DateResolved={currentIssue.DateResolved}
-                            isResolved={currentIssue.IsResolved}
+                            IsResolved={currentIssue.IsResolved}
                             IsDeleted={currentIssue.IsDeleted}
                             deleteIssueFromGrid={this.deleteIssueFromGrid}
+                            updateIsResolvedFromGrid={this.toggleResolveOnIssue}
+                            comments={this.state.allComments}
+                            currentUsername={this.props.username}
+                            currentUserID={this.props.userID}
                         />
                     </Col>
                     );
@@ -128,6 +151,7 @@ export class IssueCardGrid extends React.Component {
 
     updateGrid(){
         let newGrid = this.generateRows();
+        // This helps clear the issueCreationCard ?!?! SHOULD FIX FOR PERFORMANCE ISSUES
         this.setState({
             grid: ""
         });
@@ -146,6 +170,15 @@ export class IssueCardGrid extends React.Component {
         createIssue(issueName, issueSummary, issueProject, issueStatusID, this.props.userID, assignedTo, issuePriority, this.handleCreateIssue);
     }
 
+    toggleResolveOnIssue(issueID, isResolved){
+        if(isResolved == 0){
+            updateIsResolved(issueID, 1, this.handleUpdatedIsResolved);
+        }else if(isResolved == 1) {
+            updateIsResolved(issueID, 0, this.handleUpdatedIsResolved);
+        }else {
+            updateIsResolved(issueID, 1, this.handleUpdatedIsResolved);
+        }
+    }
 
     render(){
         return(
