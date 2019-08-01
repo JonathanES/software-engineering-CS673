@@ -28,7 +28,6 @@ body,
 html {
   height: calc(100% - 2em);
   margin: 0;
-  font-family: "source sans pro", "sans-serif";
 }
 
 aside {
