@@ -14,14 +14,14 @@ export default class IssueCard extends React.Component{
 
         this.state = {
             header: this.props.IssueName,
-            title:  this.props.AssigneeID,
+            title:  this.props.AssigneeUsername,
             text:   this.props.Summary,
             buttonText: "Test Button",
             lastUpdate: this.props.LastUpdate,
             assignedTo: this.props.AssignedToID,
             assignee:   this.props.AssigneeID,
             popoverOpen: false
-        }
+        };
     }
 
 
@@ -77,7 +77,7 @@ export default class IssueCard extends React.Component{
             <Card body className="text-center" style={{minHeight:"42vmin"}}>
                 <CardHeader className="text-center" style={this.getHeaderColour(this.props.PriorityID)}>{this.state.header}</CardHeader>
                 <CardBody className="text-center">
-                    <CardSubtitle className="pb-5">{"Created by: " + this.state.title}</CardSubtitle>
+                    <CardSubtitle className="pb-5">{"Created by: " + ((this.state.title).charAt(0).toUpperCase() + (this.state.title).slice(1)) + " assigned to: " + ((this.props.AssignedToUsername).charAt(0).toUpperCase() + (this.props.AssignedToUsername).slice(1))}</CardSubtitle>
                     <CardText style={{minHeight:"15vmin", color:"black", "font-style": "normal", "font-size": "16px"}}>{this.state.text}</CardText>
                     <CardText>
                         <small id="lastupdate" style={{color:"grey","font-style": "normal"}}>Last updated {moment(this.state.lastUpdate).format('YYYY-MM-DD HH:mm:ss')}</small>

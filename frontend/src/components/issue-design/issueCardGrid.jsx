@@ -73,8 +73,8 @@ export class IssueCardGrid extends React.Component {
                             IssueID={currentIssue.IssueID}
                             ProjectID={currentIssue.ProjectID}
                             IssueStatusID={currentIssue.IssueStatusID}
-                            AssigneeID={currentIssue.AssigneeID}
-                            AssignedToID={currentIssue.AssignedToID}
+                            AssigneeUsername={currentIssue.AssigneeUsername}
+                            AssignedToUsername={currentIssue.AssignedToUsername}
                             PriorityID={currentIssue.PriorityID}
                             IssueName={currentIssue.IssueName}
                             Summary={currentIssue.Summary}
