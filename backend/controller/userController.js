@@ -174,7 +174,7 @@ async function sendMailUpdatePwd(email, username) {
         from: 'swelloteam7@gmail.com', // sender address
         to: email, // list of receivers
         subject: "Hello ✔", // Subject line
-        text: `Hello ${username}, please click on this link to update your password http://localhost:3000/password` // plain text body
+        text: `Hello ${username}, please click on this link to update your password http://swellodesk.com:3000/password` // plain text body
     });
 }
 
