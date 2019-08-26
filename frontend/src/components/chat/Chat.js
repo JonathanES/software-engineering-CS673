@@ -179,7 +179,7 @@ class Chat extends React.Component {
       } else {
         this.setState({ chatHistory: [] });
       }
-      this.setState({ chatHistory: data });
+      //this.setState({ chatHistory: data });
     });
   }
 
