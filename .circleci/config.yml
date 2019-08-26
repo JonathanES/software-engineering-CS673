@@ -54,17 +54,17 @@ jobs:
 
         # Untar server and delete tarball
       - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-54-173-129-80.compute-1.amazonaws.com tar -xvf SwelloDesk.tar
-      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-52-91-106-49.compute-1.amazonaws.com rm SwelloDesk.tar || true
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-54-173-129-80.compute-1.amazonaws.com rm SwelloDesk.tar || true
       
         # Install server
       - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-54-173-129-80.compute-1.amazonaws.com npm install
       - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-54-173-129-80.compute-1.amazonaws.com npm --prefix frontend/ install
 
       #Change localhost to correct address and port
-      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-54-173-129-80.compute-1.amazonaws.com echo -e "HOST=ec2-52-91-106-49.compute-1.amazonaws.com" >> frontend/.env
-      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-54-173-129-80.compute-1.amazonaws.com sudo sed -i -e "s/localhost/ec2-52-91-106-49.compute-1.amazonaws.com/g" frontend/package.json
-      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-54-173-129-80.compute-1.amazonaws.com sudo sed -i -e "s/localhost/ec2-52-91-106-49.compute-1.amazonaws.com/g" frontend/src/socket/config.js
-      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-54-173-129-80.compute-1.amazonaws.com sudo sed -i -e "s/localhost/ec2-52-91-106-49.compute-1.amazonaws.com/g" frontend/src/components/chat/Chat.js
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-54-173-129-80.compute-1.amazonaws.com echo -e "HOST=ec2-54-173-129-80.compute-1.amazonaws.com" >> frontend/.env
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-54-173-129-80.compute-1.amazonaws.com sudo sed -i -e "s/localhost/ec2-54-173-129-80.compute-1.amazonaws.com/g" frontend/package.json
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-54-173-129-80.compute-1.amazonaws.com sudo sed -i -e "s/localhost/ec2-54-173-129-80.compute-1.amazonaws.com/g" frontend/src/socket/config.js
+      - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-54-173-129-80.compute-1.amazonaws.com sudo sed -i -e "s/localhost/ec2-54-173-129-80.compute-1.amazonaws.com/g" frontend/src/components/chat/Chat.js
      
         # Start server 
       - run: ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ec2-user@ec2-54-173-129-80.compute-1.amazonaws.com pm2 start npm -- run dev && sleep 1
